@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Notificações - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <style>
+        .test-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .test-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .test-btn {
+            background: linear-gradient(135deg, #973CBF 0%, #A95028 100%);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(151, 60, 191, 0.3);
+        }
+
+        .test-btn:active {
+            transform: translateY(0);
+        }
+
+        .settings-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .setting-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #ddd;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #973CBF;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(30px);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(151, 60, 191, 0.1) 0%, rgba(169, 80, 40, 0.1) 100%);
+            border: 1px solid rgba(151, 60, 191, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .info-title {
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 10px;
+        }
+
+        .info-text {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #973CBF 0%, #A95028 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Mobile -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu">
+            <div class="mobile-menu-header">
+                <h3>Instituto Buriti</h3>
+                <button class="mobile-menu-close" id="mobileMenuClose">×</button>
+            </div>
+            <nav class="mobile-menu-nav">
+                <a href="../index.html">🏠 Home</a>
+                <a href="cursos.html">📚 Cursos</a>
+                <a href="ranking.html">🏆 Ranking</a>
+                <a href="perfil-gamificado.html">🎮 Perfil</a>
+                <a href="test-notifications.html" class="active">🔔 Teste Notificações</a>
+                <a href="login.html">🔐 Login</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="mobile-header">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        <h1>Teste de Notificações</h1>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="test-container">
+        <!-- Testes de Notificações -->
+        <div class="test-section">
+            <h2 class="section-title">🔔 Testar Notificações</h2>
+            <div class="test-buttons">
+                <button class="test-btn" onclick="testPointsNotification()">
+                    ⭐ Pontos Ganhos
+                </button>
+                <button class="test-btn" onclick="testBadgeNotification()">
+                    🏆 Badge Conquistada
+                </button>
+                <button class="test-btn" onclick="testLevelUpNotification()">
+                    🚀 Subida de Nível
+                </button>
+                <button class="test-btn" onclick="testStreakNotification()">
+                    🔥 Sequência Mantida
+                </button>
+                <button class="test-btn" onclick="testCourseNotification()">
+                    🎓 Curso Concluído
+                </button>
+                <button class="test-btn" onclick="testAllNotifications()">
+                    🎯 Testar Todas
+                </button>
+            </div>
+            
+            <div class="info-box">
+                <div class="info-title">ℹ️ Como funciona</div>
+                <div class="info-text">
+                    Clique nos botões acima para testar diferentes tipos de notificações de conquistas. 
+                    As notificações aparecerão no canto superior direito da tela com animações e sons.
+                </div>
+            </div>
+        </div>
+
+        <!-- Configurações -->
+        <div class="test-section">
+            <h2 class="section-title">⚙️ Configurações</h2>
+            
+            <div class="settings-section">
+                <div>
+                    <div class="setting-label">Som das Notificações</div>
+                    <div class="setting-description">Reproduzir sons quando conquistas forem alcançadas</div>
+                </div>
+                <div class="toggle-switch active" id="soundToggle" onclick="toggleSound()"></div>
+            </div>
+            
+            <div class="settings-section">
+                <div>
+                    <div class="setting-label">Limpar Notificações</div>
+                    <div class="setting-description">Remover todas as notificações ativas da tela</div>
+                </div>
+                <button class="test-btn" onclick="clearAllNotifications()" style="width: auto; padding: 10px 20px;">
+                    🗑️ Limpar
+                </button>
+            </div>
+        </div>
+
+        <!-- Simulação de Ações -->
+        <div class="test-section">
+            <h2 class="section-title">🎮 Simular Ações do Usuário</h2>
+            <div class="test-buttons">
+                <button class="test-btn" onclick="simulateQuizCompletion()">
+                    ❓ Completar Quiz
+                </button>
+                <button class="test-btn" onclick="simulateLessonCompletion()">
+                    📖 Completar Aula
+                </button>
+                <button class="test-btn" onclick="simulateDailyLogin()">
+                    📅 Login Diário
+                </button>
+                <button class="test-btn" onclick="simulateAllActions()">
+                    🎯 Simular Todas
+                </button>
+            </div>
+            
+            <div class="info-box">
+                <div class="info-title">🎮 Integração com Gamificação</div>
+                <div class="info-text">
+                    Estes botões simulam ações reais do usuário que disparam o sistema de gamificação,
+                    como completar quizzes, assistir aulas e fazer login diário.
+                </div>
+            </div>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="test-section">
+            <h2 class="section-title">📊 Estatísticas de Teste</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="notificationCount">0</div>
+                    <div class="stat-label">Notificações Enviadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pointsEarned">0</div>
+                    <div class="stat-label">Pontos Simulados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="badgesEarned">0</div>
+                    <div class="stat-label">Badges Simuladas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="levelsGained">0</div>
+                    <div class="stat-label">Níveis Simulados</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    <script src="../js/api-client.js"></script>
+    <script src="../js/notifications-system.js"></script>
+    <script src="../js/gamification-integration.js"></script>
+    
+    <script>
+        // Estatísticas de teste
+        let testStats = {
+            notifications: 0,
+            points: 0,
+            badges: 0,
+            levels: 0
+        };
+
+        // Funções de teste de notificações
+        function testPointsNotification() {
+            const points = Math.floor(Math.random() * 100) + 10;
+            notificationSystem.showPointsNotification(points, 'Teste de pontos');
+            updateStats('notifications', 1);
+            updateStats('points', points);
+        }
+
+        function testBadgeNotification() {
+            const badges = [
+                { name: 'Primeiro Passo', description: 'Complete seu primeiro curso', icon: '🎯', points: 100 },
+                { name: 'Dedicado', description: 'Estude por 7 dias consecutivos', icon: '🔥', points: 200 },
+                { name: 'Mestre dos Quizzes', description: 'Acerte 100 questões', icon: '🧠', points: 300 },
+                { name: 'Aprendiz Veloz', description: 'Complete um curso em 1 dia', icon: '🚀', points: 400 }
+            ];
+            
+            const randomBadge = badges[Math.floor(Math.random() * badges.length)];
+            notificationSystem.showBadgeNotification(randomBadge);
+            updateStats('notifications', 1);
+            updateStats('badges', 1);
+            updateStats('points', randomBadge.points);
+        }
+
+        function testLevelUpNotification() {
+            const newLevel = Math.floor(Math.random() * 10) + 2;
+            const bonusPoints = newLevel * 50;
+            notificationSystem.showLevelUpNotification(newLevel, bonusPoints);
+            updateStats('notifications', 1);
+            updateStats('levels', 1);
+            updateStats('points', bonusPoints);
+        }
+
+        function testStreakNotification() {
+            const days = Math.floor(Math.random() * 30) + 1;
+            notificationSystem.showStreakNotification(days);
+            updateStats('notifications', 1);
+            updateStats('points', days * 10);
+        }
+
+        function testCourseNotification() {
+            const courses = ['Excel Básico', 'Python Introdução', 'JavaScript Avançado', 'React Fundamentals'];
+            const randomCourse = courses[Math.floor(Math.random() * courses.length)];
+            const points = Math.floor(Math.random() * 200) + 100;
+            
+            notificationSystem.showCourseCompletedNotification(randomCourse, points, true);
+            updateStats('notifications', 1);
+            updateStats('points', points);
+        }
+
+        function testAllNotifications() {
+            testPointsNotification();
+            setTimeout(() => testBadgeNotification(), 2000);
+            setTimeout(() => testLevelUpNotification(), 4000);
+            setTimeout(() => testStreakNotification(), 6000);
+            setTimeout(() => testCourseNotification(), 8000);
+        }
+
+        // Funções de simulação de ações
+        function simulateQuizCompletion() {
+            const score = (Math.random() * 4 + 6).toFixed(1); // Score entre 6.0 e 10.0
+            document.dispatchEvent(new CustomEvent('user-action', {
+                detail: {
+                    action: 'quiz-completed',
+                    data: {
+                        quizName: 'Quiz de Teste',
+                        score: parseFloat(score)
+                    }
+                }
+            }));
+        }
+
+        function simulateLessonCompletion() {
+            document.dispatchEvent(new CustomEvent('user-action', {
+                detail: {
+                    action: 'lesson-completed',
+                    data: {
+                        lessonName: 'Aula de Teste'
+                    }
+                }
+            }));
+        }
+
+        function simulateDailyLogin() {
+            const streakDays = Math.floor(Math.random() * 10) + 1;
+            document.dispatchEvent(new CustomEvent('user-action', {
+                detail: {
+                    action: 'daily-login',
+                    data: {
+                        streakDays: streakDays
+                    }
+                }
+            }));
+        }
+
+        function simulateAllActions() {
+            simulateQuizCompletion();
+            setTimeout(() => simulateLessonCompletion(), 2000);
+            setTimeout(() => simulateDailyLogin(), 4000);
+        }
+
+        // Funções de configuração
+        function toggleSound() {
+            const toggle = document.getElementById('soundToggle');
+            const isEnabled = notificationSystem.toggleSound();
+            
+            if (isEnabled) {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+            }
+        }
+
+        function clearAllNotifications() {
+            notificationSystem.clearAll();
+        }
+
+        // Atualizar estatísticas
+        function updateStats(type, value) {
+            testStats[type] += value;
+            
+            const elements = {
+                notifications: 'notificationCount',
+                points: 'pointsEarned',
+                badges: 'badgesEarned',
+                levels: 'levelsGained'
+            };
+            
+            const element = document.getElementById(elements[type]);
+            if (element) {
+                element.textContent = testStats[type].toLocaleString();
+            }
+        }
+
+        // Inicializar configurações
+        document.addEventListener('DOMContentLoaded', () => {
+            const soundToggle = document.getElementById('soundToggle');
+            if (!notificationSystem.soundEnabled) {
+                soundToggle.classList.remove('active');
+            }
+        });
+
+        // Escutar eventos de conquistas para atualizar estatísticas
+        document.addEventListener('achievement-earned', (event) => {
+            const { type, data } = event.detail;
+            updateStats('notifications', 1);
+            
+            if (type === 'points') {
+                updateStats('points', data.points);
+            } else if (type === 'badge') {
+                updateStats('badges', 1);
+                updateStats('points', data.points);
+            } else if (type === 'level') {
+                updateStats('levels', 1);
+                if (data.bonusPoints) {
+                    updateStats('points', data.bonusPoints);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+

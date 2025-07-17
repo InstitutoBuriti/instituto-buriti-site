@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações de Notificações - Instituto Buriti</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    
+    <style>
+        .notifications-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .notification-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-info {
+            flex: 1;
+        }
+        
+        .setting-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .setting-description {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #ccc;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background: linear-gradient(135deg, #973CBF, #A95028);
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(24px);
+        }
+        
+        .time-input {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            color: #333;
+            min-width: 100px;
+        }
+        
+        .time-input:focus {
+            outline: none;
+            border-color: #973CBF;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .status-success {
+            background: #e8f5e8;
+            color: #2d5a2d;
+            border: 1px solid #4caf50;
+        }
+        
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffc107;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #dc3545;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #973CBF, #A95028);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(151, 60, 191, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .test-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px dashed #973CBF;
+        }
+        
+        .test-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .test-btn {
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #973CBF;
+            border-radius: 8px;
+            color: #973CBF;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .test-btn:hover {
+            background: #973CBF;
+            color: white;
+        }
+        
+        .permission-help {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .permission-help h4 {
+            color: #1976d2;
+            margin: 0 0 10px 0;
+        }
+        
+        .permission-help ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .permission-help li {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .notifications-container {
+                padding: 15px;
+            }
+            
+            .notification-section {
+                padding: 15px;
+            }
+            
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .toggle-switch,
+            .time-input {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <button class="menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1>Configurações de Notificações</h1>
+            <div class="header-actions">
+                <a href="../index.html" class="home-link">🏠</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Mobile -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <div class="menu-header">
+            <h3>Instituto Buriti</h3>
+            <button class="menu-close" onclick="toggleMobileMenu()">×</button>
+        </div>
+        <div class="menu-content">
+            <a href="../index.html">🏠 Home</a>
+            <a href="cursos.html">📚 Cursos</a>
+            <a href="meus-cursos.html">🎓 Meus Cursos</a>
+            <a href="certificados.html">📜 Certificados</a>
+            <a href="ranking.html">🏆 Ranking</a>
+            <a href="perfil-gamificado.html">🎮 Perfil</a>
+            <a href="configuracoes-notificacoes.html" class="active">🔔 Notificações</a>
+            <a href="quem-somos.html">👥 Quem Somos</a>
+            <a href="seja-instrutor.html">👨‍🏫 Seja Instrutor</a>
+            <a href="contato.html">📞 Contato</a>
+            <a href="login.html">🔐 Login</a>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="notifications-container">
+            <!-- Status das Notificações -->
+            <div class="notification-section">
+                <div class="section-title">
+                    🔔 Status das Notificações Push
+                </div>
+                
+                <div id="push-status" class="status-indicator status-warning">
+                    ⏳ Verificando status...
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="subscribe-push-btn" class="btn btn-primary" onclick="togglePushSubscription()">
+                        🔔 Ativar Notificações
+                    </button>
+                    <button id="unsubscribe-push-btn" class="btn btn-secondary" onclick="togglePushSubscription()" style="display: none;">
+                        🔕 Desativar Notificações
+                    </button>
+                </div>
+                
+                <div id="permission-help" class="permission-help" style="display: none;">
+                    <h4>🔒 Como ativar notificações:</h4>
+                    <ol>
+                        <li>Clique no ícone de cadeado na barra de endereços</li>
+                        <li>Altere as notificações para "Permitir"</li>
+                        <li>Recarregue a página</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Configurações de Tipos -->
+            <div class="notification-section">
+                <div class="section-title">
+                    ⚙️ Tipos de Notificação
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">📚 Lembretes de Estudo</div>
+                        <div class="setting-description">
+                            Receba lembretes diários para continuar seus estudos
+                        </div>
+                    </div>
+                    <div class="toggle-switch" data-setting="study_reminders" onclick="toggleSetting(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">🏆 Alertas de Conquistas</div>
+                        <div class="setting-description">
+                            Seja notificado quando conquistar badges e subir de nível
+                        </div>
+                    </div>
+                    <div class="toggle-switch" data-setting="achievement_alerts" onclick="toggleSetting(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">🎓 Atualizações de Cursos</div>
+                        <div class="setting-description">
+                            Receba notificações sobre novas aulas e conteúdos
+                        </div>
+                    </div>
+                    <div class="toggle-switch" data-setting="course_updates" onclick="toggleSetting(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">🌟 Motivação Diária</div>
+                        <div class="setting-description">
+                            Receba mensagens motivacionais para manter o foco
+                        </div>
+                    </div>
+                    <div class="toggle-switch" data-setting="daily_motivation" onclick="toggleSetting(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">🎯 Desafios de Fim de Semana</div>
+                        <div class="setting-description">
+                            Participe de desafios especiais nos fins de semana
+                        </div>
+                    </div>
+                    <div class="toggle-switch" data-setting="weekend_challenges" onclick="toggleSetting(this)">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configurações de Horário -->
+            <div class="notification-section">
+                <div class="section-title">
+                    ⏰ Horários
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">🕐 Horário dos Lembretes</div>
+                        <div class="setting-description">
+                            Defina o melhor horário para receber lembretes de estudo
+                        </div>
+                    </div>
+                    <input type="time" class="time-input" id="reminder-time" value="19:00" onchange="updateTimeSetting('reminder_time', this.value)">
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">🌙 Início do Modo Silencioso</div>
+                        <div class="setting-description">
+                            Horário para parar de enviar notificações
+                        </div>
+                    </div>
+                    <input type="time" class="time-input" id="quiet-start" value="22:00" onchange="updateTimeSetting('quiet_hours_start', this.value)">
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">🌅 Fim do Modo Silencioso</div>
+                        <div class="setting-description">
+                            Horário para voltar a enviar notificações
+                        </div>
+                    </div>
+                    <input type="time" class="time-input" id="quiet-end" value="08:00" onchange="updateTimeSetting('quiet_hours_end', this.value)">
+                </div>
+            </div>
+
+            <!-- Seção de Testes -->
+            <div class="notification-section test-section">
+                <div class="section-title">
+                    🧪 Testar Notificações
+                </div>
+                
+                <p style="margin-bottom: 15px; color: #666;">
+                    Teste diferentes tipos de notificações para ver como ficam no seu dispositivo:
+                </p>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testNotification('test')">
+                        🔔 Teste Básico
+                    </button>
+                    <button class="test-btn" onclick="testNotification('study')">
+                        📚 Lembrete de Estudo
+                    </button>
+                    <button class="test-btn" onclick="testNotification('achievement')">
+                        🏆 Nova Conquista
+                    </button>
+                    <button class="test-btn" onclick="testNotification('course')">
+                        🎓 Atualização de Curso
+                    </button>
+                    <button class="test-btn" onclick="testNotification('motivation')">
+                        🌟 Motivação Diária
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="saveSettings()">
+                    💾 Salvar Configurações
+                </button>
+                <button class="btn btn-secondary" onclick="resetSettings()">
+                    🔄 Restaurar Padrões
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    <script src="../js/api-client.js"></script>
+    <script src="../js/push-notifications.js"></script>
+    <script src="../js/notifications-system.js"></script>
+    
+    <script>
+        // Configurações locais
+        let currentSettings = {};
+        
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadCurrentSettings();
+            updateUI();
+            
+            // Aguardar push manager estar pronto
+            setTimeout(() => {
+                if (window.pushManager) {
+                    updatePushStatus();
+                }
+            }, 2000);
+        });
+        
+        async function loadCurrentSettings() {
+            try {
+                const response = await apiClient.get('/push/settings');
+                if (response.success) {
+                    currentSettings = response.settings;
+                } else {
+                    // Configurações padrão
+                    currentSettings = {
+                        study_reminders: true,
+                        achievement_alerts: true,
+                        course_updates: true,
+                        daily_motivation: true,
+                        weekend_challenges: false,
+                        reminder_time: '19:00',
+                        quiet_hours_start: '22:00',
+                        quiet_hours_end: '08:00'
+                    };
+                }
+            } catch (error) {
+                console.error('Erro ao carregar configurações:', error);
+                // Usar configurações padrão em caso de erro
+                currentSettings = {
+                    study_reminders: true,
+                    achievement_alerts: true,
+                    course_updates: true,
+                    daily_motivation: true,
+                    weekend_challenges: false,
+                    reminder_time: '19:00',
+                    quiet_hours_start: '22:00',
+                    quiet_hours_end: '08:00'
+                };
+            }
+        }
+        
+        function updateUI() {
+            // Atualizar toggles
+            document.querySelectorAll('.toggle-switch').forEach(toggle => {
+                const setting = toggle.dataset.setting;
+                const isActive = currentSettings[setting];
+                
+                if (isActive) {
+                    toggle.classList.add('active');
+                } else {
+                    toggle.classList.remove('active');
+                }
+            });
+            
+            // Atualizar campos de horário
+            document.getElementById('reminder-time').value = currentSettings.reminder_time || '19:00';
+            document.getElementById('quiet-start').value = currentSettings.quiet_hours_start || '22:00';
+            document.getElementById('quiet-end').value = currentSettings.quiet_hours_end || '08:00';
+        }
+        
+        function updatePushStatus() {
+            if (!window.pushManager) return;
+            
+            const status = window.pushManager.getStatus();
+            const statusElement = document.getElementById('push-status');
+            const subscribeBtn = document.getElementById('subscribe-push-btn');
+            const unsubscribeBtn = document.getElementById('unsubscribe-push-btn');
+            const permissionHelp = document.getElementById('permission-help');
+            
+            if (!status.isSupported) {
+                statusElement.textContent = '❌ Notificações push não suportadas neste navegador';
+                statusElement.className = 'status-indicator status-error';
+                subscribeBtn.style.display = 'none';
+                unsubscribeBtn.style.display = 'none';
+            } else if (status.permission === 'denied') {
+                statusElement.textContent = '🚫 Notificações bloqueadas pelo usuário';
+                statusElement.className = 'status-indicator status-error';
+                subscribeBtn.style.display = 'none';
+                unsubscribeBtn.style.display = 'none';
+                permissionHelp.style.display = 'block';
+            } else if (status.isSubscribed) {
+                statusElement.textContent = '✅ Notificações push ativadas';
+                statusElement.className = 'status-indicator status-success';
+                subscribeBtn.style.display = 'none';
+                unsubscribeBtn.style.display = 'block';
+                permissionHelp.style.display = 'none';
+            } else {
+                statusElement.textContent = '⚠️ Notificações push desativadas';
+                statusElement.className = 'status-indicator status-warning';
+                subscribeBtn.style.display = 'block';
+                unsubscribeBtn.style.display = 'none';
+                permissionHelp.style.display = 'none';
+            }
+        }
+        
+        async function togglePushSubscription() {
+            if (!window.pushManager) {
+                alert('Sistema de notificações não disponível');
+                return;
+            }
+            
+            try {
+                const success = await window.pushManager.toggleSubscription();
+                if (success) {
+                    updatePushStatus();
+                }
+            } catch (error) {
+                console.error('Erro ao alterar subscription:', error);
+            }
+        }
+        
+        function toggleSetting(element) {
+            const setting = element.dataset.setting;
+            const isActive = element.classList.contains('active');
+            
+            // Alterar estado visual
+            if (isActive) {
+                element.classList.remove('active');
+                currentSettings[setting] = false;
+            } else {
+                element.classList.add('active');
+                currentSettings[setting] = true;
+            }
+        }
+        
+        function updateTimeSetting(setting, value) {
+            currentSettings[setting] = value;
+        }
+        
+        async function saveSettings() {
+            try {
+                const response = await apiClient.post('/push/settings', currentSettings);
+                
+                if (response.success) {
+                    if (window.NotificationSystem) {
+                        window.NotificationSystem.show({
+                            type: 'custom',
+                            title: '✅ Configurações Salvas',
+                            message: 'Suas preferências de notificação foram atualizadas!',
+                            duration: 3000
+                        });
+                    } else {
+                        alert('Configurações salvas com sucesso!');
+                    }
+                } else {
+                    throw new Error(response.error);
+                }
+            } catch (error) {
+                console.error('Erro ao salvar configurações:', error);
+                if (window.NotificationSystem) {
+                    window.NotificationSystem.show({
+                        type: 'custom',
+                        title: '❌ Erro',
+                        message: 'Erro ao salvar configurações. Tente novamente.',
+                        duration: 4000
+                    });
+                } else {
+                    alert('Erro ao salvar configurações');
+                }
+            }
+        }
+        
+        async function resetSettings() {
+            if (confirm('Tem certeza que deseja restaurar as configurações padrão?')) {
+                currentSettings = {
+                    study_reminders: true,
+                    achievement_alerts: true,
+                    course_updates: true,
+                    daily_motivation: true,
+                    weekend_challenges: false,
+                    reminder_time: '19:00',
+                    quiet_hours_start: '22:00',
+                    quiet_hours_end: '08:00'
+                };
+                
+                updateUI();
+                await saveSettings();
+            }
+        }
+        
+        async function testNotification(type) {
+            if (!window.pushManager) {
+                alert('Sistema de notificações não disponível');
+                return;
+            }
+            
+            try {
+                await window.pushManager.sendTestNotification(type);
+            } catch (error) {
+                console.error('Erro ao enviar notificação de teste:', error);
+                if (window.NotificationSystem) {
+                    window.NotificationSystem.show({
+                        type: 'custom',
+                        title: '❌ Erro',
+                        message: 'Erro ao enviar notificação de teste',
+                        duration: 3000
+                    });
+                }
+            }
+        }
+        
+        // Atualizar status quando a página ganhar foco
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                setTimeout(updatePushStatus, 500);
+            }
+        });
+    </script>
+</body>
+</html>
+

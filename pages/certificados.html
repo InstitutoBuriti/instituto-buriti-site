@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Certificados - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/dashboard-mobile.css">
+    <style>
+        .certificates-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #973CBF, #A95028);
+            color: white;
+            border-radius: 15px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .page-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .certificate-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(151, 60, 191, 0.2);
+            border-color: #973CBF;
+        }
+
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #973CBF, #A95028);
+        }
+
+        .certificate-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .certificate-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #973CBF, #A95028);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .certificate-title {
+            flex: 1;
+        }
+
+        .certificate-title h3 {
+            margin: 0;
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .certificate-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 5px 0 0 0;
+        }
+
+        .certificate-details {
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .grade-badge {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .certificate-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            flex: 1;
+            justify-content: center;
+            min-width: 120px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #973CBF, #A95028);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(151, 60, 191, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e9ecef;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: #973CBF;
+        }
+
+        .btn-share {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            color: white;
+        }
+
+        .btn-share:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #973CBF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .share-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .share-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .share-modal h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+            text-align: center;
+        }
+
+        .share-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .share-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .share-linkedin { background: #0077b5; }
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267b2; }
+        .share-whatsapp { background: #25d366; }
+        .share-email { background: #6c757d; }
+
+        @media (max-width: 768px) {
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificate-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <h1>Instituto Buriti</h1>
+            <div class="header-actions">
+                <span class="user-name">Aluno Demo</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Mobile -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <div class="menu-header">
+            <h3>Menu</h3>
+            <button class="menu-close" onclick="toggleMenu()">×</button>
+        </div>
+        <ul class="menu-items">
+            <li><a href="../index.html">🏠 Home</a></li>
+            <li><a href="cursos.html">📚 Cursos</a></li>
+            <li><a href="meus-cursos.html">🎓 Meus Cursos</a></li>
+            <li><a href="certificados.html" class="active">📜 Certificados</a></li>
+            <li><a href="dashboard-aluno.html">📊 Dashboard</a></li>
+            <li><a href="contato.html">📞 Contato</a></li>
+            <li><a href="login.html">🚪 Sair</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="certificates-container">
+        <div class="page-header">
+            <h1>📜 Meus Certificados</h1>
+            <p>Baixe, visualize e compartilhe seus certificados de conclusão</p>
+        </div>
+
+        <div id="loadingState" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Carregando seus certificados...</p>
+        </div>
+
+        <div id="certificatesContent" style="display: none;">
+            <div class="certificates-grid" id="certificatesGrid">
+                <!-- Certificados serão carregados aqui -->
+            </div>
+        </div>
+
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">📜</div>
+            <h3>Nenhum certificado disponível</h3>
+            <p>Complete seus cursos para receber certificados digitais</p>
+            <a href="cursos.html" class="btn btn-primary" style="margin-top: 20px;">
+                📚 Ver Cursos Disponíveis
+            </a>
+        </div>
+    </main>
+
+    <!-- Modal de Compartilhamento -->
+    <div id="shareModal" class="share-modal">
+        <div class="share-modal-content">
+            <h3>Compartilhar Certificado</h3>
+            <div class="share-buttons" id="shareButtons">
+                <!-- Botões de compartilhamento serão gerados aqui -->
+            </div>
+            <button class="btn btn-secondary" onclick="closeShareModal()" style="width: 100%;">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/api-client.js"></script>
+    <script>
+        let currentCertificates = [];
+        let currentShareData = null;
+
+        // Carregar certificados ao inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCertificates();
+        });
+
+        async function loadCertificates() {
+            try {
+                const response = await apiClient.get('/certificates/user-certificates');
+                
+                if (response.success) {
+                    currentCertificates = response.certificates;
+                    displayCertificates(currentCertificates);
+                } else {
+                    showEmptyState();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar certificados:', error);
+                showEmptyState();
+            }
+        }
+
+        function displayCertificates(certificates) {
+            const loadingState = document.getElementById('loadingState');
+            const certificatesContent = document.getElementById('certificatesContent');
+            const emptyState = document.getElementById('emptyState');
+            const certificatesGrid = document.getElementById('certificatesGrid');
+
+            loadingState.style.display = 'none';
+            
+            if (certificates.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            certificatesContent.style.display = 'block';
+            certificatesGrid.innerHTML = '';
+
+            certificates.forEach(cert => {
+                const certCard = createCertificateCard(cert);
+                certificatesGrid.appendChild(certCard);
+            });
+        }
+
+        function createCertificateCard(cert) {
+            const card = document.createElement('div');
+            card.className = 'certificate-card';
+            
+            const completionDate = new Date(cert.completion_date).toLocaleDateString('pt-BR');
+            const gradeColor = cert.grade >= 9 ? '#28a745' : cert.grade >= 7 ? '#ffc107' : '#dc3545';
+            
+            card.innerHTML = `
+                <div class="certificate-header">
+                    <div class="certificate-icon">📜</div>
+                    <div class="certificate-title">
+                        <h3>${cert.course_name}</h3>
+                        <p class="certificate-subtitle">Certificado de Conclusão</p>
+                    </div>
+                </div>
+                
+                <div class="certificate-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Instrutor:</span>
+                        <span class="detail-value">${cert.instructor}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Carga Horária:</span>
+                        <span class="detail-value">${cert.duration}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Conclusão:</span>
+                        <span class="detail-value">${completionDate}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Nota Final:</span>
+                        <span class="detail-value">
+                            <span class="grade-badge" style="background: ${gradeColor}">
+                                ${cert.grade}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="certificate-actions">
+                    <button class="btn btn-primary" onclick="downloadCertificate('${cert.certificate_id}')">
+                        📥 Baixar PDF
+                    </button>
+                    <button class="btn btn-share" onclick="shareCertificate('${cert.certificate_id}')">
+                        📤 Compartilhar
+                    </button>
+                    <button class="btn btn-secondary" onclick="validateCertificate('${cert.certificate_id}')">
+                        🔍 Validar
+                    </button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function showEmptyState() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'block';
+        }
+
+        async function downloadCertificate(certificateId) {
+            try {
+                // Primeiro gerar o certificado
+                const generateResponse = await apiClient.post(`/certificates/generate/${certificateId}`);
+                
+                if (generateResponse.success) {
+                    // Depois fazer o download
+                    const downloadUrl = `${apiClient.baseURL}/certificates/download/${certificateId}`;
+                    window.open(downloadUrl, '_blank');
+                } else {
+                    alert('Erro ao gerar certificado: ' + generateResponse.error);
+                }
+            } catch (error) {
+                console.error('Erro ao baixar certificado:', error);
+                alert('Erro ao baixar certificado. Tente novamente.');
+            }
+        }
+
+        async function shareCertificate(certificateId) {
+            try {
+                const response = await apiClient.post(`/certificates/share/${certificateId}`);
+                
+                if (response.success) {
+                    currentShareData = response;
+                    showShareModal(response);
+                } else {
+                    alert('Erro ao gerar links de compartilhamento: ' + response.error);
+                }
+            } catch (error) {
+                console.error('Erro ao compartilhar certificado:', error);
+                alert('Erro ao compartilhar certificado. Tente novamente.');
+            }
+        }
+
+        function showShareModal(shareData) {
+            const modal = document.getElementById('shareModal');
+            const shareButtons = document.getElementById('shareButtons');
+            
+            shareButtons.innerHTML = `
+                <a href="${shareData.share_links.linkedin}" target="_blank" class="share-btn share-linkedin">
+                    <span>💼</span>
+                    LinkedIn
+                </a>
+                <a href="${shareData.share_links.twitter}" target="_blank" class="share-btn share-twitter">
+                    <span>🐦</span>
+                    Twitter
+                </a>
+                <a href="${shareData.share_links.facebook}" target="_blank" class="share-btn share-facebook">
+                    <span>📘</span>
+                    Facebook
+                </a>
+                <a href="${shareData.share_links.whatsapp}" target="_blank" class="share-btn share-whatsapp">
+                    <span>💬</span>
+                    WhatsApp
+                </a>
+                <a href="${shareData.share_links.email}" class="share-btn share-email">
+                    <span>📧</span>
+                    E-mail
+                </a>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').style.display = 'none';
+        }
+
+        async function validateCertificate(certificateId) {
+            try {
+                // Primeiro gerar o certificado para obter o hash
+                const generateResponse = await apiClient.post(`/certificates/generate/${certificateId}`);
+                
+                if (generateResponse.success) {
+                    const validationHash = generateResponse.certificate.validation_hash;
+                    const validationUrl = `${window.location.origin}/pages/validar-certificado.html?hash=${validationHash}`;
+                    window.open(validationUrl, '_blank');
+                } else {
+                    alert('Erro ao validar certificado: ' + generateResponse.error);
+                }
+            } catch (error) {
+                console.error('Erro ao validar certificado:', error);
+                alert('Erro ao validar certificado. Tente novamente.');
+            }
+        }
+
+        // Fechar modal clicando fora
+        document.getElementById('shareModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeShareModal();
+            }
+        });
+    </script>
+</body>
+</html>
+

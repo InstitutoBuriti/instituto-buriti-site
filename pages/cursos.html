@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Cursos - Instituto Buriti</title>
+    <meta name="description" content="Descubra todos os cursos disponíveis no Instituto Buriti. Transforme sua carreira com metodologias inovadoras.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE (IDÊNTICO ÀS OUTRAS PÁGINAS) ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE (IDÊNTICO ÀS OUTRAS PÁGINAS) ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="quem-somos.html" class="mobile-nav-link">👥 Quem Somos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">📚 Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="seja-instrutor.html" class="mobile-nav-link">🎓 Seja um Instrutor</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contato.html" class="mobile-nav-link">📞 Contato</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="login.html" class="mobile-nav-link">🔐 Login</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="mobile-menu-overlay"></div>
+    
+    <!-- ===== HERO SECTION (MESMO PADRÃO) ===== -->
+    <section class="hero-mobile">
+        <div class="container">
+            <h1 class="hero-title">Nossos Cursos</h1>
+            <p class="hero-subtitle">Transforme sua carreira com metodologias inovadoras e conteúdo de qualidade</p>
+        </div>
+    </section>
+    
+    <!-- ===== FILTROS ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="filters-wrapper">
+                <div class="filters-container">
+                    <button class="filter-btn active" data-category="todos">📚 Todos</button>
+                    <button class="filter-btn" data-category="tecnologia">💻 Tecnologia</button>
+                    <button class="filter-btn" data-category="design">🎨 Design</button>
+                    <button class="filter-btn" data-category="negocios">💼 Negócios</button>
+                    <button class="filter-btn" data-category="cultura">🎭 Cultura</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== CURSOS GRID ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="courses-grid" id="coursesGrid">
+                
+                <!-- Curso 1 - Tecnologia -->
+                <div class="course-card" data-category="tecnologia">
+                    <div class="course-header">
+                        <div class="course-icon">🤖</div>
+                        <div class="course-badge new">Novo</div>
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">Fundamentos da Inteligência Artificial</h3>
+                        <p class="course-instructor">👨‍🏫 Dr. Carlos Mendes</p>
+                        <p class="course-method">📋 Metodologia PBL</p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <span class="stat-icon">⏱️</span>
+                                <span class="stat-text">40h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-text">1.2k</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-text">4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-price">
+                            <span class="price-current">R$ 500,00</span>
+                            <span class="price-old">R$ 750,00</span>
+                        </div>
+                        
+                        <button class="btn-mobile btn-primary">Ver Curso</button>
+                    </div>
+                </div>
+                
+                <!-- Curso 2 - Design -->
+                <div class="course-card" data-category="design">
+                    <div class="course-header">
+                        <div class="course-icon">🎨</div>
+                        <div class="course-badge popular">Popular</div>
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">Design Gráfico Profissional</h3>
+                        <p class="course-instructor">👩‍🎨 Ana Silva</p>
+                        <p class="course-method">💻 Metodologia EAD</p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <span class="stat-icon">⏱️</span>
+                                <span class="stat-text">60h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-text">2.1k</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-text">4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-price">
+                            <span class="price-current">R$ 450,00</span>
+                        </div>
+                        
+                        <button class="btn-mobile btn-primary">Ver Curso</button>
+                    </div>
+                </div>
+                
+                <!-- Curso 3 - Cultura -->
+                <div class="course-card" data-category="cultura">
+                    <div class="course-header">
+                        <div class="course-icon">🎭</div>
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">Gestão Eficaz de Projetos Culturais</h3>
+                        <p class="course-instructor">👨‍💼 Admin Geral</p>
+                        <p class="course-method">📋 Metodologia PBL</p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <span class="stat-icon">⏱️</span>
+                                <span class="stat-text">35h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-text">850</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-text">4.7</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-price">
+                            <span class="price-current">R$ 350,00</span>
+                        </div>
+                        
+                        <button class="btn-mobile btn-primary">Ver Curso</button>
+                    </div>
+                </div>
+                
+                <!-- Curso 4 - Tecnologia -->
+                <div class="course-card" data-category="tecnologia">
+                    <div class="course-header">
+                        <div class="course-icon">💻</div>
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">Desenvolvimento Web Completo</h3>
+                        <p class="course-instructor">👩‍💻 Maria Santos</p>
+                        <p class="course-method">💻 Metodologia EAD</p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <span class="stat-icon">⏱️</span>
+                                <span class="stat-text">80h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-text">3.5k</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-text">4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-price">
+                            <span class="price-current">R$ 299,90</span>
+                            <span class="price-old">R$ 499,90</span>
+                        </div>
+                        
+                        <button class="btn-mobile btn-primary">Ver Curso</button>
+                    </div>
+                </div>
+                
+                <!-- Curso 5 - Negócios -->
+                <div class="course-card" data-category="negocios">
+                    <div class="course-header">
+                        <div class="course-icon">💼</div>
+                        <div class="course-badge certified">Certificado</div>
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">Empreendedorismo Digital</h3>
+                        <p class="course-instructor">👨‍💼 João Oliveira</p>
+                        <p class="course-method">🔄 Metodologia Híbrida</p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <span class="stat-icon">⏱️</span>
+                                <span class="stat-text">45h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-text">1.8k</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-text">4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-price">
+                            <span class="price-current">R$ 399,00</span>
+                        </div>
+                        
+                        <button class="btn-mobile btn-primary">Ver Curso</button>
+                    </div>
+                </div>
+                
+                <!-- Curso 6 - Design -->
+                <div class="course-card" data-category="design">
+                    <div class="course-header">
+                        <div class="course-icon">📱</div>
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">UX/UI Design Mobile</h3>
+                        <p class="course-instructor">👩‍🎨 Carla Ferreira</p>
+                        <p class="course-method">💻 Metodologia EAD</p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <span class="stat-icon">⏱️</span>
+                                <span class="stat-text">50h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-text">1.4k</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-text">4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-price">
+                            <span class="price-current">R$ 549,00</span>
+                        </div>
+                        
+                        <button class="btn-mobile btn-primary">Ver Curso</button>
+                    </div>
+                </div>
+                
+                <!-- Curso 7 - Tecnologia -->
+                <div class="course-card" data-category="tecnologia">
+                    <div class="course-header">
+                        <div class="course-icon">🐍</div>
+                        <div class="course-badge beginner">Iniciante</div>
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">Python para Iniciantes</h3>
+                        <p class="course-instructor">👨‍💻 Pedro Costa</p>
+                        <p class="course-method">📋 Metodologia PBL</p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <span class="stat-icon">⏱️</span>
+                                <span class="stat-text">30h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-text">2.8k</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-text">4.7</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-price">
+                            <span class="price-current">R$ 199,90</span>
+                        </div>
+                        
+                        <button class="btn-mobile btn-primary">Ver Curso</button>
+                    </div>
+                </div>
+                
+                <!-- Curso 8 - Cultura -->
+                <div class="course-card" data-category="cultura">
+                    <div class="course-header">
+                        <div class="course-icon">🎵</div>
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">História da Música Brasileira</h3>
+                        <p class="course-instructor">👨‍🎤 Maestro Silva</p>
+                        <p class="course-method">🎭 Metodologia Cultural</p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <span class="stat-icon">⏱️</span>
+                                <span class="stat-text">25h</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">👥</span>
+                                <span class="stat-text">950</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-text">4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-price">
+                            <span class="price-current">R$ 249,00</span>
+                        </div>
+                        
+                        <button class="btn-mobile btn-primary">Ver Curso</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Botão Carregar Mais -->
+            <div class="text-center" style="margin-top: 2rem;">
+                <button class="btn-mobile btn-outline" id="loadMoreBtn">
+                    Carregar Mais Cursos 📚
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== CTA SECTION ===== -->
+    <section class="section" style="background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange)); color: var(--white);">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title" style="color: var(--white);">Não encontrou o que procurava?</h2>
+                <p class="section-subtitle" style="color: var(--white); opacity: 0.9;">Temos mais de 50 cursos disponíveis em diversas áreas</p>
+                <div class="cta-buttons" style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px; margin: 2rem auto 0;">
+                    <a href="contato.html" class="btn-mobile btn-primary" style="background: var(--white); color: var(--primary-purple);">📞 Entre em Contato</a>
+                    <a href="seja-instrutor.html" class="btn-mobile btn-outline" style="border-color: var(--white); color: var(--white);">🎓 Seja um Instrutor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== FOOTER MOBILE (IDÊNTICO À PÁGINA QUEM SOMOS) ===== -->
+    <footer class="footer-mobile">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Instituto Buriti</h3>
+                    <p>Transformando vidas através da educação de qualidade e eventos culturais que celebram o conhecimento.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <p><a href="../index.html">Home</a></p>
+                    <p><a href="cursos.html">Cursos</a></p>
+                    <p><a href="seja-instrutor.html">Seja Instrutor</a></p>
+                    <p><a href="contato.html">Contato</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📧 institutoburiti@gmail.com</p>
+                    <p>📱 (86) 98170-8388</p>
+                    <p>📍 Teresina, Piauí</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Redes Sociais</h3>
+                    <p><a href="#">Facebook</a></p>
+                    <p><a href="#">Instagram</a></p>
+                    <p><a href="#">LinkedIn</a></p>
+                    <p><a href="#">YouTube</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+       <!-- Scripts -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    <script src="../js/api-client.js"></script>
+    <script src="../js/payment-integration.js"></script>
+    
+    <style>
+        /* Estilos específicos para a página de cursos */
+        .filters-wrapper {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .filters-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            background: var(--gray-light);
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: fit-content;
+            flex-shrink: 0;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange));
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(151, 60, 191, 0.3);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-header {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-orange));
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .course-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .course-badge.new {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-purple);
+        }
+
+        .course-badge.popular {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: var(--white);
+        }
+
+        .course-badge.certified {
+            background: linear-gradient(135deg, var(--primary-green), #4CAF50);
+            color: var(--white);
+        }
+
+        .course-badge.beginner {
+            background: linear-gradient(135deg, #2196F3, #03A9F4);
+            color: var(--white);
+        }
+
+        .course-body {
+            padding: 1.5rem;
+        }
+
+        .course-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .course-instructor,
+        .course-method {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-stats {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+
+        .course-price {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .price-current {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+        }
+
+        .price-old {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            text-decoration: line-through;
+        }
+    </style>
+    
+    <script>
+        // Funcionalidade específica da página de cursos
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const courseCards = document.querySelectorAll('.course-card');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            
+            // Sistema de filtros
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    
+                    courseCards.forEach((card, index) => {
+                        if (category === 'todos' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, index * 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // Botão carregar mais
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    const btn = this;
+                    const originalHTML = btn.innerHTML;
+                    
+                    btn.innerHTML = 'Carregando... ⏳';
+                    btn.disabled = true;
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                        alert('Mais cursos serão adicionados em breve! 🚀');
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+    
+</body>
+</html>
+

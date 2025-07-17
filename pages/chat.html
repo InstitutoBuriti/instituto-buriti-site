@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Chat - Instituto Buriti</title>
+    <meta name="description" content="Chat em tempo real do Instituto Buriti. Conecte-se com instrutores e outros alunos.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/chat.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE (PADRÃO DO SITE) ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE (PADRÃO DO SITE) ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="quem-somos.html" class="mobile-nav-link">👥 Quem Somos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="cursos.html" class="mobile-nav-link">📚 Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="meus-cursos.html" class="mobile-nav-link">📖 Meus Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="chat.html" class="mobile-nav-link active">💬 Chat</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="certificados.html" class="mobile-nav-link">🏆 Certificados</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="ranking.html" class="mobile-nav-link">🥇 Ranking</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="seja-instrutor.html" class="mobile-nav-link">🎓 Seja um Instrutor</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contato.html" class="mobile-nav-link">📞 Contato</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link logout-link" onclick="logout()">🚪 Sair</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Chat Container -->
+    <main class="chat-container">
+        <!-- Sidebar com salas -->
+        <aside class="chat-sidebar">
+            <div class="sidebar-header">
+                <h3>Salas de Chat</h3>
+                <div class="online-indicator">
+                    <span class="status-dot online"></span>
+                    <span id="onlineCount">0 online</span>
+                </div>
+            </div>
+            
+            <div class="rooms-list" id="roomsList">
+                <!-- Salas serão carregadas dinamicamente -->
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="user-status">
+                    <div class="user-avatar" id="userAvatar">
+                        <span id="userInitials">U</span>
+                    </div>
+                    <div class="user-info">
+                        <span class="username" id="sidebarUsername">Usuário</span>
+                        <span class="user-type" id="userTypeDisplay">Aluno</span>
+                    </div>
+                    <div class="status-selector">
+                        <select id="userStatus">
+                            <option value="online">Online</option>
+                            <option value="away">Ausente</option>
+                            <option value="busy">Ocupado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Área principal do chat -->
+        <section class="chat-main">
+            <!-- Header da sala atual -->
+            <div class="chat-header">
+                <div class="room-info">
+                    <h2 id="currentRoomName">Selecione uma sala</h2>
+                    <p id="currentRoomDescription">Escolha uma sala para começar a conversar</p>
+                </div>
+                <div class="room-actions">
+                    <button class="action-btn" id="roomSettingsBtn" title="Configurações da sala">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                        </svg>
+                    </button>
+                    <button class="action-btn" id="participantsBtn" title="Participantes">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <span id="participantsCount">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Área de mensagens -->
+            <div class="messages-container" id="messagesContainer">
+                <div class="welcome-message">
+                    <div class="welcome-icon">💬</div>
+                    <h3>Bem-vindo ao Chat do Instituto Buriti!</h3>
+                    <p>Conecte-se com instrutores e outros alunos. Tire dúvidas, compartilhe conhecimento e faça networking.</p>
+                </div>
+            </div>
+
+            <!-- Indicador de digitação -->
+            <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span id="typingText">Alguém está digitando...</span>
+            </div>
+
+            <!-- Área de input -->
+            <div class="message-input-container">
+                <div class="input-actions">
+                    <button class="input-action-btn" id="emojiBtn" title="Emojis">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                    </button>
+                    <button class="input-action-btn" id="attachBtn" title="Anexar arquivo">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="message-input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Digite sua mensagem..." 
+                        rows="1"
+                        maxlength="1000"
+                    ></textarea>
+                    <div class="input-counter">
+                        <span id="charCounter">0/1000</span>
+                    </div>
+                </div>
+                
+                <button class="send-btn" id="sendBtn" disabled>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Painel lateral de participantes (oculto por padrão) -->
+        <aside class="participants-panel" id="participantsPanel" style="display: none;">
+            <div class="panel-header">
+                <h3>Participantes</h3>
+                <button class="close-panel-btn" onclick="toggleParticipantsPanel()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="participants-list" id="participantsList">
+                <!-- Participantes serão carregados dinamicamente -->
+            </div>
+        </aside>
+    </main>
+
+    <!-- Modal de emoji picker -->
+    <div class="emoji-picker-modal" id="emojiPickerModal" style="display: none;">
+        <div class="emoji-picker">
+            <div class="emoji-categories">
+                <button class="emoji-category active" data-category="smileys">😀</button>
+                <button class="emoji-category" data-category="people">👋</button>
+                <button class="emoji-category" data-category="nature">🌟</button>
+                <button class="emoji-category" data-category="objects">📚</button>
+                <button class="emoji-category" data-category="symbols">❤️</button>
+            </div>
+            <div class="emoji-grid" id="emojiGrid">
+                <!-- Emojis serão carregados dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificações -->
+    <div class="chat-notifications" id="chatNotifications"></div>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    <script src="../js/api-client.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/chat-client-rest.js"></script>
+    <script src="../js/chat-ui.js"></script>
+    <script src="../js/chat-sounds.js"></script>
+    <script src="../js/chat-moderation.js"></script>
+    <script>
+        // Inicializar chat quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar autenticação
+            if (!isAuthenticated()) {
+                window.location.href = '../pages/login.html';
+                return;
+            }
+            
+            // Inicializar sistemas do chat
+            initializeChatSounds();
+            
+            // Inicializar cliente REST para produção
+            const chatClient = initializeChatClientREST('https://mzhyi8cn6w70.manus.space');
+            
+            // Inicializar interface do chat
+            const chatUI = initializeChatUI(chatClient);
+            
+            // Inicializar moderação se for instrutor
+            setTimeout(() => {
+                if (chatClient) {
+                    initializeChatModeration(chatClient);
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
+

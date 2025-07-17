@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Cadastro - Instituto Buriti</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Cadastre-se no Instituto Buriti e comece a aprender">
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/auth-real.css">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="../img/logo-instituto-buriti.png" alt="Instituto Buriti" class="logo">
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE ===== -->
+    <nav class="menu-mobile" id="menuMobile">
+        <div class="menu-header">
+            <img src="../img/logo-instituto-buriti.png" alt="Instituto Buriti" class="menu-logo">
+            <button class="menu-close" id="menuClose">&times;</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="../index.html">🏠 Home</a></li>
+            <li><a href="cursos.html">📚 Cursos</a></li>
+            <li><a href="certificados.html">🏆 Certificados</a></li>
+            <li><a href="materiais.html">📄 Materiais</a></li>
+            <li><a href="chat.html">💬 Chat</a></li>
+            <li><a href="ranking.html">🏆 Ranking</a></li>
+            <li><a href="vendas-institucionais.html">🏢 Vendas B2B</a></li>
+            <li class="menu-divider"></li>
+            <li><a href="login-real.html">🔑 Login</a></li>
+            <li><a href="registro-real.html" class="active">📝 Cadastro</a></li>
+        </ul>
+    </nav>
+    
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        
+        <!-- Register Container -->
+        <div class="auth-container">
+            <div class="auth-card">
+                
+                <!-- Header -->
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <img src="../img/logo-instituto-buriti.png" alt="Instituto Buriti">
+                    </div>
+                    <h1 class="auth-title">Crie sua conta</h1>
+                    <p class="auth-subtitle">Comece sua jornada de aprendizado hoje</p>
+                </div>
+                
+                <!-- Register Form -->
+                <form class="auth-form" id="registerForm">
+                    
+                    <!-- Full Name Field -->
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">
+                            <i class="icon">👤</i>
+                            Nome Completo
+                        </label>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            name="fullName" 
+                            class="form-input" 
+                            placeholder="Seu nome completo"
+                            required
+                            autocomplete="name"
+                        >
+                        <div class="form-error" id="fullNameError"></div>
+                    </div>
+                    
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <i class="icon">📧</i>
+                            Email
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-input" 
+                            placeholder="seu@email.com"
+                            required
+                            autocomplete="email"
+                        >
+                        <div class="form-error" id="emailError"></div>
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            <i class="icon">🔒</i>
+                            Senha
+                        </label>
+                        <div class="password-container">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                class="form-input" 
+                                placeholder="Mínimo 6 caracteres"
+                                required
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" id="passwordToggle">
+                                <span class="toggle-icon">👁️</span>
+                            </button>
+                        </div>
+                        <div class="form-error" id="passwordError"></div>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <span class="strength-text" id="strengthText">Digite uma senha</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Confirm Password Field -->
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">
+                            <i class="icon">🔒</i>
+                            Confirmar Senha
+                        </label>
+                        <div class="password-container">
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                class="form-input" 
+                                placeholder="Confirme sua senha"
+                                required
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" id="confirmPasswordToggle">
+                                <span class="toggle-icon">👁️</span>
+                            </button>
+                        </div>
+                        <div class="form-error" id="confirmPasswordError"></div>
+                    </div>
+                    
+                    <!-- User Type Field -->
+                    <div class="form-group">
+                        <label for="userType" class="form-label">
+                            <i class="icon">🎯</i>
+                            Tipo de Usuário
+                        </label>
+                        <select id="userType" name="userType" class="form-select" required>
+                            <option value="">Selecione seu perfil</option>
+                            <option value="student">👨‍🎓 Aluno</option>
+                            <option value="instructor">👨‍🏫 Instrutor</option>
+                        </select>
+                        <div class="form-error" id="userTypeError"></div>
+                    </div>
+                    
+                    <!-- Terms and Privacy -->
+                    <div class="form-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="acceptTerms" name="acceptTerms" required>
+                            <span class="checkmark"></span>
+                            Aceito os <a href="#" class="link">Termos de Uso</a> e 
+                            <a href="#" class="link">Política de Privacidade</a>
+                        </label>
+                        <div class="form-error" id="acceptTermsError"></div>
+                    </div>
+                    
+                    <!-- Marketing Consent -->
+                    <div class="form-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="acceptMarketing" name="acceptMarketing">
+                            <span class="checkmark"></span>
+                            Quero receber novidades e ofertas por email
+                        </label>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="auth-button" id="registerButton">
+                        <span class="button-text">Criar Conta</span>
+                        <div class="button-loader" id="registerLoader"></div>
+                    </button>
+                    
+                    <!-- Form Messages -->
+                    <div class="form-message" id="formMessage"></div>
+                    
+                </form>
+                
+                <!-- Login Link -->
+                <div class="auth-footer">
+                    <p>Já tem uma conta? 
+                        <a href="login-real.html" class="register-link">Faça login aqui</a>
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+        
+    </main>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Criando sua conta...</p>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content success">
+            <div class="modal-icon">✅</div>
+            <h3 class="modal-title">Conta criada com sucesso!</h3>
+            <p class="modal-message">Verifique seu email para ativar sua conta.</p>
+            <button class="auth-button" id="successButton">Fazer Login</button>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="../js/supabase-integration.js"></script>
+    <script src="../js/auth-real.js"></script>
+    <script>
+        // Inicializar página de registro
+        document.addEventListener('DOMContentLoaded', function() {
+            AuthReal.initRegisterPage();
+        });
+    </script>
+    
+</body>
+</html>
+

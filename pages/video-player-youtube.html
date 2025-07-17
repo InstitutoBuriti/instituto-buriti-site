@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Player de Vídeo - Instituto Buriti</title>
+    <meta name="description" content="Assista às videoaulas do Instituto Buriti com nosso player integrado ao YouTube">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/video-player-youtube.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="quem-somos.html" class="mobile-nav-link">👥 Quem Somos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="cursos.html" class="mobile-nav-link">📚 Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="meus-cursos.html" class="mobile-nav-link">📖 Meus Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="chat.html" class="mobile-nav-link">💬 Chat</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="certificados.html" class="mobile-nav-link">🏆 Certificados</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="ranking.html" class="mobile-nav-link">🥇 Ranking</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="seja-instrutor.html" class="mobile-nav-link">🎓 Seja um Instrutor</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contato.html" class="mobile-nav-link">📞 Contato</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="#" onclick="logout()" class="mobile-nav-link">🚪 Sair</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="meus-cursos.html">Meus Cursos</a> > 
+            <a href="curso-player.html" id="courseBreadcrumb">Curso</a> > 
+            <span id="lessonBreadcrumb">Aula</span>
+        </div>
+
+        <!-- Container do Player -->
+        <div class="video-container">
+            <!-- Informações da Aula -->
+            <div class="lesson-info">
+                <h1 id="lessonTitle">Carregando aula...</h1>
+                <div class="lesson-meta">
+                    <span id="lessonDuration">--:--</span>
+                    <span class="separator">•</span>
+                    <span id="lessonProgress">0% concluído</span>
+                    <span class="separator">•</span>
+                    <span id="watchTime">Tempo assistido: 0min</span>
+                </div>
+            </div>
+
+            <!-- Player do YouTube -->
+            <div class="youtube-player-wrapper">
+                <!-- Container do YouTube Player -->
+                <div id="youtubePlayer" class="youtube-player"></div>
+                
+                <!-- Overlay de Loading -->
+                <div class="video-loading" id="videoLoading">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando vídeo do YouTube...</p>
+                </div>
+
+                <!-- Overlay de Controle Personalizado -->
+                <div class="custom-controls-overlay" id="customControls">
+                    <div class="progress-info">
+                        <div class="progress-bar-custom">
+                            <div class="progress-filled-custom" id="progressFilledCustom"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="currentTimeCustom">0:00</span>
+                            <span>/</span>
+                            <span id="totalTimeCustom">0:00</span>
+                            <span class="progress-percent" id="progressPercent">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles de Velocidade Personalizados -->
+                <div class="speed-controls">
+                    <label for="speedSelect">Velocidade:</label>
+                    <select id="speedSelect" class="speed-select">
+                        <option value="0.25">0.25x</option>
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="1" selected>1x (Normal)</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Notas e Marcadores -->
+            <div class="video-notes">
+                <h3>📝 Suas Anotações</h3>
+                <div class="notes-container">
+                    <div class="note-input">
+                        <textarea id="noteText" placeholder="Adicione uma anotação neste momento do vídeo..."></textarea>
+                        <button id="addNoteBtn" class="add-note-btn">Adicionar Nota</button>
+                    </div>
+                    <div class="notes-list" id="notesList">
+                        <!-- Notas serão carregadas aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estatísticas de Progresso -->
+            <div class="progress-stats">
+                <h3>📊 Seu Progresso</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="watchPercentage">0%</div>
+                        <div class="stat-label">Assistido</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalWatchTime">0min</div>
+                        <div class="stat-label">Tempo Total</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="sessionCount">1</div>
+                        <div class="stat-label">Sessões</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="notesCount">0</div>
+                        <div class="stat-label">Anotações</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegação da Aula -->
+        <div class="lesson-navigation">
+            <button id="prevLessonBtn" class="nav-btn prev-btn">
+                ← Aula Anterior
+            </button>
+            
+            <div class="lesson-status">
+                <div class="completion-requirement">
+                    <p>Para concluir esta aula, assista pelo menos <strong>80%</strong> do vídeo</p>
+                    <div class="completion-progress">
+                        <div class="completion-bar">
+                            <div class="completion-filled" id="completionFilled"></div>
+                        </div>
+                        <span id="completionText">0% / 80% necessário</span>
+                    </div>
+                </div>
+                <button id="markCompleteBtn" class="complete-btn" disabled>
+                    ✓ Marcar como Concluída
+                </button>
+            </div>
+            
+            <button id="nextLessonBtn" class="nav-btn next-btn">
+                Próxima Aula →
+            </button>
+        </div>
+
+        <!-- Lista de Aulas do Curso -->
+        <div class="course-playlist">
+            <h3>📚 Aulas do Curso</h3>
+            <div class="playlist-container" id="playlistContainer">
+                <!-- Lista será carregada dinamicamente -->
+            </div>
+        </div>
+    </main>
+
+    <!-- YouTube Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
+    <!-- Scripts -->
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/youtube-player.js"></script>
+    <script src="../js/video-progress-youtube.js"></script>
+    <script src="../js/video-notes-youtube.js"></script>
+    
+    <script>
+        // Variáveis globais para o YouTube Player
+        let youtubePlayer;
+        let progressTracker;
+        let currentVideoId;
+        let currentLessonId;
+        
+        // Inicializar quando a API do YouTube estiver pronta
+        function onYouTubeIframeAPIReady() {
+            initializeYouTubePlayer();
+        }
+        
+        // Inicializar player quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Se a API já estiver carregada
+            if (window.YT && window.YT.Player) {
+                initializeYouTubePlayer();
+            }
+        });
+    </script>
+</body>
+</html>
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="meus-cursos.html">Meus Cursos</a> > 
+            <a href="curso-player.html" id="courseBreadcrumb">Curso</a> > 
+            <span id="lessonBreadcrumb">Aula</span>
+        </div>
+
+        <!-- Container do Player -->
+        <div class="video-container">
+            <!-- Informações da Aula -->
+            <div class="lesson-info">
+                <h1 id="lessonTitle">Carregando aula...</h1>
+                <div class="lesson-meta">
+                    <span id="lessonDuration">--:--</span>
+                    <span class="separator">•</span>
+                    <span id="lessonProgress">0% concluído</span>
+                    <span class="separator">•</span>
+                    <span id="watchTime">Tempo assistido: 0min</span>
+                </div>
+            </div>
+
+            <!-- Player do YouTube -->
+            <div class="youtube-player-wrapper">
+                <!-- Container do YouTube Player -->
+                <div id="youtubePlayer" class="youtube-player"></div>
+                
+                <!-- Overlay de Loading -->
+                <div class="video-loading" id="videoLoading">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando vídeo do YouTube...</p>
+                </div>
+
+                <!-- Overlay de Controle Personalizado -->
+                <div class="custom-controls-overlay" id="customControls">
+                    <div class="progress-info">
+                        <div class="progress-bar-custom">
+                            <div class="progress-filled-custom" id="progressFilledCustom"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="currentTimeCustom">0:00</span>
+                            <span>/</span>
+                            <span id="totalTimeCustom">0:00</span>
+                            <span class="progress-percent" id="progressPercent">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles de Velocidade Personalizados -->
+                <div class="speed-controls">
+                    <label for="speedSelect">Velocidade:</label>
+                    <select id="speedSelect" class="speed-select">
+                        <option value="0.25">0.25x</option>
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="1" selected>1x (Normal)</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Notas e Marcadores -->
+            <div class="video-notes">
+                <h3>📝 Suas Anotações</h3>
+                <div class="notes-container">
+                    <div class="note-input">
+                        <textarea id="noteText" placeholder="Adicione uma anotação neste momento do vídeo..."></textarea>
+                        <button id="addNoteBtn" class="add-note-btn">Adicionar Nota</button>
+                    </div>
+                    <div class="notes-list" id="notesList">
+                        <!-- Notas serão carregadas aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estatísticas de Progresso -->
+            <div class="progress-stats">
+                <h3>📊 Seu Progresso</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="watchPercentage">0%</div>
+                        <div class="stat-label">Assistido</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalWatchTime">0min</div>
+                        <div class="stat-label">Tempo Total</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="sessionCount">1</div>
+                        <div class="stat-label">Sessões</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="notesCount">0</div>
+                        <div class="stat-label">Anotações</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegação da Aula -->
+        <div class="lesson-navigation">
+            <button id="prevLessonBtn" class="nav-btn prev-btn">
+                ← Aula Anterior
+            </button>
+            
+            <div class="lesson-status">
+                <div class="completion-requirement">
+                    <p>Para concluir esta aula, assista pelo menos <strong>80%</strong> do vídeo</p>
+                    <div class="completion-progress">
+                        <div class="completion-bar">
+                            <div class="completion-filled" id="completionFilled"></div>
+                        </div>
+                        <span id="completionText">0% / 80% necessário</span>
+                    </div>
+                </div>
+                <button id="markCompleteBtn" class="complete-btn" disabled>
+                    ✓ Marcar como Concluída
+                </button>
+            </div>
+            
+            <button id="nextLessonBtn" class="nav-btn next-btn">
+                Próxima Aula →
+            </button>
+        </div>
+
+        <!-- Lista de Aulas do Curso -->
+        <div class="course-playlist">
+            <h3>📚 Aulas do Curso</h3>
+            <div class="playlist-container" id="playlistContainer">
+                <!-- Lista será carregada dinamicamente -->
+            </div>
+        </div>
+    </main>
+
+    <!-- YouTube Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
+    <!-- Scripts -->
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/youtube-player.js"></script>
+    <script src="../js/video-progress-youtube.js"></script>
+    <script src="../js/video-notes-youtube.js"></script>
+    
+    <script>
+        // Variáveis globais para o YouTube Player
+        let youtubePlayer;
+        let progressTracker;
+        let currentVideoId;
+        let currentLessonId;
+        
+        // Inicializar quando a API do YouTube estiver pronta
+        function onYouTubeIframeAPIReady() {
+            initializeYouTubePlayer();
+        }
+        
+        // Inicializar player quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Se a API já estiver carregada
+            if (window.YT && window.YT.Player) {
+                initializeYouTubePlayer();
+            }
+        });
+    </script>
+</body>
+</html>
+

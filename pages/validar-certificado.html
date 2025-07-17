@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validar Certificado - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <style>
+        .validation-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .validation-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #973CBF, #A95028);
+            color: white;
+            border-radius: 20px;
+        }
+
+        .validation-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .validation-header p {
+            margin: 15px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .validation-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #973CBF;
+            box-shadow: 0 0 0 3px rgba(151, 60, 191, 0.1);
+        }
+
+        .btn-validate {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #973CBF, #A95028);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-validate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(151, 60, 191, 0.3);
+        }
+
+        .btn-validate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .validation-result {
+            display: none;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .result-valid {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .result-invalid {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .result-icon {
+            font-size: 3rem;
+            margin-right: 20px;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .result-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 5px 0 0 0;
+        }
+
+        .certificate-details {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #973CBF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-link a {
+            color: #973CBF;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #973CBF;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link a:hover {
+            background: #973CBF;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .validation-container {
+                padding: 15px;
+            }
+            
+            .validation-form {
+                padding: 25px;
+            }
+            
+            .validation-header h1 {
+                font-size: 2rem;
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="validation-container">
+        <div class="validation-header">
+            <h1>🔍 Validar Certificado</h1>
+            <p>Verifique a autenticidade de um certificado do Instituto Buriti</p>
+        </div>
+
+        <div class="validation-form">
+            <div class="form-group">
+                <label for="validationHash">Hash de Validação:</label>
+                <input 
+                    type="text" 
+                    id="validationHash" 
+                    placeholder="Digite o hash de validação do certificado"
+                    maxlength="16"
+                >
+            </div>
+            
+            <button class="btn-validate" onclick="validateCertificate()">
+                🔍 Validar Certificado
+            </button>
+            
+            <div class="loading" id="loadingState">
+                <div class="loading-spinner"></div>
+                <p>Validando certificado...</p>
+            </div>
+        </div>
+
+        <div class="validation-result" id="validResult">
+            <div class="result-header">
+                <div class="result-icon">✅</div>
+                <div>
+                    <h2 class="result-title">Certificado Válido</h2>
+                    <p class="result-subtitle">Este certificado é autêntico e foi emitido pelo Instituto Buriti</p>
+                </div>
+            </div>
+            
+            <div class="certificate-details" id="certificateDetails">
+                <!-- Detalhes do certificado serão inseridos aqui -->
+            </div>
+        </div>
+
+        <div class="validation-result result-invalid" id="invalidResult">
+            <div class="result-header">
+                <div class="result-icon">❌</div>
+                <div>
+                    <h2 class="result-title">Certificado Inválido</h2>
+                    <p class="result-subtitle">Este hash não corresponde a nenhum certificado válido</p>
+                </div>
+            </div>
+            
+            <div class="certificate-details">
+                <p>Possíveis motivos:</p>
+                <ul>
+                    <li>Hash de validação incorreto</li>
+                    <li>Certificado não encontrado em nossa base de dados</li>
+                    <li>Certificado pode ter sido revogado</li>
+                </ul>
+                <p><strong>Em caso de dúvidas, entre em contato conosco.</strong></p>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html">← Voltar ao Site</a>
+        </div>
+    </div>
+
+    <script src="../js/api-client.js"></script>
+    <script>
+        // Verificar se há hash na URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hash = urlParams.get('hash');
+            
+            if (hash) {
+                document.getElementById('validationHash').value = hash;
+                validateCertificate();
+            }
+        });
+
+        async function validateCertificate() {
+            const hashInput = document.getElementById('validationHash');
+            const hash = hashInput.value.trim();
+            
+            if (!hash) {
+                alert('Por favor, digite o hash de validação');
+                return;
+            }
+            
+            if (hash.length !== 16) {
+                alert('Hash de validação deve ter 16 caracteres');
+                return;
+            }
+            
+            // Mostrar loading
+            const loadingState = document.getElementById('loadingState');
+            const validResult = document.getElementById('validResult');
+            const invalidResult = document.getElementById('invalidResult');
+            
+            loadingState.style.display = 'block';
+            validResult.style.display = 'none';
+            invalidResult.style.display = 'none';
+            
+            try {
+                const response = await apiClient.get(`/certificates/validate/${hash}`);
+                
+                loadingState.style.display = 'none';
+                
+                if (response.success && response.valid) {
+                    showValidResult(response.certificate);
+                } else {
+                    showInvalidResult();
+                }
+                
+            } catch (error) {
+                console.error('Erro ao validar certificado:', error);
+                loadingState.style.display = 'none';
+                showInvalidResult();
+            }
+        }
+
+        function showValidResult(certificate) {
+            const validResult = document.getElementById('validResult');
+            const certificateDetails = document.getElementById('certificateDetails');
+            
+            const completionDate = new Date(certificate.completion_date).toLocaleDateString('pt-BR');
+            const issuedDate = new Date(certificate.issued_at).toLocaleDateString('pt-BR');
+            
+            certificateDetails.innerHTML = `
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">ID do Certificado:</span>
+                        <span class="detail-value">${certificate.id}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Aluno:</span>
+                        <span class="detail-value">${certificate.student_email}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Curso:</span>
+                        <span class="detail-value">${certificate.course_name}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Instrutor:</span>
+                        <span class="detail-value">${certificate.instructor}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Carga Horária:</span>
+                        <span class="detail-value">${certificate.duration}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Nota Final:</span>
+                        <span class="detail-value">${certificate.grade}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Data de Conclusão:</span>
+                        <span class="detail-value">${completionDate}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Data de Emissão:</span>
+                        <span class="detail-value">${issuedDate}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Instituição:</span>
+                        <span class="detail-value">${certificate.institution}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value">✅ ${certificate.status.toUpperCase()}</span>
+                    </div>
+                </div>
+            `;
+            
+            validResult.style.display = 'block';
+        }
+
+        function showInvalidResult() {
+            document.getElementById('invalidResult').style.display = 'block';
+        }
+
+        // Permitir validação com Enter
+        document.getElementById('validationHash').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateCertificate();
+            }
+        });
+    </script>
+</body>
+</html>
+

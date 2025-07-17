@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Gamificado - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <style>
+        .profile-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #973CBF 0%, #A95028 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(151, 60, 191, 0.3);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .profile-level {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .profile-stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .level-progress {
+            margin-bottom: 20px;
+        }
+
+        .level-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .current-level {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #973CBF;
+        }
+
+        .next-level {
+            font-size: 1em;
+            color: #666;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #973CBF 0%, #A95028 100%);
+            border-radius: 10px;
+            transition: width 0.8s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .badge-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .badge-item.earned {
+            background: linear-gradient(135deg, rgba(151, 60, 191, 0.1) 0%, rgba(169, 80, 40, 0.1) 100%);
+            border: 2px solid #973CBF;
+        }
+
+        .badge-item.locked {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            opacity: 0.6;
+        }
+
+        .badge-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .badge-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background: linear-gradient(135deg, #973CBF 0%, #A95028 100%);
+            color: white;
+        }
+
+        .badge-item.locked .badge-icon {
+            background: #dee2e6;
+            color: #6c757d;
+        }
+
+        .badge-name {
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .badge-item.locked .badge-name {
+            color: #6c757d;
+        }
+
+        .badge-description {
+            font-size: 0.8em;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .badge-item.locked .badge-description {
+            color: #adb5bd;
+        }
+
+        .badge-rarity {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .rarity-comum { background: #28a745; color: white; }
+        .rarity-incomum { background: #17a2b8; color: white; }
+        .rarity-raro { background: #6f42c1; color: white; }
+        .rarity-epico { background: #e83e8c; color: white; }
+        .rarity-lendario { background: #fd7e14; color: white; }
+
+        .achievements-timeline {
+            margin-top: 20px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #973CBF 0%, #A95028 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .timeline-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .timeline-date {
+            color: #999;
+            font-size: 0.8em;
+        }
+
+        .timeline-points {
+            color: #973CBF;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .streak-counter {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .streak-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .streak-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #973CBF;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .profile-stats {
+                justify-content: space-between;
+            }
+
+            .badges-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 15px;
+            }
+
+            .badge-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .timeline-icon {
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Mobile -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu">
+            <div class="mobile-menu-header">
+                <h3>Instituto Buriti</h3>
+                <button class="mobile-menu-close" id="mobileMenuClose">×</button>
+            </div>
+            <nav class="mobile-menu-nav">
+                <a href="../index.html">🏠 Home</a>
+                <a href="cursos.html">📚 Cursos</a>
+                <a href="meus-cursos.html">🎓 Meus Cursos</a>
+                <a href="certificados.html">📜 Certificados</a>
+                <a href="ranking.html">🏆 Ranking</a>
+                <a href="perfil-gamificado.html" class="active">🎮 Perfil</a>
+                <a href="quem-somos.html">👥 Quem Somos</a>
+                <a href="seja-instrutor.html">👨‍🏫 Seja Instrutor</a>
+                <a href="contato.html">📞 Contato</a>
+                <a href="login.html">🔐 Login</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="mobile-header">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        <h1>Instituto Buriti</h1>
+        <div class="user-info" id="userInfo">
+            <span class="user-greeting">Bem-vindo ao Instituto Buriti Mobile!</span>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="profile-container">
+        <!-- Header do Perfil -->
+        <div class="profile-header" id="profileHeader">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Carregando perfil...</p>
+            </div>
+        </div>
+
+        <!-- Contador de Streak -->
+        <div class="streak-counter" id="streakCounter" style="display: none;">
+            <div class="streak-number" id="streakNumber">0</div>
+            <div class="streak-label">🔥 Dias consecutivos estudando</div>
+        </div>
+
+        <!-- Progresso do Nível -->
+        <div class="progress-section" id="progressSection" style="display: none;">
+            <h2 class="section-title">📈 Progresso do Nível</h2>
+            <div class="level-progress">
+                <div class="level-info">
+                    <span class="current-level" id="currentLevel">Nível 1</span>
+                    <span class="next-level" id="nextLevel">Próximo: Nível 2</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progressText">0 / 100 pontos para o próximo nível</div>
+            </div>
+        </div>
+
+        <!-- Badges Conquistadas -->
+        <div class="progress-section" id="badgesSection" style="display: none;">
+            <h2 class="section-title">🏆 Badges Conquistadas</h2>
+            <div class="badges-grid" id="badgesGrid">
+                <!-- Será preenchido via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Histórico de Conquistas -->
+        <div class="progress-section" id="achievementsSection" style="display: none;">
+            <h2 class="section-title">🎯 Últimas Conquistas</h2>
+            <div class="achievements-timeline" id="achievementsTimeline">
+                <!-- Será preenchido via JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    <script src="../js/api-client.js"></script>
+    <script>
+        class ProfileManager {
+            constructor() {
+                this.userStats = null;
+                this.badges = [];
+                this.achievements = [];
+                this.init();
+            }
+
+            async init() {
+                await this.loadUserProfile();
+            }
+
+            async loadUserProfile() {
+                try {
+                    const token = localStorage.getItem('access_token');
+                    if (!token) {
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    // Carregar estatísticas do usuário
+                    const statsResponse = await apiClient.get('/gamification/user-stats');
+                    if (statsResponse.success) {
+                        this.userStats = statsResponse.stats;
+                        this.displayProfileHeader();
+                        this.displayStreak();
+                        this.displayProgress();
+                    }
+
+                    // Carregar badges
+                    const badgesResponse = await apiClient.get('/gamification/user-badges');
+                    if (badgesResponse.success) {
+                        this.badges = badgesResponse.badges;
+                        this.displayBadges();
+                    }
+
+                    // Carregar histórico de pontos
+                    const historyResponse = await apiClient.get('/gamification/points-history');
+                    if (historyResponse.success) {
+                        this.achievements = historyResponse.history;
+                        this.displayAchievements();
+                    }
+
+                } catch (error) {
+                    console.error('Erro ao carregar perfil:', error);
+                    this.showError('Erro ao carregar perfil. Tente novamente.');
+                }
+            }
+
+            displayProfileHeader() {
+                const profileHeader = document.getElementById('profileHeader');
+                const stats = this.userStats;
+                
+                const userName = localStorage.getItem('user_name') || 'Aluno Demo';
+                const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+
+                profileHeader.innerHTML = `
+                    <div class="profile-avatar">${initials}</div>
+                    <div class="profile-name">${userName}</div>
+                    <div class="profile-level">Nível ${stats.level}</div>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <span class="profile-stat-number">${stats.total_points.toLocaleString()}</span>
+                            <span class="profile-stat-label">Pontos</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="profile-stat-number">${stats.badges_earned}</span>
+                            <span class="profile-stat-label">Badges</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="profile-stat-number">${stats.courses_completed}</span>
+                            <span class="profile-stat-label">Cursos</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="profile-stat-number">${stats.rank}º</span>
+                            <span class="profile-stat-label">Posição</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            displayStreak() {
+                const streakCounter = document.getElementById('streakCounter');
+                const streakNumber = document.getElementById('streakNumber');
+                
+                streakNumber.textContent = this.userStats.streak_days;
+                streakCounter.style.display = 'block';
+            }
+
+            displayProgress() {
+                const progressSection = document.getElementById('progressSection');
+                const currentLevel = document.getElementById('currentLevel');
+                const nextLevel = document.getElementById('nextLevel');
+                const progressFill = document.getElementById('progressFill');
+                const progressText = document.getElementById('progressText');
+
+                const stats = this.userStats;
+                const currentLevelPoints = (stats.level - 1) * 500; // 500 pontos por nível
+                const nextLevelPoints = stats.level * 500;
+                const progressPoints = stats.total_points - currentLevelPoints;
+                const neededPoints = nextLevelPoints - currentLevelPoints;
+                const progressPercent = Math.min((progressPoints / neededPoints) * 100, 100);
+
+                currentLevel.textContent = `Nível ${stats.level}`;
+                nextLevel.textContent = `Próximo: Nível ${stats.level + 1}`;
+                progressFill.style.width = `${progressPercent}%`;
+                progressText.textContent = `${progressPoints} / ${neededPoints} pontos para o próximo nível`;
+
+                progressSection.style.display = 'block';
+            }
+
+            displayBadges() {
+                const badgesSection = document.getElementById('badgesSection');
+                const badgesGrid = document.getElementById('badgesGrid');
+
+                // Definir todas as badges disponíveis
+                const allBadges = [
+                    { id: 'primeiro_passo', name: 'Primeiro Passo', icon: '🎯', rarity: 'comum', description: 'Complete seu primeiro curso' },
+                    { id: 'dedicado', name: 'Dedicado', icon: '🔥', rarity: 'incomum', description: 'Estude por 7 dias consecutivos' },
+                    { id: 'imparavel', name: 'Imparável', icon: '⚡', rarity: 'raro', description: 'Complete 5 cursos' },
+                    { id: 'mestre_quizzes', name: 'Mestre dos Quizzes', icon: '🧠', rarity: 'epico', description: 'Acerte 100 questões' },
+                    { id: 'aprendiz_veloz', name: 'Aprendiz Veloz', icon: '🚀', rarity: 'raro', description: 'Complete um curso em 1 dia' },
+                    { id: 'perfeccionista', name: 'Perfeccionista', icon: '💎', rarity: 'lendario', description: 'Obtenha nota 10 em 3 cursos' },
+                    { id: 'mentor', name: 'Mentor', icon: '👨‍🏫', rarity: 'epico', description: 'Ajude 10 outros alunos' },
+                    { id: 'madrugador', name: 'Madrugador', icon: '🌅', rarity: 'incomum', description: 'Estude antes das 7h' }
+                ];
+
+                badgesGrid.innerHTML = '';
+
+                allBadges.forEach(badge => {
+                    const isEarned = this.badges.some(b => b.badge_id === badge.id);
+                    const badgeItem = document.createElement('div');
+                    badgeItem.className = `badge-item ${isEarned ? 'earned' : 'locked'}`;
+                    
+                    badgeItem.innerHTML = `
+                        <div class="badge-icon">${badge.icon}</div>
+                        <div class="badge-name">${badge.name}</div>
+                        <div class="badge-description">${badge.description}</div>
+                        <div class="badge-rarity rarity-${badge.rarity}">
+                            ${badge.rarity.charAt(0).toUpperCase()}
+                        </div>
+                    `;
+                    
+                    badgesGrid.appendChild(badgeItem);
+                });
+
+                badgesSection.style.display = 'block';
+            }
+
+            displayAchievements() {
+                const achievementsSection = document.getElementById('achievementsSection');
+                const achievementsTimeline = document.getElementById('achievementsTimeline');
+
+                achievementsTimeline.innerHTML = '';
+
+                // Mostrar apenas os últimos 10 achievements
+                const recentAchievements = this.achievements.slice(0, 10);
+
+                recentAchievements.forEach(achievement => {
+                    const timelineItem = document.createElement('div');
+                    timelineItem.className = 'timeline-item';
+                    
+                    const date = new Date(achievement.earned_at).toLocaleDateString('pt-BR');
+                    
+                    timelineItem.innerHTML = `
+                        <div class="timeline-icon">${this.getAchievementIcon(achievement.activity)}</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">${achievement.activity}</div>
+                            <div class="timeline-description">${achievement.description}</div>
+                            <div class="timeline-date">${date}</div>
+                        </div>
+                        <div class="timeline-points">+${achievement.points}</div>
+                    `;
+                    
+                    achievementsTimeline.appendChild(timelineItem);
+                });
+
+                achievementsSection.style.display = 'block';
+            }
+
+            getAchievementIcon(activity) {
+                const icons = {
+                    'Curso Concluído': '🎓',
+                    'Quiz Completado': '❓',
+                    'Login Diário': '📅',
+                    'Primeira Aula': '▶️',
+                    'Badge Conquistada': '🏆',
+                    'Certificado Obtido': '📜',
+                    'Streak Mantido': '🔥',
+                    'Nota Perfeita': '⭐'
+                };
+                return icons[activity] || '🎯';
+            }
+
+            showError(message) {
+                const profileHeader = document.getElementById('profileHeader');
+                profileHeader.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <p>❌ ${message}</p>
+                        <button onclick="location.reload()" style="margin-top: 15px; padding: 10px 20px; background: #973CBF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            Tentar Novamente
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Inicializar quando a página carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProfileManager();
+        });
+    </script>
+</body>
+</html>
+

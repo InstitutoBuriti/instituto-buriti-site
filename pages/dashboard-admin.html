@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dashboard Admin - Instituto Buriti</title>
+    <meta name="description" content="Painel administrativo completo do Instituto Buriti.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/dashboard-mobile.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER DASHBOARD ===== -->
+    <header class="dashboard-header">
+        <div class="dashboard-header-content">
+            <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="dashboard-logo">
+            <div class="dashboard-user-info">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <div class="user-name" id="userName">Admin</div>
+                <button class="logout-btn" onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- ===== CONTAINER DASHBOARD ===== -->
+    <div class="dashboard-container">
+        
+        <!-- ===== NAVEGAÇÃO DASHBOARD ===== -->
+        <nav class="dashboard-nav">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="overview">📊 Visão Geral</button>
+                <button class="nav-tab" data-tab="users">👥 Usuários</button>
+                <button class="nav-tab" data-tab="courses">📚 Cursos</button>
+                <button class="nav-tab" data-tab="content">🎬 Conteúdo</button>
+                <button class="nav-tab" data-tab="financial">💰 Financeiro</button>
+                <button class="nav-tab" data-tab="system">⚙️ Sistema</button>
+            </div>
+        </nav>
+        
+        <!-- ===== CONTEÚDO DASHBOARD ===== -->
+        <div id="dashboard-content">
+            
+            <!-- ===== ABA VISÃO GERAL ===== -->
+            <div class="tab-content active" id="overview">
+                
+                <!-- Estatísticas Principais -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <span class="stat-number">1.247</span>
+                        <div class="stat-label">Usuários Totais</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <span class="stat-number">23</span>
+                        <div class="stat-label">Cursos Ativos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <span class="stat-number">R$ 45.2k</span>
+                        <div class="stat-label">Receita Mensal</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <span class="stat-number">+18%</span>
+                        <div class="stat-label">Crescimento</div>
+                    </div>
+                </div>
+                
+                <!-- Resumo do Sistema -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Status do Sistema</h3>
+                        <div class="dashboard-card-icon">🖥️</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🟢 Servidor Principal</span>
+                            <span style="color: var(--primary-green); font-weight: 600;">Online</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">💾 Banco de Dados</span>
+                            <span style="color: var(--primary-green); font-weight: 600;">Operacional</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">📧 Sistema de E-mail</span>
+                            <span style="color: var(--primary-green); font-weight: 600;">Funcionando</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🔒 Backup Automático</span>
+                            <span style="color: var(--primary-green); font-weight: 600;">Ativo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Atividades Recentes -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Atividades Recentes</h3>
+                        <div class="dashboard-card-icon">🔔</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">👤</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Novo instrutor cadastrado</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">Carlos Mendes - Especialista em IA</div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--gray-medium);">1h atrás</div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">📚</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Novo curso publicado</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">Inteligência Artificial Básica</div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--gray-medium);">3h atrás</div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">💰</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Pagamento processado</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">R$ 2.450,00 - Comissões de instrutor</div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--gray-medium);">5h atrás</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ações Rápidas Admin -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Ações Rápidas</h3>
+                        <div class="dashboard-card-icon">⚡</div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <button class="dashboard-btn" onclick="createUser()">
+                            <span>👤</span>
+                            Novo Usuário
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="moderateContent()">
+                            <span>🛡️</span>
+                            Moderar
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="viewReports()">
+                            <span>📊</span>
+                            Relatórios
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="systemBackup()">
+                            <span>💾</span>
+                            Backup
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA USUÁRIOS ===== -->
+            <div class="tab-content" id="users">
+                
+                <!-- Filtros de Usuários -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Filtros</h3>
+                        <button class="dashboard-btn" onclick="createUser()">➕ Novo Usuário</button>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <select class="form-input">
+                            <option>Todos os Tipos</option>
+                            <option>Alunos</option>
+                            <option>Instrutores</option>
+                            <option>Administradores</option>
+                        </select>
+                        
+                        <select class="form-input">
+                            <option>Todos os Status</option>
+                            <option>Ativo</option>
+                            <option>Inativo</option>
+                            <option>Suspenso</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Estatísticas de Usuários -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👨‍🎓</div>
+                        <span class="stat-number">1.189</span>
+                        <div class="stat-label">Alunos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">👨‍🏫</div>
+                        <span class="stat-number">45</span>
+                        <div class="stat-label">Instrutores</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">👨‍💼</div>
+                        <span class="stat-number">13</span>
+                        <div class="stat-label">Admins</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🆕</div>
+                        <span class="stat-number">28</span>
+                        <div class="stat-label">Novos (7 dias)</div>
+                    </div>
+                </div>
+                
+                <!-- Lista de Usuários -->
+                <div class="dashboard-list">
+                    <div class="dashboard-list-header">
+                        👥 Usuários Recentes
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">M</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">Maria Silva</div>
+                                <div class="list-item-subtitle">Aluna • maria@email.com • Ativo</div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="editUser('maria')">Editar</button>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">C</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">Carlos Mendes</div>
+                                <div class="list-item-subtitle">Instrutor • carlos@email.com • Ativo</div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="editUser('carlos')">Editar</button>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">J</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">João Santos</div>
+                                <div class="list-item-subtitle">Aluno • joao@email.com • Ativo</div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="editUser('joao')">Editar</button>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">A</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">Ana Costa</div>
+                                <div class="list-item-subtitle">Instrutora • ana@email.com • Suspenso</div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="editUser('ana')">Editar</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA CURSOS ===== -->
+            <div class="tab-content" id="courses">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Gerenciar Cursos</h3>
+                        <button class="dashboard-btn" onclick="createCourse()">➕ Novo Curso</button>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <!-- Curso Ativo -->
+                        <div style="border: 2px solid var(--primary-green); border-radius: 15px; padding: 1rem; background: rgba(107, 140, 121, 0.05);">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🐍</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Introdução ao Python</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Instrutor: João Silva • 45 alunos</p>
+                                </div>
+                                <span class="status-badge completed">Aprovado</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="viewCourse('python')">👁️ Ver</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="editCourse('python')">✏️ Editar</button>
+                                <button class="dashboard-btn danger" style="font-size: 0.8rem; padding: 0.5rem;" onclick="suspendCourse('python')">⏸️ Suspender</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso Pendente -->
+                        <div style="border: 2px solid var(--logo-orange); border-radius: 15px; padding: 1rem; background: rgba(169, 80, 40, 0.05);">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--logo-orange); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🤖</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Inteligência Artificial</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Instrutor: Carlos Mendes • Aguardando aprovação</p>
+                                </div>
+                                <span class="status-badge pending">Pendente</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn" style="font-size: 0.8rem; padding: 0.5rem;" onclick="approveCourse('ai')">✅ Aprovar</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="reviewCourse('ai')">👁️ Revisar</button>
+                                <button class="dashboard-btn danger" style="font-size: 0.8rem; padding: 0.5rem;" onclick="rejectCourse('ai')">❌ Rejeitar</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso Suspenso -->
+                        <div style="border: 2px solid var(--logo-red); border-radius: 15px; padding: 1rem; background: rgba(220, 53, 69, 0.05); opacity: 0.8;">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--logo-red); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">⚠️</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Curso Problemático</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Instrutor: Ana Costa • Violação de diretrizes</p>
+                                </div>
+                                <span class="status-badge danger">Suspenso</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn" style="font-size: 0.8rem; padding: 0.5rem;" onclick="reactivateCourse('problematic')">🔄 Reativar</button>
+                                <button class="dashboard-btn danger" style="font-size: 0.8rem; padding: 0.5rem;" onclick="deleteCourse('problematic')">🗑️ Excluir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Estatísticas de Cursos -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <span class="stat-number">23</span>
+                        <div class="stat-label">Cursos Ativos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <span class="stat-number">5</span>
+                        <div class="stat-label">Pendentes</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⏸️</div>
+                        <span class="stat-number">2</span>
+                        <div class="stat-label">Suspensos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <span class="stat-number">85%</span>
+                        <div class="stat-label">Taxa Aprovação</div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA CONTEÚDO ===== -->
+            <div class="tab-content" id="content">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Moderação de Conteúdo</h3>
+                        <div class="dashboard-card-icon">🛡️</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <!-- Conteúdo Reportado -->
+                        <div style="border: 2px solid var(--logo-red); border-radius: 15px; padding: 1rem; background: rgba(220, 53, 69, 0.05);">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--logo-red); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">⚠️</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Vídeo Reportado</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Conteúdo inapropriado • 3 denúncias</p>
+                                </div>
+                                <span class="status-badge danger">Urgente</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn" style="font-size: 0.8rem; padding: 0.5rem;" onclick="reviewContent('video1')">👁️ Revisar</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="approveContent('video1')">✅ Aprovar</button>
+                                <button class="dashboard-btn danger" style="font-size: 0.8rem; padding: 0.5rem;" onclick="removeContent('video1')">🗑️ Remover</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Conteúdo Pendente -->
+                        <div style="border: 2px solid var(--logo-orange); border-radius: 15px; padding: 1rem; background: rgba(169, 80, 40, 0.05);">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--logo-orange); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">📹</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Novo Vídeo Enviado</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Aguardando moderação • Carlos Mendes</p>
+                                </div>
+                                <span class="status-badge pending">Pendente</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn" style="font-size: 0.8rem; padding: 0.5rem;" onclick="approveContent('video2')">✅ Aprovar</button>
+                                <button class="dashboard-btn danger" style="font-size: 0.8rem; padding: 0.5rem;" onclick="rejectContent('video2')">❌ Rejeitar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Estatísticas de Moderação -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📹</div>
+                        <span class="stat-number">1.456</span>
+                        <div class="stat-label">Vídeos Totais</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <span class="stat-number">12</span>
+                        <div class="stat-label">Pendentes</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⚠️</div>
+                        <span class="stat-number">3</span>
+                        <div class="stat-label">Reportados</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <span class="stat-number">98%</span>
+                        <div class="stat-label">Taxa Aprovação</div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA FINANCEIRO ===== -->
+            <div class="tab-content" id="financial">
+                
+                <!-- Receita Total -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Receita Mensal</h3>
+                        <div class="dashboard-card-icon">💰</div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary-purple); margin-bottom: 0.5rem;">R$ 45.200</div>
+                        <p style="color: var(--primary-green); font-weight: 600;">+18% em relação ao mês anterior</p>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">💳 Vendas de Cursos</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">R$ 38.450</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">📚 Assinaturas</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">R$ 6.750</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">👨‍🏫 Comissões Pagas</span>
+                            <span style="color: var(--logo-red); font-weight: 600;">- R$ 15.380</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--primary-green); color: white; border-radius: 12px;">
+                            <span style="font-weight: 600;">💰 Lucro Líquido</span>
+                            <span style="font-weight: 600;">R$ 29.820</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transações Recentes -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Transações Recentes</h3>
+                        <div class="dashboard-card-icon">💳</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">💰</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Venda de Curso</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">Python Básico • Maria Silva</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 600; color: var(--primary-green);">+ R$ 197,00</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-medium);">2h atrás</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">💸</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Comissão Paga</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">João Silva • Instrutor</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 600; color: var(--logo-red);">- R$ 1.200,00</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-medium);">4h atrás</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">💰</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Assinatura Renovada</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">Plano Premium • Carlos Mendes</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 600; color: var(--primary-green);">+ R$ 97,00</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-medium);">1 dia atrás</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Estatísticas Financeiras -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <span class="stat-number">R$ 45.2k</span>
+                        <div class="stat-label">Receita Mensal</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <span class="stat-number">+18%</span>
+                        <div class="stat-label">Crescimento</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">💳</div>
+                        <span class="stat-number">342</span>
+                        <div class="stat-label">Transações</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">💎</div>
+                        <span class="stat-number">R$ 29.8k</span>
+                        <div class="stat-label">Lucro Líquido</div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA SISTEMA ===== -->
+            <div class="tab-content" id="system">
+                
+                <!-- Configurações do Sistema -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Configurações Gerais</h3>
+                        <div class="dashboard-card-icon">⚙️</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🔧 Modo Manutenção</span>
+                            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                                <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--gray-medium); border-radius: 24px; transition: 0.4s;"></span>
+                                <span style="position: absolute; content: ''; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.4s;"></span>
+                            </label>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">📧 Notificações por E-mail</span>
+                            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                                <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--primary-purple); border-radius: 24px; transition: 0.4s;"></span>
+                                <span style="position: absolute; content: ''; height: 18px; width: 18px; right: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.4s;"></span>
+                            </label>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">💾 Backup Automático</span>
+                            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                                <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--primary-purple); border-radius: 24px; transition: 0.4s;"></span>
+                                <span style="position: absolute; content: ''; height: 18px; width: 18px; right: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.4s;"></span>
+                            </label>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🔒 Autenticação 2FA</span>
+                            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                                <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--primary-purple); border-radius: 24px; transition: 0.4s;"></span>
+                                <span style="position: absolute; content: ''; height: 18px; width: 18px; right: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.4s;"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ações do Sistema -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Ações do Sistema</h3>
+                        <div class="dashboard-card-icon">🛠️</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <button class="dashboard-btn" onclick="systemBackup()">
+                            💾 Fazer Backup Completo
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="clearCache()">
+                            🗑️ Limpar Cache do Sistema
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="exportData()">
+                            📊 Exportar Dados
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="viewLogs()">
+                            📋 Visualizar Logs
+                        </button>
+                        
+                        <button class="dashboard-btn danger" onclick="resetSystem()">
+                            🔄 Reiniciar Sistema
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Informações do Sistema -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Informações do Sistema</h3>
+                        <div class="dashboard-card-icon">ℹ️</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">📱 Versão do Sistema</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">v2.1.4</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🖥️ Servidor</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">AWS EC2</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">💾 Banco de Dados</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">PostgreSQL 14</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">📅 Último Backup</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">Hoje, 03:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    
+    <script>
+        // ===== SISTEMA DE AUTENTICAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se está logado
+            const isLoggedIn = localStorage.getItem('instituto_buriti_logged_in');
+            const userType = localStorage.getItem('instituto_buriti_user_type');
+            const userEmail = localStorage.getItem('instituto_buriti_user_email');
+            
+            if (isLoggedIn !== 'true' || userType !== 'admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Configurar informações do usuário
+            const userName = userEmail ? userEmail.split('@')[0] : 'Admin';
+            document.getElementById('userName').textContent = userName.charAt(0).toUpperCase() + userName.slice(1);
+            document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+        });
+        
+        // ===== NAVEGAÇÃO ENTRE ABAS =====
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Remover classe active de todas as abas
+                navTabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Adicionar classe active na aba clicada
+                this.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+        
+        // ===== FUNÇÕES DO DASHBOARD ADMIN =====
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem('instituto_buriti_logged_in');
+                localStorage.removeItem('instituto_buriti_user_type');
+                localStorage.removeItem('instituto_buriti_user_email');
+                localStorage.removeItem('instituto_buriti_login_time');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // Funções de Usuários
+        function createUser() {
+            showNotification('Funcionalidade de criação de usuário em desenvolvimento!', 'info');
+        }
+        
+        function editUser(userId) {
+            showNotification(`Editando usuário: ${userId}`, 'info');
+        }
+        
+        // Funções de Cursos
+        function createCourse() {
+            showNotification('Funcionalidade de criação de curso em desenvolvimento!', 'info');
+        }
+        
+        function viewCourse(courseId) {
+            showNotification(`Visualizando curso: ${courseId}`, 'info');
+        }
+        
+        function editCourse(courseId) {
+            showNotification(`Editando curso: ${courseId}`, 'info');
+        }
+        
+        function suspendCourse(courseId) {
+            if (confirm('Tem certeza que deseja suspender este curso?')) {
+                showNotification(`Curso ${courseId} suspenso!`, 'warning');
+            }
+        }
+        
+        function approveCourse(courseId) {
+            if (confirm('Aprovar este curso?')) {
+                showNotification(`Curso ${courseId} aprovado!`, 'success');
+            }
+        }
+        
+        function reviewCourse(courseId) {
+            showNotification(`Revisando curso: ${courseId}`, 'info');
+        }
+        
+        function rejectCourse(courseId) {
+            if (confirm('Tem certeza que deseja rejeitar este curso?')) {
+                showNotification(`Curso ${courseId} rejeitado!`, 'error');
+            }
+        }
+        
+        function reactivateCourse(courseId) {
+            if (confirm('Reativar este curso?')) {
+                showNotification(`Curso ${courseId} reativado!`, 'success');
+            }
+        }
+        
+        function deleteCourse(courseId) {
+            if (confirm('ATENÇÃO: Esta ação é irreversível. Excluir curso permanentemente?')) {
+                showNotification(`Curso ${courseId} excluído permanentemente!`, 'error');
+            }
+        }
+        
+        // Funções de Conteúdo
+        function moderateContent() {
+            showNotification('Abrindo painel de moderação...', 'info');
+        }
+        
+        function reviewContent(contentId) {
+            showNotification(`Revisando conteúdo: ${contentId}`, 'info');
+        }
+        
+        function approveContent(contentId) {
+            if (confirm('Aprovar este conteúdo?')) {
+                showNotification(`Conteúdo ${contentId} aprovado!`, 'success');
+            }
+        }
+        
+        function removeContent(contentId) {
+            if (confirm('Remover este conteúdo?')) {
+                showNotification(`Conteúdo ${contentId} removido!`, 'warning');
+            }
+        }
+        
+        function rejectContent(contentId) {
+            if (confirm('Rejeitar este conteúdo?')) {
+                showNotification(`Conteúdo ${contentId} rejeitado!`, 'error');
+            }
+        }
+        
+        // Funções do Sistema
+        function viewReports() {
+            showNotification('Abrindo relatórios detalhados...', 'info');
+        }
+        
+        function systemBackup() {
+            if (confirm('Iniciar backup completo do sistema?')) {
+                showNotification('Backup iniciado! Isso pode levar alguns minutos...', 'info');
+            }
+        }
+        
+        function clearCache() {
+            if (confirm('Limpar cache do sistema?')) {
+                showNotification('Cache limpo com sucesso!', 'success');
+            }
+        }
+        
+        function exportData() {
+            showNotification('Preparando exportação de dados...', 'info');
+        }
+        
+        function viewLogs() {
+            showNotification('Abrindo logs do sistema...', 'info');
+        }
+        
+        function resetSystem() {
+            if (confirm('ATENÇÃO: Reiniciar o sistema afetará todos os usuários. Continuar?')) {
+                showNotification('Sistema será reiniciado em 30 segundos...', 'warning');
+            }
+        }
+        
+        // ===== ANIMAÇÕES E EFEITOS =====
+        
+        // Animação de entrada das estatísticas
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const finalValue = stat.textContent;
+            stat.textContent = '0';
+            
+            setTimeout(() => {
+                animateNumber(stat, finalValue);
+            }, 500);
+        });
+        
+        function animateNumber(element, finalValue) {
+            const isPercentage = finalValue.includes('%');
+            const isMoney = finalValue.includes('R$');
+            const isDecimal = finalValue.includes('.');
+            const isK = finalValue.includes('k');
+            
+            let numericValue;
+            if (isMoney) {
+                if (isK) {
+                    numericValue = parseFloat(finalValue.replace(/[^\d.]/g, '')) * 1000;
+                } else {
+                    numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
+                }
+            } else if (isDecimal) {
+                numericValue = parseFloat(finalValue.replace(/[^\d.]/g, ''));
+            } else {
+                numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
+            }
+            
+            let currentValue = 0;
+            const increment = isMoney ? Math.ceil(numericValue / 50) : Math.ceil(numericValue / 30);
+            
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= numericValue) {
+                    currentValue = numericValue;
+                    clearInterval(timer);
+                }
+                
+                if (isMoney) {
+                    if (isK) {
+                        element.textContent = `R$ ${(currentValue / 1000).toFixed(1)}k`;
+                    } else {
+                        element.textContent = `R$ ${currentValue.toLocaleString()}`;
+                    }
+                } else if (isPercentage) {
+                    element.textContent = '+' + currentValue + '%';
+                } else if (isDecimal) {
+                    element.textContent = (currentValue / 10).toFixed(1);
+                } else {
+                    element.textContent = currentValue.toLocaleString();
+                }
+            }, 50);
+        }
+        
+        // ===== PERSISTÊNCIA DE ESTADO =====
+        
+        // Salvar aba ativa
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                localStorage.setItem('admin_dashboard_active_tab', this.dataset.tab);
+            });
+        });
+        
+        // Restaurar aba ativa
+        const savedTab = localStorage.getItem('admin_dashboard_active_tab');
+        if (savedTab) {
+            const tabButton = document.querySelector(`[data-tab="${savedTab}"]`);
+            if (tabButton) {
+                tabButton.click();
+            }
+        }
+        
+        console.log('👨‍💼 Dashboard do Admin carregado com sucesso!');
+    </script>
+</body>
+</html>
+

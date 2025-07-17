@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Login - Instituto Buriti</title>
+    <meta name="description" content="Acesse sua conta no Instituto Buriti e continue sua jornada de aprendizado.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/dashboard-mobile.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE (IDÊNTICO À HOME) ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE (IDÊNTICO À HOME) ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="quem-somos.html" class="mobile-nav-link">👥 Quem Somos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="cursos.html" class="mobile-nav-link">📚 Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="seja-instrutor.html" class="mobile-nav-link">🎓 Seja um Instrutor</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contato.html" class="mobile-nav-link">📞 Contato</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">🔐 Login</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="mobile-menu-overlay"></div>
+    
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-mobile">
+        <div class="container">
+            <h1 class="hero-title">Acesse sua Conta</h1>
+            <p class="hero-subtitle">Entre na sua conta e continue sua jornada de aprendizado no Instituto Buriti</p>
+        </div>
+    </section>
+    
+    <!-- ===== FORMULÁRIO DE LOGIN ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="card-mobile" style="max-width: 400px; margin: 0 auto;">
+                <div class="text-center mb-3">
+                    <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" style="width: 80px; height: 80px; margin-bottom: 1rem;">
+                    <h2>Bem-vindo de volta!</h2>
+                    <p style="color: var(--gray-medium);">Faça login para acessar seus cursos</p>
+                </div>
+                
+                <form id="loginForm">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">E-mail</label>
+                        <input type="email" id="email" name="email" required style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="password" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Senha</label>
+                        <div style="position: relative;">
+                            <input type="password" id="password" name="password" required style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; padding-right: 3rem;">
+                            <button type="button" id="togglePassword" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gray-medium); cursor: pointer; font-size: 1.2rem;">👁️</button>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="rememberMe" style="margin-right: 0.5rem; transform: scale(1.2);">
+                            <span style="font-size: 0.9rem;">Manter-me conectado</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-mobile" style="width: 100%; margin-bottom: 1rem;">Entrar</button>
+                    
+                    <div class="text-center">
+                        <a href="#" style="color: var(--primary-purple); text-decoration: none; font-size: 0.9rem;" onclick="showForgotPassword()">Esqueci minha senha</a>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Seletor de Tipo de Usuário -->
+            <div class="card-mobile" style="max-width: 400px; margin: 2rem auto 0;">
+                <h3 class="text-center mb-3">Tipo de Acesso</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                    <button class="user-type-btn active" data-type="aluno">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">👨‍🎓</div>
+                        <div style="font-size: 0.8rem;">Aluno</div>
+                    </button>
+                    <button class="user-type-btn" data-type="instrutor">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">👨‍🏫</div>
+                        <div style="font-size: 0.8rem;">Instrutor</div>
+                    </button>
+                    <button class="user-type-btn" data-type="admin">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">👨‍💼</div>
+                        <div style="font-size: 0.8rem;">Admin</div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Contas de Demonstração -->
+            <div class="card-mobile" style="max-width: 400px; margin: 2rem auto 0;">
+                <h3 class="text-center mb-3">Contas de Demonstração</h3>
+                <p class="text-center mb-3" style="font-size: 0.9rem; color: var(--gray-medium);">Use estas contas para testar o sistema</p>
+                
+                <div style="display: grid; gap: 1rem;">
+                    <button class="demo-account-btn" data-email="aluno@demo.com" data-password="123456" data-type="aluno">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">👨‍🎓</div>
+                            <div style="text-align: left;">
+                                <div style="font-weight: 600;">Conta de Aluno</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-medium);">aluno@demo.com</div>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <button class="demo-account-btn" data-email="instrutor@demo.com" data-password="123456" data-type="instrutor">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">👨‍🏫</div>
+                            <div style="text-align: left;">
+                                <div style="font-weight: 600;">Conta de Instrutor</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-medium);">instrutor@demo.com</div>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <button class="demo-account-btn" data-email="admin@demo.com" data-password="123456" data-type="admin">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">👨‍💼</div>
+                            <div style="text-align: left;">
+                                <div style="font-weight: 600;">Conta de Admin</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-medium);">admin@demo.com</div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Cadastro -->
+            <div class="text-center mt-4">
+                <p style="color: var(--gray-medium);">Ainda não tem uma conta?</p>
+                <a href="#" class="btn-mobile" style="background: var(--gradient-secondary); margin-top: 1rem;" onclick="showRegister()">Criar Conta</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== MODAL ESQUECI SENHA ===== -->
+    <div class="modal-overlay" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Recuperar Senha</h3>
+                <button class="modal-close" onclick="closeForgotPassword()">×</button>
+            </div>
+            <form id="forgotPasswordForm">
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="forgotEmail" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">E-mail</label>
+                    <input type="email" id="forgotEmail" required style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem;">
+                </div>
+                <button type="submit" class="btn-mobile" style="width: 100%;">Enviar Link de Recuperação</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- ===== FOOTER MOBILE (IDÊNTICO À HOME) ===== -->
+    <footer class="footer-mobile">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Instituto Buriti</h3>
+                    <p>Transformando vidas através da educação de qualidade e eventos culturais que celebram o conhecimento.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <p><a href="../index.html">Home</a></p>
+                    <p><a href="quem-somos.html">Quem Somos</a></p>
+                    <p><a href="cursos.html">Cursos</a></p>
+                    <p><a href="contato.html">Contato</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📧 institutoburiti@gmail.com</p>
+                    <p>📱 (86) 98170-8388</p>
+                    <p>📍 Teresina, Piauí</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Redes Sociais</h3>
+                    <p><a href="#">Facebook</a></p>
+                    <p><a href="#">Instagram</a></p>
+                    <p><a href="#">LinkedIn</a></p>
+                    <p><a href="#">YouTube</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    <script src="../js/api-client.js"></script>
+    <script src="../js/login-integration.js"></script>
+    
+    <style>
+        .user-type-btn {
+            background: var(--gray-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: var(--gray-medium);
+        }
+        
+        .user-type-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary-purple);
+        }
+        
+        .user-type-btn:hover:not(.active) {
+            background: var(--beige-light);
+            color: var(--gray-dark);
+        }
+        
+        .demo-account-btn {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .demo-account-btn:hover {
+            border-color: var(--primary-purple);
+            background: var(--gray-light);
+        }
+    </style>
+    
+    <script>
+        // ===== SISTEMA DE LOGIN COM PERSISTÊNCIA =====
+        
+        // Verificar se já está logado
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('instituto_buriti_logged_in');
+            const userType = localStorage.getItem('instituto_buriti_user_type');
+            
+            if (isLoggedIn === 'true' && userType) {
+                // Redirecionar para dashboard apropriado
+                redirectToDashboard(userType);
+            }
+        });
+        
+        // Seleção de tipo de usuário
+        const userTypeButtons = document.querySelectorAll('.user-type-btn');
+        let selectedUserType = 'aluno';
+        
+        userTypeButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                userTypeButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedUserType = this.dataset.type;
+            });
+        });
+        
+        // Contas de demonstração
+        const demoButtons = document.querySelectorAll('.demo-account-btn');
+        demoButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const email = this.dataset.email;
+                const password = this.dataset.password;
+                const type = this.dataset.type;
+                
+                // Preencher formulário
+                document.getElementById('email').value = email;
+                document.getElementById('password').value = password;
+                
+                // Selecionar tipo de usuário
+                userTypeButtons.forEach(b => b.classList.remove('active'));
+                document.querySelector(`[data-type="${type}"]`).classList.add('active');
+                selectedUserType = type;
+                
+                // Fazer login automaticamente
+                performLogin(email, password, type);
+            });
+        });
+        
+        // Toggle senha
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+        
+        // Formulário de login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            performLogin(email, password, selectedUserType, rememberMe);
+        });
+        
+        function performLogin(email, password, userType, rememberMe = true) {
+            const submitBtn = document.querySelector('#loginForm button[type="submit"]');
+            submitBtn.textContent = 'Entrando...';
+            submitBtn.disabled = true;
+            
+            // Simular autenticação
+            setTimeout(() => {
+                // Validação simples para demonstração
+                const validCredentials = [
+                    { email: 'aluno@demo.com', password: '123456', type: 'aluno' },
+                    { email: 'instrutor@demo.com', password: '123456', type: 'instrutor' },
+                    { email: 'admin@demo.com', password: '123456', type: 'admin' }
+                ];
+                
+                const isValid = validCredentials.some(cred => 
+                    cred.email === email && cred.password === password && cred.type === userType
+                );
+                
+                if (isValid || email.includes('@') && password.length >= 6) {
+                    // Login bem-sucedido
+                    if (rememberMe) {
+                        localStorage.setItem('instituto_buriti_logged_in', 'true');
+                        localStorage.setItem('instituto_buriti_user_type', userType);
+                        localStorage.setItem('instituto_buriti_user_email', email);
+                        localStorage.setItem('instituto_buriti_login_time', new Date().toISOString());
+                    }
+                    
+                    showNotification('Login realizado com sucesso!', 'success');
+                    
+                    setTimeout(() => {
+                        redirectToDashboard(userType);
+                    }, 1000);
+                } else {
+                    showNotification('E-mail ou senha incorretos!', 'error');
+                    submitBtn.textContent = 'Entrar';
+                    submitBtn.disabled = false;
+                }
+            }, 1500);
+        }
+        
+        function redirectToDashboard(userType) {
+            switch(userType) {
+                case 'aluno':
+                    window.location.href = 'dashboard-aluno.html';
+                    break;
+                case 'instrutor':
+                    window.location.href = 'dashboard-instrutor.html';
+                    break;
+                case 'admin':
+                    window.location.href = 'dashboard-admin.html';
+                    break;
+                default:
+                    window.location.href = 'dashboard-aluno.html';
+            }
+        }
+        
+        // Modal esqueci senha
+        function showForgotPassword() {
+            document.getElementById('forgotPasswordModal').classList.add('active');
+        }
+        
+        function closeForgotPassword() {
+            document.getElementById('forgotPasswordModal').classList.remove('active');
+        }
+        
+        // Formulário esqueci senha
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('forgotEmail').value;
+            
+            // Simular envio
+            setTimeout(() => {
+                showNotification('Link de recuperação enviado para seu e-mail!', 'success');
+                closeForgotPassword();
+                this.reset();
+            }, 1000);
+        });
+        
+        function showRegister() {
+            showNotification('Funcionalidade de cadastro em desenvolvimento!', 'info');
+        }
+        
+        // Fechar modal ao clicar fora
+        document.getElementById('forgotPasswordModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeForgotPassword();
+            }
+        });
+    </script>
+</body>
+</html>
+

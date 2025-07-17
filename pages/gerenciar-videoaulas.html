@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Gerenciar Videoaulas - Instituto Buriti</title>
+    <meta name="description" content="Interface para instrutores gerenciarem videoaulas do YouTube no Instituto Buriti">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/video-management.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="quem-somos.html" class="mobile-nav-link">👥 Quem Somos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="cursos.html" class="mobile-nav-link">📚 Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="meus-cursos.html" class="mobile-nav-link">📖 Meus Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="chat.html" class="mobile-nav-link">💬 Chat</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="certificados.html" class="mobile-nav-link">🏆 Certificados</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="ranking.html" class="mobile-nav-link">🥇 Ranking</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="seja-instrutor.html" class="mobile-nav-link active">🎓 Área do Instrutor</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contato.html" class="mobile-nav-link">📞 Contato</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="#" onclick="logout()" class="mobile-nav-link">🚪 Sair</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="dashboard-instrutor.html">Dashboard Instrutor</a> > 
+            <span>Gerenciar Videoaulas</span>
+        </div>
+
+        <!-- Cabeçalho da Página -->
+        <div class="page-header">
+            <h1>📹 Gerenciar Videoaulas</h1>
+            <p>Adicione e organize vídeos do YouTube para seus cursos</p>
+        </div>
+
+        <!-- Seletor de Curso -->
+        <div class="course-selector">
+            <label for="courseSelect">Selecione o Curso:</label>
+            <select id="courseSelect" class="course-select">
+                <option value="">Escolha um curso...</option>
+                <option value="course-1">Curso de Desenvolvimento Web</option>
+                <option value="course-2">Curso de Marketing Digital</option>
+                <option value="course-3">Curso de Design Gráfico</option>
+            </select>
+        </div>
+
+        <!-- Formulário de Adição de Videoaula -->
+        <div class="video-form-container">
+            <h2>➕ Adicionar Nova Videoaula</h2>
+            
+            <form id="videoForm" class="video-form">
+                <div class="form-group">
+                    <label for="videoTitle">Título da Aula:</label>
+                    <input type="text" id="videoTitle" name="videoTitle" required 
+                           placeholder="Ex: Introdução ao HTML">
+                </div>
+
+                <div class="form-group">
+                    <label for="videoDescription">Descrição:</label>
+                    <textarea id="videoDescription" name="videoDescription" 
+                              placeholder="Descreva o conteúdo da aula..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="youtubeUrl">URL do YouTube:</label>
+                        <input type="url" id="youtubeUrl" name="youtubeUrl" required 
+                               placeholder="https://www.youtube.com/watch?v=...">
+                        <small>Cole a URL completa do vídeo no YouTube</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="videoOrder">Ordem na Playlist:</label>
+                        <input type="number" id="videoOrder" name="videoOrder" min="1" 
+                               placeholder="1">
+                        <small>Posição da aula no curso</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="moduleSelect">Módulo:</label>
+                        <select id="moduleSelect" name="moduleSelect">
+                            <option value="">Selecione um módulo...</option>
+                            <option value="module-1">Módulo 1: Fundamentos</option>
+                            <option value="module-2">Módulo 2: Intermediário</option>
+                            <option value="module-3">Módulo 3: Avançado</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="videoDuration">Duração (minutos):</label>
+                        <input type="number" id="videoDuration" name="videoDuration" min="1" 
+                               placeholder="15">
+                        <small>Duração aproximada em minutos</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="videoPublished" name="videoPublished">
+                        <span class="checkmark"></span>
+                        Publicar aula imediatamente
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="previewBtn" class="btn-secondary">
+                        👁️ Visualizar Vídeo
+                    </button>
+                    <button type="submit" class="btn-primary">
+                        💾 Salvar Videoaula
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Preview do Vídeo -->
+        <div class="video-preview" id="videoPreview" style="display: none;">
+            <h3>📺 Preview do Vídeo</h3>
+            <div class="preview-container">
+                <div id="previewPlayer"></div>
+                <div class="preview-info">
+                    <h4 id="previewTitle">Título do Vídeo</h4>
+                    <p id="previewDescription">Descrição do vídeo...</p>
+                    <div class="preview-meta">
+                        <span id="previewDuration">Duração: --:--</span>
+                        <span id="previewViews">Visualizações: --</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Videoaulas Existentes -->
+        <div class="videos-list-container">
+            <h2>📚 Videoaulas do Curso</h2>
+            
+            <div class="list-controls">
+                <div class="search-box">
+                    <input type="text" id="searchVideos" placeholder="Buscar videoaulas...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                
+                <div class="filter-controls">
+                    <select id="moduleFilter">
+                        <option value="">Todos os módulos</option>
+                        <option value="module-1">Módulo 1</option>
+                        <option value="module-2">Módulo 2</option>
+                        <option value="module-3">Módulo 3</option>
+                    </select>
+                    
+                    <select id="statusFilter">
+                        <option value="">Todos os status</option>
+                        <option value="published">Publicadas</option>
+                        <option value="draft">Rascunhos</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="videos-list" id="videosList">
+                <!-- Lista será carregada dinamicamente -->
+            </div>
+        </div>
+
+        <!-- Modal de Edição -->
+        <div class="modal" id="editModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>✏️ Editar Videoaula</h3>
+                    <button class="modal-close" id="closeEditModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="editVideoForm">
+                        <!-- Campos similares ao formulário de adição -->
+                        <div class="form-group">
+                            <label for="editVideoTitle">Título da Aula:</label>
+                            <input type="text" id="editVideoTitle" name="editVideoTitle" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editVideoDescription">Descrição:</label>
+                            <textarea id="editVideoDescription" name="editVideoDescription"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editVideoOrder">Ordem:</label>
+                                <input type="number" id="editVideoOrder" name="editVideoOrder" min="1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="editModuleSelect">Módulo:</label>
+                                <select id="editModuleSelect" name="editModuleSelect">
+                                    <option value="module-1">Módulo 1</option>
+                                    <option value="module-2">Módulo 2</option>
+                                    <option value="module-3">Módulo 3</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="editVideoPublished" name="editVideoPublished">
+                                <span class="checkmark"></span>
+                                Aula publicada
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelEdit">Cancelar</button>
+                    <button type="button" class="btn-primary" id="saveEdit">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmação de Exclusão -->
+        <div class="modal" id="deleteModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🗑️ Confirmar Exclusão</h3>
+                    <button class="modal-close" id="closeDeleteModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir esta videoaula?</p>
+                    <p><strong id="deleteVideoTitle"></strong></p>
+                    <p class="warning">⚠️ Esta ação não pode ser desfeita.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelDelete">Cancelar</button>
+                    <button type="button" class="btn-danger" id="confirmDelete">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- YouTube Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
+    <!-- Scripts -->
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/video-management.js"></script>
+    
+    <script>
+        // Inicializar quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeVideoManagement();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Quiz - Instituto Buriti</title>
+    <meta name="description" content="Faça quizzes e avaliações dos cursos do Instituto Buriti">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/quiz-student.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="quem-somos.html" class="mobile-nav-link">👥 Quem Somos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="cursos.html" class="mobile-nav-link">📚 Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="meus-cursos.html" class="mobile-nav-link">📖 Meus Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="chat.html" class="mobile-nav-link">💬 Chat</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="certificados.html" class="mobile-nav-link">🏆 Certificados</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="ranking.html" class="mobile-nav-link">🥇 Ranking</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contato.html" class="mobile-nav-link">📞 Contato</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="#" onclick="logout()" class="mobile-nav-link">🚪 Sair</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="meus-cursos.html">Meus Cursos</a> > 
+            <a href="curso-player.html" id="courseBreadcrumb">Curso</a> > 
+            <span id="quizBreadcrumb">Quiz</span>
+        </div>
+
+        <!-- Container do Quiz -->
+        <div class="quiz-container" id="quizContainer">
+            
+            <!-- Tela de Início do Quiz -->
+            <div class="quiz-start-screen" id="quizStartScreen">
+                <div class="quiz-header">
+                    <h1 id="quizTitle">Carregando quiz...</h1>
+                    <div class="quiz-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📝</span>
+                            <span id="questionCount">-- questões</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">⏱️</span>
+                            <span id="timeLimit">-- minutos</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🎯</span>
+                            <span id="passingScore">--% para aprovação</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-description">
+                    <h3>📋 Instruções</h3>
+                    <div class="instructions" id="quizInstructions">
+                        <p>Carregando instruções...</p>
+                    </div>
+                </div>
+
+                <div class="quiz-attempts">
+                    <h3>📊 Suas Tentativas</h3>
+                    <div class="attempts-list" id="attemptsList">
+                        <!-- Tentativas serão carregadas aqui -->
+                    </div>
+                </div>
+
+                <div class="quiz-actions">
+                    <button id="startQuizBtn" class="btn-primary quiz-start-btn">
+                        🚀 Iniciar Quiz
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tela do Quiz em Andamento -->
+            <div class="quiz-active-screen" id="quizActiveScreen" style="display: none;">
+                
+                <!-- Cabeçalho do Quiz Ativo -->
+                <div class="quiz-progress-header">
+                    <div class="progress-info">
+                        <div class="question-counter">
+                            <span>Questão <span id="currentQuestionNum">1</span> de <span id="totalQuestions">10</span></span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="time-remaining" id="timeRemaining">
+                            <span class="timer-icon">⏱️</span>
+                            <span id="timerDisplay">15:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Container da Questão -->
+                <div class="question-container" id="questionContainer">
+                    
+                    <!-- Questão Atual -->
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-type" id="questionType">Múltipla Escolha</div>
+                            <div class="question-points" id="questionPoints">2 pontos</div>
+                        </div>
+                        
+                        <div class="question-content">
+                            <h2 class="question-text" id="questionText">
+                                Carregando questão...
+                            </h2>
+                            
+                            <!-- Imagem da questão (se houver) -->
+                            <div class="question-image" id="questionImageContainer" style="display: none;">
+                                <img id="questionImage" alt="Imagem da questão">
+                            </div>
+                        </div>
+
+                        <!-- Opções de Resposta -->
+                        <div class="answer-options" id="answerOptions">
+                            <!-- Opções serão carregadas dinamicamente -->
+                        </div>
+
+                        <!-- Área de Resposta Dissertativa -->
+                        <div class="essay-answer" id="essayAnswer" style="display: none;">
+                            <textarea id="essayText" placeholder="Digite sua resposta aqui..." maxlength="1000"></textarea>
+                            <div class="character-count">
+                                <span id="charCount">0</span>/1000 caracteres
+                            </div>
+                        </div>
+
+                        <!-- Área de Resposta Verdadeiro/Falso -->
+                        <div class="true-false-options" id="trueFalseOptions" style="display: none;">
+                            <div class="tf-option">
+                                <input type="radio" id="tfTrue" name="trueFalse" value="true">
+                                <label for="tfTrue" class="tf-label true-label">
+                                    <span class="tf-icon">✓</span>
+                                    <span class="tf-text">Verdadeiro</span>
+                                </label>
+                            </div>
+                            <div class="tf-option">
+                                <input type="radio" id="tfFalse" name="trueFalse" value="false">
+                                <label for="tfFalse" class="tf-label false-label">
+                                    <span class="tf-icon">✗</span>
+                                    <span class="tf-text">Falso</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navegação do Quiz -->
+                <div class="quiz-navigation">
+                    <button id="prevQuestionBtn" class="nav-btn prev-btn" disabled>
+                        ← Anterior
+                    </button>
+                    
+                    <div class="question-status">
+                        <span id="answeredCount">0</span> de <span id="totalQuestionsNav">10</span> respondidas
+                    </div>
+                    
+                    <button id="nextQuestionBtn" class="nav-btn next-btn">
+                        Próxima →
+                    </button>
+                    
+                    <button id="finishQuizBtn" class="nav-btn finish-btn" style="display: none;">
+                        ✓ Finalizar Quiz
+                    </button>
+                </div>
+
+                <!-- Mapa de Questões -->
+                <div class="question-map">
+                    <h4>📍 Navegação Rápida</h4>
+                    <div class="question-grid" id="questionGrid">
+                        <!-- Botões de navegação serão gerados aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tela de Resultado -->
+            <div class="quiz-result-screen" id="quizResultScreen" style="display: none;">
+                
+                <!-- Resultado Principal -->
+                <div class="result-header">
+                    <div class="result-status" id="resultStatus">
+                        <div class="status-icon" id="statusIcon">🎉</div>
+                        <div class="status-text" id="statusText">Parabéns!</div>
+                    </div>
+                    
+                    <div class="result-score">
+                        <div class="score-circle">
+                            <div class="score-value" id="finalScore">85%</div>
+                            <div class="score-label">Sua Nota</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estatísticas Detalhadas -->
+                <div class="result-stats">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="correctAnswers">8</div>
+                            <div class="stat-label">Corretas</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="incorrectAnswers">2</div>
+                            <div class="stat-label">Incorretas</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="timeSpent">12:34</div>
+                            <div class="stat-label">Tempo Gasto</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="attemptNumber">1ª</div>
+                            <div class="stat-label">Tentativa</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revisão das Questões -->
+                <div class="question-review">
+                    <h3>📝 Revisão das Questões</h3>
+                    <div class="review-list" id="reviewList">
+                        <!-- Revisão será carregada aqui -->
+                    </div>
+                </div>
+
+                <!-- Ações do Resultado -->
+                <div class="result-actions">
+                    <button id="reviewQuizBtn" class="btn-secondary">
+                        👁️ Revisar Respostas
+                    </button>
+                    <button id="retakeQuizBtn" class="btn-primary">
+                        🔄 Tentar Novamente
+                    </button>
+                    <button id="backToCourseBtn" class="btn-primary">
+                        📚 Voltar ao Curso
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal de Confirmação -->
+            <div class="modal" id="confirmModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modalTitle">Confirmar Ação</h3>
+                        <button class="modal-close" id="closeModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalMessage">Tem certeza que deseja realizar esta ação?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secondary" id="cancelAction">Cancelar</button>
+                        <button type="button" class="btn-primary" id="confirmAction">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/quiz-engine.js"></script>
+    <script src="../js/quiz-timer.js"></script>
+    <script src="../js/quiz-navigation.js"></script>
+    
+    <script>
+        // Inicializar quiz quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeQuiz();
+        });
+    </script>
+</body>
+</html>
+

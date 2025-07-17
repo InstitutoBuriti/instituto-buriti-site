@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dashboard do Instrutor - Instituto Buriti</title>
+    <meta name="description" content="Gerencie seus cursos e alunos no Instituto Buriti.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/dashboard-mobile.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER DASHBOARD ===== -->
+    <header class="dashboard-header">
+        <div class="dashboard-header-content">
+            <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="dashboard-logo">
+            <div class="dashboard-user-info">
+                <div class="user-avatar" id="userAvatar">I</div>
+                <div class="user-name" id="userName">Instrutor Demo</div>
+                <button class="logout-btn" onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- ===== CONTAINER DASHBOARD ===== -->
+    <div class="dashboard-container">
+        
+        <!-- ===== NAVEGAÇÃO DASHBOARD ===== -->
+        <nav class="dashboard-nav">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="overview">📊 Visão Geral</button>
+                <button class="nav-tab" data-tab="courses">📚 Meus Cursos</button>
+                <button class="nav-tab" data-tab="students">👥 Alunos</button>
+                <button class="nav-tab" data-tab="content">🎬 Conteúdo</button>
+                <button class="nav-tab" data-tab="analytics">📈 Relatórios</button>
+                <button class="nav-tab" data-tab="profile">👤 Perfil</button>
+            </div>
+        </nav>
+        
+        <!-- ===== CONTEÚDO DASHBOARD ===== -->
+        <div id="dashboard-content">
+            
+            <!-- ===== ABA VISÃO GERAL ===== -->
+            <div class="tab-content active" id="overview">
+                
+                <!-- Estatísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <span class="stat-number">5</span>
+                        <div class="stat-label">Cursos Ativos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <span class="stat-number">127</span>
+                        <div class="stat-label">Alunos Totais</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <span class="stat-number">R$ 2.450</span>
+                        <div class="stat-label">Receita Mensal</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <span class="stat-number">4.8</span>
+                        <div class="stat-label">Avaliação Média</div>
+                    </div>
+                </div>
+                
+                <!-- Resumo de Atividades -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Atividades Recentes</h3>
+                        <div class="dashboard-card-icon">🔔</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">👤</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Novo aluno matriculado</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">Maria Silva - Python Básico</div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--gray-medium);">2h atrás</div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">⭐</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Nova avaliação recebida</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">5 estrelas - Design Gráfico</div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--gray-medium);">4h atrás</div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">💰</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Pagamento recebido</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">R$ 197,00 - Marketing Digital</div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--gray-medium);">1 dia atrás</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cursos com Melhor Performance -->
+                <div class="dashboard-list">
+                    <div class="dashboard-list-header">
+                        🏆 Cursos com Melhor Performance
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div class="list-item-content">
+                            <div class="list-item-title">Introdução ao Python</div>
+                            <div class="list-item-subtitle">45 alunos • 4.9⭐ • R$ 1.200/mês</div>
+                        </div>
+                        <span class="status-badge completed">Top #1</span>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div class="list-item-content">
+                            <div class="list-item-title">Design Gráfico Básico</div>
+                            <div class="list-item-subtitle">32 alunos • 4.7⭐ • R$ 890/mês</div>
+                        </div>
+                        <span class="status-badge active">Top #2</span>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div class="list-item-content">
+                            <div class="list-item-title">Marketing Digital</div>
+                            <div class="list-item-subtitle">28 alunos • 4.6⭐ • R$ 650/mês</div>
+                        </div>
+                        <span class="status-badge in-progress">Top #3</span>
+                    </div>
+                </div>
+                
+                <!-- Ações Rápidas -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Ações Rápidas</h3>
+                        <div class="dashboard-card-icon">⚡</div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <button class="dashboard-btn" onclick="createNewCourse()">
+                            <span>➕</span>
+                            Novo Curso
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="uploadContent()">
+                            <span>📹</span>
+                            Upload Vídeo
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="viewMessages()">
+                            <span>💬</span>
+                            Mensagens
+                        </button>
+                        
+                        <button class="dashboard-btn secondary" onclick="viewEarnings()">
+                            <span>💰</span>
+                            Ganhos
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA MEUS CURSOS ===== -->
+            <div class="tab-content" id="courses">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Gerenciar Cursos</h3>
+                        <button class="dashboard-btn" onclick="createNewCourse()">➕ Novo Curso</button>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <!-- Curso 1 -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--primary-purple)'" onmouseout="this.style.borderColor='var(--gray-light)'">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🐍</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Introdução ao Python</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">45 alunos • 4.9⭐ • R$ 197,00</p>
+                                </div>
+                                <span class="status-badge active">Ativo</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+                                <div style="text-align: center; padding: 0.5rem; background: var(--gray-light); border-radius: 8px;">
+                                    <div style="font-weight: 600; color: var(--primary-purple);">45</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray-medium);">Alunos</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem; background: var(--gray-light); border-radius: 8px;">
+                                    <div style="font-weight: 600; color: var(--primary-purple);">4.9</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray-medium);">Avaliação</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem; background: var(--gray-light); border-radius: 8px;">
+                                    <div style="font-weight: 600; color: var(--primary-purple);">R$ 1.2k</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray-medium);">Receita</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn" style="font-size: 0.8rem; padding: 0.5rem;" onclick="editCourse('python')">✏️ Editar</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="viewStudents('python')">👥 Alunos</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="viewAnalytics('python')">📊 Stats</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso 2 -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--primary-purple)'" onmouseout="this.style.borderColor='var(--gray-light)'">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--gradient-secondary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🎨</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Design Gráfico Básico</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">32 alunos • 4.7⭐ • R$ 147,00</p>
+                                </div>
+                                <span class="status-badge active">Ativo</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+                                <div style="text-align: center; padding: 0.5rem; background: var(--gray-light); border-radius: 8px;">
+                                    <div style="font-weight: 600; color: var(--primary-purple);">32</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray-medium);">Alunos</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem; background: var(--gray-light); border-radius: 8px;">
+                                    <div style="font-weight: 600; color: var(--primary-purple);">4.7</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray-medium);">Avaliação</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem; background: var(--gray-light); border-radius: 8px;">
+                                    <div style="font-weight: 600; color: var(--primary-purple);">R$ 890</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray-medium);">Receita</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn" style="font-size: 0.8rem; padding: 0.5rem;" onclick="editCourse('design')">✏️ Editar</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="viewStudents('design')">👥 Alunos</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="viewAnalytics('design')">📊 Stats</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso em Rascunho -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem; opacity: 0.7;">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--gray-medium); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">📝</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Curso de JavaScript</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Em desenvolvimento</p>
+                                </div>
+                                <span class="status-badge pending">Rascunho</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn" style="font-size: 0.8rem; padding: 0.5rem;" onclick="editCourse('javascript')">✏️ Continuar</button>
+                                <button class="dashboard-btn danger" style="font-size: 0.8rem; padding: 0.5rem;" onclick="deleteCourse('javascript')">🗑️ Excluir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA ALUNOS ===== -->
+            <div class="tab-content" id="students">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Filtros</h3>
+                        <div class="dashboard-card-icon">🔍</div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <select class="form-input">
+                            <option>Todos os Cursos</option>
+                            <option>Python</option>
+                            <option>Design Gráfico</option>
+                            <option>Marketing Digital</option>
+                        </select>
+                        
+                        <select class="form-input">
+                            <option>Todos os Status</option>
+                            <option>Ativo</option>
+                            <option>Concluído</option>
+                            <option>Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="dashboard-list">
+                    <div class="dashboard-list-header">
+                        👥 Meus Alunos (127 total)
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">M</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">Maria Silva</div>
+                                <div class="list-item-subtitle">Python • 65% concluído • Ativo</div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="viewStudent('maria')">Ver Perfil</button>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">J</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">João Santos</div>
+                                <div class="list-item-subtitle">Design Gráfico • 40% concluído • Ativo</div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="viewStudent('joao')">Ver Perfil</button>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">A</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">Ana Costa</div>
+                                <div class="list-item-subtitle">Marketing Digital • 100% concluído • Certificado</div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="viewStudent('ana')">Ver Perfil</button>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">P</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">Pedro Lima</div>
+                                <div class="list-item-subtitle">Python • 25% concluído • Ativo</div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="viewStudent('pedro')">Ver Perfil</button>
+                    </div>
+                </div>
+                
+                <!-- Estatísticas dos Alunos -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <span class="stat-number">127</span>
+                        <div class="stat-label">Total de Alunos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <span class="stat-number">89</span>
+                        <div class="stat-label">Ativos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <span class="stat-number">23</span>
+                        <div class="stat-label">Certificados</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <span class="stat-number">68%</span>
+                        <div class="stat-label">Taxa Conclusão</div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA CONTEÚDO ===== -->
+            <div class="tab-content" id="content">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Gerenciar Conteúdo</h3>
+                        <button class="dashboard-btn" onclick="uploadContent()">📹 Upload</button>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <!-- Vídeo 1 -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem;">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 80px; height: 60px; background: var(--gradient-primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">▶️</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Introdução ao Python - Aula 1</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">15:30 min • 1.2k visualizações</p>
+                                </div>
+                                <span class="status-badge active">Publicado</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="editVideo('video1')">✏️ Editar</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="viewStats('video1')">📊 Stats</button>
+                                <button class="dashboard-btn danger" style="font-size: 0.8rem; padding: 0.5rem;" onclick="deleteVideo('video1')">🗑️ Excluir</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Vídeo 2 -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem;">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 80px; height: 60px; background: var(--gradient-secondary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">▶️</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Variáveis em Python - Aula 2</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">22:15 min • 980 visualizações</p>
+                                </div>
+                                <span class="status-badge active">Publicado</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="editVideo('video2')">✏️ Editar</button>
+                                <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="viewStats('video2')">📊 Stats</button>
+                                <button class="dashboard-btn danger" style="font-size: 0.8rem; padding: 0.5rem;" onclick="deleteVideo('video2')">🗑️ Excluir</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Vídeo em Processamento -->
+                        <div style="border: 2px solid var(--logo-orange); border-radius: 15px; padding: 1rem; background: rgba(169, 80, 40, 0.05);">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 80px; height: 60px; background: var(--logo-orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">⏳</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Estruturas de Controle - Aula 3</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Processando... 75% concluído</p>
+                                </div>
+                                <span class="status-badge in-progress">Processando</span>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%; background: var(--logo-orange);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Materiais Complementares -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Materiais Complementares</h3>
+                        <button class="dashboard-btn secondary" onclick="uploadMaterial()">📄 Upload</button>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--logo-red); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">📄</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Apostila Python Básico.pdf</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">2.5 MB • 450 downloads</div>
+                            </div>
+                            <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="manageMaterial('apostila')">Gerenciar</button>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--primary-green); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">📊</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Exercícios Práticos.xlsx</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">1.8 MB • 320 downloads</div>
+                            </div>
+                            <button class="dashboard-btn secondary" style="font-size: 0.8rem; padding: 0.5rem;" onclick="manageMaterial('exercicios')">Gerenciar</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA RELATÓRIOS ===== -->
+            <div class="tab-content" id="analytics">
+                
+                <!-- Receita -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Receita Mensal</h3>
+                        <div class="dashboard-card-icon">💰</div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary-purple); margin-bottom: 0.5rem;">R$ 2.450</div>
+                        <p style="color: var(--primary-green); font-weight: 600;">+15% em relação ao mês anterior</p>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🐍 Python</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">R$ 1.200</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🎨 Design Gráfico</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">R$ 890</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">📱 Marketing Digital</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">R$ 360</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Engajamento -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👀</div>
+                        <span class="stat-number">15.2k</span>
+                        <div class="stat-label">Visualizações</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <span class="stat-number">8.5h</span>
+                        <div class="stat-label">Tempo Médio</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <span class="stat-number">68%</span>
+                        <div class="stat-label">Taxa Conclusão</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <span class="stat-number">4.8</span>
+                        <div class="stat-label">Avaliação Média</div>
+                    </div>
+                </div>
+                
+                <!-- Avaliações Recentes -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Avaliações Recentes</h3>
+                        <div class="dashboard-card-icon">⭐</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">Maria Silva</span>
+                                <div style="color: var(--logo-orange);">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--gray-medium);">"Excelente curso! Muito didático e prático."</p>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">João Santos</span>
+                                <div style="color: var(--logo-orange);">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--gray-medium);">"Aprendi muito! Recomendo para todos."</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA PERFIL ===== -->
+            <div class="tab-content" id="profile">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Meu Perfil</h3>
+                        <div class="dashboard-card-icon">👤</div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="width: 100px; height: 100px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: 700; margin: 0 auto 1rem;">I</div>
+                        <h3 style="margin: 0; color: var(--gray-dark);">Instrutor Demo</h3>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--gray-medium);">instrutor@demo.com</p>
+                        <div style="margin-top: 1rem;">
+                            <span style="background: var(--gradient-primary); color: white; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">Instrutor Verificado ✓</span>
+                        </div>
+                    </div>
+                    
+                    <form class="dashboard-form" style="background: transparent; box-shadow: none; padding: 0; margin: 0;">
+                        <div class="form-group">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" class="form-input" value="Instrutor Demo" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">E-mail</label>
+                            <input type="email" class="form-input" value="instrutor@demo.com" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Especialidade</label>
+                            <input type="text" class="form-input" value="Programação e Design" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Biografia</label>
+                            <textarea class="form-input form-textarea" readonly>Instrutor especializado em Python e Design Gráfico com mais de 5 anos de experiência no mercado.</textarea>
+                        </div>
+                        
+                        <button type="button" class="dashboard-btn" style="width: 100%;" onclick="editProfile()">✏️ Editar Perfil</button>
+                    </form>
+                </div>
+                
+                <!-- Estatísticas do Instrutor -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Minhas Estatísticas</h3>
+                        <div class="dashboard-card-icon">📊</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">📅 Membro desde</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">Janeiro 2023</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🏆 Total de Certificados Emitidos</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">89</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">💰 Receita Total</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">R$ 28.450</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">⭐ Avaliação Geral</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">4.8/5.0</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    
+    <script>
+        // ===== SISTEMA DE AUTENTICAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se está logado
+            const isLoggedIn = localStorage.getItem('instituto_buriti_logged_in');
+            const userType = localStorage.getItem('instituto_buriti_user_type');
+            const userEmail = localStorage.getItem('instituto_buriti_user_email');
+            
+            if (isLoggedIn !== 'true' || userType !== 'instrutor') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Configurar informações do usuário
+            const userName = userEmail ? userEmail.split('@')[0] : 'Instrutor';
+            document.getElementById('userName').textContent = userName.charAt(0).toUpperCase() + userName.slice(1);
+            document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+        });
+        
+        // ===== NAVEGAÇÃO ENTRE ABAS =====
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Remover classe active de todas as abas
+                navTabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Adicionar classe active na aba clicada
+                this.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+        
+        // ===== FUNÇÕES DO DASHBOARD =====
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem('instituto_buriti_logged_in');
+                localStorage.removeItem('instituto_buriti_user_type');
+                localStorage.removeItem('instituto_buriti_user_email');
+                localStorage.removeItem('instituto_buriti_login_time');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        function createNewCourse() {
+            showNotification('Funcionalidade de criação de curso em desenvolvimento!', 'info');
+        }
+        
+        function editCourse(courseId) {
+            showNotification(`Editando curso: ${courseId}`, 'info');
+        }
+        
+        function viewStudents(courseId) {
+            showNotification(`Visualizando alunos do curso: ${courseId}`, 'info');
+        }
+        
+        function viewAnalytics(courseId) {
+            showNotification(`Visualizando analytics do curso: ${courseId}`, 'info');
+        }
+        
+        function deleteCourse(courseId) {
+            if (confirm('Tem certeza que deseja excluir este curso?')) {
+                showNotification(`Curso ${courseId} excluído!`, 'success');
+            }
+        }
+        
+        function viewStudent(studentId) {
+            showNotification(`Visualizando perfil do aluno: ${studentId}`, 'info');
+        }
+        
+        function uploadContent() {
+            showNotification('Funcionalidade de upload em desenvolvimento!', 'info');
+        }
+        
+        function editVideo(videoId) {
+            showNotification(`Editando vídeo: ${videoId}`, 'info');
+        }
+        
+        function viewStats(videoId) {
+            showNotification(`Visualizando estatísticas do vídeo: ${videoId}`, 'info');
+        }
+        
+        function deleteVideo(videoId) {
+            if (confirm('Tem certeza que deseja excluir este vídeo?')) {
+                showNotification(`Vídeo ${videoId} excluído!`, 'success');
+            }
+        }
+        
+        function uploadMaterial() {
+            showNotification('Funcionalidade de upload de material em desenvolvimento!', 'info');
+        }
+        
+        function manageMaterial(materialId) {
+            showNotification(`Gerenciando material: ${materialId}`, 'info');
+        }
+        
+        function editProfile() {
+            showNotification('Funcionalidade de edição de perfil em desenvolvimento!', 'info');
+        }
+        
+        function viewMessages() {
+            showNotification('Funcionalidade de mensagens em desenvolvimento!', 'info');
+        }
+        
+        function viewEarnings() {
+            showNotification('Funcionalidade de ganhos em desenvolvimento!', 'info');
+        }
+        
+        // ===== ANIMAÇÕES E EFEITOS =====
+        
+        // Animação de entrada das estatísticas
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const finalValue = stat.textContent;
+            stat.textContent = '0';
+            
+            setTimeout(() => {
+                animateNumber(stat, finalValue);
+            }, 500);
+        });
+        
+        function animateNumber(element, finalValue) {
+            const isPercentage = finalValue.includes('%');
+            const isMoney = finalValue.includes('R$');
+            const isDecimal = finalValue.includes('.');
+            
+            let numericValue;
+            if (isMoney) {
+                numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
+            } else if (isDecimal) {
+                numericValue = parseFloat(finalValue.replace(/[^\d.]/g, ''));
+            } else {
+                numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
+            }
+            
+            let currentValue = 0;
+            const increment = isMoney ? Math.ceil(numericValue / 50) : Math.ceil(numericValue / 30);
+            
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= numericValue) {
+                    currentValue = numericValue;
+                    clearInterval(timer);
+                }
+                
+                if (isMoney) {
+                    element.textContent = `R$ ${currentValue.toLocaleString()}`;
+                } else if (isPercentage) {
+                    element.textContent = currentValue + '%';
+                } else if (isDecimal) {
+                    element.textContent = (currentValue / 10).toFixed(1);
+                } else {
+                    element.textContent = currentValue;
+                }
+            }, 50);
+        }
+        
+        // ===== PERSISTÊNCIA DE ESTADO =====
+        
+        // Salvar aba ativa
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                localStorage.setItem('instructor_dashboard_active_tab', this.dataset.tab);
+            });
+        });
+        
+        // Restaurar aba ativa
+        const savedTab = localStorage.getItem('instructor_dashboard_active_tab');
+        if (savedTab) {
+            const tabButton = document.querySelector(`[data-tab="${savedTab}"]`);
+            if (tabButton) {
+                tabButton.click();
+            }
+        }
+        
+        console.log('👨‍🏫 Dashboard do Instrutor carregado com sucesso!');
+    </script>
+</body>
+</html>
+

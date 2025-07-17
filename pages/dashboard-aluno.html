@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dashboard do Aluno - Instituto Buriti</title>
+    <meta name="description" content="Acompanhe seu progresso e acesse seus cursos no Instituto Buriti.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/dashboard-mobile.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER DASHBOARD ===== -->
+    <header class="dashboard-header">
+        <div class="dashboard-header-content">
+            <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="dashboard-logo">
+            <div class="dashboard-user-info">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <div class="user-name" id="userName">Aluno Demo</div>
+                <button class="logout-btn" onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- ===== CONTAINER DASHBOARD ===== -->
+    <div class="dashboard-container">
+        
+        <!-- ===== NAVEGAÇÃO DASHBOARD ===== -->
+        <nav class="dashboard-nav">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="overview">📊 Visão Geral</button>
+                <button class="nav-tab" data-tab="courses">📚 Meus Cursos</button>
+                <button class="nav-tab" data-tab="progress">📈 Progresso</button>
+                <button class="nav-tab" data-tab="certificates">🏆 Certificados</button>
+                <button class="nav-tab" data-tab="profile">👤 Perfil</button>
+            </div>
+        </nav>
+        
+        <!-- ===== CONTEÚDO DASHBOARD ===== -->
+        <div id="dashboard-content">
+            
+            <!-- ===== ABA VISÃO GERAL ===== -->
+            <div class="tab-content active" id="overview">
+                
+                <!-- Estatísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <span class="stat-number">3</span>
+                        <div class="stat-label">Cursos Ativos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <span class="stat-number">2</span>
+                        <div class="stat-label">Concluídos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <span class="stat-number">45h</span>
+                        <div class="stat-label">Tempo Estudado</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <span class="stat-number">78%</span>
+                        <div class="stat-label">Progresso Geral</div>
+                    </div>
+                </div>
+                
+                <!-- Progresso Atual -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Progresso Atual</h3>
+                        <div class="dashboard-card-icon">📈</div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Progresso Geral</span>
+                            <span>78%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    
+                    <p style="color: var(--gray-medium); font-size: 0.9rem; margin-top: 1rem;">
+                        Você está indo muito bem! Continue assim para alcançar seus objetivos.
+                    </p>
+                </div>
+                
+                <!-- Cursos em Andamento -->
+                <div class="dashboard-list">
+                    <div class="dashboard-list-header">
+                        📚 Cursos em Andamento
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div class="list-item-content">
+                            <div class="list-item-title">Introdução ao Python</div>
+                            <div class="list-item-subtitle">Módulo 3 de 5 • 65% concluído</div>
+                            <div class="progress-container" style="margin-top: 0.5rem;">
+                                <div class="progress-bar" style="height: 6px;">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="openCourse('python')">Continuar</button>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div class="list-item-content">
+                            <div class="list-item-title">Design Gráfico Básico</div>
+                            <div class="list-item-subtitle">Módulo 2 de 4 • 40% concluído</div>
+                            <div class="progress-container" style="margin-top: 0.5rem;">
+                                <div class="progress-bar" style="height: 6px;">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="openCourse('design')">Continuar</button>
+                    </div>
+                    
+                    <div class="dashboard-list-item">
+                        <div class="list-item-content">
+                            <div class="list-item-title">Marketing Digital</div>
+                            <div class="list-item-subtitle">Módulo 1 de 6 • 15% concluído</div>
+                            <div class="progress-container" style="margin-top: 0.5rem;">
+                                <div class="progress-bar" style="height: 6px;">
+                                    <div class="progress-fill" style="width: 15%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="list-item-action" onclick="openCourse('marketing')">Continuar</button>
+                    </div>
+                </div>
+                
+                <!-- Próximas Atividades -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Próximas Atividades</h3>
+                        <div class="dashboard-card-icon">📅</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">📝</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Quiz Python - Módulo 3</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">Prazo: 2 dias</div>
+                            </div>
+                            <span class="status-badge pending">Pendente</span>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">🎨</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.3rem;">Projeto Design - Logo</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-medium);">Prazo: 5 dias</div>
+                            </div>
+                            <span class="status-badge in-progress">Em Andamento</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA MEUS CURSOS ===== -->
+            <div class="tab-content" id="courses">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Meus Cursos</h3>
+                        <div class="dashboard-card-icon">📚</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <!-- Curso 1 -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--primary-purple)'" onmouseout="this.style.borderColor='var(--gray-light)'">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🐍</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Introdução ao Python</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Aprenda programação do zero</p>
+                                </div>
+                                <span class="status-badge in-progress">Em Andamento</span>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Progresso</span>
+                                    <span>65%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                <button class="dashboard-btn" style="flex: 1;" onclick="openCourse('python')">Continuar</button>
+                                <button class="dashboard-btn secondary" onclick="showCourseDetails('python')">Detalhes</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso 2 -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--primary-purple)'" onmouseout="this.style.borderColor='var(--gray-light)'">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--gradient-secondary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🎨</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Design Gráfico Básico</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Fundamentos do design</p>
+                                </div>
+                                <span class="status-badge in-progress">Em Andamento</span>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Progresso</span>
+                                    <span>40%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                <button class="dashboard-btn" style="flex: 1;" onclick="openCourse('design')">Continuar</button>
+                                <button class="dashboard-btn secondary" onclick="showCourseDetails('design')">Detalhes</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Curso 3 -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--primary-purple)'" onmouseout="this.style.borderColor='var(--gray-light)'">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--logo-orange); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">📱</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Marketing Digital</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Estratégias digitais</p>
+                                </div>
+                                <span class="status-badge in-progress">Em Andamento</span>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Progresso</span>
+                                    <span>15%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 15%"></div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                <button class="dashboard-btn" style="flex: 1;" onclick="openCourse('marketing')">Continuar</button>
+                                <button class="dashboard-btn secondary" onclick="showCourseDetails('marketing')">Detalhes</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Cursos Concluídos -->
+                        <div style="border: 2px solid var(--primary-green); border-radius: 15px; padding: 1rem; background: rgba(107, 140, 121, 0.05);">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--primary-green); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">✅</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Excel Básico</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Planilhas e fórmulas</p>
+                                </div>
+                                <span class="status-badge completed">Concluído</span>
+                            </div>
+                            
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                                <button class="dashboard-btn secondary" style="flex: 1;" onclick="downloadCertificate('excel')">📜 Certificado</button>
+                                <button class="dashboard-btn secondary" onclick="reviewCourse('excel')">⭐ Avaliar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA PROGRESSO ===== -->
+            <div class="tab-content" id="progress">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Relatório de Progresso</h3>
+                        <div class="dashboard-card-icon">📊</div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(var(--primary-purple) 0deg 280deg, var(--gray-light) 280deg 360deg); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: var(--primary-purple);">78%</div>
+                        </div>
+                        <h4 style="margin: 0; color: var(--gray-dark);">Progresso Geral</h4>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--gray-medium);">Muito bom! Continue assim!</p>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">Tempo Total de Estudo</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">45h 30min</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">Média Semanal</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">8h 15min</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">Sequência de Estudos</span>
+                            <span style="color: var(--primary-purple); font-weight: 600;">12 dias</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">Próxima Meta</span>
+                            <span style="color: var(--logo-orange); font-weight: 600;">Completar Python</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progresso por Curso -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Progresso por Curso</h3>
+                        <div class="dashboard-card-icon">📈</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1.5rem;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">🐍 Introdução ao Python</span>
+                                <span style="color: var(--primary-purple);">65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">🎨 Design Gráfico Básico</span>
+                                <span style="color: var(--primary-purple);">40%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">📱 Marketing Digital</span>
+                                <span style="color: var(--primary-purple);">15%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">✅ Excel Básico</span>
+                                <span style="color: var(--primary-green);">100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%; background: var(--primary-green);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA CERTIFICADOS ===== -->
+            <div class="tab-content" id="certificates">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Meus Certificados</h3>
+                        <div class="dashboard-card-icon">🏆</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <!-- Certificado Disponível -->
+                        <div style="border: 2px solid var(--primary-green); border-radius: 15px; padding: 1rem; background: rgba(107, 140, 121, 0.05);">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--primary-green); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🏆</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-dark);">Excel Básico</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Concluído em 15/12/2024</p>
+                                </div>
+                                <span class="status-badge completed">Disponível</span>
+                            </div>
+                            
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="dashboard-btn" style="flex: 1;" onclick="downloadCertificate('excel')">📥 Baixar PDF</button>
+                                <button class="dashboard-btn secondary" onclick="shareCertificate('excel')">📤 Compartilhar</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Certificados Futuros -->
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem; opacity: 0.7;">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--gray-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gray-medium); font-size: 1.5rem;">🔒</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-medium);">Introdução ao Python</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Complete o curso para obter</p>
+                                </div>
+                                <span class="status-badge pending">Bloqueado</span>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Progresso</span>
+                                    <span>65%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="border: 2px solid var(--gray-light); border-radius: 15px; padding: 1rem; opacity: 0.7;">
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                                <div style="width: 60px; height: 60px; background: var(--gray-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gray-medium); font-size: 1.5rem;">🔒</div>
+                                <div style="flex: 1;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--gray-medium);">Design Gráfico Básico</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: var(--gray-medium);">Complete o curso para obter</p>
+                                </div>
+                                <span class="status-badge pending">Bloqueado</span>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Progresso</span>
+                                    <span>40%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ===== ABA PERFIL ===== -->
+            <div class="tab-content" id="profile">
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Meu Perfil</h3>
+                        <div class="dashboard-card-icon">👤</div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="width: 100px; height: 100px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: 700; margin: 0 auto 1rem;">A</div>
+                        <h3 style="margin: 0; color: var(--gray-dark);">Aluno Demo</h3>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--gray-medium);">aluno@demo.com</p>
+                    </div>
+                    
+                    <form class="dashboard-form" style="background: transparent; box-shadow: none; padding: 0; margin: 0;">
+                        <div class="form-group">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" class="form-input" value="Aluno Demo" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">E-mail</label>
+                            <input type="email" class="form-input" value="aluno@demo.com" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Telefone</label>
+                            <input type="tel" class="form-input" value="(86) 99999-9999" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-input" value="1990-01-01" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Cidade</label>
+                            <input type="text" class="form-input" value="Teresina, PI" readonly>
+                        </div>
+                        
+                        <button type="button" class="dashboard-btn" style="width: 100%;" onclick="editProfile()">✏️ Editar Perfil</button>
+                    </form>
+                </div>
+                
+                <!-- Configurações -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3 class="dashboard-card-title">Configurações</h3>
+                        <div class="dashboard-card-icon">⚙️</div>
+                    </div>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">📧 Notificações por E-mail</span>
+                            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                                <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--primary-purple); border-radius: 24px; transition: 0.4s;"></span>
+                                <span style="position: absolute; content: ''; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.4s;"></span>
+                            </label>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--gray-light); border-radius: 12px;">
+                            <span style="font-weight: 600;">🔔 Notificações Push</span>
+                            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                                <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--gray-medium); border-radius: 24px; transition: 0.4s;"></span>
+                                <span style="position: absolute; content: ''; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.4s;"></span>
+                            </label>
+                        </div>
+                        
+                        <button class="dashboard-btn secondary" style="width: 100%;" onclick="changePassword()">🔒 Alterar Senha</button>
+                        
+                        <button class="dashboard-btn danger" style="width: 100%;" onclick="logout()">🚪 Sair da Conta</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    
+    <script>
+        // ===== SISTEMA DE AUTENTICAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se está logado
+            const isLoggedIn = localStorage.getItem('instituto_buriti_logged_in');
+            const userType = localStorage.getItem('instituto_buriti_user_type');
+            const userEmail = localStorage.getItem('instituto_buriti_user_email');
+            
+            if (isLoggedIn !== 'true' || userType !== 'aluno') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Configurar informações do usuário
+            const userName = userEmail ? userEmail.split('@')[0] : 'Aluno';
+            document.getElementById('userName').textContent = userName.charAt(0).toUpperCase() + userName.slice(1);
+            document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+        });
+        
+        // ===== NAVEGAÇÃO ENTRE ABAS =====
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Remover classe active de todas as abas
+                navTabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Adicionar classe active na aba clicada
+                this.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+        
+        // ===== FUNÇÕES DO DASHBOARD =====
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem('instituto_buriti_logged_in');
+                localStorage.removeItem('instituto_buriti_user_type');
+                localStorage.removeItem('instituto_buriti_user_email');
+                localStorage.removeItem('instituto_buriti_login_time');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        function openCourse(courseId) {
+            showNotification(`Abrindo curso: ${courseId}`, 'info');
+            // Aqui seria redirecionado para a página do curso
+        }
+        
+        function showCourseDetails(courseId) {
+            showNotification(`Detalhes do curso: ${courseId}`, 'info');
+        }
+        
+        function downloadCertificate(courseId) {
+            showNotification(`Baixando certificado: ${courseId}`, 'success');
+        }
+        
+        function shareCertificate(courseId) {
+            showNotification(`Compartilhando certificado: ${courseId}`, 'info');
+        }
+        
+        function reviewCourse(courseId) {
+            showNotification(`Avaliando curso: ${courseId}`, 'info');
+        }
+        
+        function editProfile() {
+            showNotification('Funcionalidade de edição em desenvolvimento!', 'info');
+        }
+        
+        function changePassword() {
+            showNotification('Funcionalidade de alteração de senha em desenvolvimento!', 'info');
+        }
+        
+        // ===== ANIMAÇÕES E EFEITOS =====
+        
+        // Animação de entrada das estatísticas
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const finalValue = stat.textContent;
+            stat.textContent = '0';
+            
+            setTimeout(() => {
+                animateNumber(stat, finalValue);
+            }, 500);
+        });
+        
+        function animateNumber(element, finalValue) {
+            const isPercentage = finalValue.includes('%');
+            const isTime = finalValue.includes('h');
+            const numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
+            
+            let currentValue = 0;
+            const increment = Math.ceil(numericValue / 30);
+            
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= numericValue) {
+                    currentValue = numericValue;
+                    clearInterval(timer);
+                }
+                
+                if (isPercentage) {
+                    element.textContent = currentValue + '%';
+                } else if (isTime) {
+                    element.textContent = currentValue + 'h';
+                } else {
+                    element.textContent = currentValue;
+                }
+            }, 50);
+        }
+        
+        // ===== RESPONSIVIDADE AVANÇADA =====
+        function adjustLayout() {
+            const container = document.querySelector('.dashboard-container');
+            const isMobile = window.innerWidth < 768;
+            
+            if (isMobile) {
+                container.style.padding = '1rem';
+            } else {
+                container.style.padding = '1rem 2rem';
+            }
+        }
+        
+        window.addEventListener('resize', adjustLayout);
+        adjustLayout();
+        
+        // ===== PERSISTÊNCIA DE ESTADO =====
+        
+        // Salvar aba ativa
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                localStorage.setItem('dashboard_active_tab', this.dataset.tab);
+            });
+        });
+        
+        // Restaurar aba ativa
+        const savedTab = localStorage.getItem('dashboard_active_tab');
+        if (savedTab) {
+            const tabButton = document.querySelector(`[data-tab="${savedTab}"]`);
+            if (tabButton) {
+                tabButton.click();
+            }
+        }
+        
+        console.log('🎓 Dashboard do Aluno carregado com sucesso!');
+    </script>
+</body>
+</html>
+

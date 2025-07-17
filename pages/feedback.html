@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback e Testes - Instituto Buriti</title>
+    <meta name="description" content="Sistema de feedback e testes A/B do Instituto Buriti - Ajude-nos a melhorar sua experiência educacional">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/feedback.css">
+    <link rel="stylesheet" href="../css/accessibility.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#973CBF">
+    
+    <!-- SEO -->
+    <meta name="keywords" content="feedback, testes, instituto buriti, educação, melhorias">
+    <meta property="og:title" content="Sistema de Feedback - Instituto Buriti">
+    <meta property="og:description" content="Compartilhe sua experiência e ajude a melhorar nossa plataforma educacional">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://institutoburiti.com/feedback">
+</head>
+<body>
+    <!-- Skip Links -->
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+    <a href="#navigation" class="skip-link">Pular para navegação</a>
+    <a href="#footer" class="skip-link">Pular para rodapé</a>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">
+                    <img src="https://via.placeholder.com/120x40/973CBF/FFFFFF?text=Instituto+Buriti" alt="Instituto Buriti">
+                </a>
+                
+                <nav class="nav-desktop" id="navigation">
+                    <a href="../index.html">Home</a>
+                    <a href="../pages/cursos.html">Cursos</a>
+                    <a href="../pages/materiais.html">Materiais</a>
+                    <a href="../pages/chat.html">Chat</a>
+                    <a href="../pages/feedback.html" class="active">Feedback</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <!-- Controles de Acessibilidade -->
+                    <button class="accessibility-btn" id="toggleContrast" aria-label="Alternar alto contraste">
+                        🎨 Alto Contraste
+                    </button>
+                    <div class="font-controls">
+                        <button class="font-btn" id="decreaseFont" aria-label="Diminuir fonte">A-</button>
+                        <button class="font-btn" id="normalFont" aria-label="Fonte normal">A</button>
+                        <button class="font-btn" id="increaseFont" aria-label="Aumentar fonte">A+</button>
+                    </div>
+                    
+                    <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>📊 Sistema de Feedback e Testes</h1>
+                <p>Ajude-nos a melhorar sua experiência educacional com seus comentários e participação em testes</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <div class="container">
+            
+            <!-- Feedback Rápido -->
+            <section class="feedback-section">
+                <div class="section-header">
+                    <h2>💬 Feedback Rápido</h2>
+                    <p>Como está sendo sua experiência hoje?</p>
+                </div>
+                
+                <div class="quick-feedback">
+                    <div class="rating-section">
+                        <h3>Avalie sua experiência geral</h3>
+                        <div class="star-rating">
+                            <span class="star" data-rating="1">⭐</span>
+                            <span class="star" data-rating="2">⭐</span>
+                            <span class="star" data-rating="3">⭐</span>
+                            <span class="star" data-rating="4">⭐</span>
+                            <span class="star" data-rating="5">⭐</span>
+                        </div>
+                        <p class="rating-text">Clique nas estrelas para avaliar</p>
+                    </div>
+                    
+                    <div class="emoji-feedback">
+                        <h3>Como você se sente usando a plataforma?</h3>
+                        <div class="emoji-options">
+                            <button class="emoji-btn" data-emotion="muito-feliz" aria-label="Muito feliz">😍</button>
+                            <button class="emoji-btn" data-emotion="feliz" aria-label="Feliz">😊</button>
+                            <button class="emoji-btn" data-emotion="neutro" aria-label="Neutro">😐</button>
+                            <button class="emoji-btn" data-emotion="triste" aria-label="Triste">😞</button>
+                            <button class="emoji-btn" data-emotion="muito-triste" aria-label="Muito triste">😢</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feedback Detalhado -->
+            <section class="detailed-feedback">
+                <div class="section-header">
+                    <h2>📝 Feedback Detalhado</h2>
+                    <p>Compartilhe suas sugestões e experiências</p>
+                </div>
+                
+                <form class="feedback-form" id="feedbackForm">
+                    <div class="form-group">
+                        <label for="feedbackType">Tipo de Feedback</label>
+                        <select id="feedbackType" name="feedbackType" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="bug">🐛 Reportar Bug</option>
+                            <option value="feature">💡 Sugerir Funcionalidade</option>
+                            <option value="improvement">⚡ Melhoria</option>
+                            <option value="compliment">👏 Elogio</option>
+                            <option value="complaint">😤 Reclamação</option>
+                            <option value="other">🤔 Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedbackPage">Página/Funcionalidade</label>
+                        <select id="feedbackPage" name="feedbackPage" required>
+                            <option value="">Selecione a página</option>
+                            <option value="home">🏠 Página Inicial</option>
+                            <option value="courses">📚 Cursos</option>
+                            <option value="materials">📄 Materiais</option>
+                            <option value="chat">💬 Chat</option>
+                            <option value="payments">💳 Pagamentos</option>
+                            <option value="gamification">🎮 Gamificação</option>
+                            <option value="auth">🔐 Login/Registro</option>
+                            <option value="general">🌐 Geral</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedbackTitle">Título</label>
+                        <input type="text" id="feedbackTitle" name="feedbackTitle" placeholder="Resumo do seu feedback" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedbackDescription">Descrição Detalhada</label>
+                        <textarea id="feedbackDescription" name="feedbackDescription" placeholder="Descreva sua experiência, sugestão ou problema em detalhes..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedbackPriority">Prioridade</label>
+                        <select id="feedbackPriority" name="feedbackPriority">
+                            <option value="low">🟢 Baixa</option>
+                            <option value="medium" selected>🟡 Média</option>
+                            <option value="high">🟠 Alta</option>
+                            <option value="critical">🔴 Crítica</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="allowContact" name="allowContact">
+                            Permitir contato para esclarecimentos
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">📤 Enviar Feedback</button>
+                </form>
+            </section>
+
+            <!-- Testes A/B -->
+            <section class="ab-testing">
+                <div class="section-header">
+                    <h2>🧪 Testes A/B</h2>
+                    <p>Participe dos nossos testes e ajude a melhorar a plataforma</p>
+                </div>
+                
+                <div class="test-cards">
+                    <div class="test-card active">
+                        <span class="test-icon">🎨</span>
+                        <h3>Teste de Interface</h3>
+                        <p>Testando nova interface de navegação</p>
+                        <div class="test-status">
+                            <span class="status-badge active">Ativo</span>
+                            <span class="participants">156 participantes</span>
+                        </div>
+                        <div class="test-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span>65% concluído</span>
+                        </div>
+                        <button class="btn-secondary" data-test="interface">Participar</button>
+                    </div>
+                    
+                    <div class="test-card recruiting">
+                        <span class="test-icon">📱</span>
+                        <h3>Teste Mobile</h3>
+                        <p>Avaliando usabilidade em dispositivos móveis</p>
+                        <div class="test-status">
+                            <span class="status-badge recruiting">Recrutando</span>
+                            <span class="participants">89 participantes</span>
+                        </div>
+                        <div class="test-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%"></div>
+                            </div>
+                            <span>35% concluído</span>
+                        </div>
+                        <button class="btn-secondary" data-test="mobile">Inscrever-se</button>
+                    </div>
+                    
+                    <div class="test-card completed">
+                        <span class="test-icon">🎯</span>
+                        <h3>Teste de Gamificação</h3>
+                        <p>Testando novos elementos de gamificação</p>
+                        <div class="test-status">
+                            <span class="status-badge completed">Concluído</span>
+                            <span class="participants">203 participantes</span>
+                        </div>
+                        <div class="test-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                            <span>100% concluído</span>
+                        </div>
+                        <button class="btn-secondary" disabled>Ver Resultados</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics de Comportamento -->
+            <section class="behavior-analytics">
+                <div class="section-header">
+                    <h2>📈 Analytics de Comportamento</h2>
+                    <p>Dados sobre como você usa a plataforma</p>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-content">
+                            <h3>Tempo de Sessão</h3>
+                            <div class="metric-value">24min 32s</div>
+                            <div class="metric-change positive">+15% vs. semana passada</div>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <div class="card-icon">📄</div>
+                        <div class="card-content">
+                            <h3>Páginas Visitadas</h3>
+                            <div class="metric-value">12</div>
+                            <div class="metric-change positive">+3 vs. sessão anterior</div>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-content">
+                            <h3>Taxa de Conclusão</h3>
+                            <div class="metric-value">87%</div>
+                            <div class="metric-change positive">+5% vs. média</div>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <div class="card-icon">💬</div>
+                        <div class="card-content">
+                            <h3>Interações</h3>
+                            <div class="metric-value">45</div>
+                            <div class="metric-change neutral">Mesmo nível</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="heatmap-section">
+                    <h3>🔥 Mapa de Calor - Páginas Mais Visitadas</h3>
+                    <div class="heatmap-grid">
+                        <div class="heatmap-item hot">
+                            <span class="page-name">Cursos</span>
+                            <span class="visit-count">89 visitas</span>
+                        </div>
+                        <div class="heatmap-item warm">
+                            <span class="page-name">Materiais</span>
+                            <span class="visit-count">67 visitas</span>
+                        </div>
+                        <div class="heatmap-item medium">
+                            <span class="page-name">Chat</span>
+                            <span class="visit-count">45 visitas</span>
+                        </div>
+                        <div class="heatmap-item cool">
+                            <span class="page-name">Gamificação</span>
+                            <span class="visit-count">32 visitas</span>
+                        </div>
+                        <div class="heatmap-item cold">
+                            <span class="page-name">Pagamentos</span>
+                            <span class="visit-count">18 visitas</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Histórico de Feedback -->
+            <section class="feedback-history">
+                <div class="section-header">
+                    <h2>📋 Seus Feedbacks</h2>
+                    <p>Acompanhe o status dos seus feedbacks enviados</p>
+                </div>
+                
+                <div class="feedback-list" id="feedbackHistory">
+                    <!-- Feedbacks serão inseridos via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Recompensas por Participação -->
+            <section class="participation-rewards">
+                <div class="section-header">
+                    <h2>🎁 Recompensas por Participação</h2>
+                    <p>Ganhe pontos e benefícios ajudando a melhorar a plataforma</p>
+                </div>
+                
+                <div class="rewards-grid">
+                    <div class="reward-card">
+                        <span class="reward-icon">⭐</span>
+                        <h3>Feedback Enviado</h3>
+                        <p>+50 XP por feedback detalhado</p>
+                        <div class="reward-progress">
+                            <span>3/5 feedbacks este mês</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-card">
+                        <span class="reward-icon">🧪</span>
+                        <h3>Participação em Testes</h3>
+                        <p>+100 XP por teste completado</p>
+                        <div class="reward-progress">
+                            <span>2/3 testes este mês</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 67%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-card">
+                        <span class="reward-icon">🏆</span>
+                        <h3>Contribuidor Ativo</h3>
+                        <p>Badge especial + 500 XP</p>
+                        <div class="reward-progress">
+                            <span>5/10 atividades</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Instituto Buriti</h3>
+                    <p>Transformando vidas através da educação de qualidade.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../pages/cursos.html">Cursos</a></li>
+                        <li><a href="../pages/materiais.html">Materiais</a></li>
+                        <li><a href="../pages/feedback.html">Feedback</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p>📧 contato@institutoburiti.com</p>
+                    <p>📱 (86) 99999-9999</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notificação Supabase -->
+    <div class="supabase-notification" id="supabaseNotification">
+        <div class="notification-content">
+            <span class="notification-icon">🔧</span>
+            <div class="notification-text">
+                <strong>Supabase Preparado</strong>
+                <span>Sistema pronto para banco real</span>
+            </div>
+            <button class="notification-close" aria-label="Fechar">&times;</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/accessibility.js"></script>
+    <script src="../js/feedback-system.js"></script>
+</body>
+</html>
+

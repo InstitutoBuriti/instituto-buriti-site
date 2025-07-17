@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Feedback e Testes - Instituto Buriti</title>
+    <meta name="description" content="Painel administrativo para gerenciar feedback e testes A/B do Instituto Buriti">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/admin-feedback.css">
+    <link rel="stylesheet" href="../css/accessibility.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#973CBF">
+</head>
+<body>
+    <!-- Skip Links -->
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+    <a href="#navigation" class="skip-link">Pular para navegação</a>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">
+                    <img src="https://via.placeholder.com/120x40/973CBF/FFFFFF?text=Instituto+Buriti" alt="Instituto Buriti">
+                </a>
+                
+                <nav class="nav-desktop" id="navigation">
+                    <a href="../index.html">Home</a>
+                    <a href="../pages/cursos.html">Cursos</a>
+                    <a href="../pages/materiais.html">Materiais</a>
+                    <a href="../pages/feedback.html">Feedback</a>
+                    <a href="../pages/admin-feedback.html" class="active">Admin</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>👑 Painel Administrativo - Feedback e Testes</h1>
+                <p>Gerencie feedback dos usuários, configure testes A/B e analise métricas de comportamento</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <div class="container">
+            
+            <!-- Dashboard Overview -->
+            <section class="dashboard-overview">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">📝</div>
+                        <div class="metric-content">
+                            <h3>Total de Feedbacks</h3>
+                            <div class="metric-value" id="totalFeedbacks">247</div>
+                            <div class="metric-change positive">+23 esta semana</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">🧪</div>
+                        <div class="metric-content">
+                            <h3>Testes Ativos</h3>
+                            <div class="metric-value" id="activeTests">3</div>
+                            <div class="metric-change neutral">2 em andamento</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">👥</div>
+                        <div class="metric-content">
+                            <h3>Participantes</h3>
+                            <div class="metric-value" id="totalParticipants">1,234</div>
+                            <div class="metric-change positive">+156 este mês</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">⭐</div>
+                        <div class="metric-content">
+                            <h3>Satisfação Média</h3>
+                            <div class="metric-value" id="avgSatisfaction">4.7/5</div>
+                            <div class="metric-change positive">+0.3 vs. mês anterior</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gerenciamento de Feedback -->
+            <section class="feedback-management">
+                <div class="section-header">
+                    <h2>📋 Gerenciamento de Feedback</h2>
+                    <div class="section-actions">
+                        <button class="btn-secondary" onclick="exportFeedbacks()">📊 Exportar</button>
+                    </div>
+                </div>
+                
+                <div class="feedback-filters">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="pending">Pendentes</button>
+                    <button class="filter-btn" data-filter="analyzing">Em Análise</button>
+                    <button class="filter-btn" data-filter="resolved">Resolvidos</button>
+                </div>
+                
+                <div class="feedback-table-container">
+                    <table class="feedback-table" id="feedbackTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo</th>
+                                <th>Título</th>
+                                <th>Página</th>
+                                <th>Prioridade</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackTableBody">
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination" id="feedbackPagination">
+                    <button class="pagination-btn" id="prevPage">« Anterior</button>
+                    <span class="pagination-info" id="paginationInfo">Página 1 de 5</span>
+                    <button class="pagination-btn" id="nextPage">Próxima »</button>
+                </div>
+            </section>
+
+            <!-- Configuração de Testes A/B -->
+            <section class="ab-testing-config">
+                <div class="section-header">
+                    <h2>🧪 Configuração de Testes A/B</h2>
+                    <div class="section-actions">
+                        <button class="btn-primary" onclick="openCreateTestModal()">+ Criar Novo Teste</button>
+                    </div>
+                </div>
+                
+                <div class="tests-grid" id="testsGrid">
+                    <!-- Testes serão inseridos via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Analytics Avançado -->
+            <section class="advanced-analytics">
+                <div class="section-header">
+                    <h2>📈 Analytics Avançado</h2>
+                    <div class="time-filters">
+                        <button class="time-filter active" data-period="7">7 dias</button>
+                        <button class="time-filter" data-period="30">30 dias</button>
+                        <button class="time-filter" data-period="90">90 dias</button>
+                    </div>
+                </div>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>📊 Feedback por Categoria</h3>
+                        <canvas id="feedbackCategoryChart" width="400" height="300"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>📈 Satisfação ao Longo do Tempo</h3>
+                        <canvas id="satisfactionChart" width="400" height="300"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>🎯 Taxa de Resolução</h3>
+                        <canvas id="resolutionChart" width="400" height="300"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>👥 Participação em Testes</h3>
+                        <canvas id="participationChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insights e Recomendações -->
+            <section class="insights-recommendations">
+                <div class="section-header">
+                    <h2>💡 Insights e Recomendações</h2>
+                </div>
+                
+                <div class="insights-grid">
+                    <div class="insight-card critical">
+                        <div class="insight-icon">🔴</div>
+                        <div class="insight-content">
+                            <h3>Alta Prioridade</h3>
+                            <p>15 bugs críticos reportados esta semana. Recomenda-se ação imediata na página de chat mobile.</p>
+                            <div class="insight-actions">
+                                <button class="btn-small">Ver Detalhes</button>
+                                <button class="btn-small">Criar Task</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card opportunity">
+                        <div class="insight-icon">🟡</div>
+                        <div class="insight-content">
+                            <h3>Oportunidade de Melhoria</h3>
+                            <p>Usuários sugerem filtros avançados na busca. 67% dos feedbacks mencionam esta funcionalidade.</p>
+                            <div class="insight-actions">
+                                <button class="btn-small">Planejar Feature</button>
+                                <button class="btn-small">Ver Feedback</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card positive">
+                        <div class="insight-icon">🟢</div>
+                        <div class="insight-content">
+                            <h3>Feedback Positivo</h3>
+                            <p>Sistema de gamificação recebeu 89% de avaliações positivas. Considere expandir funcionalidades.</p>
+                            <div class="insight-actions">
+                                <button class="btn-small">Ver Elogios</button>
+                                <button class="btn-small">Compartilhar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Modal - Detalhes do Feedback -->
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalhes do Feedback</h3>
+                <button class="modal-close" onclick="closeFeedbackModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="feedbackModalBody">
+                <!-- Conteúdo será inserido via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeFeedbackModal()">Fechar</button>
+                <button class="btn-primary" onclick="updateFeedbackStatus()">Atualizar Status</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Criar Novo Teste A/B -->
+    <div class="modal" id="createTestModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Novo Teste A/B</h3>
+                <button class="modal-close" onclick="closeCreateTestModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createTestForm">
+                    <div class="form-group">
+                        <label for="testName">Nome do Teste</label>
+                        <input type="text" id="testName" name="testName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testDescription">Descrição</label>
+                        <textarea id="testDescription" name="testDescription" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testType">Tipo de Teste</label>
+                        <select id="testType" name="testType" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="interface">🎨 Interface</option>
+                            <option value="mobile">📱 Mobile</option>
+                            <option value="functionality">⚡ Funcionalidade</option>
+                            <option value="content">📝 Conteúdo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testDuration">Duração (dias)</label>
+                        <input type="number" id="testDuration" name="testDuration" min="1" max="90" value="14" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testParticipants">Meta de Participantes</label>
+                        <input type="number" id="testParticipants" name="testParticipants" min="10" max="10000" value="100" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeCreateTestModal()">Cancelar</button>
+                <button class="btn-primary" onclick="createNewTest()">Criar Teste</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/admin-feedback.js"></script>
+</body>
+</html>
+

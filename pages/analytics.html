@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/analytics.css">
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">
+                    <img src="../images/logo.png" alt="Instituto Buriti">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <a href="../index.html">🏠 Home</a>
+                    <a href="cursos.html">📚 Cursos</a>
+                    <a href="certificados.html">🏆 Certificados</a>
+                    <a href="materiais.html">📄 Materiais</a>
+                    <a href="chat.html">💬 Chat</a>
+                    <a href="ranking.html">🏆 Ranking</a>
+                    <a href="gamificacao.html">🎮 Gamificação</a>
+                    <a href="analytics.html" class="active">📊 Analytics</a>
+                    <a href="pagamentos.html">💳 Pagamentos</a>
+                    <a href="login-real.html">🔑 Login</a>
+                    <a href="registro-real.html">📝 Cadastro</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="nav-mobile" id="mobileNav">
+            <a href="../index.html">🏠 Home</a>
+            <a href="cursos.html">📚 Cursos</a>
+            <a href="certificados.html">🏆 Certificados</a>
+            <a href="materiais.html">📄 Materiais</a>
+            <a href="chat.html">💬 Chat</a>
+            <a href="ranking.html">🏆 Ranking</a>
+            <a href="gamificacao.html">🎮 Gamificação</a>
+            <a href="analytics.html" class="active">📊 Analytics</a>
+            <a href="pagamentos.html">💳 Pagamentos</a>
+            <a href="login-real.html">🔑 Login</a>
+            <a href="registro-real.html">📝 Cadastro</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="../index.html">Home</a> > 
+                <span>Analytics e Relatórios</span>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>📊 Analytics e Relatórios</h1>
+                <p>Acompanhe seu desempenho e progresso detalhado nos estudos</p>
+                <div class="period-selector">
+                    <button class="period-btn active" data-period="7">7 dias</button>
+                    <button class="period-btn" data-period="30">30 dias</button>
+                    <button class="period-btn" data-period="90">3 meses</button>
+                    <button class="period-btn" data-period="365">1 ano</button>
+                </div>
+            </div>
+
+            <!-- Analytics Dashboard -->
+            <div class="analytics-dashboard">
+                <!-- Key Metrics -->
+                <div class="metrics-overview">
+                    <div class="metric-card">
+                        <div class="metric-icon">⏱️</div>
+                        <div class="metric-info">
+                            <h3>45h 30m</h3>
+                            <p>Tempo Total de Estudo</p>
+                            <span class="metric-change positive">+12% vs período anterior</span>
+                        </div>
+                        <div class="metric-chart">
+                            <canvas id="studyTimeChart" width="80" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">📚</div>
+                        <div class="metric-info">
+                            <h3>8</h3>
+                            <p>Cursos Iniciados</p>
+                            <span class="metric-change positive">+2 novos cursos</span>
+                        </div>
+                        <div class="metric-chart">
+                            <canvas id="coursesChart" width="80" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">🎯</div>
+                        <div class="metric-info">
+                            <h3>85%</h3>
+                            <p>Taxa de Conclusão</p>
+                            <span class="metric-change positive">+5% de melhoria</span>
+                        </div>
+                        <div class="metric-chart">
+                            <canvas id="completionChart" width="80" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">📝</div>
+                        <div class="metric-info">
+                            <h3>9.2</h3>
+                            <p>Nota Média em Quizzes</p>
+                            <span class="metric-change positive">+0.3 pontos</span>
+                        </div>
+                        <div class="metric-chart">
+                            <canvas id="gradeChart" width="80" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Time Analysis -->
+                <div class="analytics-section">
+                    <div class="section-header">
+                        <h2>📈 Análise de Tempo de Estudo</h2>
+                        <div class="chart-controls">
+                            <select id="studyTimeView">
+                                <option value="daily">Diário</option>
+                                <option value="weekly">Semanal</option>
+                                <option value="monthly">Mensal</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="studyTimeMainChart"></canvas>
+                    </div>
+                    
+                    <div class="study-insights">
+                        <div class="insight-item">
+                            <div class="insight-icon">🔥</div>
+                            <div class="insight-text">
+                                <strong>Melhor sequência:</strong> 12 dias consecutivos de estudo
+                            </div>
+                        </div>
+                        <div class="insight-item">
+                            <div class="insight-icon">⏰</div>
+                            <div class="insight-text">
+                                <strong>Horário preferido:</strong> 19h às 21h (68% das sessões)
+                            </div>
+                        </div>
+                        <div class="insight-item">
+                            <div class="insight-icon">📅</div>
+                            <div class="insight-text">
+                                <strong>Dia mais produtivo:</strong> Terça-feira (média de 2h 15m)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Progress -->
+                <div class="analytics-section">
+                    <div class="section-header">
+                        <h2>📚 Progresso por Curso</h2>
+                        <div class="progress-filter">
+                            <button class="filter-btn active" data-filter="all">Todos</button>
+                            <button class="filter-btn" data-filter="active">Em Andamento</button>
+                            <button class="filter-btn" data-filter="completed">Concluídos</button>
+                        </div>
+                    </div>
+                    
+                    <div class="courses-progress">
+                        <div class="course-progress-item" data-status="active">
+                            <div class="course-info">
+                                <div class="course-icon">💻</div>
+                                <div class="course-details">
+                                    <h4>Desenvolvimento Web Completo</h4>
+                                    <p>Módulo 3 de 5 • 12h estudadas</p>
+                                </div>
+                            </div>
+                            <div class="course-metrics">
+                                <div class="progress-circle" data-progress="60">
+                                    <svg viewBox="0 0 36 36">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                        <path class="circle" stroke-dasharray="60, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                        <text x="18" y="20.35">60%</text>
+                                    </svg>
+                                </div>
+                                <div class="course-stats">
+                                    <span>Nota: 9.5</span>
+                                    <span>Tempo restante: ~8h</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="course-progress-item" data-status="completed">
+                            <div class="course-info">
+                                <div class="course-icon">📈</div>
+                                <div class="course-details">
+                                    <h4>Marketing Digital Avançado</h4>
+                                    <p>Concluído • 18h estudadas</p>
+                                </div>
+                            </div>
+                            <div class="course-metrics">
+                                <div class="progress-circle completed" data-progress="100">
+                                    <svg viewBox="0 0 36 36">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                        <path class="circle" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                        <text x="18" y="20.35">✓</text>
+                                    </svg>
+                                </div>
+                                <div class="course-stats">
+                                    <span>Nota final: 9.8</span>
+                                    <span>Certificado emitido</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="course-progress-item" data-status="active">
+                            <div class="course-info">
+                                <div class="course-icon">🎨</div>
+                                <div class="course-details">
+                                    <h4>Design Gráfico Profissional</h4>
+                                    <p>Módulo 1 de 4 • 3h estudadas</p>
+                                </div>
+                            </div>
+                            <div class="course-metrics">
+                                <div class="progress-circle" data-progress="25">
+                                    <svg viewBox="0 0 36 36">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                        <path class="circle" stroke-dasharray="25, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                        <text x="18" y="20.35">25%</text>
+                                    </svg>
+                                </div>
+                                <div class="course-stats">
+                                    <span>Nota: 8.7</span>
+                                    <span>Tempo restante: ~12h</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Analysis -->
+                <div class="analytics-section">
+                    <div class="section-header">
+                        <h2>🎯 Análise de Performance</h2>
+                    </div>
+                    
+                    <div class="performance-grid">
+                        <div class="performance-card">
+                            <h3>📝 Desempenho em Quizzes</h3>
+                            <div class="quiz-stats">
+                                <div class="stat-row">
+                                    <span>Quizzes realizados:</span>
+                                    <strong>24</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Nota média:</span>
+                                    <strong>9.2/10</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Taxa de aprovação:</span>
+                                    <strong>95.8%</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Melhor categoria:</span>
+                                    <strong>Programação (9.8)</strong>
+                                </div>
+                            </div>
+                            <div class="performance-chart">
+                                <canvas id="quizPerformanceChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-card">
+                            <h3>⏱️ Eficiência de Estudo</h3>
+                            <div class="efficiency-metrics">
+                                <div class="efficiency-item">
+                                    <div class="efficiency-label">Foco médio por sessão</div>
+                                    <div class="efficiency-bar">
+                                        <div class="efficiency-fill" style="width: 87%"></div>
+                                        <span>87%</span>
+                                    </div>
+                                </div>
+                                <div class="efficiency-item">
+                                    <div class="efficiency-label">Velocidade de aprendizado</div>
+                                    <div class="efficiency-bar">
+                                        <div class="efficiency-fill" style="width: 92%"></div>
+                                        <span>92%</span>
+                                    </div>
+                                </div>
+                                <div class="efficiency-item">
+                                    <div class="efficiency-label">Retenção de conteúdo</div>
+                                    <div class="efficiency-bar">
+                                        <div class="efficiency-fill" style="width: 89%"></div>
+                                        <span>89%</span>
+                                    </div>
+                                </div>
+                                <div class="efficiency-item">
+                                    <div class="efficiency-label">Consistência</div>
+                                    <div class="efficiency-bar">
+                                        <div class="efficiency-fill" style="width: 78%"></div>
+                                        <span>78%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-card">
+                            <h3>🏆 Conquistas e Metas</h3>
+                            <div class="achievements-summary">
+                                <div class="achievement-stat">
+                                    <div class="achievement-number">12</div>
+                                    <div class="achievement-label">Badges Conquistadas</div>
+                                </div>
+                                <div class="achievement-stat">
+                                    <div class="achievement-number">45</div>
+                                    <div class="achievement-label">Dias Consecutivos</div>
+                                </div>
+                                <div class="achievement-stat">
+                                    <div class="achievement-number">7.500</div>
+                                    <div class="achievement-label">XP Total</div>
+                                </div>
+                            </div>
+                            <div class="goals-progress">
+                                <h4>Metas do Mês</h4>
+                                <div class="goal-item">
+                                    <span>Completar 2 cursos</span>
+                                    <div class="goal-progress">
+                                        <div class="goal-fill" style="width: 50%"></div>
+                                        <span>1/2</span>
+                                    </div>
+                                </div>
+                                <div class="goal-item">
+                                    <span>40 horas de estudo</span>
+                                    <div class="goal-progress">
+                                        <div class="goal-fill" style="width: 75%"></div>
+                                        <span>30/40h</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Patterns -->
+                <div class="analytics-section">
+                    <div class="section-header">
+                        <h2>🧠 Padrões de Aprendizado</h2>
+                    </div>
+                    
+                    <div class="patterns-grid">
+                        <div class="pattern-card">
+                            <h3>📅 Heatmap de Atividade</h3>
+                            <div class="heatmap-container">
+                                <div class="heatmap-legend">
+                                    <span>Menos</span>
+                                    <div class="legend-scale">
+                                        <div class="legend-item level-0"></div>
+                                        <div class="legend-item level-1"></div>
+                                        <div class="legend-item level-2"></div>
+                                        <div class="legend-item level-3"></div>
+                                        <div class="legend-item level-4"></div>
+                                    </div>
+                                    <span>Mais</span>
+                                </div>
+                                <div class="heatmap-grid" id="activityHeatmap">
+                                    <!-- Heatmap será gerado via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pattern-card">
+                            <h3>⏰ Distribuição por Horário</h3>
+                            <div class="time-distribution">
+                                <canvas id="timeDistributionChart"></canvas>
+                            </div>
+                            <div class="time-insights">
+                                <div class="time-insight">
+                                    <span class="time-period">Manhã (6h-12h)</span>
+                                    <span class="time-percentage">15%</span>
+                                </div>
+                                <div class="time-insight">
+                                    <span class="time-period">Tarde (12h-18h)</span>
+                                    <span class="time-percentage">25%</span>
+                                </div>
+                                <div class="time-insight">
+                                    <span class="time-period">Noite (18h-24h)</span>
+                                    <span class="time-percentage">60%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="analytics-section">
+                    <div class="section-header">
+                        <h2>💡 Recomendações Personalizadas</h2>
+                    </div>
+                    
+                    <div class="recommendations-grid">
+                        <div class="recommendation-card priority-high">
+                            <div class="recommendation-header">
+                                <div class="recommendation-icon">🎯</div>
+                                <div class="recommendation-priority">Alta Prioridade</div>
+                            </div>
+                            <h4>Melhore sua consistência</h4>
+                            <p>Você tem ótimo desempenho, mas pode melhorar a regularidade dos estudos. Tente estudar pelo menos 30 minutos por dia.</p>
+                            <div class="recommendation-action">
+                                <button class="btn-action">Criar Lembrete</button>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-card priority-medium">
+                            <div class="recommendation-header">
+                                <div class="recommendation-icon">📚</div>
+                                <div class="recommendation-priority">Média Prioridade</div>
+                            </div>
+                            <h4>Explore novos tópicos</h4>
+                            <p>Baseado no seu interesse em programação, recomendamos os cursos de IA e Machine Learning.</p>
+                            <div class="recommendation-action">
+                                <button class="btn-action">Ver Cursos</button>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-card priority-low">
+                            <div class="recommendation-header">
+                                <div class="recommendation-icon">⏰</div>
+                                <div class="recommendation-priority">Baixa Prioridade</div>
+                            </div>
+                            <h4>Otimize seu horário</h4>
+                            <p>Seus melhores resultados são à noite. Considere reservar mais tempo neste período para estudos importantes.</p>
+                            <div class="recommendation-action">
+                                <button class="btn-action">Ajustar Agenda</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Options -->
+                <div class="analytics-section">
+                    <div class="section-header">
+                        <h2>📄 Exportar Relatórios</h2>
+                    </div>
+                    
+                    <div class="export-options">
+                        <div class="export-card">
+                            <div class="export-icon">📊</div>
+                            <div class="export-info">
+                                <h4>Relatório Completo</h4>
+                                <p>Todas as métricas e análises do período selecionado</p>
+                            </div>
+                            <button class="btn-export" data-type="complete">Baixar PDF</button>
+                        </div>
+                        
+                        <div class="export-card">
+                            <div class="export-icon">📈</div>
+                            <div class="export-info">
+                                <h4>Dados de Performance</h4>
+                                <p>Planilha com dados brutos para análise personalizada</p>
+                            </div>
+                            <button class="btn-export" data-type="data">Baixar Excel</button>
+                        </div>
+                        
+                        <div class="export-card">
+                            <div class="export-icon">🏆</div>
+                            <div class="export-info">
+                                <h4>Certificado de Progresso</h4>
+                                <p>Documento oficial com suas conquistas</p>
+                            </div>
+                            <button class="btn-export" data-type="certificate">Gerar Certificado</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Instituto Buriti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/supabase-integration.js"></script>
+    <script src="../js/analytics.js"></script>
+    <script>
+        // Inicializar página de analytics
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileNav.classList.toggle('active');
+            });
+            
+            // Inicializar sistema de analytics
+            if (typeof AnalyticsSystem !== 'undefined') {
+                window.analyticsSystem = new AnalyticsSystem();
+            }
+        });
+    </script>
+</body>
+</html>
+

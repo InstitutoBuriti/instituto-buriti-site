@@ -1,0 +1,570 @@
+/**
+ * CSS de Acessibilidade - Instituto Buriti
+ * Melhorias para WCAG 2.1 AA compliance
+ */
+
+/* Skip Links */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #973CBF;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+    font-weight: bold;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* Focus Indicators */
+*:focus {
+    outline: 3px solid #973CBF;
+    outline-offset: 2px;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus {
+    outline: 3px solid #973CBF;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 1px rgba(151, 60, 191, 0.3);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .header {
+        background: #000;
+        color: #fff;
+        border-bottom: 2px solid #fff;
+    }
+    
+    .nav-desktop a,
+    .nav-mobile a {
+        color: #fff;
+        border: 1px solid #fff;
+        margin: 2px;
+    }
+    
+    .nav-desktop a:hover,
+    .nav-mobile a:hover,
+    .nav-desktop a.active,
+    .nav-mobile a.active {
+        background: #fff;
+        color: #000;
+    }
+    
+    .btn-primary {
+        background: #000;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+    
+    .btn-primary:hover {
+        background: #fff;
+        color: #000;
+    }
+    
+    .card {
+        border: 2px solid #000;
+        background: #fff;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .loading-spinner {
+        animation: none;
+        border: 3px solid #973CBF;
+        border-radius: 50%;
+    }
+    
+    .hero-section {
+        background-attachment: scroll;
+    }
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* Color Contrast Improvements */
+.text-muted {
+    color: #495057 !important; /* Improved contrast */
+}
+
+.text-secondary {
+    color: #6c757d !important; /* Improved contrast */
+}
+
+/* Link Improvements */
+a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
+/* Button Improvements */
+button,
+.btn {
+    min-height: 44px; /* Touch target size */
+    min-width: 44px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 500;
+    position: relative;
+}
+
+button:disabled,
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Form Improvements */
+label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+}
+
+input,
+select,
+textarea {
+    min-height: 44px;
+    padding: 12px;
+    border: 2px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px; /* Prevent zoom on iOS */
+}
+
+input:invalid,
+select:invalid,
+textarea:invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+input:valid,
+select:valid,
+textarea:valid {
+    border-color: #28a745;
+}
+
+/* Error Messages */
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.error-message::before {
+    content: "⚠️";
+    font-size: 16px;
+}
+
+/* Success Messages */
+.success-message {
+    color: #28a745;
+    font-size: 14px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.success-message::before {
+    content: "✅";
+    font-size: 16px;
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #973CBF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --text-color: #ffffff;
+        --card-bg: #2d2d2d;
+        --border-color: #404040;
+    }
+    
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+    
+    .card {
+        background-color: var(--card-bg);
+        border-color: var(--border-color);
+    }
+    
+    input,
+    select,
+    textarea {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border-color: var(--border-color);
+    }
+    
+    .header {
+        background: #2d2d2d;
+        border-bottom: 1px solid var(--border-color);
+    }
+}
+
+/* Font Size Preferences */
+@media (prefers-font-size: large) {
+    body {
+        font-size: 18px;
+    }
+    
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.75rem; }
+    h4 { font-size: 1.5rem; }
+    h5 { font-size: 1.25rem; }
+    h6 { font-size: 1.1rem; }
+}
+
+/* Keyboard Navigation */
+.keyboard-navigation {
+    outline: none;
+}
+
+.keyboard-navigation *:focus {
+    outline: 3px solid #973CBF;
+    outline-offset: 2px;
+}
+
+/* Modal Accessibility */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal[aria-hidden="true"] {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* Table Accessibility */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+caption {
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* Progress Indicators */
+.progress {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    background-color: #973CBF;
+    height: 100%;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: attr(aria-valuenow) "%";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Tooltip Accessibility */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-content {
+    visibility: hidden;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+}
+
+.tooltip:hover .tooltip-content,
+.tooltip:focus .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .header,
+    .footer,
+    .nav-desktop,
+    .nav-mobile,
+    .mobile-menu-btn {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        color: black;
+        background: white;
+    }
+    
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+        color: #666;
+    }
+}
+
+/* Touch Device Improvements */
+@media (hover: none) and (pointer: coarse) {
+    button,
+    .btn,
+    a {
+        min-height: 48px; /* Larger touch targets */
+        min-width: 48px;
+    }
+    
+    .nav-mobile a {
+        padding: 16px 20px;
+    }
+    
+    input,
+    select,
+    textarea {
+        min-height: 48px;
+        font-size: 16px; /* Prevent zoom */
+    }
+}
+
+/* Language Direction Support */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .nav-desktop {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .mobile-menu-btn {
+    left: 20px;
+    right: auto;
+}
+
+/* Animation Utilities */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Text */
+.responsive-text {
+    font-size: clamp(14px, 2.5vw, 18px);
+    line-height: 1.6;
+}
+
+/* Focus Management */
+.focus-trap {
+    position: relative;
+}
+
+.focus-trap::before,
+.focus-trap::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Landmark Roles */
+main[role="main"] {
+    min-height: 60vh;
+}
+
+nav[role="navigation"] {
+    position: relative;
+}
+
+/* Status Messages */
+.status-message {
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-weight: 500;
+}
+
+.status-message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.status-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.status-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+

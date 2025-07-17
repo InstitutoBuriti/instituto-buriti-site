@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player de Vídeo - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/video-player.css">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+</head>
+<body>
+    <!-- Header Mobile -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <a href="../index.html" class="logo-link">
+                <img src="../assets/logo-instituto-buriti.png" alt="Instituto Buriti" class="logo">
+            </a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Menu Mobile -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <div class="menu-header">
+            <button class="menu-close" id="menuClose">×</button>
+        </div>
+        <div class="menu-content">
+            <a href="../index.html">🏠 Home</a>
+            <a href="quem-somos.html">👥 Quem Somos</a>
+            <a href="cursos.html">📚 Cursos</a>
+            <a href="meus-cursos.html">📖 Meus Cursos</a>
+            <a href="chat.html">💬 Chat</a>
+            <a href="certificados.html">🏆 Certificados</a>
+            <a href="ranking.html">🥇 Ranking</a>
+            <a href="seja-instrutor.html">🎓 Seja um Instrutor</a>
+            <a href="contato.html">📞 Contato</a>
+            <a href="#" onclick="logout()">🚪 Sair</a>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="meus-cursos.html">Meus Cursos</a> > 
+            <a href="curso-player.html" id="courseBreadcrumb">Curso</a> > 
+            <span id="lessonBreadcrumb">Aula</span>
+        </div>
+
+        <!-- Container do Player -->
+        <div class="video-container">
+            <!-- Informações da Aula -->
+            <div class="lesson-info">
+                <h1 id="lessonTitle">Carregando aula...</h1>
+                <div class="lesson-meta">
+                    <span id="lessonDuration">--:--</span>
+                    <span class="separator">•</span>
+                    <span id="lessonProgress">0% concluído</span>
+                </div>
+            </div>
+
+            <!-- Player de Vídeo -->
+            <div class="video-player-wrapper">
+                <video id="videoPlayer" class="video-player" controls preload="metadata">
+                    <source id="videoSource" src="" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+                
+                <!-- Overlay de Loading -->
+                <div class="video-loading" id="videoLoading">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando vídeo...</p>
+                </div>
+
+                <!-- Controles Personalizados -->
+                <div class="video-controls" id="videoControls">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-filled" id="progressFilled"></div>
+                            <div class="progress-handle" id="progressHandle"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="currentTime">0:00</span>
+                            <span>/</span>
+                            <span id="totalTime">0:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="control-buttons">
+                        <button class="control-btn" id="playPauseBtn">
+                            <span class="play-icon">▶</span>
+                            <span class="pause-icon" style="display: none;">⏸</span>
+                        </button>
+                        
+                        <button class="control-btn" id="rewindBtn" title="Voltar 10s">⏪</button>
+                        <button class="control-btn" id="forwardBtn" title="Avançar 10s">⏩</button>
+                        
+                        <div class="volume-control">
+                            <button class="control-btn" id="volumeBtn">🔊</button>
+                            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" class="volume-slider">
+                        </div>
+                        
+                        <div class="speed-control">
+                            <select id="speedSelect" class="speed-select">
+                                <option value="0.5">0.5x</option>
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2">2x</option>
+                            </select>
+                        </div>
+                        
+                        <button class="control-btn" id="fullscreenBtn" title="Tela cheia">⛶</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notas e Marcadores -->
+            <div class="video-notes">
+                <h3>📝 Suas Anotações</h3>
+                <div class="notes-container">
+                    <div class="note-input">
+                        <textarea id="noteText" placeholder="Adicione uma anotação neste momento do vídeo..."></textarea>
+                        <button id="addNoteBtn" class="add-note-btn">Adicionar Nota</button>
+                    </div>
+                    <div class="notes-list" id="notesList">
+                        <!-- Notas serão carregadas aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegação da Aula -->
+        <div class="lesson-navigation">
+            <button id="prevLessonBtn" class="nav-btn prev-btn">
+                ← Aula Anterior
+            </button>
+            
+            <div class="lesson-status">
+                <button id="markCompleteBtn" class="complete-btn">
+                    ✓ Marcar como Concluída
+                </button>
+            </div>
+            
+            <button id="nextLessonBtn" class="nav-btn next-btn">
+                Próxima Aula →
+            </button>
+        </div>
+
+        <!-- Lista de Aulas do Curso -->
+        <div class="course-playlist">
+            <h3>📚 Aulas do Curso</h3>
+            <div class="playlist-container" id="playlistContainer">
+                <!-- Lista será carregada dinamicamente -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/video-player.js"></script>
+    <script src="../js/video-progress.js"></script>
+    <script src="../js/video-notes.js"></script>
+    
+    <script>
+        // Inicializar player quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeVideoPlayer();
+        });
+    </script>
+</body>
+</html>
+

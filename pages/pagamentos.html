@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Pagamentos - Instituto Buriti</title>
+    <meta name="description" content="Gerencie suas compras, assinaturas e métodos de pagamento no Instituto Buriti.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/payments.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE (IDÊNTICO ÀS OUTRAS PÁGINAS) ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE (IDÊNTICO ÀS OUTRAS PÁGINAS) ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="quem-somos.html" class="mobile-nav-link">👥 Quem Somos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="cursos.html" class="mobile-nav-link">📚 Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="seja-instrutor.html" class="mobile-nav-link">🎓 Seja um Instrutor</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contato.html" class="mobile-nav-link">📞 Contato</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="login.html" class="mobile-nav-link">🔐 Login</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="mobile-menu-overlay"></div>
+    
+    <!-- ===== HERO SECTION (MESMO PADRÃO) ===== -->
+    <section class="hero-mobile">
+        <div class="container">
+            <h1 class="hero-title">💳 Sistema de Pagamentos</h1>
+            <p class="hero-subtitle">Gerencie suas compras, assinaturas e métodos de pagamento</p>
+        </div>
+    </section>
+
+    <!-- ===== DASHBOARD FINANCEIRO ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="payment-dashboard">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">💰</div>
+                        <div class="card-content">
+                            <h3>R$ 749,70</h3>
+                            <p>Total Investido</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📚</div>
+                        <div class="card-content">
+                            <h3>2</h3>
+                            <p>Cursos Adquiridos</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-content">
+                            <h3>5</h3>
+                            <p>Cursos Concluídos</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-content">
+                            <h3>premium</h3>
+                            <p>Plano Atual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MÉTODOS DE PAGAMENTO ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>💳 Métodos de Pagamento</h2>
+                <button class="btn-primary">+ Adicionar Método</button>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-method-card">
+                    <div class="method-info">
+                        <div class="method-icon">💳</div>
+                        <div class="method-details">
+                            <h4>Visa</h4>
+                            <p>**** **** **** 1234</p>
+                            <span class="method-name">João Silva</span>
+                            <span class="method-expiry">12/26</span>
+                        </div>
+                    </div>
+                    <div class="method-actions">
+                        <span class="method-status default">Padrão</span>
+                        <button class="btn-icon">✏️</button>
+                        <button class="btn-icon">🗑️</button>
+                    </div>
+                </div>
+
+                <div class="payment-method-card">
+                    <div class="method-info">
+                        <div class="method-icon">💳</div>
+                        <div class="method-details">
+                            <h4>Mastercard</h4>
+                            <p>**** **** **** 5678</p>
+                            <span class="method-name">João Silva</span>
+                            <span class="method-expiry">08/25</span>
+                        </div>
+                    </div>
+                    <div class="method-actions">
+                        <button class="btn-secondary">Definir Padrão</button>
+                        <button class="btn-icon">✏️</button>
+                        <button class="btn-icon">🗑️</button>
+                    </div>
+                </div>
+
+                <div class="payment-method-card">
+                    <div class="method-info">
+                        <div class="method-icon">🔑</div>
+                        <div class="method-details">
+                            <h4>PIX</h4>
+                            <p>joao.silva@email.com</p>
+                            <span class="method-name">Chave Email</span>
+                        </div>
+                    </div>
+                    <div class="method-actions">
+                        <button class="btn-icon">✏️</button>
+                        <button class="btn-icon">🗑️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ASSINATURA ATUAL ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>📋 Assinatura Atual</h2>
+                <button class="btn-secondary">Gerenciar</button>
+            </div>
+            
+            <div class="subscription-card">
+                <div class="subscription-header">
+                    <h3>⭐ Plano Premium</h3>
+                    <span class="subscription-status active">Ativo</span>
+                </div>
+                <div class="subscription-details">
+                    <div class="subscription-price">
+                        <strong>R$ 49,90/mês</strong>
+                    </div>
+                    <div class="subscription-info">
+                        <p>Próxima cobrança: 15/08/2025</p>
+                        <p>Método: Visa **** 1234</p>
+                    </div>
+                    <div class="subscription-benefits">
+                        <h4>Benefícios inclusos:</h4>
+                        <ul>
+                            <li>✅ Acesso a todos os cursos</li>
+                            <li>✅ Certificados ilimitados</li>
+                            <li>✅ Suporte prioritário</li>
+                            <li>✅ Downloads offline</li>
+                            <li>✅ Acesso antecipado</li>
+                        </ul>
+                    </div>
+                    <div class="subscription-actions">
+                        <button class="btn-primary">Alterar Plano</button>
+                        <button class="btn-secondary">Pausar Assinatura</button>
+                        <button class="btn-danger">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HISTÓRICO DE COMPRAS ===== -->
+    <section class="section">
+        <div class="container">
+            <h2>📊 Histórico de Compras</h2>
+            
+            <div class="purchase-history">
+                <div class="purchase-item">
+                    <div class="purchase-info">
+                        <h4>Desenvolvimento Web Completo</h4>
+                        <p class="purchase-type">Curso</p>
+                        <p class="purchase-date">15/07/2025 • Visa **** 1234</p>
+                        <span class="purchase-status completed">Status: Concluído</span>
+                    </div>
+                    <div class="purchase-amount">
+                        <strong>R$ 299,90</strong>
+                        <button class="btn-link">📄 Recibo</button>
+                    </div>
+                </div>
+
+                <div class="purchase-item">
+                    <div class="purchase-info">
+                        <h4>Plano Premium - Julho</h4>
+                        <p class="purchase-type">Assinatura</p>
+                        <p class="purchase-date">15/07/2025 • Visa **** 1234</p>
+                        <span class="purchase-status completed">Status: Concluído</span>
+                    </div>
+                    <div class="purchase-amount">
+                        <strong>R$ 49,90</strong>
+                        <button class="btn-link">📄 Recibo</button>
+                    </div>
+                </div>
+
+                <div class="purchase-item">
+                    <div class="purchase-info">
+                        <h4>Marketing Digital Avançado</h4>
+                        <p class="purchase-type">Curso</p>
+                        <p class="purchase-date">10/07/2025 • PIX</p>
+                        <span class="purchase-status completed">Status: Concluído</span>
+                    </div>
+                    <div class="purchase-amount">
+                        <strong>R$ 399,90</strong>
+                        <button class="btn-link">📄 Recibo</button>
+                    </div>
+                </div>
+
+                <div class="purchase-item">
+                    <div class="purchase-info">
+                        <h4>Design Gráfico Profissional</h4>
+                        <p class="purchase-type">Curso</p>
+                        <p class="purchase-date">05/07/2025 • Mastercard **** 5678</p>
+                        <span class="purchase-status processing">Status: Processando</span>
+                    </div>
+                    <div class="purchase-amount">
+                        <strong>R$ 349,90</strong>
+                        <button class="btn-link">📄 Recibo</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="btn-secondary">« Anterior</button>
+                <span>Página 1 de 3</span>
+                <button class="btn-secondary">Próxima »</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== AÇÕES RÁPIDAS ===== -->
+    <section class="section">
+        <div class="container">
+            <h2>⚡ Ações Rápidas</h2>
+            
+            <div class="quick-actions">
+                <div class="quick-action-card">
+                    <div class="action-icon">💰</div>
+                    <div class="action-content">
+                        <h4>Comprar Créditos</h4>
+                        <p>Adicione créditos para compras futuras</p>
+                    </div>
+                </div>
+
+                <div class="quick-action-card">
+                    <div class="action-icon">🎁</div>
+                    <div class="action-content">
+                        <h4>Cartão Presente</h4>
+                        <p>Presenteie alguém com cursos</p>
+                    </div>
+                </div>
+
+                <div class="quick-action-card">
+                    <div class="action-icon">🏢</div>
+                    <div class="action-content">
+                        <h4>Conta Corporativa</h4>
+                        <p>Soluções para empresas</p>
+                    </div>
+                </div>
+
+                <div class="quick-action-card">
+                    <div class="action-icon">👥</div>
+                    <div class="action-content">
+                        <h4>Programa de Indicação</h4>
+                        <p>Ganhe recompensas indicando amigos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer-mobile">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                    <p class="footer-description">Transformando vidas através da educação de qualidade.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Navegação</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="cursos.html">Cursos</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Suporte</h4>
+                        <ul>
+                            <li><a href="#">Central de Ajuda</a></li>
+                            <li><a href="#">Política de Privacidade</a></li>
+                            <li><a href="#">Termos de Uso</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notificação Supabase -->
+    <div class="supabase-notification" id="supabaseNotification">
+        <div class="notification-content">
+            <span class="notification-icon">🔧</span>
+            <div class="notification-text">
+                <strong>Supabase Preparado</strong><br>
+                <small>Sistema pronto para banco real</small>
+            </div>
+            <button class="notification-close" onclick="this.parentElement.parentElement.style.display='none'">×</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-base.js"></script>
+    <script src="../js/mobile-interactions.js"></script>
+    <script src="../js/payments.js"></script>
+    <script src="../js/pwa-manager.js"></script>
+    <script src="../js/accessibility.js"></script>
+</body>
+</html>
+

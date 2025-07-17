@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Materiais para Download - Instituto Buriti</title>
+    <meta name="description" content="Baixe materiais complementares dos seus cursos no Instituto Buriti">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/materials-student.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="quem-somos.html" class="mobile-nav-link">👥 Quem Somos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="cursos.html" class="mobile-nav-link">📚 Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="meus-cursos.html" class="mobile-nav-link">📖 Meus Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="materiais.html" class="mobile-nav-link active">📄 Materiais</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="chat.html" class="mobile-nav-link">💬 Chat</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="certificados.html" class="mobile-nav-link">🏆 Certificados</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="ranking.html" class="mobile-nav-link">🥇 Ranking</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contato.html" class="mobile-nav-link">📞 Contato</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="#" onclick="logout()" class="mobile-nav-link">🚪 Sair</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="meus-cursos.html">Meus Cursos</a> > 
+            <span>Materiais para Download</span>
+        </div>
+
+        <!-- Cabeçalho da Página -->
+        <div class="page-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>📄 Materiais para Download</h1>
+                    <p>Acesse materiais complementares dos seus cursos</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalMaterials">24</span>
+                        <span class="stat-label">Materiais</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalDownloads">156</span>
+                        <span class="stat-label">Downloads</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros e Busca -->
+        <div class="filters-section">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label for="courseFilter">📚 Curso:</label>
+                    <select id="courseFilter" class="filter-select">
+                        <option value="">Todos os cursos</option>
+                        <option value="curso-1">Desenvolvimento Web</option>
+                        <option value="curso-2">Marketing Digital</option>
+                        <option value="curso-3">Design Gráfico</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="categoryFilter">🏷️ Categoria:</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">Todas as categorias</option>
+                        <option value="apostila">Apostilas</option>
+                        <option value="exercicio">Exercícios</option>
+                        <option value="template">Templates</option>
+                        <option value="codigo">Códigos</option>
+                        <option value="recurso">Recursos</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="searchMaterial">🔍 Buscar:</label>
+                    <input type="text" id="searchMaterial" class="filter-input" placeholder="Nome do material...">
+                </div>
+            </div>
+            
+            <div class="view-options">
+                <div class="view-toggle">
+                    <button id="gridViewBtn" class="view-btn active" title="Visualização em grade">
+                        ⊞
+                    </button>
+                    <button id="listViewBtn" class="view-btn" title="Visualização em lista">
+                        ☰
+                    </button>
+                </div>
+                
+                <div class="sort-options">
+                    <label for="sortBy">Ordenar por:</label>
+                    <select id="sortBy" class="sort-select">
+                        <option value="name">Nome</option>
+                        <option value="date">Data</option>
+                        <option value="size">Tamanho</option>
+                        <option value="downloads">Downloads</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Materiais por Curso -->
+        <div class="materials-section">
+            
+            <!-- Curso 1: Desenvolvimento Web -->
+            <div class="course-section" data-course="curso-1">
+                <div class="course-header">
+                    <div class="course-info">
+                        <h2>💻 Desenvolvimento Web</h2>
+                        <span class="material-count">8 materiais</span>
+                    </div>
+                    <button class="toggle-course" data-course="curso-1">
+                        <span class="toggle-icon">▼</span>
+                    </button>
+                </div>
+                
+                <div class="materials-grid" id="materialsGrid1">
+                    
+                    <!-- Material 1 -->
+                    <div class="material-card" data-category="apostila">
+                        <div class="material-icon">
+                            <span class="file-type pdf">PDF</span>
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">Apostila HTML5 Completa</h3>
+                            <p class="material-description">Guia completo sobre HTML5 com exemplos práticos e exercícios</p>
+                            <div class="material-meta">
+                                <span class="material-size">2.5 MB</span>
+                                <span class="material-date">15/07/2025</span>
+                                <span class="download-count">45 downloads</span>
+                            </div>
+                            <div class="material-tags">
+                                <span class="tag">HTML5</span>
+                                <span class="tag">Básico</span>
+                            </div>
+                        </div>
+                        <div class="material-actions">
+                            <button class="btn-download" onclick="downloadMaterial('html5-apostila.pdf')">
+                                📥 Download
+                            </button>
+                            <button class="btn-preview" onclick="previewMaterial('html5-apostila.pdf')">
+                                👁️ Visualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Material 2 -->
+                    <div class="material-card" data-category="codigo">
+                        <div class="material-icon">
+                            <span class="file-type zip">ZIP</span>
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">Códigos de Exemplo CSS3</h3>
+                            <p class="material-description">Coleção de exemplos práticos de CSS3 com animações e efeitos</p>
+                            <div class="material-meta">
+                                <span class="material-size">1.8 MB</span>
+                                <span class="material-date">12/07/2025</span>
+                                <span class="download-count">32 downloads</span>
+                            </div>
+                            <div class="material-tags">
+                                <span class="tag">CSS3</span>
+                                <span class="tag">Exemplos</span>
+                            </div>
+                        </div>
+                        <div class="material-actions">
+                            <button class="btn-download" onclick="downloadMaterial('css3-exemplos.zip')">
+                                📥 Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Material 3 -->
+                    <div class="material-card" data-category="exercicio">
+                        <div class="material-icon">
+                            <span class="file-type pdf">PDF</span>
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">Exercícios JavaScript</h3>
+                            <p class="material-description">Lista de exercícios práticos para fixação do conteúdo</p>
+                            <div class="material-meta">
+                                <span class="material-size">1.2 MB</span>
+                                <span class="material-date">10/07/2025</span>
+                                <span class="download-count">28 downloads</span>
+                            </div>
+                            <div class="material-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">Exercícios</span>
+                            </div>
+                        </div>
+                        <div class="material-actions">
+                            <button class="btn-download" onclick="downloadMaterial('js-exercicios.pdf')">
+                                📥 Download
+                            </button>
+                            <button class="btn-preview" onclick="previewMaterial('js-exercicios.pdf')">
+                                👁️ Visualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Material 4 -->
+                    <div class="material-card" data-category="template">
+                        <div class="material-icon">
+                            <span class="file-type zip">ZIP</span>
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">Template Responsivo</h3>
+                            <p class="material-description">Template HTML/CSS responsivo pronto para uso</p>
+                            <div class="material-meta">
+                                <span class="material-size">3.1 MB</span>
+                                <span class="material-date">08/07/2025</span>
+                                <span class="download-count">67 downloads</span>
+                            </div>
+                            <div class="material-tags">
+                                <span class="tag">Template</span>
+                                <span class="tag">Responsivo</span>
+                            </div>
+                        </div>
+                        <div class="material-actions">
+                            <button class="btn-download" onclick="downloadMaterial('template-responsivo.zip')">
+                                📥 Download
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Curso 2: Marketing Digital -->
+            <div class="course-section" data-course="curso-2">
+                <div class="course-header">
+                    <div class="course-info">
+                        <h2>📈 Marketing Digital</h2>
+                        <span class="material-count">6 materiais</span>
+                    </div>
+                    <button class="toggle-course" data-course="curso-2">
+                        <span class="toggle-icon">▼</span>
+                    </button>
+                </div>
+                
+                <div class="materials-grid" id="materialsGrid2">
+                    
+                    <!-- Material 5 -->
+                    <div class="material-card" data-category="apostila">
+                        <div class="material-icon">
+                            <span class="file-type pdf">PDF</span>
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">Guia de SEO 2025</h3>
+                            <p class="material-description">Estratégias atualizadas de SEO para melhorar o ranking</p>
+                            <div class="material-meta">
+                                <span class="material-size">4.2 MB</span>
+                                <span class="material-date">14/07/2025</span>
+                                <span class="download-count">89 downloads</span>
+                            </div>
+                            <div class="material-tags">
+                                <span class="tag">SEO</span>
+                                <span class="tag">2025</span>
+                            </div>
+                        </div>
+                        <div class="material-actions">
+                            <button class="btn-download" onclick="downloadMaterial('seo-guia-2025.pdf')">
+                                📥 Download
+                            </button>
+                            <button class="btn-preview" onclick="previewMaterial('seo-guia-2025.pdf')">
+                                👁️ Visualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Material 6 -->
+                    <div class="material-card" data-category="template">
+                        <div class="material-icon">
+                            <span class="file-type xlsx">XLSX</span>
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">Planilha de Métricas</h3>
+                            <p class="material-description">Template para acompanhamento de métricas de marketing</p>
+                            <div class="material-meta">
+                                <span class="material-size">856 KB</span>
+                                <span class="material-date">11/07/2025</span>
+                                <span class="download-count">54 downloads</span>
+                            </div>
+                            <div class="material-tags">
+                                <span class="tag">Métricas</span>
+                                <span class="tag">Excel</span>
+                            </div>
+                        </div>
+                        <div class="material-actions">
+                            <button class="btn-download" onclick="downloadMaterial('metricas-template.xlsx')">
+                                📥 Download
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Curso 3: Design Gráfico -->
+            <div class="course-section" data-course="curso-3">
+                <div class="course-header">
+                    <div class="course-info">
+                        <h2>🎨 Design Gráfico</h2>
+                        <span class="material-count">10 materiais</span>
+                    </div>
+                    <button class="toggle-course" data-course="curso-3">
+                        <span class="toggle-icon">▼</span>
+                    </button>
+                </div>
+                
+                <div class="materials-grid" id="materialsGrid3">
+                    
+                    <!-- Material 7 -->
+                    <div class="material-card" data-category="recurso">
+                        <div class="material-icon">
+                            <span class="file-type zip">ZIP</span>
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">Pack de Brushes Photoshop</h3>
+                            <p class="material-description">Coleção de brushes profissionais para Photoshop</p>
+                            <div class="material-meta">
+                                <span class="material-size">15.3 MB</span>
+                                <span class="material-date">13/07/2025</span>
+                                <span class="download-count">123 downloads</span>
+                            </div>
+                            <div class="material-tags">
+                                <span class="tag">Brushes</span>
+                                <span class="tag">Photoshop</span>
+                            </div>
+                        </div>
+                        <div class="material-actions">
+                            <button class="btn-download" onclick="downloadMaterial('brushes-pack.zip')">
+                                📥 Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Material 8 -->
+                    <div class="material-card" data-category="template">
+                        <div class="material-icon">
+                            <span class="file-type psd">PSD</span>
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">Templates de Cartão</h3>
+                            <p class="material-description">Modelos editáveis de cartão de visita profissional</p>
+                            <div class="material-meta">
+                                <span class="material-size">8.7 MB</span>
+                                <span class="material-date">09/07/2025</span>
+                                <span class="download-count">76 downloads</span>
+                            </div>
+                            <div class="material-tags">
+                                <span class="tag">Cartão</span>
+                                <span class="tag">Template</span>
+                            </div>
+                        </div>
+                        <div class="material-actions">
+                            <button class="btn-download" onclick="downloadMaterial('cartao-templates.psd')">
+                                📥 Download
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Estado Vazio -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-icon">📄</div>
+            <h3>Nenhum material encontrado</h3>
+            <p>Tente ajustar os filtros ou buscar por outros termos</p>
+            <button class="btn-primary" onclick="clearFilters()">
+                🔄 Limpar Filtros
+            </button>
+        </div>
+
+        <!-- Modal de Preview -->
+        <div id="previewModal" class="modal">
+            <div class="modal-content large-modal">
+                <div class="modal-header">
+                    <h3 id="previewTitle">Visualizar Material</h3>
+                    <button class="modal-close" id="closePreviewModal">×</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="preview-container">
+                        <iframe id="previewFrame" src="" frameborder="0"></iframe>
+                        <div id="previewLoading" class="preview-loading">
+                            <div class="loading-spinner"></div>
+                            <p>Carregando preview...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="closePreview">Fechar</button>
+                    <button type="button" class="btn-primary" id="downloadFromPreview">
+                        📥 Download
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Download -->
+        <div id="downloadModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Download em Andamento</h3>
+                    <button class="modal-close" id="closeDownloadModal">×</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="download-progress">
+                        <div class="download-info">
+                            <h4 id="downloadFileName">arquivo.pdf</h4>
+                            <p id="downloadFileSize">2.5 MB</p>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="downloadProgress"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="progressPercent">0%</span>
+                            <span id="downloadSpeed">0 KB/s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/materials-manager.js"></script>
+    <script src="../js/download-manager.js"></script>
+    
+    <script>
+        // Inicializar sistema de materiais
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMaterials();
+        });
+    </script>
+</body>
+</html>
+

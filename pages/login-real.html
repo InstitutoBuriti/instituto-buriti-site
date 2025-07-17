@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Login - Instituto Buriti</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Faça login no Instituto Buriti e acesse seus cursos">
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/auth-real.css">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="../img/logo-instituto-buriti.png" alt="Instituto Buriti" class="logo">
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE ===== -->
+    <nav class="menu-mobile" id="menuMobile">
+        <div class="menu-header">
+            <img src="../img/logo-instituto-buriti.png" alt="Instituto Buriti" class="menu-logo">
+            <button class="menu-close" id="menuClose">&times;</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="../index.html">🏠 Home</a></li>
+            <li><a href="cursos.html">📚 Cursos</a></li>
+            <li><a href="certificados.html">🏆 Certificados</a></li>
+            <li><a href="materiais.html">📄 Materiais</a></li>
+            <li><a href="chat.html">💬 Chat</a></li>
+            <li><a href="ranking.html">🏆 Ranking</a></li>
+            <li><a href="vendas-institucionais.html">🏢 Vendas B2B</a></li>
+            <li class="menu-divider"></li>
+            <li><a href="login-real.html" class="active">🔑 Login</a></li>
+            <li><a href="registro-real.html">📝 Cadastro</a></li>
+        </ul>
+    </nav>
+    
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        
+        <!-- Login Container -->
+        <div class="auth-container">
+            <div class="auth-card">
+                
+                <!-- Header -->
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <img src="../img/logo-instituto-buriti.png" alt="Instituto Buriti">
+                    </div>
+                    <h1 class="auth-title">Bem-vindo de volta!</h1>
+                    <p class="auth-subtitle">Faça login para continuar seus estudos</p>
+                </div>
+                
+                <!-- Login Form -->
+                <form class="auth-form" id="loginForm">
+                    
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <i class="icon">📧</i>
+                            Email
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-input" 
+                            placeholder="seu@email.com"
+                            required
+                            autocomplete="email"
+                        >
+                        <div class="form-error" id="emailError"></div>
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            <i class="icon">🔒</i>
+                            Senha
+                        </label>
+                        <div class="password-container">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                class="form-input" 
+                                placeholder="Sua senha"
+                                required
+                                autocomplete="current-password"
+                            >
+                            <button type="button" class="password-toggle" id="passwordToggle">
+                                <span class="toggle-icon">👁️</span>
+                            </button>
+                        </div>
+                        <div class="form-error" id="passwordError"></div>
+                    </div>
+                    
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <span class="checkmark"></span>
+                            Lembrar de mim
+                        </label>
+                        <a href="#" class="forgot-link" id="forgotPassword">Esqueci minha senha</a>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="auth-button" id="loginButton">
+                        <span class="button-text">Entrar</span>
+                        <div class="button-loader" id="loginLoader"></div>
+                    </button>
+                    
+                    <!-- Form Messages -->
+                    <div class="form-message" id="formMessage"></div>
+                    
+                </form>
+                
+                <!-- Divider -->
+                <div class="auth-divider">
+                    <span>ou</span>
+                </div>
+                
+                <!-- Demo Login Options -->
+                <div class="demo-login">
+                    <h3 class="demo-title">Login Demonstração</h3>
+                    <div class="demo-buttons">
+                        <button class="demo-button student" data-type="student">
+                            <i class="demo-icon">👨‍🎓</i>
+                            <span>Entrar como Aluno</span>
+                        </button>
+                        <button class="demo-button instructor" data-type="instructor">
+                            <i class="demo-icon">👨‍🏫</i>
+                            <span>Entrar como Instrutor</span>
+                        </button>
+                        <button class="demo-button admin" data-type="admin">
+                            <i class="demo-icon">👨‍💼</i>
+                            <span>Entrar como Admin</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Register Link -->
+                <div class="auth-footer">
+                    <p>Não tem uma conta? 
+                        <a href="registro-real.html" class="register-link">Cadastre-se aqui</a>
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+        
+    </main>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Fazendo login...</p>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content success">
+            <div class="modal-icon">✅</div>
+            <h3 class="modal-title">Login realizado com sucesso!</h3>
+            <p class="modal-message">Redirecionando para o dashboard...</p>
+        </div>
+    </div>
+    
+    <!-- Forgot Password Modal -->
+    <div class="modal-overlay" id="forgotModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Recuperar Senha</h3>
+                <button class="modal-close" id="forgotModalClose">&times;</button>
+            </div>
+            <form class="modal-form" id="forgotForm">
+                <div class="form-group">
+                    <label for="forgotEmail" class="form-label">Email</label>
+                    <input 
+                        type="email" 
+                        id="forgotEmail" 
+                        class="form-input" 
+                        placeholder="seu@email.com"
+                        required
+                    >
+                </div>
+                <button type="submit" class="auth-button">
+                    <span>Enviar instruções</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="../js/supabase-integration.js"></script>
+    <script src="../js/auth-real.js"></script>
+    <script>
+        // Inicializar página de login
+        document.addEventListener('DOMContentLoaded', function() {
+            AuthReal.initLoginPage();
+        });
+    </script>
+    
+</body>
+</html>
+

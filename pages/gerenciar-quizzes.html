@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Gerenciar Quizzes - Instituto Buriti</title>
+    <meta name="description" content="Crie e gerencie quizzes e avaliações para seus cursos">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/mobile-base.css">
+    <link rel="stylesheet" href="../css/mobile-effects.css">
+    <link rel="stylesheet" href="../css/quiz-management.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/logomarca-instituto-buriti.png">
+    
+    <!-- Meta tags para mobile -->
+    <meta name="theme-color" content="#973CBF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    
+    <!-- ===== HEADER MOBILE ===== -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-text">
+                <img src="../img/logomarca-instituto-buriti.png" alt="Instituto Buriti" class="logo-mobile">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+        </div>
+    </header>
+    
+    <!-- ===== MENU MOBILE ===== -->
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Fechar menu">×</button>
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="../index.html" class="mobile-nav-link">🏠 Home</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="dashboard-instrutor.html" class="mobile-nav-link">📊 Dashboard</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="gerenciar-cursos.html" class="mobile-nav-link">📚 Meus Cursos</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="gerenciar-videoaulas.html" class="mobile-nav-link">🎬 Videoaulas</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="gerenciar-quizzes.html" class="mobile-nav-link active">📝 Quizzes</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="relatorios-instrutor.html" class="mobile-nav-link">📈 Relatórios</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="chat.html" class="mobile-nav-link">💬 Chat</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="#" onclick="logout()" class="mobile-nav-link">🚪 Sair</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="dashboard-instrutor.html">Dashboard Instrutor</a> > 
+            <span>Gerenciar Quizzes</span>
+        </div>
+
+        <!-- Cabeçalho da Página -->
+        <div class="page-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>📝 Gerenciar Quizzes</h1>
+                    <p>Crie e organize quizzes e avaliações para seus cursos</p>
+                </div>
+                <button id="createQuizBtn" class="btn-primary header-btn">
+                    ➕ Novo Quiz
+                </button>
+            </div>
+        </div>
+
+        <!-- Filtros e Busca -->
+        <div class="filters-section">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label for="courseFilter">Curso:</label>
+                    <select id="courseFilter" class="filter-select">
+                        <option value="">Todos os cursos</option>
+                        <option value="curso-1">Curso de Desenvolvimento Web</option>
+                        <option value="curso-2">Curso de Marketing Digital</option>
+                        <option value="curso-3">Curso de Design Gráfico</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="statusFilter">Status:</label>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">Todos</option>
+                        <option value="published">Publicado</option>
+                        <option value="draft">Rascunho</option>
+                        <option value="archived">Arquivado</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="searchQuiz">Buscar:</label>
+                    <input type="text" id="searchQuiz" class="filter-input" placeholder="Nome do quiz...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Quizzes -->
+        <div class="quizzes-section">
+            <div class="section-header">
+                <h2>📋 Seus Quizzes</h2>
+                <div class="view-toggle">
+                    <button id="gridViewBtn" class="view-btn active" title="Visualização em grade">
+                        ⊞
+                    </button>
+                    <button id="listViewBtn" class="view-btn" title="Visualização em lista">
+                        ☰
+                    </button>
+                </div>
+            </div>
+            
+            <div id="quizzesContainer" class="quizzes-container grid-view">
+                <!-- Quizzes serão carregados aqui -->
+            </div>
+            
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">📝</div>
+                <h3>Nenhum quiz encontrado</h3>
+                <p>Crie seu primeiro quiz para começar a avaliar seus alunos</p>
+                <button class="btn-primary" onclick="createNewQuiz()">
+                    ➕ Criar Primeiro Quiz
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal de Criação/Edição de Quiz -->
+        <div id="quizModal" class="modal">
+            <div class="modal-content large-modal">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Criar Novo Quiz</h3>
+                    <button class="modal-close" id="closeQuizModal">×</button>
+                </div>
+                
+                <div class="modal-body">
+                    <form id="quizForm" class="quiz-form">
+                        
+                        <!-- Informações Básicas -->
+                        <div class="form-section">
+                            <h4>📋 Informações Básicas</h4>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="quizTitle">Título do Quiz <span class="required">*</span></label>
+                                    <input type="text" id="quizTitle" name="title" required 
+                                           placeholder="Ex: Avaliação - Módulo 1">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="quizCourse">Curso <span class="required">*</span></label>
+                                    <select id="quizCourse" name="course" required>
+                                        <option value="">Selecione um curso</option>
+                                        <option value="curso-1">Curso de Desenvolvimento Web</option>
+                                        <option value="curso-2">Curso de Marketing Digital</option>
+                                        <option value="curso-3">Curso de Design Gráfico</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="quizDescription">Descrição</label>
+                                <textarea id="quizDescription" name="description" rows="3"
+                                          placeholder="Descreva o objetivo e conteúdo do quiz..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Configurações -->
+                        <div class="form-section">
+                            <h4>⚙️ Configurações</h4>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="timeLimit">Tempo Limite (minutos)</label>
+                                    <input type="number" id="timeLimit" name="timeLimit" min="1" max="180" value="15">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="passingScore">Nota Mínima (%)</label>
+                                    <input type="number" id="passingScore" name="passingScore" min="0" max="100" value="70">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="maxAttempts">Máximo de Tentativas</label>
+                                    <input type="number" id="maxAttempts" name="maxAttempts" min="1" max="10" value="3">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="shuffleQuestions" name="shuffleQuestions">
+                                        <span class="checkmark"></span>
+                                        Embaralhar questões
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="showResults" name="showResults" checked>
+                                        <span class="checkmark"></span>
+                                        Mostrar resultados imediatamente
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="allowReview" name="allowReview" checked>
+                                        <span class="checkmark"></span>
+                                        Permitir revisão das respostas
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Instruções -->
+                        <div class="form-section">
+                            <h4>📝 Instruções para os Alunos</h4>
+                            <div class="form-group">
+                                <textarea id="quizInstructions" name="instructions" rows="4"
+                                          placeholder="Digite as instruções que os alunos verão antes de iniciar o quiz...">Leia cada questão com atenção antes de responder
+Você pode navegar entre as questões livremente
+Certifique-se de responder todas as questões antes de finalizar
+O tempo limite é rigorosamente respeitado</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Questões -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <h4>❓ Questões</h4>
+                                <button type="button" id="addQuestionBtn" class="btn-secondary">
+                                    ➕ Adicionar Questão
+                                </button>
+                            </div>
+                            
+                            <div id="questionsContainer" class="questions-container">
+                                <!-- Questões serão adicionadas aqui -->
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="saveAsDraftBtn">
+                        💾 Salvar como Rascunho
+                    </button>
+                    <button type="button" class="btn-primary" id="publishQuizBtn">
+                        🚀 Publicar Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Questão -->
+        <div id="questionModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="questionModalTitle">Adicionar Questão</h3>
+                    <button class="modal-close" id="closeQuestionModal">×</button>
+                </div>
+                
+                <div class="modal-body">
+                    <form id="questionForm" class="question-form">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="questionType">Tipo de Questão <span class="required">*</span></label>
+                                <select id="questionType" name="type" required>
+                                    <option value="multiple_choice">Múltipla Escolha</option>
+                                    <option value="true_false">Verdadeiro/Falso</option>
+                                    <option value="essay">Dissertativa</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="questionPoints">Pontos <span class="required">*</span></label>
+                                <input type="number" id="questionPoints" name="points" min="1" max="10" value="1" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="questionText">Pergunta <span class="required">*</span></label>
+                            <textarea id="questionText" name="question" rows="3" required
+                                      placeholder="Digite a pergunta..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="questionImage">Imagem (opcional)</label>
+                            <input type="file" id="questionImage" name="image" accept="image/*">
+                            <div class="file-info">Formatos aceitos: JPG, PNG, GIF (máx. 2MB)</div>
+                        </div>
+                        
+                        <!-- Opções para Múltipla Escolha -->
+                        <div id="multipleChoiceOptions" class="options-section">
+                            <h5>Opções de Resposta</h5>
+                            <div id="optionsContainer">
+                                <!-- Opções serão adicionadas aqui -->
+                            </div>
+                            <button type="button" id="addOptionBtn" class="btn-secondary small">
+                                ➕ Adicionar Opção
+                            </button>
+                        </div>
+                        
+                        <!-- Resposta para Verdadeiro/Falso -->
+                        <div id="trueFalseAnswer" class="answer-section" style="display: none;">
+                            <h5>Resposta Correta</h5>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="tfAnswer" value="true">
+                                    <span class="radio-mark"></span>
+                                    Verdadeiro
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="tfAnswer" value="false">
+                                    <span class="radio-mark"></span>
+                                    Falso
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Configurações para Dissertativa -->
+                        <div id="essaySettings" class="essay-section" style="display: none;">
+                            <div class="form-group">
+                                <label for="maxLength">Limite de Caracteres</label>
+                                <input type="number" id="maxLength" name="maxLength" min="100" max="5000" value="1000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="questionExplanation">Explicação (opcional)</label>
+                            <textarea id="questionExplanation" name="explanation" rows="2"
+                                      placeholder="Explicação que será mostrada após a resposta..."></textarea>
+                        </div>
+                        
+                    </form>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelQuestionBtn">Cancelar</button>
+                    <button type="button" class="btn-primary" id="saveQuestionBtn">Salvar Questão</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmação -->
+        <div id="confirmModal" class="modal">
+            <div class="modal-content small-modal">
+                <div class="modal-header">
+                    <h3 id="confirmTitle">Confirmar Ação</h3>
+                    <button class="modal-close" id="closeConfirmModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmMessage">Tem certeza que deseja realizar esta ação?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelConfirmBtn">Cancelar</button>
+                    <button type="button" class="btn-primary" id="confirmActionBtn">Confirmar</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/mobile-menu.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/quiz-management.js"></script>
+    <script src="../js/question-builder.js"></script>
+    
+    <script>
+        // Inicializar gerenciamento de quizzes
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeQuizManagement();
+        });
+    </script>
+</body>
+</html>
+

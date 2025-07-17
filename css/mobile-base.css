@@ -1,0 +1,467 @@
+/* ===== INSTITUTO BURITI - MOBILE BASE CSS (MOBILE-FIRST) ===== */
+
+/* ===== RESET E CONFIGURAÇÕES GLOBAIS ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f8fafc;
+    overflow-x: hidden;
+}
+
+/* ===== PALETA DE CORES INSTITUTO BURITI ===== */
+:root {
+    /* Cores principais do Instituto Buriti */
+    --primary-purple: #973CBF;
+    --primary-orange: #A95028;
+    --primary-green: #6B8C79;
+    
+    /* Tons da logomarca (laranja/vermelho/bordô) */
+    --logo-orange: #E67E22;
+    --logo-red: #C0392B;
+    --logo-burgundy: #8E44AD;
+    
+    /* Tons neutros */
+    --beige-light: #F5F5DC;
+    --beige-medium: #F0E68C;
+    --white: #FFFFFF;
+    --gray-light: #F8F9FA;
+    --gray-medium: #6C757D;
+    --gray-dark: #343A40;
+    
+    /* Gradientes */
+    --gradient-primary: linear-gradient(135deg, var(--primary-purple), var(--logo-orange));
+    --gradient-secondary: linear-gradient(135deg, var(--primary-green), var(--primary-orange));
+    --gradient-hero: linear-gradient(135deg, var(--logo-burgundy), var(--logo-red));
+}
+
+/* ===== TIPOGRAFIA MOBILE-FIRST ===== */
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--gray-dark);
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+    color: var(--gray-dark);
+}
+
+h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+    color: var(--gray-dark);
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--gray-medium);
+}
+
+/* ===== LAYOUT MOBILE-FIRST ===== */
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+
+.section {
+    padding: 2rem 0;
+    position: relative;
+}
+
+.section-padding {
+    padding: 3rem 1rem;
+}
+
+/* ===== HEADER MOBILE ===== */
+.header-mobile {
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+}
+
+.logo-mobile {
+    height: 40px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-purple);
+    text-decoration: none;
+}
+
+/* ===== MENU HAMBÚRGUER MOBILE ===== */
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary-purple);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background: var(--gray-light);
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100vh;
+    background: var(--white);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1001;
+    padding: 2rem 1rem;
+}
+
+.mobile-menu.active {
+    left: 0;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--gray-medium);
+    cursor: pointer;
+}
+
+.mobile-nav-list {
+    list-style: none;
+    margin-top: 3rem;
+}
+
+.mobile-nav-item {
+    margin-bottom: 1rem;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 1rem;
+    color: var(--gray-dark);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+    background: var(--gradient-primary);
+    color: var(--white);
+}
+
+/* ===== HERO SECTION MOBILE ===== */
+.hero-mobile {
+    background: var(--gradient-hero);
+    color: var(--white);
+    text-align: center;
+    padding: 3rem 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-mobile::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+    animation: float 20s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.hero-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    color: var(--white);
+}
+
+/* ===== BOTÕES MOBILE ===== */
+.btn-mobile {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--gradient-primary);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(151, 60, 191, 0.3);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+}
+
+.btn-mobile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(151, 60, 191, 0.4);
+}
+
+.btn-secondary {
+    background: var(--gradient-secondary);
+    box-shadow: 0 4px 15px rgba(107, 140, 121, 0.3);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 6px 20px rgba(107, 140, 121, 0.4);
+}
+
+/* ===== CARDS MOBILE ===== */
+.card-mobile {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-mobile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+.card-mobile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-purple);
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--gray-dark);
+}
+
+.card-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--gray-medium);
+}
+
+/* ===== GRID MOBILE ===== */
+.grid-mobile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+/* ===== IMAGENS RESPONSIVAS ===== */
+.img-responsive {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.img-circle {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+/* ===== FOOTER MOBILE ===== */
+.footer-mobile {
+    background: var(--gray-dark);
+    color: var(--white);
+    padding: 3rem 1rem 2rem;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    color: var(--white);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #cbd5e0;
+    font-size: 0.9rem;
+    text-decoration: none;
+    line-height: 1.6;
+}
+
+.footer-section a:hover {
+    color: var(--white);
+}
+
+.footer-bottom {
+    border-top: 1px solid #4a5568;
+    padding-top: 1.5rem;
+    text-align: center;
+    color: #a0aec0;
+    font-size: 0.8rem;
+}
+
+/* ===== UTILITÁRIOS MOBILE ===== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.hidden { display: none; }
+.visible { display: block; }
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ===== RESPONSIVIDADE PARA TABLETS ===== */
+@media (min-width: 768px) {
+    .container {
+        max-width: 750px;
+        padding: 0 2rem;
+    }
+    
+    .grid-mobile {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== RESPONSIVIDADE PARA DESKTOP ===== */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+    }
+    
+    .grid-mobile {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
