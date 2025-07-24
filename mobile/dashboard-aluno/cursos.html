@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Cursos - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #FFD700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .courses-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .course-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-category {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .course-status {
+            text-align: right;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #4CAF50;
+        }
+
+        .status-completed {
+            background: #2196F3;
+        }
+
+        .progress-section {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .course-actions {
+                flex-direction: column;
+            }
+
+            .course-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .course-status {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span>🎓</span>
+            <span>Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">← Voltar</button>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>📚 Meus Cursos</h1>
+            <p>Acompanhe seu progresso e continue aprendendo</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Cursos Ativos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Concluídos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">78%</div>
+                <div class="stat-label">Progresso Médio</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">124h</div>
+                <div class="stat-label">Tempo Estudado</div>
+            </div>
+        </div>
+
+        <div class="courses-grid">
+            <!-- Curso 1 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-info">
+                        <h3>Desenvolvimento Web Completo</h3>
+                        <span class="course-category">Tecnologia</span>
+                    </div>
+                    <div class="course-status">
+                        <span class="status-badge status-active">Em Andamento</span>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-text">
+                        <span>Progresso</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span>40h totais</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span>Iniciado em 15/06</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⭐</span>
+                        <span>4.9</span>
+                    </div>
+                </div>
+
+                <div class="course-actions">
+                    <a href="#" class="btn btn-primary">Continuar Aula</a>
+                    <a href="#" class="btn btn-secondary">Ver Materiais</a>
+                </div>
+            </div>
+
+            <!-- Curso 2 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-info">
+                        <h3>Python para Data Science</h3>
+                        <span class="course-category">Tecnologia</span>
+                    </div>
+                    <div class="course-status">
+                        <span class="status-badge status-active">Em Andamento</span>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-text">
+                        <span>Progresso</span>
+                        <span>62%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 62%"></div>
+                    </div>
+                </div>
+
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span>35h totais</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span>Iniciado em 02/07</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⭐</span>
+                        <span>4.8</span>
+                    </div>
+                </div>
+
+                <div class="course-actions">
+                    <a href="#" class="btn btn-primary">Continuar Aula</a>
+                    <a href="#" class="btn btn-secondary">Ver Materiais</a>
+                </div>
+            </div>
+
+            <!-- Curso 3 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-info">
+                        <h3>Gestão de Projetos Ágeis</h3>
+                        <span class="course-category">Gestão</span>
+                    </div>
+                    <div class="course-status">
+                        <span class="status-badge status-completed">Concluído</span>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-text">
+                        <span>Progresso</span>
+                        <span>100%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span>25h totais</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span>Concluído em 18/07</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⭐</span>
+                        <span>4.9</span>
+                    </div>
+                </div>
+
+                <div class="course-actions">
+                    <a href="#" class="btn btn-primary">Baixar Certificado</a>
+                    <a href="#" class="btn btn-secondary">Revisar Conteúdo</a>
+                </div>
+            </div>
+
+            <!-- Curso 4 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-info">
+                        <h3>Inglês para Negócios</h3>
+                        <span class="course-category">Idiomas</span>
+                    </div>
+                    <div class="course-status">
+                        <span class="status-badge status-active">Em Andamento</span>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-text">
+                        <span>Progresso</span>
+                        <span>45%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                </div>
+
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span>30h totais</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span>Iniciado em 10/07</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⭐</span>
+                        <span>4.7</span>
+                    </div>
+                </div>
+
+                <div class="course-actions">
+                    <a href="#" class="btn btn-primary">Continuar Aula</a>
+                    <a href="#" class="btn btn-secondary">Ver Materiais</a>
+                </div>
+            </div>
+
+            <!-- Curso 5 -->
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-info">
+                        <h3>Fundamentos do Design Gráfico</h3>
+                        <span class="course-category">Design</span>
+                    </div>
+                    <div class="course-status">
+                        <span class="status-badge status-completed">Concluído</span>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-text">
+                        <span>Progresso</span>
+                        <span>100%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span>15h totais</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span>Concluído em 05/07</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⭐</span>
+                        <span>4.8</span>
+                    </div>
+                </div>
+
+                <div class="course-actions">
+                    <a href="#" class="btn btn-primary">Baixar Certificado</a>
+                    <a href="#" class="btn btn-secondary">Revisar Conteúdo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instituto Buriti API Client -->
+    <script src="../js/api.js"></script>
+    
+    <script>
+        // Carregar dados reais dos cursos
+        async function carregarCursos() {
+            try {
+                showLoading('courses-container');
+                
+                const user = api.getCurrentUser();
+                if (!user) {
+                    window.location.href = '../index.html';
+                    return;
+                }
+
+                // Buscar cursos do aluno
+                const response = await api.getCursosAluno(user.id);
+                const cursos = response.data || response; // Adaptar para diferentes formatos de resposta
+                
+                // Atualizar estatísticas
+                atualizarEstatisticas(cursos);
+                
+                // Renderizar cursos
+                renderizarCursos(cursos);
+                
+            } catch (error) {
+                console.error('Erro ao carregar cursos:', error);
+                showError('courses-container', 'Erro ao carregar cursos. Tente novamente.');
+            }
+        }
+
+        function atualizarEstatisticas(cursos) {
+            const cursosAtivos = cursos.filter(c => c.status === 'em_andamento').length;
+            const cursosConcluidos = cursos.filter(c => c.status === 'concluido').length;
+            const progressoMedio = Math.round(cursos.reduce((acc, c) => acc + c.progresso, 0) / cursos.length);
+            const tempoTotal = cursos.reduce((acc, c) => acc + (c.horas_totais || 0), 0);
+
+            document.querySelector('.stat-card:nth-child(1) .stat-number').textContent = cursosAtivos;
+            document.querySelector('.stat-card:nth-child(2) .stat-number').textContent = cursosConcluidos;
+            document.querySelector('.stat-card:nth-child(3) .stat-number').textContent = progressoMedio + '%';
+            document.querySelector('.stat-card:nth-child(4) .stat-number').textContent = tempoTotal + 'h';
+        }
+
+        function renderizarCursos(cursos) {
+            const container = document.querySelector('.courses-grid');
+            container.innerHTML = '';
+
+            cursos.forEach(curso => {
+                const statusClass = curso.status === 'concluido' ? 'status-completed' : 'status-active';
+                const statusText = curso.status === 'concluido' ? 'Concluído' : 'Em Andamento';
+                
+                const cursoHTML = `
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div class="course-info">
+                                <h3>${curso.titulo}</h3>
+                                <span class="course-category">${curso.categoria}</span>
+                            </div>
+                            <div class="course-status">
+                                <span class="status-badge ${statusClass}">${statusText}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-section">
+                            <div class="progress-text">
+                                <span>Progresso</span>
+                                <span>${curso.progresso}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${curso.progresso}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <span>⏱️</span>
+                                <span>${curso.horas_totais}h totais</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>📅</span>
+                                <span>${curso.iniciado_em}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>⭐</span>
+                                <span>${curso.avaliacao}</span>
+                            </div>
+                        </div>
+
+                        <div class="course-actions">
+                            ${curso.status === 'concluido' 
+                                ? '<a href="#" class="btn btn-primary">Baixar Certificado</a>'
+                                : '<a href="#" class="btn btn-primary">Continuar Aula</a>'
+                            }
+                            <a href="#" class="btn btn-secondary">Ver Materiais</a>
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML += cursoHTML;
+            });
+        }
+
+        // Carregar dados ao inicializar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verificar autenticação
+            if (!api.isAuthenticated()) {
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            // Adicionar container para loading/error se não existir
+            const coursesGrid = document.querySelector('.courses-grid');
+            if (!coursesGrid.id) {
+                coursesGrid.id = 'courses-container';
+            }
+            
+            // Carregar cursos
+            carregarCursos();
+        });
+    </script>
+</body>
+</html>
+

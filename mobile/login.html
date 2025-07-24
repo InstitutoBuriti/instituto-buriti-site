@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 50%, #6B8C79 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 10px 30px rgba(151, 60, 191, 0.3);
+        }
+
+        .login-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        .demo-credentials {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .demo-title {
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .demo-item {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .profile-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-option {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .profile-option.active {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .login-button {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(151, 60, 191, 0.4);
+        }
+
+        .login-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .loading {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: #51cf66;
+            font-size: 0.9rem;
+            display: none;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: white;
+        }
+
+        .retry-info {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: #ffa726;
+            font-size: 0.9rem;
+            display: none;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">🎓</div>
+            <h1 class="login-title">Bem-vindo de volta!</h1>
+            <p class="login-subtitle">Acesse sua conta do Instituto Buriti</p>
+        </div>
+
+        <div class="demo-credentials">
+            <div class="demo-title">🔑 Credenciais de Demonstração:</div>
+            <div class="demo-item"><strong>Aluno:</strong> aluno@institutoburiti.com.br / senha123</div>
+            <div class="demo-item"><strong>Instrutor:</strong> instrutor@institutoburiti.com.br / senha123</div>
+            <div class="demo-item"><strong>Admin:</strong> admin@institutoburiti.com.br / senha123</div>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label class="form-label">E-mail</label>
+                <input type="email" class="form-input" id="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Senha</label>
+                <input type="password" class="form-input" id="password" placeholder="Sua senha" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Tipo de Acesso</label>
+                <div class="profile-selector">
+                    <div class="profile-option active" data-profile="aluno">
+                        👨‍🎓<br>Aluno
+                    </div>
+                    <div class="profile-option" data-profile="instrutor">
+                        👨‍🏫<br>Instrutor
+                    </div>
+                    <div class="profile-option" data-profile="admin">
+                        🛡️<br>Admin
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="login-button" id="loginButton">
+                🚀 Entrar
+            </button>
+        </form>
+
+        <div class="error-message" id="errorMessage">
+            Erro ao fazer login. Verifique suas credenciais.
+        </div>
+
+        <div class="loading" id="loadingMessage">
+            Conectando...
+        </div>
+
+        <div class="retry-info" id="retryMessage">
+            Tentando reconectar...
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← Voltar ao início</a>
+        </div>
+    </div>
+
+    <!-- Instituto Buriti API Client -->
+    <script src="js/api.js"></script>
+
+    <script>
+        let selectedProfile = 'aluno';
+
+        // Profile selector functionality
+        document.querySelectorAll('.profile-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.profile-option').forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                selectedProfile = option.dataset.profile;
+            });
+        });
+
+        // Auto-fill demo credentials
+        document.querySelectorAll('.profile-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const profile = option.dataset.profile;
+                document.getElementById('email').value = `${profile}@institutoburiti.com.br`;
+                document.getElementById('password').value = 'senha123';
+            });
+        });
+
+        // Enhanced login form submission with robust retry mechanism
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const retryMessage = document.getElementById('retryMessage');
+            const loginButton = document.getElementById('loginButton');
+
+            // Hide previous messages
+            errorMessage.style.display = 'none';
+            retryMessage.style.display = 'none';
+            
+            // Show loading
+            loadingMessage.style.display = 'block';
+            loginButton.disabled = true;
+            loginButton.textContent = 'Conectando...';
+
+            // Retry mechanism with exponential backoff
+            const maxRetries = 3;
+            let retryCount = 0;
+            
+            const attemptLogin = async () => {
+                try {
+                    // Update loading message with retry info
+                    if (retryCount > 0) {
+                        loadingMessage.textContent = `Tentativa ${retryCount + 1} de ${maxRetries}...`;
+                        retryMessage.style.display = 'block';
+                        retryMessage.textContent = `Reconectando... (${retryCount}/${maxRetries})`;
+                    }
+                    
+                    // Create login promise with timeout
+                    const loginPromise = api.login(email, password, selectedProfile);
+                    const timeoutPromise = new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('Timeout na conexão')), 15000)
+                    );
+                    
+                    // Race between login and timeout
+                    const response = await Promise.race([loginPromise, timeoutPromise]);
+                    
+                    if (response.success && response.token) {
+                        // Login successful
+                        console.log('Login realizado com sucesso:', response);
+                        
+                        // Store user info
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userType', selectedProfile);
+                        
+                        // Show success message
+                        loadingMessage.textContent = 'Login realizado! Redirecionando...';
+                        loadingMessage.style.background = 'rgba(0, 255, 0, 0.1)';
+                        loadingMessage.style.borderColor = 'rgba(0, 255, 0, 0.3)';
+                        loadingMessage.style.color = '#51cf66';
+                        
+                        // Redirect after brief delay
+                        setTimeout(() => {
+                            window.location.href = `dashboard-${selectedProfile}.html`;
+                        }, 1500);
+                        
+                        return; // Success, exit retry loop
+                    } else {
+                        throw new Error(response.message || 'Credenciais inválidas');
+                    }
+                    
+                } catch (error) {
+                    console.error(`Tentativa ${retryCount + 1} falhou:`, error);
+                    
+                    retryCount++;
+                    
+                    // Check if it's a network error and we have retries left
+                    const isNetworkError = error.message.includes('Timeout') || 
+                                         error.message.includes('fetch') ||
+                                         error.message.includes('NetworkError') ||
+                                         error.message.includes('Failed to fetch') ||
+                                         error.message.includes('ERR_NETWORK');
+                    
+                    if (retryCount < maxRetries && isNetworkError) {
+                        // Calculate delay with exponential backoff
+                        const delay = Math.pow(2, retryCount) * 1000; // 2s, 4s, 8s
+                        
+                        // Show retry countdown
+                        retryMessage.style.display = 'block';
+                        retryMessage.textContent = `Erro de conexão. Tentando novamente em ${delay/1000}s...`;
+                        
+                        // Countdown timer
+                        let countdown = delay / 1000;
+                        const countdownInterval = setInterval(() => {
+                            countdown--;
+                            if (countdown > 0) {
+                                retryMessage.textContent = `Erro de conexão. Tentando novamente em ${countdown}s...`;
+                            } else {
+                                clearInterval(countdownInterval);
+                                retryMessage.textContent = 'Reconectando...';
+                            }
+                        }, 1000);
+                        
+                        // Wait for delay then retry
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return attemptLogin(); // Recursive retry
+                    } else {
+                        // Final failure or credential error
+                        throw error;
+                    }
+                }
+            };
+
+            try {
+                await attemptLogin();
+                
+            } catch (error) {
+                console.error('Erro final no login:', error);
+                
+                // Determine appropriate error message
+                let errorText = 'Erro ao fazer login. Verifique suas credenciais.';
+                
+                if (error.message.includes('Timeout') || error.message.includes('fetch') || error.message.includes('ERR_NETWORK')) {
+                    errorText = 'Problema de conexão persistente. Verifique sua internet e tente novamente em alguns minutos.';
+                } else if (error.message.includes('Credenciais') || error.message.includes('inválidas')) {
+                    errorText = 'Email ou senha incorretos. Verifique suas credenciais.';
+                } else if (error.message) {
+                    errorText = error.message;
+                }
+                
+                errorMessage.textContent = errorText;
+                errorMessage.style.display = 'block';
+                
+            } finally {
+                // Reset UI state
+                loadingMessage.style.display = 'none';
+                retryMessage.style.display = 'none';
+                loadingMessage.textContent = 'Conectando...';
+                loadingMessage.style.background = 'rgba(0, 255, 0, 0.1)';
+                loadingMessage.style.borderColor = 'rgba(0, 255, 0, 0.3)';
+                loadingMessage.style.color = '#51cf66';
+                loginButton.disabled = false;
+                loginButton.textContent = '🚀 Entrar';
+            }
+        });
+
+        // Auto-fill first demo credential on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('email').value = 'aluno@institutoburiti.com.br';
+            document.getElementById('password').value = 'senha123';
+        });
+
+        // Check if already logged in (mas não se veio de logout)
+        const urlParams = new URLSearchParams(window.location.search);
+        const isLogout = urlParams.get('logout');
+        
+        if (!isLogout && api && api.isAuthenticated()) {
+            const userType = localStorage.getItem('userType') || 'aluno';
+            window.location.href = `dashboard-${userType}.html`;
+        }
+        
+        // Se veio de logout, limpar URL
+        if (isLogout) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
+</body>
+</html>
+

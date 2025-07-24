@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/checkout.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-home">
+                    <div class="home-bg"></div>
+                    <span>Home</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="quem-somos.html" class="nav-link">Quem Somos</a>
+                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
+                <a href="seja-instrutor.html" class="nav-link">Seja um Instrutor</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+                <div class="nav-dropdown">
+                    <button class="nav-link dropdown-btn">
+                        Login <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="login-aluno.html"><i class="fas fa-user-graduate"></i> Aluno</a>
+                        <a href="login-instrutor.html"><i class="fas fa-chalkboard-teacher"></i> Instrutor</a>
+                        <a href="login-admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="security-badges">
+                    <div class="badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Pagamento Seguro</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-lock"></i>
+                        <span>SSL Certificado</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-credit-card"></i>
+                        <span>PCI Compliance</span>
+                    </div>
+                </div>
+                <h1>Finalizar Compra</h1>
+                <p>Complete sua compra de forma rápida e segura</p>
+            </div>
+            
+            <!-- Floating SVG Elements -->
+            <div class="floating-elements">
+                <svg class="float-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="30" fill="rgba(139, 92, 246, 0.1)" />
+                </svg>
+                <svg class="float-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(249, 115, 22, 0.1)" />
+                </svg>
+                <svg class="float-3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="50" height="50" fill="rgba(16, 185, 129, 0.1)" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Checkout Content -->
+        <section class="checkout-section">
+            <div class="checkout-container">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step active">
+                        <div class="step-number">1</div>
+                        <span>Informações</span>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <span>Pagamento</span>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <span>Confirmação</span>
+                    </div>
+                </div>
+
+                <div class="checkout-content">
+                    <!-- Left Column - Forms -->
+                    <div class="checkout-left">
+                        <!-- Course Summary -->
+                        <div class="course-summary">
+                            <h2><i class="fas fa-shopping-cart"></i> Resumo do Pedido</h2>
+                            <div class="course-item" id="courseItem">
+                                <img src="/upload/ChatGPTImage19dejul.de2025,19_04_54.png" alt="Curso" class="course-image">
+                                <div class="course-details">
+                                    <h3 id="courseTitle">Fundamentos da Inteligência Artificial</h3>
+                                    <p class="instructor">Dr. Carlos Mendes</p>
+                                    <div class="course-meta">
+                                        <span><i class="fas fa-clock"></i> 40 horas</span>
+                                        <span><i class="fas fa-users"></i> 1.2k alunos</span>
+                                        <span><i class="fas fa-star"></i> 4.8</span>
+                                    </div>
+                                </div>
+                                <div class="course-price">
+                                    <span class="original-price" id="originalPrice">R$ 199,90</span>
+                                    <span class="final-price" id="finalPrice">R$ 199,90</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Coupon Section -->
+                        <div class="coupon-section">
+                            <h3><i class="fas fa-ticket-alt"></i> Cupom de Desconto</h3>
+                            <div class="coupon-input">
+                                <input type="text" id="couponCode" placeholder="Digite seu cupom">
+                                <button type="button" id="applyCoupon">Aplicar</button>
+                            </div>
+                            <div class="coupon-message" id="couponMessage"></div>
+                            <div class="popular-coupons">
+                                <p>Cupons populares:</p>
+                                <div class="coupon-tags">
+                                    <span class="coupon-tag" data-coupon="BURITI10">BURITI10 - 10% OFF</span>
+                                    <span class="coupon-tag" data-coupon="BEMVINDO">BEMVINDO - 20% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Billing Information -->
+                        <div class="billing-section">
+                            <h3><i class="fas fa-user"></i> Informações de Cobrança</h3>
+                            <form id="checkoutForm" class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="fullName">Nome Completo *</label>
+                                        <input type="text" id="fullName" name="fullName" required>
+                                        <div class="error-message"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email *</label>
+                                        <input type="email" id="email" name="email" required>
+                                        <div class="error-message"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cpf">CPF *</label>
+                                        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                                        <div class="error-message"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Telefone *</label>
+                                        <input type="tel" id="phone" name="phone" placeholder="(11) 99999-9999" required>
+                                        <div class="error-message"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cep">CEP *</label>
+                                        <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+                                        <div class="error-message"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="city">Cidade *</label>
+                                        <input type="text" id="city" name="city" required readonly>
+                                        <div class="error-message"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address">Endereço *</label>
+                                        <input type="text" id="address" name="address" required>
+                                        <div class="error-message"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="number">Número *</label>
+                                        <input type="text" id="number" name="number" required>
+                                        <div class="error-message"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="complement">Complemento</label>
+                                        <input type="text" id="complement" name="complement">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="state">Estado *</label>
+                                        <select id="state" name="state" required>
+                                            <option value="">Selecione</option>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espírito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>
+                                        <div class="error-message"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Payment -->
+                    <div class="checkout-right">
+                        <!-- Payment Methods -->
+                        <div class="payment-section">
+                            <h3><i class="fas fa-credit-card"></i> Método de Pagamento</h3>
+                            
+                            <div class="payment-methods">
+                                <div class="payment-method active" data-method="credit-card">
+                                    <div class="method-header">
+                                        <i class="fas fa-credit-card"></i>
+                                        <span>Cartão de Crédito</span>
+                                        <div class="card-brands">
+                                            <img src="https://cdn.jsdelivr.net/gh/aaronfagan/svg-credit-card-payment-icons/flat/visa.svg" alt="Visa">
+                                            <img src="https://cdn.jsdelivr.net/gh/aaronfagan/svg-credit-card-payment-icons/flat/mastercard.svg" alt="Mastercard">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method" data-method="pix">
+                                    <div class="method-header">
+                                        <i class="fas fa-qrcode"></i>
+                                        <span>PIX</span>
+                                        <div class="pix-badge">Instantâneo</div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-method" data-method="boleto">
+                                    <div class="method-header">
+                                        <i class="fas fa-barcode"></i>
+                                        <span>Boleto Bancário</span>
+                                        <div class="boleto-badge">3 dias úteis</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Credit Card Form -->
+                            <div class="payment-form" id="creditCardForm">
+                                <div class="form-group">
+                                    <label for="cardNumber">Número do Cartão *</label>
+                                    <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+                                    <div class="error-message"></div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cardExpiry">Validade *</label>
+                                        <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5">
+                                        <div class="error-message"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cardCvv">CVV *</label>
+                                        <input type="text" id="cardCvv" placeholder="123" maxlength="4">
+                                        <div class="error-message"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cardName">Nome no Cartão *</label>
+                                    <input type="text" id="cardName" placeholder="Como está impresso no cartão">
+                                    <div class="error-message"></div>
+                                </div>
+
+                                <div class="installments">
+                                    <label for="installments">Parcelamento</label>
+                                    <select id="installments">
+                                        <option value="1">1x de R$ 199,90 sem juros</option>
+                                        <option value="2">2x de R$ 99,95 sem juros</option>
+                                        <option value="3">3x de R$ 66,63 sem juros</option>
+                                        <option value="6">6x de R$ 33,32 sem juros</option>
+                                        <option value="12">12x de R$ 18,32 com juros</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- PIX Form -->
+                            <div class="payment-form hidden" id="pixForm">
+                                <div class="pix-info">
+                                    <div class="pix-icon">
+                                        <i class="fas fa-qrcode"></i>
+                                    </div>
+                                    <h4>Pagamento via PIX</h4>
+                                    <p>Após confirmar a compra, você receberá um QR Code para pagamento instantâneo via PIX.</p>
+                                    <div class="pix-benefits">
+                                        <div class="benefit">
+                                            <i class="fas fa-bolt"></i>
+                                            <span>Pagamento instantâneo</span>
+                                        </div>
+                                        <div class="benefit">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>100% seguro</span>
+                                        </div>
+                                        <div class="benefit">
+                                            <i class="fas fa-mobile-alt"></i>
+                                            <span>Pelo celular</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Boleto Form -->
+                            <div class="payment-form hidden" id="boletoForm">
+                                <div class="boleto-info">
+                                    <div class="boleto-icon">
+                                        <i class="fas fa-barcode"></i>
+                                    </div>
+                                    <h4>Boleto Bancário</h4>
+                                    <p>O boleto será gerado após a confirmação da compra e enviado por email.</p>
+                                    <div class="boleto-details">
+                                        <div class="detail">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>Vencimento em 3 dias úteis</span>
+                                        </div>
+                                        <div class="detail">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Compensação em até 2 dias úteis</span>
+                                        </div>
+                                        <div class="detail">
+                                            <i class="fas fa-envelope"></i>
+                                            <span>Enviado por email</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order Summary -->
+                        <div class="order-summary">
+                            <h3><i class="fas fa-receipt"></i> Resumo do Pedido</h3>
+                            <div class="summary-line">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">R$ 199,90</span>
+                            </div>
+                            <div class="summary-line discount hidden" id="discountLine">
+                                <span>Desconto:</span>
+                                <span id="discountAmount">-R$ 0,00</span>
+                            </div>
+                            <div class="summary-line total">
+                                <span>Total:</span>
+                                <span id="totalAmount">R$ 199,90</span>
+                            </div>
+                            
+                            <div class="terms">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="acceptTerms" required>
+                                    <span class="checkmark"></span>
+                                    Aceito os <a href="#" target="_blank">termos de uso</a> e <a href="#" target="_blank">política de privacidade</a>
+                                </label>
+                            </div>
+
+                            <button type="button" id="finalizePurchase" class="purchase-btn" disabled>
+                                <i class="fas fa-lock"></i>
+                                <span>Finalizar Compra</span>
+                                <div class="btn-loading hidden">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </div>
+                            </button>
+
+                            <div class="security-info">
+                                <div class="security-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Seus dados estão protegidos</span>
+                                </div>
+                                <div class="security-item">
+                                    <i class="fas fa-undo"></i>
+                                    <span>7 dias para cancelamento</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                    <div class="footer-text">
+                        <p class="footer-slogan">Educação que transforma. Cultura que conecta.</p>
+                        <p class="footer-company">Instituto Buriti, uma empresa 100% digital.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                    <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> contato@institutoburiti.com.br</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Instituto Buriti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/checkout.js"></script>
+</body>
+</html>
+

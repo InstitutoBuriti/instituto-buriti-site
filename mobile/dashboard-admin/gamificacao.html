@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração de Gamificação - Instituto Buriti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .config-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .xp-config {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .xp-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #973CBF;
+        }
+
+        .xp-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .xp-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .badges-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #FF7847;
+        }
+
+        .badge-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .badge-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .badge-info {
+            flex: 1;
+        }
+
+        .badge-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .badge-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .badge-requirement {
+            font-size: 0.8rem;
+            color: #973CBF;
+            font-weight: bold;
+        }
+
+        .badge-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .levels-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .level-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #6B8C79;
+        }
+
+        .level-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .level-info {
+            flex: 1;
+        }
+
+        .level-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .level-xp {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .level-input {
+            width: 80px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .admin-actions {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #973CBF;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+
+        .save-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo">
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="page-title">🎮 Configuração de Gamificação</h1>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">2.450</div>
+                    <div class="stat-label">XP Total Distribuído</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">89</div>
+                    <div class="stat-label">Badges Ativas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Níveis Configurados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">Participação</div>
+                </div>
+            </div>
+
+            <div class="config-section">
+                <h3 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Configuração de XP
+                </h3>
+
+                <div class="xp-config">
+                    <div class="xp-item">
+                        <div class="xp-title">Primeira Aula Completa</div>
+                        <input type="number" class="xp-input" value="50" placeholder="XP">
+                    </div>
+                    <div class="xp-item">
+                        <div class="xp-title">Aula Concluída</div>
+                        <input type="number" class="xp-input" value="25" placeholder="XP">
+                    </div>
+                    <div class="xp-item">
+                        <div class="xp-title">Curso Finalizado</div>
+                        <input type="number" class="xp-input" value="200" placeholder="XP">
+                    </div>
+                    <div class="xp-item">
+                        <div class="xp-title">Post no Fórum</div>
+                        <input type="number" class="xp-input" value="15" placeholder="XP">
+                    </div>
+                    <div class="xp-item">
+                        <div class="xp-title">Resposta no Fórum</div>
+                        <input type="number" class="xp-input" value="10" placeholder="XP">
+                    </div>
+                    <div class="xp-item">
+                        <div class="xp-title">Login Diário</div>
+                        <input type="number" class="xp-input" value="5" placeholder="XP">
+                    </div>
+                </div>
+
+                <button class="save-btn">
+                    <i class="fas fa-save"></i> Salvar Configurações de XP
+                </button>
+            </div>
+
+            <div class="badges-section">
+                <h3 class="section-title">
+                    <i class="fas fa-medal"></i>
+                    Gerenciar Badges
+                </h3>
+
+                <div class="badge-item">
+                    <div class="badge-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="badge-info">
+                        <div class="badge-name">Primeiro Passo</div>
+                        <div class="badge-description">Concluir a primeira aula de qualquer curso</div>
+                        <div class="badge-requirement">Requisito: 1 aula completa</div>
+                    </div>
+                    <div class="badge-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+
+                <div class="badge-item">
+                    <div class="badge-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="badge-info">
+                        <div class="badge-name">Em Chamas</div>
+                        <div class="badge-description">Estudar por 7 dias consecutivos</div>
+                        <div class="badge-requirement">Requisito: 7 dias seguidos</div>
+                    </div>
+                    <div class="badge-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+
+                <div class="badge-item">
+                    <div class="badge-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="badge-info">
+                        <div class="badge-name">Mestre</div>
+                        <div class="badge-description">Completar 5 cursos com nota máxima</div>
+                        <div class="badge-requirement">Requisito: 5 cursos 100%</div>
+                    </div>
+                    <div class="badge-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+
+                <div class="badge-item">
+                    <div class="badge-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="badge-info">
+                        <div class="badge-name">Mentor</div>
+                        <div class="badge-description">Ajudar 50 colegas no fórum</div>
+                        <div class="badge-requirement">Requisito: 50 respostas úteis</div>
+                    </div>
+                    <div class="badge-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="levels-section">
+                <h3 class="section-title">
+                    <i class="fas fa-layer-group"></i>
+                    Sistema de Níveis
+                </h3>
+
+                <div class="level-item">
+                    <div class="level-info">
+                        <div class="level-name">Nível 1 - Iniciante</div>
+                        <div class="level-xp">XP necessário para próximo nível</div>
+                    </div>
+                    <input type="number" class="level-input" value="100" placeholder="XP">
+                </div>
+
+                <div class="level-item">
+                    <div class="level-info">
+                        <div class="level-name">Nível 2 - Aprendiz</div>
+                        <div class="level-xp">XP necessário para próximo nível</div>
+                    </div>
+                    <input type="number" class="level-input" value="250" placeholder="XP">
+                </div>
+
+                <div class="level-item">
+                    <div class="level-info">
+                        <div class="level-name">Nível 3 - Estudante</div>
+                        <div class="level-xp">XP necessário para próximo nível</div>
+                    </div>
+                    <input type="number" class="level-input" value="500" placeholder="XP">
+                </div>
+
+                <div class="level-item">
+                    <div class="level-info">
+                        <div class="level-name">Nível 4 - Dedicado</div>
+                        <div class="level-xp">XP necessário para próximo nível</div>
+                    </div>
+                    <input type="number" class="level-input" value="1000" placeholder="XP">
+                </div>
+
+                <div class="level-item">
+                    <div class="level-info">
+                        <div class="level-name">Nível 5 - Expert</div>
+                        <div class="level-xp">XP necessário para próximo nível</div>
+                    </div>
+                    <input type="number" class="level-input" value="2000" placeholder="XP">
+                </div>
+
+                <button class="save-btn">
+                    <i class="fas fa-save"></i> Salvar Sistema de Níveis
+                </button>
+            </div>
+
+            <div class="admin-actions">
+                <h3 class="section-title">
+                    <i class="fas fa-tools"></i>
+                    Ações Administrativas
+                </h3>
+                <button class="admin-btn">
+                    <i class="fas fa-plus"></i> Criar Nova Badge
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-trophy"></i> Criar Desafio
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-chart-bar"></i> Relatório de Engajamento
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-undo"></i> Resetar Pontuações
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-admin.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="usuarios.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Usuários</span>
+        </a>
+        <a href="gamificacao.html" class="nav-item active">
+            <i class="fas fa-gamepad"></i>
+            <span>Gamificação</span>
+        </a>
+        <a href="backup.html" class="nav-item">
+            <i class="fas fa-database"></i>
+            <span>Backup</span>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+    </div>
+</body>
+</html>
+

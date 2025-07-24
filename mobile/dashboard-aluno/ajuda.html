@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajuda e Suporte - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .action-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .faq-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-question h4 {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            opacity: 0.9;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .contact-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-method {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span>❓</span>
+            <span>Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">← Voltar</button>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>❓ Ajuda e Suporte</h1>
+            <p>Estamos aqui para ajudar você em sua jornada de aprendizado</p>
+        </div>
+
+        <div class="search-bar">
+            <span>🔍</span>
+            <input type="text" class="search-input" placeholder="Buscar ajuda...">
+        </div>
+
+        <div class="quick-actions">
+            <div class="action-card">
+                <div class="action-icon">📚</div>
+                <div class="action-title">Guia do Aluno</div>
+                <div class="action-description">Tutorial completo sobre como usar a plataforma</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">🎥</div>
+                <div class="action-title">Vídeos Tutoriais</div>
+                <div class="action-description">Aprenda visualmente com nossos vídeos explicativos</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">💬</div>
+                <div class="action-title">Chat ao Vivo</div>
+                <div class="action-description">Fale conosco em tempo real</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">📧</div>
+                <div class="action-title">Enviar Ticket</div>
+                <div class="action-description">Relate problemas técnicos ou dúvidas específicas</div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2 class="section-title">❓ Perguntas Frequentes</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Como acessar meus cursos?</h4>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Para acessar seus cursos, vá até o Dashboard e clique em "Meus Cursos". Lá você encontrará todos os cursos em que está matriculado, com informações sobre progresso e próximas aulas.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Como baixar meu certificado?</h4>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Após concluir um curso com aproveitamento mínimo de 70%, seu certificado ficará disponível na seção "Certificados" do seu dashboard. Clique em "Baixar PDF" para fazer o download.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Posso assistir as aulas offline?</h4>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Sim! Você pode baixar as aulas para assistir offline. Procure pelo ícone de download ao lado de cada vídeo. As aulas baixadas ficam disponíveis por 30 dias.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Como funciona o sistema de gamificação?</h4>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Você ganha XP (pontos de experiência) ao completar aulas, fazer exercícios e participar do fórum. Com o XP você sobe de nível e desbloqueia badges especiais. Confira seu progresso na seção "Gamificação".
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Esqueci minha senha, como recuperar?</h4>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Na tela de login, clique em "Esqueci minha senha". Digite seu e-mail cadastrado e você receberá um link para redefinir sua senha. O link é válido por 24 horas.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Posso cancelar minha matrícula?</h4>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Sim, você tem 7 dias após a matrícula para solicitar o cancelamento com reembolso total. Após esse período, consulte nossa política de cancelamento ou entre em contato conosco.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Como participar do fórum?</h4>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Acesse a seção "Fórum" no seu dashboard. Você pode criar novos tópicos, responder discussões existentes e interagir com outros alunos e instrutores. Seja respeitoso e construtivo!
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Qual a validade dos cursos?</h4>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Após a matrícula, você tem acesso vitalício ao conteúdo do curso. Isso inclui todas as aulas, materiais complementares e futuras atualizações do curso.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>📞 Entre em Contato</h2>
+            <p>Não encontrou a resposta que procurava? Nossa equipe está pronta para ajudar!</p>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-title">WhatsApp</div>
+                    <div class="contact-info">Resposta em até 2 horas<br>Segunda a Sexta: 8h às 18h</div>
+                    <a href="https://wa.me/5511999999999" class="contact-btn">Abrir WhatsApp</a>
+                </div>
+
+                <div class="contact-method">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-title">E-mail</div>
+                    <div class="contact-info">Resposta em até 24 horas<br>suporte@institutoburiti.com.br</div>
+                    <a href="mailto:suporte@institutoburiti.com.br" class="contact-btn">Enviar E-mail</a>
+                </div>
+
+                <div class="contact-method">
+                    <div class="contact-icon">🎧</div>
+                    <div class="contact-title">Chat ao Vivo</div>
+                    <div class="contact-info">Atendimento imediato<br>Segunda a Sexta: 9h às 17h</div>
+                    <button class="contact-btn">Iniciar Chat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidade do FAQ
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Fechar todos os outros itens
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Abrir o item clicado se não estava ativo
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Funcionalidade de busca
+        document.querySelector('.search-input').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h4').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Funcionalidade dos cards de ação rápida
+        document.querySelectorAll('.action-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.action-title').textContent;
+                alert(`Abrindo: ${title}`);
+            });
+        });
+    </script>
+</body>
+</html>
+

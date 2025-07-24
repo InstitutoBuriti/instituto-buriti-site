@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seja Instrutor - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 50%, #6B8C79 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Particles */
+        .background-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/ChatGPTImage21dejul.de2025,01_38_05.png') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        /* Header Mobile */
+        .mobile-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon img {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 2;
+            padding: 6rem 1rem 2rem;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            margin-bottom: 3rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 250px;
+            background: url('images/ChatGPTImage11dejul.de2025,00_04_55.png') center/cover no-repeat;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(151, 60, 191, 0.8) 0%, rgba(255, 120, 71, 0.8) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .cta-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .cta-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 30px rgba(151, 60, 191, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(151, 60, 191, 0.6);
+        }
+
+        /* Requirements Section */
+        .requirements-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .requirements-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .requirements-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .requirement-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .requirement-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .requirement-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .requirement-title {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .requirement-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Benefits Section */
+        .benefits-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .benefits-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .benefit-label {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .social-icon.instagram {
+            background-image: url('images/logoinstagram.png');
+        }
+
+        .social-icon.linkedin {
+            background-image: url('images/logolinkedin.png');
+        }
+
+        .social-icon.youtube {
+            background-image: url('images/logoyoutube.png');
+        }
+
+        .social-icon.tiktok {
+            background-image: url('images/logotiktok.png');
+        }
+
+        .social-icon.whatsapp {
+            background-image: url('images/logowhatsapp.png');
+        }
+
+        .social-icon.x-twitter {
+            background-image: url('images/logox.png');
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .cta-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Particles -->
+    <div class="background-particles"></div>
+
+    <!-- Header Mobile -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <img src="images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti">
+                </div>
+                <span class="logo-text">Seja Instrutor</span>
+            </div>
+            <a href="index.html" class="back-button">← Voltar</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-image">
+                <div class="hero-overlay">
+                    <h1 class="hero-title">Seja Parte da Transformação!</h1>
+                    <p class="hero-subtitle">Compartilhe seu conhecimento e inspire milhares de alunos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="content-section">
+            <!-- CTA Principal -->
+            <div class="cta-card">
+                <h2 class="cta-title">🚀 Junte-se a Nós!</h2>
+                <p class="cta-description">
+                    Quer fazer parte da revolução educacional? Torne-se um instrutor do Instituto Buriti e ajude a formar a próxima geração de profissionais qualificados.
+                </p>
+                <a href="formulario-instrutor.html" class="cta-button">
+                    👨‍🏫 Quero ser Instrutor
+                </a>
+            </div>
+
+            <!-- Requisitos -->
+            <div class="requirements-card">
+                <h2 class="requirements-title">
+                    📋 Requisitos
+                </h2>
+                <div class="requirements-grid">
+                    <div class="requirement-item">
+                        <span class="requirement-icon">🎓</span>
+                        <h3 class="requirement-title">Formação Acadêmica</h3>
+                        <p class="requirement-description">
+                            Graduação completa na área de atuação ou experiência comprovada de pelo menos 3 anos no mercado.
+                        </p>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="requirement-icon">💼</span>
+                        <h3 class="requirement-title">Experiência Profissional</h3>
+                        <p class="requirement-description">
+                            Conhecimento prático e teórico na área que deseja lecionar, com portfolio ou certificações relevantes.
+                        </p>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="requirement-icon">🗣️</span>
+                        <h3 class="requirement-title">Habilidades de Comunicação</h3>
+                        <p class="requirement-description">
+                            Capacidade de transmitir conhecimento de forma clara, didática e envolvente para diferentes perfis de alunos.
+                        </p>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="requirement-icon">💻</span>
+                        <h3 class="requirement-title">Conhecimento Digital</h3>
+                        <p class="requirement-description">
+                            Familiaridade com ferramentas digitais e plataformas de ensino online para criar conteúdo de qualidade.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefícios -->
+            <div class="benefits-card">
+                <h2 class="benefits-title">
+                    🎁 Benefícios
+                </h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">💰</span>
+                        <div class="benefit-label">Remuneração Atrativa</div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">⏰</span>
+                        <div class="benefit-label">Horários Flexíveis</div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🌍</span>
+                        <div class="benefit-label">Trabalho Remoto</div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">📈</span>
+                        <div class="benefit-label">Crescimento Profissional</div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🤝</span>
+                        <div class="benefit-label">Suporte Pedagógico</div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🏆</span>
+                        <div class="benefit-label">Reconhecimento</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Instituto Buriti</div>
+            <div class="footer-social">
+                <div class="social-icon instagram"></div>
+                <div class="social-icon linkedin"></div>
+                <div class="social-icon youtube"></div>
+                <div class="social-icon tiktok"></div>
+                <div class="social-icon whatsapp"></div>
+                <div class="social-icon x-twitter"></div>
+            </div>
+            <div class="footer-text">
+                Formação, Inclusão e Cultura em todos os lugares<br>
+                © 2025 Instituto Buriti. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animação de entrada dos cards
+        const cards = document.querySelectorAll('.cta-card, .requirements-card, .benefits-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Animação dos itens de requisitos e benefícios
+        const items = document.querySelectorAll('.requirement-item, .benefit-item');
+        
+        const itemsObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        });
+
+        items.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.4s ease';
+            itemsObserver.observe(item);
+        });
+
+        // Parallax suave no scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.background-particles');
+            const speed = scrolled * 0.3;
+            parallax.style.transform = `translateY(${speed}px)`;
+        });
+
+        // Função para mostrar notificação
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 20px;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                animation: notificationPop 2s ease;
+                max-width: 300px;
+                text-align: center;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        // Adicionar CSS da animação
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes notificationPop {
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                20% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+

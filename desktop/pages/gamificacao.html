@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamificação - Instituto Buriti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/gamificacao.css">
+    <link rel="stylesheet" href="../css/footer-oficial.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-brand">
+                    <span class="brand-text">Início</span>
+                    <div class="brand-shape"></div>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
+                <a href="#" class="nav-link">Quem Somos</a>
+                <a href="#" class="nav-link">Seja um Instrutor</a>
+                <a href="#" class="nav-link">Contato</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">Login</a>
+                    <div class="dropdown-content">
+                        <a href="login-aluno.html">Aluno</a>
+                        <a href="login-instrutor.html">Instrutor</a>
+                        <a href="login-admin.html">Admin</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="floating-element element-1">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="40" fill="rgba(255, 215, 0, 0.2)" />
+                </svg>
+            </div>
+            <div class="floating-element element-2">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(255, 105, 180, 0.2)" />
+                </svg>
+            </div>
+            <div class="floating-element element-3">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="60" height="60" rx="10" fill="rgba(50, 205, 50, 0.2)" />
+                </svg>
+            </div>
+            <div class="floating-element element-4">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="30" fill="rgba(255, 69, 0, 0.2)" />
+                </svg>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i data-lucide="trophy"></i>
+                <span>Sistema de Recompensas</span>
+            </div>
+            <h1 class="hero-title">Centro de Gamificação</h1>
+            <p class="hero-subtitle">Conquiste badges, acumule pontos e desbloqueie recompensas incríveis enquanto aprende!</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="stat-icon gold">
+                        <i data-lucide="star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number">2,847</div>
+                        <div class="stat-label">Pontos Totais</div>
+                    </div>
+                </div>
+                <div class="hero-stat">
+                    <div class="stat-icon purple">
+                        <i data-lucide="award"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Badges Conquistados</div>
+                    </div>
+                </div>
+                <div class="hero-stat">
+                    <div class="stat-icon green">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number">#47</div>
+                        <div class="stat-label">Ranking Global</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="progress-section">
+        <div class="container">
+            <div class="progress-card">
+                <div class="progress-header">
+                    <h3>Seu Progresso Atual</h3>
+                    <div class="level-badge">
+                        <i data-lucide="zap"></i>
+                        <span>Nível 8</span>
+                    </div>
+                </div>
+                <div class="progress-content">
+                    <div class="xp-bar">
+                        <div class="xp-info">
+                            <span>2,847 / 3,200 XP</span>
+                            <span>353 XP para o próximo nível</span>
+                        </div>
+                        <div class="xp-progress">
+                            <div class="xp-fill" style="width: 89%"></div>
+                        </div>
+                    </div>
+                    <div class="level-rewards">
+                        <div class="reward-item">
+                            <div class="reward-icon">
+                                <i data-lucide="gift"></i>
+                            </div>
+                            <div class="reward-info">
+                                <div class="reward-title">Próxima Recompensa</div>
+                                <div class="reward-desc">Badge "Mestre do Conhecimento"</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Badges Section -->
+    <section class="badges-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Suas Conquistas</h2>
+                <div class="section-filters">
+                    <button class="filter-btn active" onclick="filterBadges('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterBadges('earned')">Conquistados</button>
+                    <button class="filter-btn" onclick="filterBadges('locked')">Bloqueados</button>
+                </div>
+            </div>
+            <div class="badges-grid" id="badgesGrid">
+                <!-- Badges will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section class="challenges-section">
+        <div class="container">
+            <h2 class="section-title">Desafios Ativos</h2>
+            <div class="challenges-grid">
+                <div class="challenge-card daily">
+                    <div class="challenge-header">
+                        <div class="challenge-type">
+                            <i data-lucide="calendar"></i>
+                            <span>Desafio Diário</span>
+                        </div>
+                        <div class="challenge-timer">
+                            <i data-lucide="clock"></i>
+                            <span>14h 32m</span>
+                        </div>
+                    </div>
+                    <h3>Sequência de Estudos</h3>
+                    <p>Complete uma aula por dia durante 7 dias consecutivos</p>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 71%"></div>
+                        </div>
+                        <span>5/7 dias</span>
+                    </div>
+                    <div class="challenge-reward">
+                        <i data-lucide="star"></i>
+                        <span>+150 XP</span>
+                    </div>
+                </div>
+
+                <div class="challenge-card weekly">
+                    <div class="challenge-header">
+                        <div class="challenge-type">
+                            <i data-lucide="calendar-days"></i>
+                            <span>Desafio Semanal</span>
+                        </div>
+                        <div class="challenge-timer">
+                            <i data-lucide="clock"></i>
+                            <span>3d 8h</span>
+                        </div>
+                    </div>
+                    <h3>Mestre dos Quizzes</h3>
+                    <p>Acerte 80% ou mais em 5 quizzes diferentes</p>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <span>3/5 quizzes</span>
+                    </div>
+                    <div class="challenge-reward">
+                        <i data-lucide="award"></i>
+                        <span>Badge + 300 XP</span>
+                    </div>
+                </div>
+
+                <div class="challenge-card special">
+                    <div class="challenge-header">
+                        <div class="challenge-type">
+                            <i data-lucide="sparkles"></i>
+                            <span>Desafio Especial</span>
+                        </div>
+                        <div class="challenge-timer">
+                            <i data-lucide="clock"></i>
+                            <span>15d 4h</span>
+                        </div>
+                    </div>
+                    <h3>Explorador de Conhecimento</h3>
+                    <p>Complete cursos de 3 categorias diferentes</p>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 33%"></div>
+                        </div>
+                        <span>1/3 categorias</span>
+                    </div>
+                    <div class="challenge-reward">
+                        <i data-lucide="trophy"></i>
+                        <span>Troféu + 500 XP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section class="leaderboard-section">
+        <div class="container">
+            <div class="leaderboard-header">
+                <h2 class="section-title">Ranking Global</h2>
+                <div class="leaderboard-filters">
+                    <button class="filter-btn active" onclick="filterLeaderboard('global')">Global</button>
+                    <button class="filter-btn" onclick="filterLeaderboard('friends')">Amigos</button>
+                    <button class="filter-btn" onclick="filterLeaderboard('course')">Curso Atual</button>
+                </div>
+            </div>
+            <div class="leaderboard-content">
+                <div class="podium">
+                    <div class="podium-place second">
+                        <div class="podium-avatar">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Maria Silva">
+                        </div>
+                        <div class="podium-info">
+                            <div class="podium-name">Maria Silva</div>
+                            <div class="podium-points">4,892 XP</div>
+                        </div>
+                        <div class="podium-medal silver">
+                            <i data-lucide="medal"></i>
+                            <span>2º</span>
+                        </div>
+                    </div>
+                    <div class="podium-place first">
+                        <div class="podium-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="João Santos">
+                        </div>
+                        <div class="podium-info">
+                            <div class="podium-name">João Santos</div>
+                            <div class="podium-points">5,247 XP</div>
+                        </div>
+                        <div class="podium-medal gold">
+                            <i data-lucide="crown"></i>
+                            <span>1º</span>
+                        </div>
+                    </div>
+                    <div class="podium-place third">
+                        <div class="podium-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Pedro Costa">
+                        </div>
+                        <div class="podium-info">
+                            <div class="podium-name">Pedro Costa</div>
+                            <div class="podium-points">4,156 XP</div>
+                        </div>
+                        <div class="podium-medal bronze">
+                            <i data-lucide="medal"></i>
+                            <span>3º</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="leaderboard-list">
+                    <div class="leaderboard-item">
+                        <div class="rank">4</div>
+                        <div class="user-info">
+                            <div class="user-avatar">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="Ana Oliveira">
+                            </div>
+                            <div class="user-details">
+                                <div class="user-name">Ana Oliveira</div>
+                                <div class="user-level">Nível 12</div>
+                            </div>
+                        </div>
+                        <div class="user-points">3,924 XP</div>
+                    </div>
+                    <!-- More leaderboard items would be here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rewards Section -->
+    <section class="rewards-section">
+        <div class="container">
+            <h2 class="section-title">Loja de Recompensas</h2>
+            <div class="rewards-grid">
+                <div class="reward-card">
+                    <div class="reward-image">
+                        <i data-lucide="book-open"></i>
+                    </div>
+                    <div class="reward-content">
+                        <h3>E-book Exclusivo</h3>
+                        <p>Guia completo de IA para iniciantes</p>
+                        <div class="reward-price">
+                            <i data-lucide="star"></i>
+                            <span>500 XP</span>
+                        </div>
+                    </div>
+                    <button class="reward-btn">Resgatar</button>
+                </div>
+
+                <div class="reward-card">
+                    <div class="reward-image">
+                        <i data-lucide="video"></i>
+                    </div>
+                    <div class="reward-content">
+                        <h3>Aula Particular</h3>
+                        <p>1h de mentoria com instrutor especialista</p>
+                        <div class="reward-price">
+                            <i data-lucide="star"></i>
+                            <span>1,200 XP</span>
+                        </div>
+                    </div>
+                    <button class="reward-btn">Resgatar</button>
+                </div>
+
+                <div class="reward-card">
+                    <div class="reward-image">
+                        <i data-lucide="certificate"></i>
+                    </div>
+                    <div class="reward-content">
+                        <h3>Certificado Premium</h3>
+                        <p>Certificado com design especial e selo</p>
+                        <div class="reward-price">
+                            <i data-lucide="star"></i>
+                            <span>800 XP</span>
+                        </div>
+                    </div>
+                    <button class="reward-btn">Resgatar</button>
+                </div>
+
+                <div class="reward-card">
+                    <div class="reward-image">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <div class="reward-content">
+                        <h3>Acesso VIP</h3>
+                        <p>Grupo exclusivo de discussões avançadas</p>
+                        <div class="reward-price">
+                            <i data-lucide="star"></i>
+                            <span>2,000 XP</span>
+                        </div>
+                    </div>
+                    <button class="reward-btn">Resgatar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                            <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/gamificacao.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

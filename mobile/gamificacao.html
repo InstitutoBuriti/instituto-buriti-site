@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamificação - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 50%, #6B8C79 100%);
+            min-height: 100vh;
+        }
+
+        /* Header Mobile Consistente */
+        .mobile-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            box-shadow: 0 4px 20px rgba(151, 60, 191, 0.3);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 90px;
+            padding: 1rem;
+            min-height: calc(100vh - 90px);
+        }
+
+        /* Hero Section Gamificada */
+        .gamification-hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/ChatGPTImage21dejul.de2025,01_39_50.png') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Level Progress */
+        .level-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .current-level {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(151, 60, 191, 0.4);
+        }
+
+        .level-points {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .level-progress {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            height: 12px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .level-progress-fill {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            height: 100%;
+            width: 75%;
+            border-radius: 25px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .level-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .level-info {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Achievements Grid */
+        .achievements-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .achievement-card.locked {
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
+        .achievement-card.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .achievement-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: url('images/ChatGPTImage21dejul.de2025,01_37_58.png') center/contain no-repeat;
+            filter: drop-shadow(0 8px 20px rgba(151, 60, 191, 0.4));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .achievement-icon.trophy {
+            background-image: url('images/ChatGPTImage21dejul.de2025,01_37_58.png');
+        }
+
+        .achievement-icon.medal {
+            background-image: url('images/ChatGPTImage21dejul.de2025,01_37_58.png');
+            background-position: -60px 0;
+        }
+
+        .achievement-icon.star {
+            background-image: url('images/ChatGPTImage21dejul.de2025,01_37_58.png');
+            background-position: -120px 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .achievement-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-description {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.3;
+        }
+
+        .achievement-points {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: linear-gradient(135deg, #A95028 0%, #6B8C79 100%);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Badges Collection */
+        .badges-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.75rem;
+        }
+
+        .badge-item {
+            width: 45px;
+            height: 45px;
+            background: url('images/ChatGPTImage21dejul.de2025,01_37_39.png') center/contain no-repeat;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .badge-item:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 8px 20px rgba(151, 60, 191, 0.6));
+        }
+
+        .badge-item.locked {
+            opacity: 0.3;
+            filter: grayscale(100%);
+        }
+
+        .badge-item.locked:hover {
+            transform: scale(1.1);
+        }
+
+        /* Leaderboard */
+        .leaderboard-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .leaderboard-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .leaderboard-item.current-user {
+            border: 2px solid #FF7847;
+            background: rgba(255, 120, 71, 0.2);
+        }
+
+        .leaderboard-rank {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .leaderboard-rank.gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        }
+
+        .leaderboard-rank.silver {
+            background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%);
+        }
+
+        .leaderboard-rank.bronze {
+            background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
+        }
+
+        .leaderboard-avatar {
+            width: 40px;
+            height: 40px;
+            background: url('images/ChatGPTImage21dejul.de2025,01_38_14.png') center/cover;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .leaderboard-info {
+            flex: 1;
+        }
+
+        .leaderboard-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .leaderboard-level {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .leaderboard-points {
+            color: #FF7847;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Challenges Section */
+        .challenges-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .challenge-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .challenge-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .challenge-reward {
+            background: linear-gradient(135deg, #A95028 0%, #6B8C79 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .challenge-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .challenge-progress {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-progress-fill {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .challenge-info {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #FF7847;
+        }
+
+        .nav-item:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 360px) {
+            .achievements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .badges-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Mobile -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <img src="images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti">
+                </div>
+                <span class="logo-text">Conquistas</span>
+            </div>
+            <button class="back-button" onclick="goBack()">← Voltar</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="gamification-hero">
+            <div class="hero-background"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">🏆 Suas Conquistas</h1>
+                <p class="hero-subtitle">Desbloqueie badges, suba de nível e compete com outros alunos!</p>
+            </div>
+        </section>
+
+        <!-- Level Progress -->
+        <section class="level-section">
+            <div class="level-header">
+                <div class="current-level">🎯 Nível 12</div>
+                <div class="level-points">2.450 XP</div>
+            </div>
+            <div class="level-progress">
+                <div class="level-progress-fill"></div>
+            </div>
+            <div class="level-info">
+                <span>Nível 12</span>
+                <span>550 XP para o próximo nível</span>
+            </div>
+        </section>
+
+        <!-- Achievements -->
+        <section class="achievements-section">
+            <h2 class="section-title">🏆 Conquistas Principais</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-points">+100</div>
+                    <div class="achievement-icon trophy"></div>
+                    <div class="achievement-title">Primeiro Curso</div>
+                    <div class="achievement-description">Complete seu primeiro curso</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-points">+200</div>
+                    <div class="achievement-icon medal"></div>
+                    <div class="achievement-title">Estudante Dedicado</div>
+                    <div class="achievement-description">7 dias consecutivos estudando</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-points">+150</div>
+                    <div class="achievement-icon star"></div>
+                    <div class="achievement-title">Nota Máxima</div>
+                    <div class="achievement-description">Tire 10 em um quiz</div>
+                </div>
+                <div class="achievement-card locked">
+                    <div class="achievement-points">+300</div>
+                    <div class="achievement-icon trophy"></div>
+                    <div class="achievement-title">Mestre</div>
+                    <div class="achievement-description">Complete 10 cursos</div>
+                </div>
+                <div class="achievement-card locked">
+                    <div class="achievement-points">+250</div>
+                    <div class="achievement-icon medal"></div>
+                    <div class="achievement-title">Mentor</div>
+                    <div class="achievement-description">Ajude 50 colegas no fórum</div>
+                </div>
+                <div class="achievement-card locked">
+                    <div class="achievement-points">+500</div>
+                    <div class="achievement-icon star"></div>
+                    <div class="achievement-title">Lenda</div>
+                    <div class="achievement-description">Alcance o nível 50</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Badges Collection -->
+        <section class="badges-section">
+            <h2 class="section-title">🎖️ Coleção de Badges</h2>
+            <div class="badges-grid">
+                <div class="badge-item"></div>
+                <div class="badge-item"></div>
+                <div class="badge-item"></div>
+                <div class="badge-item"></div>
+                <div class="badge-item"></div>
+                <div class="badge-item"></div>
+                <div class="badge-item locked"></div>
+                <div class="badge-item locked"></div>
+                <div class="badge-item locked"></div>
+                <div class="badge-item locked"></div>
+                <div class="badge-item locked"></div>
+                <div class="badge-item locked"></div>
+            </div>
+        </section>
+
+        <!-- Leaderboard -->
+        <section class="leaderboard-section">
+            <h2 class="section-title">🥇 Ranking Semanal</h2>
+            <div class="leaderboard-list">
+                <div class="leaderboard-item">
+                    <div class="leaderboard-rank gold">1</div>
+                    <div class="leaderboard-avatar"></div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">Ana Costa</div>
+                        <div class="leaderboard-level">Nível 18</div>
+                    </div>
+                    <div class="leaderboard-points">3.850 XP</div>
+                </div>
+                <div class="leaderboard-item">
+                    <div class="leaderboard-rank silver">2</div>
+                    <div class="leaderboard-avatar"></div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">Carlos Silva</div>
+                        <div class="leaderboard-level">Nível 15</div>
+                    </div>
+                    <div class="leaderboard-points">3.200 XP</div>
+                </div>
+                <div class="leaderboard-item">
+                    <div class="leaderboard-rank bronze">3</div>
+                    <div class="leaderboard-avatar"></div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">Beatriz Santos</div>
+                        <div class="leaderboard-level">Nível 14</div>
+                    </div>
+                    <div class="leaderboard-points">2.980 XP</div>
+                </div>
+                <div class="leaderboard-item current-user">
+                    <div class="leaderboard-rank">4</div>
+                    <div class="leaderboard-avatar"></div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">Maria Silva (Você)</div>
+                        <div class="leaderboard-level">Nível 12</div>
+                    </div>
+                    <div class="leaderboard-points">2.450 XP</div>
+                </div>
+                <div class="leaderboard-item">
+                    <div class="leaderboard-rank">5</div>
+                    <div class="leaderboard-avatar"></div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">João Oliveira</div>
+                        <div class="leaderboard-level">Nível 11</div>
+                    </div>
+                    <div class="leaderboard-points">2.100 XP</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges -->
+        <section class="challenges-section">
+            <h2 class="section-title">⚡ Desafios Ativos</h2>
+            <div class="challenge-card">
+                <div class="challenge-header">
+                    <div class="challenge-title">Maratona de Estudos</div>
+                    <div class="challenge-reward">+500 XP</div>
+                </div>
+                <div class="challenge-description">
+                    Estude por 5 dias consecutivos para ganhar XP extra e um badge especial!
+                </div>
+                <div class="challenge-progress">
+                    <div class="challenge-progress-fill" style="width: 60%;"></div>
+                </div>
+                <div class="challenge-info">
+                    <span>3/5 dias completos</span>
+                    <span>2 dias restantes</span>
+                </div>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-header">
+                    <div class="challenge-title">Quiz Master</div>
+                    <div class="challenge-reward">+300 XP</div>
+                </div>
+                <div class="challenge-description">
+                    Complete 10 quizzes com nota superior a 8.0 para desbloquear o badge "Quiz Master".
+                </div>
+                <div class="challenge-progress">
+                    <div class="challenge-progress-fill" style="width: 70%;"></div>
+                </div>
+                <div class="challenge-info">
+                    <span>7/10 quizzes completos</span>
+                    <span>3 restantes</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Espaço para bottom nav -->
+        <div style="height: 100px;"></div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-items">
+            <a href="index.html" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div>Início</div>
+            </a>
+            <a href="cursos.html" class="nav-item">
+                <div class="nav-icon">📚</div>
+                <div>Cursos</div>
+            </a>
+            <a href="dashboard-aluno.html" class="nav-item">
+                <div class="nav-icon">📊</div>
+                <div>Dashboard</div>
+            </a>
+            <a href="gamificacao.html" class="nav-item active">
+                <div class="nav-icon">🏆</div>
+                <div>Conquistas</div>
+            </a>
+            <a href="forum.html" class="nav-item">
+                <div class="nav-icon">💬</div>
+                <div>Fórum</div>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        // Animação da barra de progresso do nível
+        function animateLevelProgress() {
+            const progressFill = document.querySelector('.level-progress-fill');
+            setTimeout(() => {
+                progressFill.style.width = '75%';
+            }, 500);
+        }
+
+        // Animação das barras de progresso dos desafios
+        function animateChallengeProgress() {
+            const challengeProgressBars = document.querySelectorAll('.challenge-progress-fill');
+            challengeProgressBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    const currentWidth = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = currentWidth;
+                    }, 100);
+                }, index * 200);
+            });
+        }
+
+        // Efeito de flutuação nos badges
+        function addFloatingEffect() {
+            const badges = document.querySelectorAll('.badge-item:not(.locked)');
+            badges.forEach((badge, index) => {
+                badge.style.animationDelay = `${index * 0.2}s`;
+                badge.style.animation = 'float 3s ease-in-out infinite';
+            });
+        }
+
+        // Efeito de clique nos cards de conquista
+        function addClickEffects() {
+            document.querySelectorAll('.achievement-card:not(.locked)').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    
+                    // Simular notificação de conquista
+                    showAchievementNotification(this.querySelector('.achievement-title').textContent);
+                });
+            });
+        }
+
+        // Mostrar notificação de conquista
+        function showAchievementNotification(title) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 20px;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                animation: achievementPop 2s ease;
+            `;
+            notification.textContent = `🏆 Conquista: ${title}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        // Adicionar CSS da animação
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes achievementPop {
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                20% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Inicializar animações quando a página carregar
+        window.addEventListener('load', () => {
+            animateLevelProgress();
+            animateChallengeProgress();
+            addFloatingEffect();
+            addClickEffects();
+        });
+
+        // Parallax suave no scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBackground = document.querySelector('.hero-background');
+            const speed = scrolled * 0.3;
+            if (heroBackground) {
+                heroBackground.style.transform = `translateY(${speed}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
+

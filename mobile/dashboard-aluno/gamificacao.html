@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamificação - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        .level-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .level-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .level-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .level-details h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .xp-info {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .xp-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            width: 65%;
+            transition: width 0.3s ease;
+        }
+
+        .xp-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .badges-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .badge-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .badge-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .badge-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .badge-description {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .badge-earned {
+            border: 2px solid #FFD700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .badge-locked {
+            opacity: 0.5;
+        }
+
+        .ranking-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .ranking-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ranking-item.current-user {
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid #FFD700;
+        }
+
+        .ranking-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .ranking-position {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FFD700;
+            min-width: 30px;
+        }
+
+        .ranking-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .ranking-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .ranking-level {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .ranking-xp {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .achievements-section {
+            margin-top: 2rem;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .achievement-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+        }
+
+        .achievement-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .achievement-progress {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .level-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .level-number {
+                font-size: 2.5rem;
+            }
+
+            .badges-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span>🎮</span>
+            <span>Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">← Voltar</button>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>🎯 Gamificação</h1>
+            <p>Acompanhe suas conquistas e evolução</p>
+        </div>
+
+        <div class="level-card">
+            <div class="level-info">
+                <div class="level-number">12</div>
+                <div class="level-details">
+                    <h2>Estudante Dedicado</h2>
+                    <div class="xp-info">2.450 XP / 3.000 XP</div>
+                </div>
+            </div>
+            <div class="xp-bar">
+                <div class="xp-fill"></div>
+            </div>
+            <div class="xp-text">
+                <span>Próximo nível: Estudante Expert</span>
+                <span>550 XP restantes</span>
+            </div>
+        </div>
+
+        <div class="badges-section">
+            <h2 class="section-title">🏆 Badges Conquistadas</h2>
+            <div class="badges-grid">
+                <div class="badge-card badge-earned">
+                    <div class="badge-icon">🎓</div>
+                    <div class="badge-name">Primeiro Curso</div>
+                    <div class="badge-description">Complete seu primeiro curso</div>
+                </div>
+                <div class="badge-card badge-earned">
+                    <div class="badge-icon">🔥</div>
+                    <div class="badge-name">Sequência 7 dias</div>
+                    <div class="badge-description">Estude por 7 dias seguidos</div>
+                </div>
+                <div class="badge-card badge-earned">
+                    <div class="badge-icon">⭐</div>
+                    <div class="badge-name">Estrela Brilhante</div>
+                    <div class="badge-description">Obtenha nota máxima em 5 atividades</div>
+                </div>
+                <div class="badge-card badge-earned">
+                    <div class="badge-icon">💬</div>
+                    <div class="badge-name">Participativo</div>
+                    <div class="badge-description">Participe de 10 discussões no fórum</div>
+                </div>
+                <div class="badge-card badge-locked">
+                    <div class="badge-icon">🚀</div>
+                    <div class="badge-name">Velocista</div>
+                    <div class="badge-description">Complete um curso em menos de 1 semana</div>
+                </div>
+                <div class="badge-card badge-locked">
+                    <div class="badge-icon">🎯</div>
+                    <div class="badge-name">Especialista</div>
+                    <div class="badge-description">Complete 10 cursos</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ranking-section">
+            <h2 class="section-title">🏅 Ranking Semanal</h2>
+            
+            <div class="ranking-item">
+                <div class="ranking-left">
+                    <div class="ranking-position">1º</div>
+                    <div class="ranking-avatar">AM</div>
+                    <div class="ranking-info">
+                        <h4>Ana Maria</h4>
+                        <div class="ranking-level">Nível 15</div>
+                    </div>
+                </div>
+                <div class="ranking-xp">3.850 XP</div>
+            </div>
+
+            <div class="ranking-item">
+                <div class="ranking-left">
+                    <div class="ranking-position">2º</div>
+                    <div class="ranking-avatar">JS</div>
+                    <div class="ranking-info">
+                        <h4>João Silva</h4>
+                        <div class="ranking-level">Nível 14</div>
+                    </div>
+                </div>
+                <div class="ranking-xp">3.200 XP</div>
+            </div>
+
+            <div class="ranking-item current-user">
+                <div class="ranking-left">
+                    <div class="ranking-position">3º</div>
+                    <div class="ranking-avatar">EU</div>
+                    <div class="ranking-info">
+                        <h4>Você</h4>
+                        <div class="ranking-level">Nível 12</div>
+                    </div>
+                </div>
+                <div class="ranking-xp">2.450 XP</div>
+            </div>
+
+            <div class="ranking-item">
+                <div class="ranking-left">
+                    <div class="ranking-position">4º</div>
+                    <div class="ranking-avatar">MC</div>
+                    <div class="ranking-info">
+                        <h4>Maria Clara</h4>
+                        <div class="ranking-level">Nível 11</div>
+                    </div>
+                </div>
+                <div class="ranking-xp">2.100 XP</div>
+            </div>
+
+            <div class="ranking-item">
+                <div class="ranking-left">
+                    <div class="ranking-position">5º</div>
+                    <div class="ranking-avatar">PH</div>
+                    <div class="ranking-info">
+                        <h4>Pedro Henrique</h4>
+                        <div class="ranking-level">Nível 10</div>
+                    </div>
+                </div>
+                <div class="ranking-xp">1.890 XP</div>
+            </div>
+        </div>
+
+        <div class="achievements-section">
+            <h2 class="section-title">🎯 Desafios Ativos</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                        <div class="achievement-icon">📚</div>
+                        <div class="achievement-info">
+                            <h4>Maratonista</h4>
+                            <div class="achievement-progress">3/5 cursos concluídos</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                        <div class="achievement-icon">🔥</div>
+                        <div class="achievement-info">
+                            <h4>Sequência de Fogo</h4>
+                            <div class="achievement-progress">12/30 dias consecutivos</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%"></div>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                        <div class="achievement-icon">💎</div>
+                        <div class="achievement-info">
+                            <h4>Colecionador</h4>
+                            <div class="achievement-progress">4/10 badges conquistadas</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%"></div>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                        <div class="achievement-icon">⚡</div>
+                        <div class="achievement-info">
+                            <h4>Relâmpago</h4>
+                            <div class="achievement-progress">85/100 atividades rápidas</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instituto Buriti API Client -->
+    <script src="../js/api.js"></script>
+    
+    <script>
+        // Carregar dados reais de gamificação
+        async function carregarGamificacao() {
+            try {
+                showLoading('gamification-container');
+                
+                const user = api.getCurrentUser();
+                if (!user) {
+                    window.location.href = '../index.html';
+                    return;
+                }
+
+                // Buscar dados de gamificação
+                const response = await api.getGamificacao(user.id);
+                const dados = response.data || response;
+                
+                // Atualizar informações do nível
+                atualizarNivel(dados);
+                
+                // Renderizar badges
+                renderizarBadges(dados.badges);
+                
+                // Renderizar ranking
+                renderizarRanking(dados.ranking_semanal);
+                
+            } catch (error) {
+                console.error('Erro ao carregar gamificação:', error);
+                showError('gamification-container', 'Erro ao carregar dados de gamificação. Tente novamente.');
+            }
+        }
+
+        function atualizarNivel(dados) {
+            // Atualizar nível
+            const levelNumber = document.querySelector('.level-number');
+            if (levelNumber) levelNumber.textContent = dados.nivel;
+            
+            // Atualizar XP na div xp-info
+            const xpInfo = document.querySelector('.xp-info');
+            if (xpInfo) xpInfo.textContent = `${dados.xp_atual} XP / ${dados.xp_proximo_nivel} XP`;
+            
+            // Calcular e atualizar progresso
+            const progresso = (dados.xp_atual / dados.xp_proximo_nivel) * 100;
+            const xpFill = document.querySelector('.xp-fill');
+            if (xpFill) xpFill.style.width = progresso + '%';
+            
+            // Atualizar texto de XP restante
+            const xpRestante = dados.xp_proximo_nivel - dados.xp_atual;
+            const xpText = document.querySelector('.xp-text span:last-child');
+            if (xpText) xpText.textContent = `${xpRestante} XP restantes`;
+        }
+
+        function renderizarBadges(badges) {
+            const container = document.querySelector('.badges-grid');
+            container.innerHTML = '';
+
+            badges.forEach(badge => {
+                const badgeHTML = `
+                    <div class="badge-card ${badge.conquistado ? 'earned' : 'locked'}">
+                        <div class="badge-icon">${badge.icone}</div>
+                        <div class="badge-info">
+                            <h4>${badge.nome}</h4>
+                            <p>${badge.descricao}</p>
+                            ${badge.conquistado 
+                                ? `<div class="badge-date">Conquistado em ${badge.data_conquista}</div>`
+                                : '<div class="badge-locked">🔒 Bloqueado</div>'
+                            }
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML += badgeHTML;
+            });
+        }
+
+        function renderizarRanking(ranking) {
+            const container = document.querySelector('.ranking-list');
+            container.innerHTML = '';
+
+            ranking.forEach(usuario => {
+                const isCurrentUser = usuario.nome === 'Você';
+                const rankingHTML = `
+                    <div class="ranking-item ${isCurrentUser ? 'current-user' : ''}">
+                        <div class="ranking-position">${usuario.posicao}</div>
+                        <div class="ranking-avatar">${usuario.iniciais}</div>
+                        <div class="ranking-info">
+                            <div class="ranking-name">${usuario.nome}</div>
+                            <div class="ranking-level">Nível ${usuario.nivel}</div>
+                        </div>
+                        <div class="ranking-xp">${usuario.xp} XP</div>
+                    </div>
+                `;
+                
+                container.innerHTML += rankingHTML;
+            });
+        }
+
+        // Carregar dados ao inicializar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verificar autenticação
+            if (!api.isAuthenticated()) {
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            // Adicionar container para loading/error se não existir
+            const container = document.querySelector('.container');
+            if (!container.id) {
+                container.id = 'gamification-container';
+            }
+            
+            // Carregar dados de gamificação
+            carregarGamificacao();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,536 @@
+/* Seja um Instrutor - Seguindo padrão da página Cursos */
+
+/* Hero Section - Similar ao Cursos */
+.hero-section {
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.hero-text {
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--gray-900);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    animation: slideUp 0.8s ease-out both;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray-600);
+    line-height: 1.6;
+    animation: slideUp 0.8s ease-out 0.3s both;
+}
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Floating dots similar to Cursos page */
+.floating-dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.dot {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatDot 4s ease-in-out infinite;
+}
+
+.dot-1 {
+    width: 25px;
+    height: 25px;
+    background: rgba(151, 60, 191, 0.3);
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.dot-2 {
+    width: 20px;
+    height: 20px;
+    background: rgba(107, 140, 121, 0.4);
+    top: 70%;
+    right: 15%;
+    animation-delay: 1.5s;
+}
+
+.dot-3 {
+    width: 30px;
+    height: 30px;
+    background: rgba(160, 32, 240, 0.2);
+    bottom: 20%;
+    left: 15%;
+    animation-delay: 3s;
+}
+
+/* Instructor images - overlapping layout */
+.instructor-images {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.instructor-main {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50% 30% 50% 30%;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(151, 60, 191, 0.2);
+    z-index: 2;
+    animation: fadeInZoom 1s ease-out 0.5s both;
+}
+
+.instructor-floating {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    right: 5%;
+    border-radius: 30% 70% 30% 70%;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(107, 140, 121, 0.3);
+    z-index: 1;
+    animation: fadeInZoom 1s ease-out 0.8s both;
+}
+
+.instructor-main img,
+.instructor-floating img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.instructor-main:hover img,
+.instructor-floating:hover img {
+    transform: scale(1.05);
+}
+
+/* Benefits Section */
+.benefits-section {
+    padding: 100px 0;
+    background: white;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+    animation: slideUp 0.8s ease-out both;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: var(--gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+    animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.benefit-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #973CBF, #FF6F00);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.benefit-card:hover::before {
+    transform: scaleX(1);
+}
+
+.benefit-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(151, 60, 191, 0.15);
+}
+
+.benefit-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #973CBF, #FF6F00);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: white;
+}
+
+.benefit-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.benefit-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+}
+
+.benefit-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+    padding: 100px 0;
+    background: #f8f9ff;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.step-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.step-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(151, 60, 191, 0.15);
+}
+
+.step-number {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #973CBF, #FF6F00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 auto 24px;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(151, 60, 191, 0.3);
+}
+
+.step-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+}
+
+.step-description {
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+/* Requirements Section */
+.requirements-section {
+    padding: 100px 0;
+    background: white;
+}
+
+.requirements-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    gap: 24px;
+    padding: 0 40px;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #f8f9ff;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.requirement-item:hover {
+    background: #e8f0ff;
+    transform: translateX(10px);
+}
+
+.requirement-check {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #973CBF, #FF6F00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.requirement-check svg {
+    width: 20px;
+    height: 20px;
+}
+
+.requirement-text {
+    font-size: 1.1rem;
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+.requirements-note {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--gray-600);
+    font-style: italic;
+    font-size: 1rem;
+    padding: 0 40px;
+}
+
+/* CTA Section */
+.cta-section {
+    background: #1A1A1A;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(151, 60, 191, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(107, 140, 121, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.cta-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 0 40px;
+}
+
+.cta-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 24px;
+    animation: slideUp 0.8s ease-out both;
+}
+
+.cta-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.cta-button {
+    background: linear-gradient(135deg, #973CBF, #FF6F00);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(151, 60, 191, 0.4);
+}
+
+/* Animations */
+@keyframes fadeInZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes floatDot {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translateY(-15px) scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .steps-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+        padding: 0 20px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-image-container {
+        width: 350px;
+        height: 350px;
+        margin: 0 auto;
+    }
+    
+    .instructor-main {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .instructor-floating {
+        width: 160px;
+        height: 160px;
+        top: 5%;
+        right: 0%;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .steps-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0 20px;
+    }
+    
+    .cta-title {
+        font-size: 2.5rem;
+    }
+    
+    .benefit-card {
+        padding: 30px;
+    }
+    
+    .step-card {
+        padding: 30px 20px;
+    }
+    
+    .benefits-grid,
+    .requirements-list,
+    .requirements-note,
+    .cta-content {
+        padding: 0 20px;
+    }
+}
+

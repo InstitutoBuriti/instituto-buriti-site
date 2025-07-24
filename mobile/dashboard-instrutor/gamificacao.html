@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Gamificação - Instituto Buriti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .gamification-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .rewards-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .reward-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #973CBF;
+        }
+
+        .reward-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .reward-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .reward-content {
+            flex: 1;
+        }
+
+        .reward-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .reward-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .reward-points {
+            font-size: 0.8rem;
+            color: #973CBF;
+            font-weight: bold;
+        }
+
+        .leaderboard-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank-badge {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .student-info {
+            flex: 1;
+        }
+
+        .student-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .student-course {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .student-points {
+            font-weight: bold;
+            color: #973CBF;
+        }
+
+        .challenges-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .challenge-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #FF7847;
+        }
+
+        .challenge-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .challenge-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-title {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .challenge-status {
+            background: #4CAF50;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .challenge-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .progress-bar {
+            width: 60%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #973CBF, #FF7847);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .config-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .config-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .config-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #973CBF;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo">
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="page-title">🎮 Painel de Gamificação</h1>
+
+            <div class="gamification-stats">
+                <div class="stat-card">
+                    <div class="stat-number">2.450</div>
+                    <div class="stat-label">XP Total Distribuído</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">89</div>
+                    <div class="stat-label">Badges Conquistadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Desafios Ativos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">247</div>
+                    <div class="stat-label">Participantes</div>
+                </div>
+            </div>
+
+            <div class="rewards-section">
+                <h3 class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    Sistema de Recompensas
+                </h3>
+
+                <div class="reward-item">
+                    <div class="reward-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="reward-content">
+                        <div class="reward-title">Primeira Aula Completa</div>
+                        <div class="reward-description">Concluir a primeira aula de qualquer curso</div>
+                        <div class="reward-points">+50 XP</div>
+                    </div>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="reward-content">
+                        <div class="reward-title">Participação no Fórum</div>
+                        <div class="reward-description">Fazer primeira pergunta ou resposta no fórum</div>
+                        <div class="reward-points">+25 XP</div>
+                    </div>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="reward-content">
+                        <div class="reward-title">Curso Finalizado</div>
+                        <div class="reward-description">Completar 100% de um curso</div>
+                        <div class="reward-points">+200 XP</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="leaderboard-section">
+                <h3 class="section-title">
+                    <i class="fas fa-crown"></i>
+                    Top 5 Alunos
+                </h3>
+
+                <div class="leaderboard-item">
+                    <div class="rank-badge">1</div>
+                    <div class="student-info">
+                        <div class="student-name">Ana Silva</div>
+                        <div class="student-course">Desenvolvimento Web</div>
+                    </div>
+                    <div class="student-points">1.250 XP</div>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank-badge">2</div>
+                    <div class="student-info">
+                        <div class="student-name">Carlos Santos</div>
+                        <div class="student-course">Educação Especial</div>
+                    </div>
+                    <div class="student-points">1.180 XP</div>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank-badge">3</div>
+                    <div class="student-info">
+                        <div class="student-name">Maria Oliveira</div>
+                        <div class="student-course">Gestão de Projetos</div>
+                    </div>
+                    <div class="student-points">1.050 XP</div>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank-badge">4</div>
+                    <div class="student-info">
+                        <div class="student-name">João Costa</div>
+                        <div class="student-course">Desenvolvimento Web</div>
+                    </div>
+                    <div class="student-points">980 XP</div>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank-badge">5</div>
+                    <div class="student-info">
+                        <div class="student-name">Lucia Ferreira</div>
+                        <div class="student-course">Educação Especial</div>
+                    </div>
+                    <div class="student-points">920 XP</div>
+                </div>
+            </div>
+
+            <div class="challenges-section">
+                <h3 class="section-title">
+                    <i class="fas fa-flag"></i>
+                    Desafios Ativos
+                </h3>
+
+                <div class="challenge-item">
+                    <div class="challenge-header">
+                        <div class="challenge-title">Maratona de Estudos</div>
+                        <div class="challenge-status">ATIVO</div>
+                    </div>
+                    <div class="challenge-description">
+                        Complete 5 aulas em uma semana
+                    </div>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <span>75% (3/5)</span>
+                    </div>
+                </div>
+
+                <div class="challenge-item">
+                    <div class="challenge-header">
+                        <div class="challenge-title">Mentor da Comunidade</div>
+                        <div class="challenge-status">ATIVO</div>
+                    </div>
+                    <div class="challenge-description">
+                        Responda 10 perguntas no fórum
+                    </div>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <span>60% (6/10)</span>
+                    </div>
+                </div>
+
+                <div class="challenge-item">
+                    <div class="challenge-header">
+                        <div class="challenge-title">Sequência Perfeita</div>
+                        <div class="challenge-status">ATIVO</div>
+                    </div>
+                    <div class="challenge-description">
+                        Estude por 7 dias consecutivos
+                    </div>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <span>85% (6/7)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="config-section">
+                <h3 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    Configurações
+                </h3>
+                <button class="config-btn">
+                    <i class="fas fa-plus"></i> Criar Desafio
+                </button>
+                <button class="config-btn">
+                    <i class="fas fa-trophy"></i> Gerenciar Badges
+                </button>
+                <button class="config-btn">
+                    <i class="fas fa-chart-bar"></i> Relatório Detalhado
+                </button>
+                <button class="config-btn">
+                    <i class="fas fa-cog"></i> Configurar XP
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-instrutor.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="cursos.html" class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>Cursos</span>
+        </a>
+        <a href="alunos.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Alunos</span>
+        </a>
+        <a href="gamificacao.html" class="nav-item active">
+            <i class="fas fa-gamepad"></i>
+            <span>Gamificação</span>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+    </div>
+</body>
+</html>
+

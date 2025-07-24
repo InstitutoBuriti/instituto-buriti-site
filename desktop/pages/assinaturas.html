@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Assinatura - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/assinaturas.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-home">
+                    <div class="home-bg"></div>
+                    <span>Home</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="quem-somos.html" class="nav-link">Quem Somos</a>
+                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
+                <a href="seja-instrutor.html" class="nav-link">Seja um Instrutor</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+                <div class="nav-dropdown">
+                    <button class="nav-link dropdown-btn">
+                        Login <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="login-aluno.html"><i class="fas fa-user-graduate"></i> Aluno</a>
+                        <a href="login-instrutor.html"><i class="fas fa-chalkboard-teacher"></i> Instrutor</a>
+                        <a href="login-admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="breadcrumb">
+                    <a href="dashboard-aluno.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <span><i class="fas fa-chevron-right"></i></span>
+                    <span>Assinaturas</span>
+                </div>
+                <h1>Gerenciar Assinatura</h1>
+                <p>Controle sua assinatura, histórico de pagamentos e benefícios</p>
+            </div>
+            
+            <!-- Floating SVG Elements -->
+            <div class="floating-elements">
+                <svg class="float-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="30" fill="rgba(139, 92, 246, 0.1)" />
+                </svg>
+                <svg class="float-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(249, 115, 22, 0.1)" />
+                </svg>
+                <svg class="float-3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="50" height="50" fill="rgba(16, 185, 129, 0.1)" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Current Subscription Section -->
+        <section class="current-subscription">
+            <div class="container">
+                <div class="subscription-card" id="currentSubscription">
+                    <div class="subscription-header">
+                        <div class="plan-info">
+                            <div class="plan-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="plan-details">
+                                <h2 id="planName">Plano Premium</h2>
+                                <p id="planDescription">Acesso ilimitado a todos os cursos</p>
+                                <div class="plan-status active" id="planStatus">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Ativo</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-price">
+                            <span class="price-amount" id="planPrice">R$ 59,90</span>
+                            <span class="price-period">/mês</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-details">
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="detail-info">
+                                    <span class="detail-label">Próximo Pagamento</span>
+                                    <span class="detail-value" id="nextPayment">19/08/2025</span>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="detail-info">
+                                    <span class="detail-label">Método de Pagamento</span>
+                                    <span class="detail-value" id="paymentMethod">Cartão •••• 1234</span>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="detail-info">
+                                    <span class="detail-label">Membro desde</span>
+                                    <span class="detail-value" id="memberSince">19/01/2025</span>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="detail-info">
+                                    <span class="detail-label">Cursos Acessados</span>
+                                    <span class="detail-value" id="coursesAccessed">12 cursos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-actions">
+                        <button class="btn-secondary" id="updatePaymentMethod">
+                            <i class="fas fa-edit"></i>
+                            Alterar Pagamento
+                        </button>
+                        <button class="btn-primary" id="upgradeSubscription">
+                            <i class="fas fa-arrow-up"></i>
+                            Fazer Upgrade
+                        </button>
+                        <button class="btn-danger" id="cancelSubscription">
+                            <i class="fas fa-times"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="benefits">
+            <div class="container">
+                <h2>Benefícios da Sua Assinatura</h2>
+                <div class="benefits-grid" id="benefitsGrid">
+                    <div class="benefit-card active">
+                        <div class="benefit-icon">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <h3>Acesso Ilimitado</h3>
+                        <p>Todos os cursos disponíveis na plataforma</p>
+                        <div class="benefit-status">
+                            <i class="fas fa-check"></i>
+                            <span>Incluído</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card active">
+                        <div class="benefit-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Certificados Premium</h3>
+                        <p>Certificados com design exclusivo e validação</p>
+                        <div class="benefit-status">
+                            <i class="fas fa-check"></i>
+                            <span>Incluído</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card active">
+                        <div class="benefit-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Suporte Prioritário</h3>
+                        <p>Atendimento preferencial e resposta rápida</p>
+                        <div class="benefit-status">
+                            <i class="fas fa-check"></i>
+                            <span>Incluído</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card active">
+                        <div class="benefit-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>Aulas ao Vivo</h3>
+                        <p>Participação em webinars e eventos exclusivos</p>
+                        <div class="benefit-status">
+                            <i class="fas fa-check"></i>
+                            <span>Incluído</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card inactive">
+                        <div class="benefit-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Mentoria Individual</h3>
+                        <p>Sessões 1:1 com instrutores especialistas</p>
+                        <div class="benefit-status upgrade">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Upgrade para Anual</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card inactive">
+                        <div class="benefit-icon">
+                            <i class="fas fa-early-access"></i>
+                        </div>
+                        <h3>Acesso Antecipado</h3>
+                        <p>Novos cursos antes do lançamento público</p>
+                        <div class="benefit-status upgrade">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Upgrade para Anual</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Available Plans Section -->
+        <section class="available-plans">
+            <div class="container">
+                <h2>Planos Disponíveis</h2>
+                <p class="section-subtitle">Compare os planos e escolha o melhor para você</p>
+                
+                <div class="plans-grid">
+                    <div class="plan-card basic">
+                        <div class="plan-header">
+                            <div class="plan-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h3>Básico</h3>
+                            <p>Ideal para começar</p>
+                        </div>
+                        <div class="plan-pricing">
+                            <span class="plan-price">R$ 29,90</span>
+                            <span class="plan-period">/mês</span>
+                        </div>
+                        <div class="plan-features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Cursos gratuitos</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>1 curso pago por mês</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Certificados básicos</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Suporte por email</span>
+                            </div>
+                        </div>
+                        <button class="plan-button" data-plan="basic">
+                            Downgrade para Básico
+                        </button>
+                    </div>
+                    
+                    <div class="plan-card premium current">
+                        <div class="plan-badge">Atual</div>
+                        <div class="plan-header">
+                            <div class="plan-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3>Premium</h3>
+                            <p>Mais popular</p>
+                        </div>
+                        <div class="plan-pricing">
+                            <span class="plan-price">R$ 59,90</span>
+                            <span class="plan-period">/mês</span>
+                        </div>
+                        <div class="plan-features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Acesso ilimitado</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Certificados premium</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Suporte prioritário</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Aulas ao vivo</span>
+                            </div>
+                        </div>
+                        <button class="plan-button current" disabled>
+                            Plano Atual
+                        </button>
+                    </div>
+                    
+                    <div class="plan-card annual">
+                        <div class="plan-badge popular">Melhor Valor</div>
+                        <div class="plan-header">
+                            <div class="plan-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3>Anual</h3>
+                            <p>Economia de 2 meses</p>
+                        </div>
+                        <div class="plan-pricing">
+                            <span class="plan-price">R$ 499,90</span>
+                            <span class="plan-period">/ano</span>
+                            <div class="plan-savings">
+                                <span>Economize R$ 119,90</span>
+                            </div>
+                        </div>
+                        <div class="plan-features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Todos os benefícios Premium</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Mentoria individual</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Acesso antecipado</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Desconto em eventos</span>
+                            </div>
+                        </div>
+                        <button class="plan-button upgrade" data-plan="annual">
+                            Upgrade para Anual
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment History Section -->
+        <section class="payment-history">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Histórico de Pagamentos</h2>
+                    <div class="header-actions">
+                        <button class="btn-outline" id="downloadHistory">
+                            <i class="fas fa-download"></i>
+                            Baixar Histórico
+                        </button>
+                        <button class="btn-outline" id="filterHistory">
+                            <i class="fas fa-filter"></i>
+                            Filtrar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="history-table">
+                    <div class="table-header">
+                        <div class="header-cell">Data</div>
+                        <div class="header-cell">Descrição</div>
+                        <div class="header-cell">Método</div>
+                        <div class="header-cell">Status</div>
+                        <div class="header-cell">Valor</div>
+                        <div class="header-cell">Ações</div>
+                    </div>
+                    
+                    <div class="table-body" id="historyTableBody">
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <span class="date">19/07/2025</span>
+                                <span class="time">14:30</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="description">Assinatura Premium - Julho/2025</span>
+                                <span class="invoice">#IB-20250719-001</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="payment-method">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Cartão •••• 1234</span>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="status success">
+                                    <i class="fas fa-check-circle"></i>
+                                    Pago
+                                </span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="amount">R$ 59,90</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="Ver Detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn" title="Baixar Recibo">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <span class="date">19/06/2025</span>
+                                <span class="time">14:30</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="description">Assinatura Premium - Junho/2025</span>
+                                <span class="invoice">#IB-20250619-001</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="payment-method">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Cartão •••• 1234</span>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="status success">
+                                    <i class="fas fa-check-circle"></i>
+                                    Pago
+                                </span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="amount">R$ 59,90</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="Ver Detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn" title="Baixar Recibo">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <span class="date">19/05/2025</span>
+                                <span class="time">14:30</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="description">Assinatura Premium - Maio/2025</span>
+                                <span class="invoice">#IB-20250519-001</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="payment-method">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Cartão •••• 1234</span>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="status success">
+                                    <i class="fas fa-check-circle"></i>
+                                    Pago
+                                </span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="amount">R$ 59,90</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="Ver Detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn" title="Baixar Recibo">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <span class="date">19/04/2025</span>
+                                <span class="time">15:45</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="description">Curso: Fundamentos da IA</span>
+                                <span class="invoice">#IB-20250419-002</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="payment-method">
+                                    <i class="fas fa-qrcode"></i>
+                                    <span>PIX</span>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="status success">
+                                    <i class="fas fa-check-circle"></i>
+                                    Pago
+                                </span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="amount">R$ 199,90</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="Ver Detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn" title="Baixar Recibo">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                        Anterior
+                    </button>
+                    <div class="pagination-info">
+                        Página 1 de 3
+                    </div>
+                    <button class="pagination-btn">
+                        Próxima
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Statistics Section -->
+        <section class="usage-stats">
+            <div class="container">
+                <h2>Estatísticas de Uso</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">127h</span>
+                            <span class="stat-label">Tempo de Estudo</span>
+                        </div>
+                        <div class="stat-trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+15% este mês</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">12</span>
+                            <span class="stat-label">Cursos Concluídos</span>
+                        </div>
+                        <div class="stat-trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+3 este mês</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">8</span>
+                            <span class="stat-label">Certificados</span>
+                        </div>
+                        <div class="stat-trend up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+2 este mês</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">R$ 359,40</span>
+                            <span class="stat-label">Total Investido</span>
+                        </div>
+                        <div class="stat-trend neutral">
+                            <i class="fas fa-minus"></i>
+                            <span>Desde Jan/2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                    <div class="footer-text">
+                        <p class="footer-slogan">Educação que transforma. Cultura que conecta.</p>
+                        <p class="footer-company">Instituto Buriti, uma empresa 100% digital.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                    <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> contato@institutoburiti.com.br</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Instituto Buriti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/assinaturas.js"></script>
+</body>
+</html>
+

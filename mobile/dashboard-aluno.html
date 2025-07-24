@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard do Aluno - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* Header Mobile */
+        .mobile-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: url('images/LogomarcaInstitutoBuriti.png') center/contain no-repeat;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FF7847, #973CBF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hamburger {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: white;
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: rgba(151, 60, 191, 0.95);
+            backdrop-filter: blur(20px);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            padding: 2rem 1rem;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        /* Dashboard Content */
+        .dashboard-container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .welcome-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: url('images/ChatGPTImage21dejul.de2025,01_38_14.png') center/cover;
+            margin: 0 auto 1rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .welcome-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-text p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF7847;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Function Cards */
+        .functions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .function-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .function-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .function-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .function-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 120, 71, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .function-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .function-description {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .function-action {
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #FF7847, #973CBF);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .function-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 120, 71, 0.3);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 1rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF7847, #973CBF);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Badge Container */
+        .badges-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            background: rgba(255, 120, 71, 0.2);
+            border: 1px solid rgba(255, 120, 71, 0.3);
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            color: #FF7847;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(151, 60, 191, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #FF7847;
+        }
+
+        .nav-item:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .course-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .course-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-progress {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Notification Item */
+        .notification-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #FF7847;
+        }
+
+        .notification-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Certificate Item */
+        .certificate-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .certificate-info h4 {
+            margin-bottom: 0.3rem;
+        }
+
+        .certificate-date {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .download-btn {
+            background: #FF7847;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+            }
+            
+            .function-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Mobile -->
+    <header class="mobile-header">
+        <div class="logo-container">
+            <div class="logo"></div>
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <div class="nav-links">
+            <a href="dashboard-aluno.html" class="nav-link">📊 Dashboard</a>
+            <a href="gamificacao.html" class="nav-link">🏆 Gamificação</a>
+            <a href="forum.html" class="nav-link">💬 Fórum</a>
+            <a href="notificacoes.html" class="nav-link">🔔 Notificações</a>
+            <a href="#" class="nav-link" onclick="logout()">🚪 Sair</a>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="avatar"></div>
+            <div class="welcome-text">
+                <h2>Olá, Maria Silva!</h2>
+                <p>Bem-vinda ao seu painel de estudos</p>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Cursos Ativos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2.450</div>
+                <div class="stat-label">XP Total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Nível Atual</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Certificados</div>
+            </div>
+        </div>
+
+        <!-- Functions Grid -->
+        <div class="functions-grid">
+            <!-- Meus Cursos -->
+            <div class="function-card" onclick="openModal('coursesModal')">
+                <div class="function-header">
+                    <div class="function-icon">📚</div>
+                    <div>
+                        <div class="function-title">Meus Cursos</div>
+                        <div class="function-description">Acesse seus cursos matriculados e acompanhe o progresso</div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progresso Geral</span>
+                        <span>68%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 68%"></div>
+                    </div>
+                </div>
+                <button class="function-action">Ver Cursos</button>
+            </div>
+
+            <!-- Gamificação -->
+            <div class="function-card" onclick="openModal('gamificationModal')">
+                <div class="function-header">
+                    <div class="function-icon">🎯</div>
+                    <div>
+                        <div class="function-title">Gamificação</div>
+                        <div class="function-description">Visualize suas conquistas, badges e ranking</div>
+                    </div>
+                </div>
+                <div class="badges-container">
+                    <span class="badge">🏆 Dedicado</span>
+                    <span class="badge">⭐ Estrela</span>
+                    <span class="badge">🔥 Sequência</span>
+                </div>
+                <button class="function-action">Ver Conquistas</button>
+            </div>
+
+            <!-- Notificações -->
+            <div class="function-card" onclick="openModal('notificationsModal')">
+                <div class="function-header">
+                    <div class="function-icon">🔔</div>
+                    <div>
+                        <div class="function-title">Notificações</div>
+                        <div class="function-description">Alertas sobre prazos e mensagens importantes</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>5 novas notificações</strong><br>
+                    Última: Prazo de entrega - Projeto Final
+                </div>
+                <button class="function-action">Ver Todas</button>
+            </div>
+
+            <!-- Fórum -->
+            <div class="function-card" onclick="window.location.href='forum.html'">
+                <div class="function-header">
+                    <div class="function-icon">💬</div>
+                    <div>
+                        <div class="function-title">Fórum</div>
+                        <div class="function-description">Participe das discussões dos seus cursos</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>3 tópicos ativos</strong><br>
+                    Última participação: há 2 horas
+                </div>
+                <button class="function-action">Acessar Fórum</button>
+            </div>
+
+            <!-- Certificados -->
+            <div class="function-card" onclick="openModal('certificatesModal')">
+                <div class="function-header">
+                    <div class="function-icon">📄</div>
+                    <div>
+                        <div class="function-title">Certificados</div>
+                        <div class="function-description">Baixe ou solicite certificados dos cursos concluídos</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>3 certificados disponíveis</strong><br>
+                    2 para download, 1 em processamento
+                </div>
+                <button class="function-action">Gerenciar Certificados</button>
+            </div>
+
+            <!-- Histórico de Matrículas -->
+            <div class="function-card" onclick="openModal('enrollmentModal')">
+                <div class="function-header">
+                    <div class="function-icon">🧾</div>
+                    <div>
+                        <div class="function-title">Histórico de Matrículas</div>
+                        <div class="function-description">Visualize todas as suas matrículas e status</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>8 matrículas totais</strong><br>
+                    5 ativas, 3 concluídas
+                </div>
+                <button class="function-action">Ver Histórico</button>
+            </div>
+
+            <!-- Suporte e Ajuda -->
+            <div class="function-card" onclick="openModal('supportModal')">
+                <div class="function-header">
+                    <div class="function-icon">📞</div>
+                    <div>
+                        <div class="function-title">Suporte e Ajuda</div>
+                        <div class="function-description">Entre em contato conosco via WhatsApp ou email</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>Atendimento 24/7</strong><br>
+                    WhatsApp: (86) 98170-8388
+                </div>
+                <button class="function-action">Obter Suporte</button>
+            </div>
+
+            <!-- Perfil e Configurações -->
+            <div class="function-card" onclick="openModal('profileModal')">
+                <div class="function-header">
+                    <div class="function-icon">⚙️</div>
+                    <div>
+                        <div class="function-title">Perfil e Configurações</div>
+                        <div class="function-description">Gerencie seus dados pessoais e preferências</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>Perfil 95% completo</strong><br>
+                    Última atualização: há 3 dias
+                </div>
+                <button class="function-action">Editar Perfil</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Courses Modal -->
+    <div class="modal" id="coursesModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('coursesModal')">×</button>
+            <h2>📚 Meus Cursos</h2>
+            <div class="course-item">
+                <div class="course-title">Desenvolvimento Web Completo</div>
+                <div class="course-progress">Progresso: 75% - Módulo 8 de 10</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">Python para Iniciantes</div>
+                <div class="course-progress">Progresso: 90% - Módulo 9 de 10</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">Design Gráfico Avançado</div>
+                <div class="course-progress">Progresso: 45% - Módulo 4 de 8</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">Marketing Digital</div>
+                <div class="course-progress">Progresso: 60% - Módulo 6 de 10</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">Gestão de Projetos</div>
+                <div class="course-progress">Progresso: 30% - Módulo 3 de 12</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gamification Modal -->
+    <div class="modal" id="gamificationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('gamificationModal')">×</button>
+            <h2>🎯 Gamificação</h2>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🏆</div>
+                <h3>Nível 12 - Especialista</h3>
+                <p>2.450 XP / 3.000 XP para o próximo nível</p>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 82%"></div>
+                    </div>
+                </div>
+            </div>
+            <h3>🏅 Conquistas Recentes</h3>
+            <div class="course-item">
+                <div class="course-title">🔥 Sequência de 7 dias</div>
+                <div class="course-progress">Estudou por 7 dias consecutivos</div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">⭐ Primeira Estrela</div>
+                <div class="course-progress">Completou primeiro curso com nota máxima</div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">🎯 Focado</div>
+                <div class="course-progress">Completou 5 lições em um dia</div>
+            </div>
+            <h3>📊 Ranking</h3>
+            <div class="course-item">
+                <div class="course-title">Posição no Ranking Geral</div>
+                <div class="course-progress">#23 de 1.247 alunos</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div class="modal" id="notificationsModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('notificationsModal')">×</button>
+            <h2>🔔 Notificações</h2>
+            <div class="notification-item">
+                <div class="notification-title">📚 Prazo de Entrega</div>
+                <div>Projeto Final - Desenvolvimento Web</div>
+                <div class="notification-time">Vence em 2 dias</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">🎉 Nova Conquista</div>
+                <div>Você desbloqueou a conquista "Sequência de 7 dias"</div>
+                <div class="notification-time">há 3 horas</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">💬 Nova Mensagem</div>
+                <div>Instrutor comentou no fórum do curso Python</div>
+                <div class="notification-time">há 5 horas</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">📄 Certificado Pronto</div>
+                <div>Certificado de Marketing Digital disponível</div>
+                <div class="notification-time">há 1 dia</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">🆕 Novo Conteúdo</div>
+                <div>Aula extra adicionada ao curso de Design</div>
+                <div class="notification-time">há 2 dias</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificates Modal -->
+    <div class="modal" id="certificatesModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('certificatesModal')">×</button>
+            <h2>📄 Certificados</h2>
+            <div class="certificate-item">
+                <div class="certificate-info">
+                    <h4>Marketing Digital</h4>
+                    <div class="certificate-date">Concluído em 15/07/2025</div>
+                </div>
+                <button class="download-btn">📥 Download</button>
+            </div>
+            <div class="certificate-item">
+                <div class="certificate-info">
+                    <h4>Python Básico</h4>
+                    <div class="certificate-date">Concluído em 10/07/2025</div>
+                </div>
+                <button class="download-btn">📥 Download</button>
+            </div>
+            <div class="certificate-item">
+                <div class="certificate-info">
+                    <h4>Design Gráfico</h4>
+                    <div class="certificate-date">Em processamento...</div>
+                </div>
+                <button class="download-btn" disabled>⏳ Aguarde</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div class="modal" id="enrollmentModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('enrollmentModal')">×</button>
+            <h2>🧾 Histórico de Matrículas</h2>
+            <h3>✅ Cursos Ativos</h3>
+            <div class="course-item">
+                <div class="course-title">Desenvolvimento Web Completo</div>
+                <div class="course-progress">Matriculado em 01/06/2025 - Ativo</div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">Python para Iniciantes</div>
+                <div class="course-progress">Matriculado em 15/06/2025 - Ativo</div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">Design Gráfico Avançado</div>
+                <div class="course-progress">Matriculado em 20/06/2025 - Ativo</div>
+            </div>
+            <h3>🎓 Cursos Concluídos</h3>
+            <div class="course-item">
+                <div class="course-title">Marketing Digital</div>
+                <div class="course-progress">Concluído em 15/07/2025 - Certificado emitido</div>
+            </div>
+            <div class="course-item">
+                <div class="course-title">Excel Avançado</div>
+                <div class="course-progress">Concluído em 05/07/2025 - Certificado emitido</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Modal -->
+    <div class="modal" id="supportModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('supportModal')">×</button>
+            <h2>📞 Suporte e Ajuda</h2>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🤝</div>
+                <h3>Como podemos ajudar?</h3>
+                <p>Nossa equipe está sempre pronta para auxiliar você</p>
+            </div>
+            <div class="course-item">
+                <div class="course-title">📱 WhatsApp</div>
+                <div class="course-progress">(86) 98170-8388</div>
+                <button class="function-action" onclick="window.open('https://wa.me/5586981708388', '_blank')">Abrir WhatsApp</button>
+            </div>
+            <div class="course-item">
+                <div class="course-title">📧 Email</div>
+                <div class="course-progress">contato@institutoburiti.com.br</div>
+                <button class="function-action" onclick="window.open('mailto:contato@institutoburiti.com.br', '_blank')">Enviar Email</button>
+            </div>
+            <div class="course-item">
+                <div class="course-title">❓ FAQ</div>
+                <div class="course-progress">Perguntas frequentes e tutoriais</div>
+                <button class="function-action">Acessar FAQ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('profileModal')">×</button>
+            <h2>⚙️ Perfil e Configurações</h2>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="avatar" style="margin: 0 auto 1rem;"></div>
+                <h3>Maria Silva</h3>
+                <p>maria.silva@email.com</p>
+            </div>
+            <div class="course-item">
+                <div class="course-title">👤 Dados Pessoais</div>
+                <div class="course-progress">Nome, email, telefone, endereço</div>
+                <button class="function-action">Editar Dados</button>
+            </div>
+            <div class="course-item">
+                <div class="course-title">🔒 Segurança</div>
+                <div class="course-progress">Alterar senha e configurações de segurança</div>
+                <button class="function-action">Gerenciar Segurança</button>
+            </div>
+            <div class="course-item">
+                <div class="course-title">🔔 Notificações</div>
+                <div class="course-progress">Preferências de notificações por email e push</div>
+                <button class="function-action">Configurar</button>
+            </div>
+            <div class="course-item">
+                <div class="course-title">🎨 Aparência</div>
+                <div class="course-progress">Tema, idioma e preferências visuais</div>
+                <button class="function-action">Personalizar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="dashboard-aluno.html" class="nav-item active">
+            <div class="nav-icon">📊</div>
+            <span>Dashboard</span>
+        </a>
+        <a href="gamificacao.html" class="nav-item">
+            <div class="nav-icon">🏆</div>
+            <span>Conquistas</span>
+        </a>
+        <a href="forum.html" class="nav-item">
+            <div class="nav-icon">💬</div>
+            <span>Fórum</span>
+        </a>
+        <a href="notificacoes.html" class="nav-item">
+            <div class="nav-icon">🔔</div>
+            <span>Notificações</span>
+        </a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.function-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    
+    <!-- Integração com API -->
+    <script src="js/api.js"></script>
+    <script>
+        // Integração específica do dashboard do aluno
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Verificar autenticação
+                if (!api.isAuthenticated()) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                // Atualizar dados do dashboard
+                await UIUpdater.updateDashboardAluno();
+
+                // Atualizar dados a cada 30 segundos
+                setInterval(async () => {
+                    await UIUpdater.updateDashboardAluno();
+                }, 30000);
+
+            } catch (error) {
+                console.error('Erro ao carregar dashboard:', error);
+            }
+        });
+
+        // Função para logout
+        function logout() {
+            api.logout();
+        }
+    </script>
+</body>
+</html>
+

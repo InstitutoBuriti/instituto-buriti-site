@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramentas Colaborativas - Instituto Buriti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/colaboracao.css">
+    <link rel="stylesheet" href="../css/footer-oficial.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-brand">
+                    <span class="brand-text">Início</span>
+                    <div class="brand-shape"></div>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
+                <a href="#" class="nav-link">Quem Somos</a>
+                <a href="#" class="nav-link">Seja um Instrutor</a>
+                <a href="#" class="nav-link">Contato</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">Login</a>
+                    <div class="dropdown-content">
+                        <a href="login-aluno.html">Aluno</a>
+                        <a href="login-instrutor.html">Instrutor</a>
+                        <a href="login-admin.html">Admin</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="floating-element element-1">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="40" fill="rgba(64, 224, 208, 0.2)" />
+                </svg>
+            </div>
+            <div class="floating-element element-2">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(255, 99, 132, 0.2)" />
+                </svg>
+            </div>
+            <div class="floating-element element-3">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="60" height="60" rx="10" fill="rgba(54, 162, 235, 0.2)" />
+                </svg>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i data-lucide="users"></i>
+                <span>Colaboração em Tempo Real</span>
+            </div>
+            <h1 class="hero-title">Ferramentas Colaborativas</h1>
+            <p class="hero-subtitle">Conecte-se, colabore e aprenda junto com outros estudantes em um ambiente interativo e dinâmico</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="joinStudyRoom()">
+                    <i data-lucide="video"></i>
+                    Entrar em Sala
+                </button>
+                <button class="btn btn-secondary" onclick="openMessenger()">
+                    <i data-lucide="message-circle"></i>
+                    Mensagens
+                </button>
+                <button class="btn btn-secondary" onclick="openWhiteboard()">
+                    <i data-lucide="edit"></i>
+                    Quadro Colaborativo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon online">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">127</div>
+                        <div class="stat-label">Usuários Online</div>
+                        <div class="stat-change">+12 agora</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon active">
+                        <i data-lucide="video"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Salas Ativas</div>
+                        <div class="stat-change">3 disponíveis</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon messages">
+                        <i data-lucide="message-square"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">2.4K</div>
+                        <div class="stat-label">Mensagens Hoje</div>
+                        <div class="stat-change">+18% vs ontem</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon projects">
+                        <i data-lucide="folder"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">45</div>
+                        <div class="stat-label">Projetos Ativos</div>
+                        <div class="stat-change">12 novos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Study Rooms Section -->
+    <section class="study-rooms-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Salas de Estudo</h2>
+                <button class="btn btn-primary" onclick="createStudyRoom()">
+                    <i data-lucide="plus"></i>
+                    Criar Nova Sala
+                </button>
+            </div>
+            <div class="rooms-grid">
+                <div class="room-card active">
+                    <div class="room-header">
+                        <div class="room-status online">
+                            <i data-lucide="circle"></i>
+                            <span>Ativa</span>
+                        </div>
+                        <div class="room-participants">
+                            <i data-lucide="users"></i>
+                            <span>12/20</span>
+                        </div>
+                    </div>
+                    <h3 class="room-title">Fundamentos de IA - Grupo de Estudos</h3>
+                    <p class="room-description">Discussão sobre redes neurais e machine learning com foco em aplicações práticas.</p>
+                    <div class="room-tags">
+                        <span class="tag">Inteligência Artificial</span>
+                        <span class="tag">Machine Learning</span>
+                    </div>
+                    <div class="room-footer">
+                        <div class="room-host">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Host">
+                            <span>João Santos</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="joinRoom(1)">Entrar</button>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <div class="room-header">
+                        <div class="room-status online">
+                            <i data-lucide="circle"></i>
+                            <span>Ativa</span>
+                        </div>
+                        <div class="room-participants">
+                            <i data-lucide="users"></i>
+                            <span>8/15</span>
+                        </div>
+                    </div>
+                    <h3 class="room-title">Gestão de Projetos Culturais</h3>
+                    <p class="room-description">Planejamento e execução de projetos culturais com metodologias ágeis.</p>
+                    <div class="room-tags">
+                        <span class="tag">Gestão</span>
+                        <span class="tag">Cultura</span>
+                        <span class="tag">Projetos</span>
+                    </div>
+                    <div class="room-footer">
+                        <div class="room-host">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="Host">
+                            <span>Maria Silva</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="joinRoom(2)">Entrar</button>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <div class="room-header">
+                        <div class="room-status waiting">
+                            <i data-lucide="clock"></i>
+                            <span>Aguardando</span>
+                        </div>
+                        <div class="room-participants">
+                            <i data-lucide="users"></i>
+                            <span>3/10</span>
+                        </div>
+                    </div>
+                    <h3 class="room-title">Educação Especial Inclusiva</h3>
+                    <p class="room-description">Estratégias e metodologias para educação inclusiva e acessibilidade.</p>
+                    <div class="room-tags">
+                        <span class="tag">Educação</span>
+                        <span class="tag">Inclusão</span>
+                    </div>
+                    <div class="room-footer">
+                        <div class="room-host">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Host">
+                            <span>Pedro Costa</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="joinRoom(3)">Entrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaboration Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2 class="section-title">Ferramentas de Colaboração</h2>
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openMessenger()">
+                    <div class="tool-icon messenger">
+                        <i data-lucide="message-circle"></i>
+                    </div>
+                    <h3>Mensagens Privadas</h3>
+                    <p>Converse diretamente com outros estudantes e instrutores</p>
+                    <div class="tool-stats">
+                        <span>5 conversas ativas</span>
+                    </div>
+                </div>
+
+                <div class="tool-card" onclick="openWhiteboard()">
+                    <div class="tool-icon whiteboard">
+                        <i data-lucide="edit"></i>
+                    </div>
+                    <h3>Quadro Colaborativo</h3>
+                    <p>Desenhe, escreva e colabore em tempo real</p>
+                    <div class="tool-stats">
+                        <span>3 quadros compartilhados</span>
+                    </div>
+                </div>
+
+                <div class="tool-card" onclick="openDocuments()">
+                    <div class="tool-icon documents">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <h3>Documentos Compartilhados</h3>
+                    <p>Edite documentos em colaboração com outros usuários</p>
+                    <div class="tool-stats">
+                        <span>12 documentos ativos</span>
+                    </div>
+                </div>
+
+                <div class="tool-card" onclick="openScreenShare()">
+                    <div class="tool-icon screen">
+                        <i data-lucide="monitor"></i>
+                    </div>
+                    <h3>Compartilhamento de Tela</h3>
+                    <p>Compartilhe sua tela para apresentações e tutoriais</p>
+                    <div class="tool-stats">
+                        <span>Disponível</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Activity Section -->
+    <section class="activity-section">
+        <div class="container">
+            <h2 class="section-title">Atividade Recente</h2>
+            <div class="activity-feed">
+                <div class="activity-item">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" alt="João Santos">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <span class="activity-user">João Santos</span>
+                            <span class="activity-action">criou uma nova sala de estudos</span>
+                            <span class="activity-time">há 5 minutos</span>
+                        </div>
+                        <div class="activity-details">
+                            "Fundamentos de IA - Grupo de Estudos" - Discussão sobre redes neurais
+                        </div>
+                    </div>
+                    <div class="activity-type">
+                        <i data-lucide="video"></i>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face" alt="Maria Silva">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <span class="activity-user">Maria Silva</span>
+                            <span class="activity-action">compartilhou um documento</span>
+                            <span class="activity-time">há 12 minutos</span>
+                        </div>
+                        <div class="activity-details">
+                            "Metodologias Ágeis em Projetos Culturais.pdf"
+                        </div>
+                    </div>
+                    <div class="activity-type">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" alt="Pedro Costa">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <span class="activity-user">Pedro Costa</span>
+                            <span class="activity-action">iniciou um quadro colaborativo</span>
+                            <span class="activity-time">há 18 minutos</span>
+                        </div>
+                        <div class="activity-details">
+                            "Mapa Mental - Educação Inclusiva"
+                        </div>
+                    </div>
+                    <div class="activity-type">
+                        <i data-lucide="edit"></i>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="Ana Oliveira">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <span class="activity-user">Ana Oliveira</span>
+                            <span class="activity-action">enviou uma mensagem no grupo</span>
+                            <span class="activity-time">há 25 minutos</span>
+                        </div>
+                        <div class="activity-details">
+                            "Alguém tem material sobre Deep Learning?"
+                        </div>
+                    </div>
+                    <div class="activity-type">
+                        <i data-lucide="message-square"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Messenger Modal -->
+    <div class="modal" id="messengerModal">
+        <div class="modal-content messenger">
+            <div class="modal-header">
+                <h3>Mensagens</h3>
+                <button class="modal-close" onclick="closeMessenger()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="messenger-body">
+                <div class="messenger-sidebar">
+                    <div class="messenger-search">
+                        <input type="text" placeholder="Buscar conversas...">
+                        <i data-lucide="search"></i>
+                    </div>
+                    <div class="conversations-list">
+                        <div class="conversation-item active">
+                            <div class="conversation-avatar">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="João Santos">
+                                <div class="status-indicator online"></div>
+                            </div>
+                            <div class="conversation-info">
+                                <div class="conversation-name">João Santos</div>
+                                <div class="conversation-preview">Ótima explicação sobre redes neurais!</div>
+                            </div>
+                            <div class="conversation-meta">
+                                <div class="conversation-time">14:32</div>
+                                <div class="unread-count">2</div>
+                            </div>
+                        </div>
+                        <!-- More conversations would be here -->
+                    </div>
+                </div>
+                <div class="messenger-chat">
+                    <div class="chat-header">
+                        <div class="chat-user">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="João Santos">
+                            <div class="chat-user-info">
+                                <div class="chat-user-name">João Santos</div>
+                                <div class="chat-user-status">Online agora</div>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button><i data-lucide="video"></i></button>
+                            <button><i data-lucide="phone"></i></button>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message received">
+                            <div class="message-content">
+                                Oi! Você entendeu a parte sobre backpropagation?
+                            </div>
+                            <div class="message-time">14:28</div>
+                        </div>
+                        <div class="message sent">
+                            <div class="message-content">
+                                Sim! É basicamente como a rede aprende ajustando os pesos baseado nos erros.
+                            </div>
+                            <div class="message-time">14:30</div>
+                        </div>
+                        <div class="message received">
+                            <div class="message-content">
+                                Ótima explicação sobre redes neurais! Obrigado pela ajuda.
+                            </div>
+                            <div class="message-time">14:32</div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Digite sua mensagem...">
+                        <button><i data-lucide="send"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Whiteboard Modal -->
+    <div class="modal" id="whiteboardModal">
+        <div class="modal-content whiteboard">
+            <div class="modal-header">
+                <h3>Quadro Colaborativo</h3>
+                <div class="whiteboard-tools">
+                    <button class="tool-btn active" data-tool="pen"><i data-lucide="edit-3"></i></button>
+                    <button class="tool-btn" data-tool="eraser"><i data-lucide="eraser"></i></button>
+                    <button class="tool-btn" data-tool="text"><i data-lucide="type"></i></button>
+                    <button class="tool-btn" data-tool="shapes"><i data-lucide="square"></i></button>
+                    <input type="color" class="color-picker" value="#000000">
+                </div>
+                <button class="modal-close" onclick="closeWhiteboard()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="whiteboard-body">
+                <canvas id="whiteboard" width="800" height="600"></canvas>
+                <div class="whiteboard-participants">
+                    <div class="participant">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=30&h=30&fit=crop&crop=face" alt="João">
+                        <span>João</span>
+                    </div>
+                    <div class="participant">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=30&h=30&fit=crop&crop=face" alt="Maria">
+                        <span>Maria</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                            <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/colaboracao.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Backup - Instituto Buriti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .status-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .status-card.warning {
+            border-left-color: #ff9800;
+        }
+
+        .status-card.error {
+            border-left-color: #f44336;
+        }
+
+        .status-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .backup-actions {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-btn.danger {
+            background: #f44336;
+        }
+
+        .action-btn.warning {
+            background: #ff9800;
+        }
+
+        .backup-history {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .backup-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .backup-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .backup-item.failed {
+            border-left-color: #f44336;
+        }
+
+        .backup-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .backup-icon.failed {
+            background: #f44336;
+        }
+
+        .backup-info {
+            flex: 1;
+        }
+
+        .backup-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .backup-details {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .backup-time {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .backup-size {
+            font-weight: bold;
+            color: #973CBF;
+            font-size: 0.9rem;
+        }
+
+        .schedule-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-info {
+            flex: 1;
+        }
+
+        .schedule-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .schedule-frequency {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+            background: #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #4CAF50;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(25px);
+        }
+
+        .security-section {
+            background: rgba(255, 235, 235, 0.95);
+            border: 1px solid #ffcdd2;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #973CBF;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #973CBF, #FF7847);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo">
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="page-title">💾 Painel de Backup</h1>
+
+            <div class="status-section">
+                <h3 class="section-title">
+                    <i class="fas fa-heartbeat"></i>
+                    Status do Sistema
+                </h3>
+
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-value">✅ Online</div>
+                        <div class="status-label">Sistema Principal</div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-value">2.3 GB</div>
+                        <div class="status-label">Último Backup</div>
+                    </div>
+                    <div class="status-card warning">
+                        <div class="status-value">85%</div>
+                        <div class="status-label">Espaço Usado</div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-value">há 6h</div>
+                        <div class="status-label">Último Sucesso</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <strong>Próximo backup automático:</strong> Hoje às 02:00
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <small style="color: #666;">Backup em progresso... 75% concluído</small>
+                </div>
+            </div>
+
+            <div class="backup-actions">
+                <h3 class="section-title">
+                    <i class="fas fa-tools"></i>
+                    Ações de Backup
+                </h3>
+                <button class="action-btn">
+                    <i class="fas fa-play"></i> Backup Completo Agora
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-database"></i> Backup Incremental
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-download"></i> Download Backup
+                </button>
+                <button class="action-btn warning">
+                    <i class="fas fa-upload"></i> Restaurar Sistema
+                </button>
+            </div>
+
+            <div class="backup-history">
+                <h3 class="section-title">
+                    <i class="fas fa-history"></i>
+                    Histórico de Backups
+                </h3>
+
+                <div class="backup-item">
+                    <div class="backup-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="backup-info">
+                        <div class="backup-title">Backup Completo - Sucesso</div>
+                        <div class="backup-details">Banco de dados + Arquivos + Configurações</div>
+                        <div class="backup-time">Hoje às 02:00</div>
+                    </div>
+                    <div class="backup-size">2.3 GB</div>
+                </div>
+
+                <div class="backup-item">
+                    <div class="backup-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="backup-info">
+                        <div class="backup-title">Backup Incremental - Sucesso</div>
+                        <div class="backup-details">Apenas alterações desde último backup</div>
+                        <div class="backup-time">Ontem às 14:00</div>
+                    </div>
+                    <div class="backup-size">156 MB</div>
+                </div>
+
+                <div class="backup-item">
+                    <div class="backup-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="backup-info">
+                        <div class="backup-title">Backup Completo - Sucesso</div>
+                        <div class="backup-details">Backup semanal programado</div>
+                        <div class="backup-time">Ontem às 02:00</div>
+                    </div>
+                    <div class="backup-size">2.1 GB</div>
+                </div>
+
+                <div class="backup-item failed">
+                    <div class="backup-icon failed">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="backup-info">
+                        <div class="backup-title">Backup Incremental - Falhou</div>
+                        <div class="backup-details">Erro: Espaço insuficiente no servidor</div>
+                        <div class="backup-time">2 dias atrás às 14:00</div>
+                    </div>
+                    <div class="backup-size">-</div>
+                </div>
+
+                <div class="backup-item">
+                    <div class="backup-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="backup-info">
+                        <div class="backup-title">Backup Completo - Sucesso</div>
+                        <div class="backup-details">Backup semanal programado</div>
+                        <div class="backup-time">3 dias atrás às 02:00</div>
+                    </div>
+                    <div class="backup-size">2.0 GB</div>
+                </div>
+            </div>
+
+            <div class="schedule-section">
+                <h3 class="section-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Agendamento Automático
+                </h3>
+
+                <div class="schedule-item">
+                    <div class="schedule-info">
+                        <div class="schedule-name">Backup Completo Diário</div>
+                        <div class="schedule-frequency">Todos os dias às 02:00</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSchedule(this)"></div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-info">
+                        <div class="schedule-name">Backup Incremental</div>
+                        <div class="schedule-frequency">A cada 6 horas</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSchedule(this)"></div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-info">
+                        <div class="schedule-name">Backup de Arquivos</div>
+                        <div class="schedule-frequency">Semanalmente aos domingos</div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSchedule(this)"></div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-info">
+                        <div class="schedule-name">Limpeza Automática</div>
+                        <div class="schedule-frequency">Remover backups > 30 dias</div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSchedule(this)"></div>
+                </div>
+            </div>
+
+            <div class="security-section">
+                <h3 class="section-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Zona de Perigo
+                </h3>
+                <p style="color: #666; margin-bottom: 1rem;">
+                    Ações críticas que podem afetar permanentemente o sistema.
+                </p>
+                <button class="action-btn danger">
+                    <i class="fas fa-trash"></i> Limpar Todos os Backups
+                </button>
+                <button class="action-btn danger">
+                    <i class="fas fa-undo"></i> Restaurar Estado Anterior
+                </button>
+                <button class="action-btn danger">
+                    <i class="fas fa-bomb"></i> Reset Completo do Sistema
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-admin.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="usuarios.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Usuários</span>
+        </a>
+        <a href="notificacoes.html" class="nav-item">
+            <i class="fas fa-bell"></i>
+            <span>Notificações</span>
+        </a>
+        <a href="backup.html" class="nav-item active">
+            <i class="fas fa-database"></i>
+            <span>Backup</span>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+    </div>
+
+    <script>
+        function toggleSchedule(element) {
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
+

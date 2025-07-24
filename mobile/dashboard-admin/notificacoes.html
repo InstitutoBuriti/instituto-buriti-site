@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações em Massa - Instituto Buriti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .compose-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .recipient-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .recipient-tag {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .send-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .templates-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #973CBF;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-item:hover {
+            background: #e9ecef;
+        }
+
+        .template-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .template-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-preview {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .history-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .history-content {
+            flex: 1;
+        }
+
+        .history-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .history-details {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .history-time {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #973CBF;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo">
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="page-title">📢 Notificações em Massa</h1>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1.247</div>
+                    <div class="stat-label">Usuários Ativos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Enviadas Hoje</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">94%</div>
+                    <div class="stat-label">Taxa de Entrega</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">Taxa de Abertura</div>
+                </div>
+            </div>
+
+            <div class="compose-section">
+                <h3 class="section-title">
+                    <i class="fas fa-edit"></i>
+                    Compor Notificação
+                </h3>
+
+                <div class="form-group">
+                    <label class="form-label">Destinatários</label>
+                    <select class="form-select">
+                        <option>Todos os usuários (1.247)</option>
+                        <option>Apenas alunos (892)</option>
+                        <option>Apenas instrutores (45)</option>
+                        <option>Apenas administradores (5)</option>
+                        <option>Usuários ativos (30 dias)</option>
+                        <option>Usuários inativos (30+ dias)</option>
+                    </select>
+                    <div class="recipient-tags">
+                        <div class="recipient-tag">
+                            <span>Todos os usuários</span>
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tipo de Notificação</label>
+                    <select class="form-select">
+                        <option>Informativo</option>
+                        <option>Urgente</option>
+                        <option>Promocional</option>
+                        <option>Manutenção</option>
+                        <option>Novidades</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Título</label>
+                    <input type="text" class="form-input" placeholder="Digite o título da notificação...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Mensagem</label>
+                    <textarea class="form-textarea" placeholder="Digite a mensagem completa da notificação..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Agendar Envio</label>
+                    <select class="form-select">
+                        <option>Enviar agora</option>
+                        <option>Agendar para mais tarde</option>
+                    </select>
+                </div>
+
+                <button class="send-btn">
+                    <i class="fas fa-paper-plane"></i> Enviar Notificação
+                </button>
+            </div>
+
+            <div class="templates-section">
+                <h3 class="section-title">
+                    <i class="fas fa-file-alt"></i>
+                    Templates Prontos
+                </h3>
+
+                <div class="template-item" onclick="useTemplate('welcome')">
+                    <div class="template-title">Boas-vindas para Novos Alunos</div>
+                    <div class="template-preview">
+                        "Bem-vindo ao Instituto Buriti! Estamos felizes em tê-lo conosco. Acesse seu dashboard para começar sua jornada de aprendizado..."
+                    </div>
+                </div>
+
+                <div class="template-item" onclick="useTemplate('maintenance')">
+                    <div class="template-title">Manutenção Programada</div>
+                    <div class="template-preview">
+                        "Informamos que haverá manutenção programada no sistema no dia [DATA] das [HORA] às [HORA]. Durante este período..."
+                    </div>
+                </div>
+
+                <div class="template-item" onclick="useTemplate('course')">
+                    <div class="template-title">Novo Curso Disponível</div>
+                    <div class="template-preview">
+                        "Temos o prazer de anunciar o lançamento do novo curso [NOME DO CURSO]. Inscreva-se agora e aproveite o desconto especial..."
+                    </div>
+                </div>
+
+                <div class="template-item" onclick="useTemplate('certificate')">
+                    <div class="template-title">Certificado Disponível</div>
+                    <div class="template-preview">
+                        "Parabéns! Seu certificado do curso [NOME DO CURSO] está disponível para download. Acesse seu dashboard..."
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <h3 class="section-title">
+                    <i class="fas fa-history"></i>
+                    Histórico de Envios
+                </h3>
+
+                <div class="history-item">
+                    <div class="history-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="history-content">
+                        <div class="history-title">Novo Curso: Inteligência Artificial</div>
+                        <div class="history-details">Enviado para 1.247 usuários • 94% entregue • 78% aberto</div>
+                        <div class="history-time">há 2 horas</div>
+                    </div>
+                </div>
+
+                <div class="history-item">
+                    <div class="history-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="history-content">
+                        <div class="history-title">Manutenção Programada</div>
+                        <div class="history-details">Enviado para 1.247 usuários • 98% entregue • 85% aberto</div>
+                        <div class="history-time">ontem às 14:30</div>
+                    </div>
+                </div>
+
+                <div class="history-item">
+                    <div class="history-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="history-content">
+                        <div class="history-title">Certificados Disponíveis</div>
+                        <div class="history-details">Enviado para 89 alunos • 100% entregue • 92% aberto</div>
+                        <div class="history-time">2 dias atrás</div>
+                    </div>
+                </div>
+
+                <div class="history-item">
+                    <div class="history-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="history-content">
+                        <div class="history-title">Boas-vindas Novos Alunos</div>
+                        <div class="history-details">Enviado para 23 usuários • 96% entregue • 74% aberto</div>
+                        <div class="history-time">3 dias atrás</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-admin.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="usuarios.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Usuários</span>
+        </a>
+        <a href="notificacoes.html" class="nav-item active">
+            <i class="fas fa-bell"></i>
+            <span>Notificações</span>
+        </a>
+        <a href="backup.html" class="nav-item">
+            <i class="fas fa-database"></i>
+            <span>Backup</span>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+    </div>
+
+    <script>
+        function useTemplate(templateType) {
+            // Função para usar template selecionado
+            console.log('Template selecionado:', templateType);
+        }
+    </script>
+</body>
+</html>
+

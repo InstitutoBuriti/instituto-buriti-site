@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 50%, #6B8C79 100%);
+            min-height: 100vh;
+        }
+
+        /* Header Mobile Consistente */
+        .mobile-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            box-shadow: 0 4px 20px rgba(151, 60, 191, 0.3);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 90px;
+            padding: 1rem;
+            min-height: calc(100vh - 90px);
+        }
+
+        /* Search Section */
+        .search-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-tab {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(151, 60, 191, 0.4);
+        }
+
+        .filter-tab:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Courses Grid */
+        .courses-section {
+            margin-bottom: 2rem;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .course-category {
+            background: linear-gradient(135deg, #A95028 0%, #6B8C79 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .course-level {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .course-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .course-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+
+        .course-progress {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 6px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .course-progress-fill {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .course-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #FF7847;
+        }
+
+        .course-price.free {
+            color: #6B8C79;
+        }
+
+        .course-button {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .course-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(151, 60, 191, 0.4);
+        }
+
+        .course-button.continue {
+            background: linear-gradient(135deg, #6B8C79 0%, #A95028 100%);
+        }
+
+        /* Featured Course */
+        .featured-course {
+            background: linear-gradient(135deg, rgba(151, 60, 191, 0.3) 0%, rgba(255, 120, 71, 0.3) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            right: 1rem;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .empty-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #FF7847;
+        }
+
+        .nav-item:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+        }        /* Responsive */
+        @media (max-width: 360px) {
+            .filter-tabs {
+                gap: 0.5rem;
+            }
+            
+            .filter-tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .course-card {
+                padding: 1rem;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .social-link:hover {
+            transform: scale(1.1);
+        }
+
+        .social-icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Mobile -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <img src="images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti">
+                </div>
+                <span class="logo-text">Cursos</span>
+            </div>
+            <button class="back-button" onclick="goBack()">← Voltar</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Search Section -->
+        <section class="search-section">
+            <h1 class="search-title">📚 Explore Nossos Cursos</h1>
+            <div class="search-container">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" placeholder="Buscar cursos..." id="searchInput">
+            </div>
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="todos">Todos</button>
+                <button class="filter-tab" data-filter="tecnologia">Tecnologia</button>
+                <button class="filter-tab" data-filter="design">Design</button>
+                <button class="filter-tab" data-filter="gestao">Gestão</button>
+                <button class="filter-tab" data-filter="idiomas">Idiomas</button>
+                <button class="filter-tab" data-filter="gratuitos">Gratuitos</button>
+            </div>
+        </section>
+
+        <!-- Courses Grid -->
+        <section class="courses-section">
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Curso em Destaque -->
+                <div class="course-card featured-course" data-category="tecnologia">
+                    <div class="featured-badge">⭐ Destaque</div>
+                    <div class="course-header">
+                        <div class="course-category">Tecnologia</div>
+                        <div class="course-level">Intermediário</div>
+                    </div>
+                    <h3 class="course-title">Desenvolvimento Web Completo</h3>
+                    <p class="course-description">
+                        Aprenda HTML, CSS, JavaScript, React e Node.js do zero ao avançado. 
+                        Curso completo com projetos práticos e certificação.
+                    </p>
+                    <div class="course-stats">
+                        <div class="course-stat">⏱️ 40h</div>
+                        <div class="course-stat">👥 1.2k alunos</div>
+                        <div class="course-stat">⭐ 4.9</div>
+                    </div>
+                    <div class="course-progress">
+                        <div class="course-progress-fill" style="width: 65%;"></div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price">R$ 299,90</div>
+                        <button class="course-button continue">Continuar</button>
+                    </div>
+                </div>
+
+                <!-- Curso Gratuito -->
+                <div class="course-card" data-category="design">
+                    <div class="course-header">
+                        <div class="course-category">Design</div>
+                        <div class="course-level">Iniciante</div>
+                    </div>
+                    <h3 class="course-title">Fundamentos do Design Gráfico</h3>
+                    <p class="course-description">
+                        Aprenda os princípios básicos do design gráfico, teoria das cores, 
+                        tipografia e composição visual.
+                    </p>
+                    <div class="course-stats">
+                        <div class="course-stat">⏱️ 15h</div>
+                        <div class="course-stat">👥 850 alunos</div>
+                        <div class="course-stat">⭐ 4.7</div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price free">Gratuito</div>
+                        <button class="course-button">Começar</button>
+                    </div>
+                </div>
+
+                <!-- Curso de Gestão -->
+                <div class="course-card" data-category="gestao">
+                    <div class="course-header">
+                        <div class="course-category">Gestão</div>
+                        <div class="course-level">Avançado</div>
+                    </div>
+                    <h3 class="course-title">Gestão de Projetos Ágeis</h3>
+                    <p class="course-description">
+                        Domine metodologias ágeis como Scrum e Kanban. 
+                        Aprenda a gerenciar equipes e projetos com eficiência.
+                    </p>
+                    <div class="course-stats">
+                        <div class="course-stat">⏱️ 25h</div>
+                        <div class="course-stat">👥 650 alunos</div>
+                        <div class="course-stat">⭐ 4.8</div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price">R$ 199,90</div>
+                        <button class="course-button">Inscrever-se</button>
+                    </div>
+                </div>
+
+                <!-- Curso de Idiomas -->
+                <div class="course-card" data-category="idiomas">
+                    <div class="course-header">
+                        <div class="course-category">Idiomas</div>
+                        <div class="course-level">Iniciante</div>
+                    </div>
+                    <h3 class="course-title">Inglês para Negócios</h3>
+                    <p class="course-description">
+                        Desenvolva suas habilidades em inglês focado no ambiente corporativo. 
+                        Vocabulário, apresentações e comunicação profissional.
+                    </p>
+                    <div class="course-stats">
+                        <div class="course-stat">⏱️ 30h</div>
+                        <div class="course-stat">👥 920 alunos</div>
+                        <div class="course-stat">⭐ 4.6</div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price">R$ 149,90</div>
+                        <button class="course-button">Inscrever-se</button>
+                    </div>
+                </div>
+
+                <!-- Curso de Tecnologia -->
+                <div class="course-card" data-category="tecnologia">
+                    <div class="course-header">
+                        <div class="course-category">Tecnologia</div>
+                        <div class="course-level">Intermediário</div>
+                    </div>
+                    <h3 class="course-title">Python para Data Science</h3>
+                    <p class="course-description">
+                        Aprenda Python aplicado à ciência de dados. 
+                        Pandas, NumPy, Matplotlib e machine learning básico.
+                    </p>
+                    <div class="course-stats">
+                        <div class="course-stat">⏱️ 35h</div>
+                        <div class="course-stat">👥 750 alunos</div>
+                        <div class="course-stat">⭐ 4.9</div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price">R$ 249,90</div>
+                        <button class="course-button">Inscrever-se</button>
+                    </div>
+                </div>
+
+                <!-- Curso Gratuito de Design -->
+                <div class="course-card" data-category="design">
+                    <div class="course-header">
+                        <div class="course-category">Design</div>
+                        <div class="course-level">Iniciante</div>
+                    </div>
+                    <h3 class="course-title">Introdução ao Figma</h3>
+                    <p class="course-description">
+                        Aprenda a usar o Figma para criar interfaces e protótipos. 
+                        Ferramenta essencial para designers modernos.
+                    </p>
+                    <div class="course-stats">
+                        <div class="course-stat">⏱️ 12h</div>
+                        <div class="course-stat">👥 1.1k alunos</div>
+                        <div class="course-stat">⭐ 4.8</div>
+                    </div>
+                    <div class="course-footer">
+                        <div class="course-price free">Gratuito</div>
+                        <button class="course-button">Começar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State (hidden by default) -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">🔍</div>
+                <div class="empty-title">Nenhum curso encontrado</div>
+                <div class="empty-description">
+                    Tente ajustar os filtros ou buscar por outros termos.
+                </div>
+            </div>
+        </section>
+
+        <!-- Espaço para bottom nav -->
+        <div style="height: 100px;"></div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-items">
+            <a href="index.html" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div>Início</div>
+            </a>
+            <a href="sobre-nos.html" class="nav-item">
+                <div class="nav-icon">ℹ️</div>
+                <div>Sobre</div>
+            </a>
+            <a href="cursos.html" class="nav-item active">
+                <div class="nav-icon">📚</div>
+                <div>Cursos</div>
+            </a>
+            <a href="seja-instrutor.html" class="nav-item">
+                <div class="nav-icon">👨‍🏫</div>
+                <div>Instrutor</div>
+            </a>
+            <a href="contato.html" class="nav-item">
+                <div class="nav-icon">📞</div>
+                <div>Contato</div>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Instituto Buriti</div>
+            <div class="footer-social">
+                <a href="#" class="social-link">
+                    <img src="images/instagram-icon.png" alt="Instagram" class="social-icon-img">
+                </a>
+                <a href="#" class="social-link">
+                    <img src="images/x-icon.png" alt="X (Twitter)" class="social-icon-img">
+                </a>
+                <a href="#" class="social-link">
+                    <img src="images/tiktok-icon.png" alt="TikTok" class="social-icon-img">
+                </a>
+                <a href="#" class="social-link">
+                    <img src="images/youtube-icon.png" alt="YouTube" class="social-icon-img">
+                </a>
+                <a href="#" class="social-link">
+                    <img src="images/linkedin-icon.png" alt="LinkedIn" class="social-icon-img">
+                </a>
+                <a href="#" class="social-link">
+                    <img src="images/whatsapp-icon.png" alt="WhatsApp" class="social-icon-img">
+                </a>
+            </div>
+            <div class="footer-text">
+                Formação, Inclusão e Cultura em todos os lugares<br>
+                © 2025 Instituto Buriti. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        // Filtros de curso
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const courseCards = document.querySelectorAll('.course-card');
+        const coursesGrid = document.getElementById('coursesGrid');
+        const emptyState = document.getElementById('emptyState');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remover active de todos os tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                // Adicionar active ao tab clicado
+                tab.classList.add('active');
+                
+                const filter = tab.dataset.filter;
+                filterCourses(filter);
+            });
+        });
+
+        function filterCourses(filter) {
+            let visibleCount = 0;
+            
+            courseCards.forEach(card => {
+                const category = card.dataset.category;
+                const isFree = card.querySelector('.course-price.free');
+                
+                let shouldShow = false;
+                
+                if (filter === 'todos') {
+                    shouldShow = true;
+                } else if (filter === 'gratuitos') {
+                    shouldShow = isFree !== null;
+                } else {
+                    shouldShow = category === filter;
+                }
+                
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Mostrar/esconder empty state
+            if (visibleCount === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+
+        // Busca de cursos
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            let visibleCount = 0;
+            
+            courseCards.forEach(card => {
+                const title = card.querySelector('.course-title').textContent.toLowerCase();
+                const description = card.querySelector('.course-description').textContent.toLowerCase();
+                const category = card.querySelector('.course-category').textContent.toLowerCase();
+                
+                const matches = title.includes(searchTerm) || 
+                               description.includes(searchTerm) || 
+                               category.includes(searchTerm);
+                
+                if (matches || searchTerm === '') {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Mostrar/esconder empty state
+            if (visibleCount === 0 && searchTerm !== '') {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+            
+            // Reset filter tabs se estiver buscando
+            if (searchTerm !== '') {
+                filterTabs.forEach(t => t.classList.remove('active'));
+            }
+        });
+
+        // Animação dos cards ao carregar
+        function animateCards() {
+            courseCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        // Efeito de clique nos cards
+        courseCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Não executar se clicou no botão
+                if (e.target.classList.contains('course-button')) return;
+                
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Efeito nos botões
+        document.querySelectorAll('.course-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Simular ação do botão
+                const action = this.textContent;
+                showNotification(`${action} realizado com sucesso!`);
+            });
+        });
+
+        // Mostrar notificação
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 20px;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                animation: notificationPop 2s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        // Adicionar CSS da animação
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes notificationPop {
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                20% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Inicializar animações quando a página carregar
+        window.addEventListener('load', () => {
+            animateCards();
+        });
+    </script>
+</body>
+</html>
+

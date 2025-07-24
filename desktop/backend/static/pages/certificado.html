@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado de Conclusão - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/certificado.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="certificado-body">
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item home-nav">
+                <a href="../index.html" class="home-link">
+                    <span class="home-bg"></span>
+                    <span class="home-text">Home</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item">
+                <a href="biblioteca-cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown">
+                <button class="login-button">Login</button>
+                <div class="dropdown-content">
+                    <a href="login-aluno.html" class="dropdown-item">
+                        <i class="fas fa-user-graduate"></i> Aluno
+                    </a>
+                    <a href="login-instrutor.html" class="dropdown-item">
+                        <i class="fas fa-chalkboard-teacher"></i> Instrutor
+                    </a>
+                    <a href="login-admin.html" class="dropdown-item">
+                        <i class="fas fa-user-shield"></i> Admin
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <section class="certificate-banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <div class="container">
+                <div class="certificate-breadcrumb">
+                    <a href="curso-template.html?id=ia-fundamentos">
+                        <i class="fas fa-arrow-left"></i>
+                        Voltar ao Curso
+                    </a>
+                </div>
+                
+                <div class="certificate-header">
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h1>Parabéns! Você concluiu o curso</h1>
+                    <p class="achievement-description">
+                        Você demonstrou excelência e dedicação ao completar todos os módulos e avaliações. 
+                        Seu certificado está pronto para download!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Container Principal -->
+    <div class="certificate-container">
+        <!-- Sidebar de Informações -->
+        <aside class="certificate-sidebar">
+            <div class="course-summary">
+                <h3>Resumo do Curso</h3>
+                <div class="summary-item">
+                    <span class="summary-label">Curso:</span>
+                    <span class="summary-value">Fundamentos da IA</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Instrutor:</span>
+                    <span class="summary-value">Dr. Carlos Mendes</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Carga Horária:</span>
+                    <span class="summary-value">40 horas</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Data de Conclusão:</span>
+                    <span class="summary-value" id="completionDate">20/07/2025</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Nota Final:</span>
+                    <span class="summary-value grade">8.5</span>
+                </div>
+            </div>
+
+            <div class="achievements-section">
+                <h4>Conquistas</h4>
+                <div class="achievement-list">
+                    <div class="achievement-item">
+                        <i class="fas fa-medal"></i>
+                        <span>Curso Concluído</span>
+                    </div>
+                    <div class="achievement-item">
+                        <i class="fas fa-star"></i>
+                        <span>Nota Excelente</span>
+                    </div>
+                    <div class="achievement-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Pontualidade</span>
+                    </div>
+                    <div class="achievement-item">
+                        <i class="fas fa-brain"></i>
+                        <span>Especialista em IA</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certificate-actions">
+                <button class="btn-primary" id="downloadPdfBtn">
+                    <i class="fas fa-download"></i>
+                    Baixar PDF
+                </button>
+                <button class="btn-secondary" id="shareBtn">
+                    <i class="fas fa-share-alt"></i>
+                    Compartilhar
+                </button>
+                <button class="btn-outline" id="printBtn">
+                    <i class="fas fa-print"></i>
+                    Imprimir
+                </button>
+            </div>
+        </aside>
+
+        <!-- Certificado -->
+        <main class="certificate-main">
+            <div class="certificate-preview">
+                <div class="certificate-document" id="certificateDocument">
+                    <!-- Ornamentos decorativos -->
+                    <div class="certificate-ornaments">
+                        <div class="ornament top-left"></div>
+                        <div class="ornament top-right"></div>
+                        <div class="ornament bottom-left"></div>
+                        <div class="ornament bottom-right"></div>
+                    </div>
+
+                    <!-- Cabeçalho -->
+                    <div class="certificate-header-content">
+                        <div class="institution-logo">
+                            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo-img">
+                        </div>
+                        <div class="institution-info">
+                            <h2 class="institution-name">Instituto Buriti</h2>
+                            <p class="institution-subtitle">Educação que transforma. Cultura que conecta.</p>
+                        </div>
+                    </div>
+
+                    <!-- Título do Certificado -->
+                    <div class="certificate-title-section">
+                        <h1 class="certificate-title">Certificado de Conclusão</h1>
+                        <div class="title-decoration">
+                            <div class="decoration-line"></div>
+                            <div class="decoration-star">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="decoration-line"></div>
+                        </div>
+                    </div>
+
+                    <!-- Conteúdo Principal -->
+                    <div class="certificate-content">
+                        <p class="certificate-text">
+                            Certificamos que
+                        </p>
+                        
+                        <div class="student-name" id="studentName">
+                            Ana Silva Santos
+                        </div>
+                        
+                        <p class="certificate-text">
+                            concluiu com êxito o curso de
+                        </p>
+                        
+                        <div class="course-name" id="courseName">
+                            Fundamentos da Inteligência Artificial
+                        </div>
+                        
+                        <div class="course-details">
+                            <p>
+                                com carga horária de <strong>40 (quarenta) horas</strong>, 
+                                ministrado pelo <strong>Dr. Carlos Mendes</strong>,
+                                obtendo nota final <strong id="finalGrade">8,5</strong> (oito vírgula cinco).
+                            </p>
+                        </div>
+                        
+                        <div class="completion-info">
+                            <p>
+                                Curso concluído em <strong id="completionDateFull">20 de julho de 2025</strong>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Assinaturas -->
+                    <div class="signatures-section">
+                        <div class="signature-block">
+                            <div class="signature-line"></div>
+                            <div class="signature-info">
+                                <strong>Dr. Carlos Mendes</strong>
+                                <span>Instrutor do Curso</span>
+                            </div>
+                        </div>
+                        
+                        <div class="signature-block">
+                            <div class="signature-line"></div>
+                            <div class="signature-info">
+                                <strong>Prof. Maria Oliveira</strong>
+                                <span>Coordenadora Acadêmica</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rodapé -->
+                    <div class="certificate-footer">
+                        <div class="verification-code">
+                            <span>Código de Verificação: <strong id="verificationCode">IB-2025-IA-001234</strong></span>
+                        </div>
+                        <div class="issue-date">
+                            <span>Emitido em: <strong id="issueDate">20/07/2025</strong></span>
+                        </div>
+                        <div class="website">
+                            <span>www.institutoburiti.com.br</span>
+                        </div>
+                    </div>
+
+                    <!-- QR Code -->
+                    <div class="qr-code-section">
+                        <div class="qr-code" id="qrCode">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <span class="qr-label">Verificar Autenticidade</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opções de Personalização -->
+            <div class="customization-panel">
+                <h3>Personalizar Certificado</h3>
+                
+                <div class="customization-options">
+                    <div class="option-group">
+                        <label for="templateSelect">Modelo:</label>
+                        <select id="templateSelect" class="form-select">
+                            <option value="classic">Clássico</option>
+                            <option value="modern">Moderno</option>
+                            <option value="elegant">Elegante</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="colorScheme">Esquema de Cores:</label>
+                        <select id="colorScheme" class="form-select">
+                            <option value="purple">Roxo (Padrão)</option>
+                            <option value="blue">Azul</option>
+                            <option value="green">Verde</option>
+                            <option value="gold">Dourado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="includePhoto">Incluir Foto:</label>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="includePhoto">
+                            <label for="includePhoto" class="checkbox-label">Adicionar foto do aluno</label>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="paperSize">Tamanho do Papel:</label>
+                        <select id="paperSize" class="form-select">
+                            <option value="a4">A4 (210 x 297 mm)</option>
+                            <option value="letter">Carta (216 x 279 mm)</option>
+                            <option value="a3">A3 (297 x 420 mm)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="preview-actions">
+                    <button class="btn-secondary" id="previewBtn">
+                        <i class="fas fa-eye"></i>
+                        Visualizar
+                    </button>
+                    <button class="btn-primary" id="generateBtn">
+                        <i class="fas fa-magic"></i>
+                        Aplicar Mudanças
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Compartilhamento -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Compartilhar Certificado</h3>
+                <button class="close-modal" id="closeShareModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="share-options">
+                    <button class="share-btn linkedin" id="shareLinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </button>
+                    <button class="share-btn facebook" id="shareFacebook">
+                        <i class="fab fa-facebook"></i>
+                        Facebook
+                    </button>
+                    <button class="share-btn twitter" id="shareTwitter">
+                        <i class="fab fa-twitter"></i>
+                        Twitter
+                    </button>
+                    <button class="share-btn whatsapp" id="shareWhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp
+                    </button>
+                </div>
+                
+                <div class="share-link">
+                    <label>Link do Certificado:</label>
+                    <div class="link-input-group">
+                        <input type="text" id="certificateLink" readonly value="https://institutoburiti.com.br/certificado/verify/IB-2025-IA-001234">
+                        <button class="copy-btn" id="copyLinkBtn">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Gerando seu certificado...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/certificado.js"></script>
+</body>
+</html>
+

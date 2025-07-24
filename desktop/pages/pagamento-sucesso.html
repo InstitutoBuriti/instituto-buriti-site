@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Realizado com Sucesso - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/pagamentos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-home">
+                    <div class="home-bg"></div>
+                    <span>Home</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="quem-somos.html" class="nav-link">Quem Somos</a>
+                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
+                <a href="seja-instrutor.html" class="nav-link">Seja um Instrutor</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+                <div class="nav-dropdown">
+                    <button class="nav-link dropdown-btn">
+                        Login <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="login-aluno.html"><i class="fas fa-user-graduate"></i> Aluno</a>
+                        <a href="login-instrutor.html"><i class="fas fa-chalkboard-teacher"></i> Instrutor</a>
+                        <a href="login-admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Success Hero -->
+        <section class="success-hero">
+            <div class="success-content">
+                <!-- Success Animation -->
+                <div class="success-animation">
+                    <div class="checkmark-circle">
+                        <div class="checkmark"></div>
+                    </div>
+                    <div class="confetti">
+                        <div class="confetti-piece"></div>
+                        <div class="confetti-piece"></div>
+                        <div class="confetti-piece"></div>
+                        <div class="confetti-piece"></div>
+                        <div class="confetti-piece"></div>
+                        <div class="confetti-piece"></div>
+                    </div>
+                </div>
+
+                <h1>🎉 Pagamento Realizado com Sucesso!</h1>
+                <p class="success-subtitle">Parabéns! Sua compra foi processada e você já tem acesso ao curso.</p>
+                
+                <!-- Transaction Details -->
+                <div class="transaction-details">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <div class="detail-info">
+                            <h3>Número do Pedido</h3>
+                            <p id="orderNumber">#IB-2025-001234</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="detail-info">
+                            <h3>Valor Pago</h3>
+                            <p id="paidAmount">R$ 199,90</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="detail-info">
+                            <h3>Data do Pagamento</h3>
+                            <p id="paymentDate">19/07/2025 às 14:30</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Floating Success Elements -->
+            <div class="floating-elements">
+                <svg class="float-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="30" fill="rgba(16, 185, 129, 0.2)" />
+                </svg>
+                <svg class="float-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(249, 115, 22, 0.2)" />
+                </svg>
+                <svg class="float-3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="50" height="50" fill="rgba(139, 92, 246, 0.2)" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Course Access Section -->
+        <section class="course-access">
+            <div class="container">
+                <div class="access-content">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="/upload/ChatGPTImage19dejul.de2025,19_04_54.png" alt="Curso" id="courseImage">
+                            <div class="access-badge">
+                                <i class="fas fa-unlock"></i>
+                                <span>Acesso Liberado</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-info">
+                            <h2 id="courseTitle">Fundamentos da Inteligência Artificial</h2>
+                            <p class="instructor" id="courseInstructor">Dr. Carlos Mendes</p>
+                            
+                            <div class="course-stats">
+                                <div class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    <span>40 horas</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-play-circle"></i>
+                                    <span>25 aulas</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Certificado</span>
+                                </div>
+                            </div>
+                            
+                            <div class="access-actions">
+                                <a href="curso-template.html" class="btn-primary">
+                                    <i class="fas fa-play"></i>
+                                    Começar Agora
+                                </a>
+                                <a href="dashboard-aluno.html" class="btn-secondary">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Ir para Dashboard
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps Section -->
+        <section class="next-steps">
+            <div class="container">
+                <h2>Próximos Passos</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Confirme seu Email</h3>
+                        <p>Enviamos um email de confirmação com os detalhes da compra e instruções de acesso.</p>
+                        <div class="step-status">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Email enviado</span>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h3>Complete seu Perfil</h3>
+                        <p>Adicione uma foto e informações pessoais para personalizar sua experiência de aprendizado.</p>
+                        <a href="dashboard-aluno.html" class="step-action">Completar Perfil</a>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Comece a Aprender</h3>
+                        <p>Acesse o conteúdo do curso, faça anotações e acompanhe seu progresso em tempo real.</p>
+                        <a href="curso-template.html" class="step-action">Iniciar Curso</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="support-section">
+            <div class="container">
+                <div class="support-content">
+                    <div class="support-info">
+                        <h2>Precisa de Ajuda?</h2>
+                        <p>Nossa equipe está pronta para ajudar você a aproveitar ao máximo sua experiência de aprendizado.</p>
+                        
+                        <div class="support-options">
+                            <div class="support-option">
+                                <div class="option-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <div class="option-info">
+                                    <h3>Suporte Técnico</h3>
+                                    <p>Problemas com acesso ou funcionalidades</p>
+                                    <a href="contato.html">Falar com Suporte</a>
+                                </div>
+                            </div>
+                            
+                            <div class="support-option">
+                                <div class="option-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="option-info">
+                                    <h3>Central de Ajuda</h3>
+                                    <p>Perguntas frequentes e tutoriais</p>
+                                    <a href="#">Acessar Central</a>
+                                </div>
+                            </div>
+                            
+                            <div class="support-option">
+                                <div class="option-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div class="option-info">
+                                    <h3>WhatsApp</h3>
+                                    <p>Atendimento rápido pelo WhatsApp</p>
+                                    <a href="https://wa.me/5511999999999" target="_blank">Chamar no WhatsApp</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="support-visual">
+                        <div class="support-illustration">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="support-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">98%</span>
+                                <span class="stat-label">Satisfação</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">24h</span>
+                                <span class="stat-label">Resposta</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">5★</span>
+                                <span class="stat-label">Avaliação</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommendations Section -->
+        <section class="recommendations">
+            <div class="container">
+                <h2>Cursos Recomendados</h2>
+                <p class="section-subtitle">Continue sua jornada de aprendizado com estes cursos relacionados</p>
+                
+                <div class="courses-grid">
+                    <div class="course-recommendation">
+                        <div class="course-thumb">
+                            <img src="/upload/IMG_F027CED18C1C-1.jpeg" alt="Gestão Cultural">
+                            <div class="course-badge">Relacionado</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Gestão de Projetos Culturais</h3>
+                            <p class="course-instructor">Maria Santos</p>
+                            <div class="course-price">
+                                <span class="discount-price">R$ 134,90</span>
+                                <span class="original-price">R$ 149,90</span>
+                                <span class="discount-badge">10% OFF</span>
+                            </div>
+                            <a href="checkout.html?course=gestao-cultural" class="btn-outline">Ver Curso</a>
+                        </div>
+                    </div>
+                    
+                    <div class="course-recommendation">
+                        <div class="course-thumb">
+                            <img src="/upload/IMG_65A477CACFA8-1.jpeg" alt="Educação Inclusiva">
+                            <div class="course-badge">Popular</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Educação Especial Inclusiva</h3>
+                            <p class="course-instructor">Prof. Ana Oliveira</p>
+                            <div class="course-price">
+                                <span class="free-price">Gratuito</span>
+                            </div>
+                            <a href="curso-template.html?course=educacao-inclusiva" class="btn-outline">Acessar Grátis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                    <div class="footer-text">
+                        <p class="footer-slogan">Educação que transforma. Cultura que conecta.</p>
+                        <p class="footer-company">Instituto Buriti, uma empresa 100% digital.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                    <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> contato@institutoburiti.com.br</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Instituto Buriti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/pagamento-sucesso.js"></script>
+</body>
+</html>
+

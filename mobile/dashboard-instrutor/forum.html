@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderação de Fóruns - Instituto Buriti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .moderation-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .pending-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pending-item {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .pending-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .pending-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .pending-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .pending-time {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .pending-content {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .pending-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .approve-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .reject-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .edit-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .forum-activity {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .quick-actions {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-action-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #973CBF;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+
+        .alert-badge {
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo">
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="page-title">🛡️ Moderação de Fóruns</h1>
+
+            <div class="moderation-stats">
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Pendentes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Aprovados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Rejeitados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Reportados</div>
+                </div>
+            </div>
+
+            <div class="pending-section">
+                <h3 class="section-title">
+                    <i class="fas fa-clock"></i>
+                    Aguardando Moderação
+                    <div class="alert-badge">8</div>
+                </h3>
+
+                <div class="pending-item">
+                    <div class="pending-header">
+                        <div class="pending-title">Dúvida sobre HTML5 Semântico</div>
+                        <div class="pending-time">há 2h</div>
+                    </div>
+                    <div class="pending-content">
+                        "Pessoal, estou com dificuldade para entender quando usar &lt;section&gt; e quando usar &lt;div&gt;. Alguém pode me ajudar com exemplos práticos?"
+                    </div>
+                    <div class="pending-actions">
+                        <button class="action-btn approve-btn">
+                            <i class="fas fa-check"></i> Aprovar
+                        </button>
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn reject-btn">
+                            <i class="fas fa-times"></i> Rejeitar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pending-item">
+                    <div class="pending-header">
+                        <div class="pending-title">Projeto Final - Feedback</div>
+                        <div class="pending-time">há 4h</div>
+                    </div>
+                    <div class="pending-content">
+                        "Finalizei meu projeto de e-commerce. Gostaria de feedback da turma antes de apresentar. Link: [projeto-exemplo.com]"
+                    </div>
+                    <div class="pending-actions">
+                        <button class="action-btn approve-btn">
+                            <i class="fas fa-check"></i> Aprovar
+                        </button>
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn reject-btn">
+                            <i class="fas fa-times"></i> Rejeitar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pending-item">
+                    <div class="pending-header">
+                        <div class="pending-title">Erro no CSS Grid</div>
+                        <div class="pending-time">há 6h</div>
+                    </div>
+                    <div class="pending-content">
+                        "Meu layout está quebrando no mobile. Estou usando CSS Grid mas não consigo fazer funcionar corretamente. Código em anexo."
+                    </div>
+                    <div class="pending-actions">
+                        <button class="action-btn approve-btn">
+                            <i class="fas fa-check"></i> Aprovar
+                        </button>
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn reject-btn">
+                            <i class="fas fa-times"></i> Rejeitar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="forum-activity">
+                <h3 class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Atividade Recente
+                </h3>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Nova resposta em "JavaScript Avançado"</div>
+                        <div class="activity-time">há 15 min</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-thumbs-up"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Post aprovado: "Dicas de UX/UI"</div>
+                        <div class="activity-time">há 30 min</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Post reportado por spam</div>
+                        <div class="activity-time">há 1h</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Novo membro no fórum</div>
+                        <div class="activity-time">há 2h</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h3 class="section-title">
+                    <i class="fas fa-bolt"></i>
+                    Ações Rápidas
+                </h3>
+                <button class="quick-action-btn">
+                    <i class="fas fa-plus"></i> Criar Tópico
+                </button>
+                <button class="quick-action-btn">
+                    <i class="fas fa-bullhorn"></i> Anúncio
+                </button>
+                <button class="quick-action-btn">
+                    <i class="fas fa-cog"></i> Configurações
+                </button>
+                <button class="quick-action-btn">
+                    <i class="fas fa-ban"></i> Usuários Banidos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-instrutor.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="cursos.html" class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>Cursos</span>
+        </a>
+        <a href="alunos.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Alunos</span>
+        </a>
+        <a href="forum.html" class="nav-item active">
+            <i class="fas fa-comments"></i>
+            <span>Fórum</span>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+    </div>
+</body>
+</html>
+

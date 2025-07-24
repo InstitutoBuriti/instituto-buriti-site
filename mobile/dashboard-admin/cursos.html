@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Cursos - Instituto Buriti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .courses-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .course-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #973CBF;
+        }
+
+        .course-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .course-instructor {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .approve-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .suspend-btn {
+            background: #ff9800;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-pending {
+            background: #ff9800;
+            color: white;
+        }
+
+        .status-draft {
+            background: #9e9e9e;
+            color: white;
+        }
+
+        .admin-actions {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #973CBF;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo">
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="page-title">📚 Gerenciamento de Cursos</h1>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Total Cursos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">32</div>
+                    <div class="stat-label">Ativos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Pendentes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Rascunhos</div>
+                </div>
+            </div>
+
+            <div class="courses-section">
+                <h3 class="section-title">
+                    <i class="fas fa-book"></i>
+                    Cursos Pendentes de Aprovação
+                </h3>
+
+                <div class="course-item">
+                    <div class="course-header">
+                        <div>
+                            <div class="course-title">Inteligência Artificial para Iniciantes</div>
+                            <div class="course-instructor">Prof. Carlos Tech</div>
+                        </div>
+                        <div class="status-badge status-pending">Pendente</div>
+                    </div>
+                    <div class="course-stats">
+                        <span><i class="fas fa-clock"></i> 40h</span>
+                        <span><i class="fas fa-video"></i> 25 aulas</span>
+                        <span><i class="fas fa-star"></i> Novo</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="action-btn approve-btn">
+                            <i class="fas fa-check"></i> Aprovar
+                        </button>
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Revisar
+                        </button>
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-times"></i> Rejeitar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="course-item">
+                    <div class="course-header">
+                        <div>
+                            <div class="course-title">Marketing Digital Avançado</div>
+                            <div class="course-instructor">Prof. Ana Marketing</div>
+                        </div>
+                        <div class="status-badge status-pending">Pendente</div>
+                    </div>
+                    <div class="course-stats">
+                        <span><i class="fas fa-clock"></i> 60h</span>
+                        <span><i class="fas fa-video"></i> 35 aulas</span>
+                        <span><i class="fas fa-star"></i> Atualização</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="action-btn approve-btn">
+                            <i class="fas fa-check"></i> Aprovar
+                        </button>
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Revisar
+                        </button>
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-times"></i> Rejeitar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="courses-section">
+                <h3 class="section-title">
+                    <i class="fas fa-check-circle"></i>
+                    Cursos Ativos
+                </h3>
+
+                <div class="course-item">
+                    <div class="course-header">
+                        <div>
+                            <div class="course-title">Desenvolvimento Web Completo</div>
+                            <div class="course-instructor">Prof. Maria Silva</div>
+                        </div>
+                        <div class="status-badge status-active">Ativo</div>
+                    </div>
+                    <div class="course-stats">
+                        <span><i class="fas fa-users"></i> 89 alunos</span>
+                        <span><i class="fas fa-star"></i> 4.9</span>
+                        <span><i class="fas fa-chart-line"></i> 92% conclusão</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn suspend-btn">
+                            <i class="fas fa-pause"></i> Suspender
+                        </button>
+                    </div>
+                </div>
+
+                <div class="course-item">
+                    <div class="course-header">
+                        <div>
+                            <div class="course-title">Educação Especial e Inclusiva</div>
+                            <div class="course-instructor">Prof. João Inclusão</div>
+                        </div>
+                        <div class="status-badge status-active">Ativo</div>
+                    </div>
+                    <div class="course-stats">
+                        <span><i class="fas fa-users"></i> 67 alunos</span>
+                        <span><i class="fas fa-star"></i> 4.8</span>
+                        <span><i class="fas fa-chart-line"></i> 87% conclusão</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn suspend-btn">
+                            <i class="fas fa-pause"></i> Suspender
+                        </button>
+                    </div>
+                </div>
+
+                <div class="course-item">
+                    <div class="course-header">
+                        <div>
+                            <div class="course-title">Gestão de Projetos</div>
+                            <div class="course-instructor">Prof. Pedro Gestão</div>
+                        </div>
+                        <div class="status-badge status-active">Ativo</div>
+                    </div>
+                    <div class="course-stats">
+                        <span><i class="fas fa-users"></i> 91 alunos</span>
+                        <span><i class="fas fa-star"></i> 4.7</span>
+                        <span><i class="fas fa-chart-line"></i> 85% conclusão</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn suspend-btn">
+                            <i class="fas fa-pause"></i> Suspender
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-actions">
+                <h3 class="section-title">
+                    <i class="fas fa-tools"></i>
+                    Ações Administrativas
+                </h3>
+                <button class="admin-btn">
+                    <i class="fas fa-plus"></i> Criar Curso
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-upload"></i> Importar Cursos
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-chart-bar"></i> Relatório Detalhado
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-cog"></i> Configurações
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-admin.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="usuarios.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Usuários</span>
+        </a>
+        <a href="cursos.html" class="nav-item active">
+            <i class="fas fa-book"></i>
+            <span>Cursos</span>
+        </a>
+        <a href="relatorios.html" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Relatórios</span>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+    </div>
+</body>
+</html>
+

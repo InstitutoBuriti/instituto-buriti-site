@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Vídeos - Instituto Buriti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/gerenciar-videos.css">
+    <link rel="stylesheet" href="../css/footer-oficial.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-brand">
+                    <span class="brand-text">Início</span>
+                    <div class="brand-shape"></div>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
+                <a href="#" class="nav-link">Quem Somos</a>
+                <a href="#" class="nav-link">Seja um Instrutor</a>
+                <a href="#" class="nav-link">Contato</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">Login</a>
+                    <div class="dropdown-content">
+                        <a href="login-aluno.html">Aluno</a>
+                        <a href="login-instrutor.html">Instrutor</a>
+                        <a href="login-admin.html">Admin</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="floating-element element-1">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="40" fill="rgba(160, 32, 240, 0.1)" />
+                </svg>
+            </div>
+            <div class="floating-element element-2">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(169, 80, 40, 0.1)" />
+                </svg>
+            </div>
+            <div class="floating-element element-3">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="60" height="60" rx="10" fill="rgba(107, 140, 121, 0.1)" />
+                </svg>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Gerenciar Vídeos</h1>
+            <p class="hero-subtitle">Faça upload, organize e gerencie seus vídeos educacionais com integração YouTube</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="showUploadModal()">
+                    <i data-lucide="upload"></i>
+                    Fazer Upload
+                </button>
+                <button class="btn btn-secondary" onclick="showPlaylistModal()">
+                    <i data-lucide="list"></i>
+                    Nova Playlist
+                </button>
+                <button class="btn btn-secondary" onclick="refreshVideos()">
+                    <i data-lucide="refresh-cw"></i>
+                    Atualizar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="video"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">47</div>
+                        <div class="stat-label">Vídeos</div>
+                        <div class="stat-change">+3 esta semana</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="list"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Playlists</div>
+                        <div class="stat-change">+1 este mês</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="eye"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">12.4K</div>
+                        <div class="stat-label">Visualizações</div>
+                        <div class="stat-change">+15% este mês</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">18h</div>
+                        <div class="stat-label">Duração Total</div>
+                        <div class="stat-change">+2h esta semana</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Playlist:</label>
+                    <select id="playlistFilter" onchange="applyFilters()">
+                        <option value="">Todas as playlists</option>
+                        <option value="fundamentos-ia">Fundamentos da IA</option>
+                        <option value="gestao-projetos">Gestão de Projetos</option>
+                        <option value="educacao-especial">Educação Especial</option>
+                        <option value="sem-playlist">Sem playlist</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <select id="statusFilter" onchange="applyFilters()">
+                        <option value="">Todos os status</option>
+                        <option value="published">Publicado</option>
+                        <option value="unlisted">Não listado</option>
+                        <option value="private">Privado</option>
+                        <option value="processing">Processando</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Ordenar por:</label>
+                    <select id="sortFilter" onchange="applyFilters()">
+                        <option value="recent">Mais Recentes</option>
+                        <option value="popular">Mais Populares</option>
+                        <option value="duration">Duração</option>
+                        <option value="title">Título A-Z</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Buscar:</label>
+                    <input type="text" id="searchFilter" placeholder="Buscar vídeos..." onkeyup="applyFilters()">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Grid -->
+    <section class="videos-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meus Vídeos</h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="setView('grid')" data-view="grid">
+                        <i data-lucide="grid-3x3"></i>
+                    </button>
+                    <button class="view-btn" onclick="setView('list')" data-view="list">
+                        <i data-lucide="list"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="videos-grid" id="videosGrid">
+                <!-- Videos will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Modal -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Fazer Upload de Vídeo</h3>
+                <button class="modal-close" onclick="hideUploadModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i data-lucide="upload-cloud"></i>
+                    </div>
+                    <h4>Arraste seu vídeo aqui ou clique para selecionar</h4>
+                    <p>Formatos suportados: MP4, MOV, AVI (máx. 2GB)</p>
+                    <input type="file" id="videoFile" accept="video/*" style="display: none;">
+                    <button class="btn btn-outline" onclick="document.getElementById('videoFile').click()">
+                        Selecionar Arquivo
+                    </button>
+                </div>
+                
+                <form id="uploadForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="videoTitle">Título do Vídeo</label>
+                        <input type="text" id="videoTitle" required placeholder="Digite o título do vídeo...">
+                    </div>
+                    <div class="form-group">
+                        <label for="videoDescription">Descrição</label>
+                        <textarea id="videoDescription" placeholder="Descreva o conteúdo do vídeo..." rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoPlaylist">Playlist</label>
+                        <select id="videoPlaylist">
+                            <option value="">Selecione uma playlist</option>
+                            <option value="fundamentos-ia">Fundamentos da IA</option>
+                            <option value="gestao-projetos">Gestão de Projetos</option>
+                            <option value="educacao-especial">Educação Especial</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoPrivacy">Privacidade</label>
+                        <select id="videoPrivacy">
+                            <option value="unlisted">Não listado (apenas com link)</option>
+                            <option value="private">Privado</option>
+                            <option value="public">Público</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="videoNotifications">
+                            Notificar alunos sobre novo vídeo
+                        </label>
+                    </div>
+                    <div class="upload-progress" id="uploadProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="hideUploadModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Fazer Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Playlist Modal -->
+    <div class="modal" id="playlistModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Nova Playlist</h3>
+                <button class="modal-close" onclick="hidePlaylistModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="playlistForm" onsubmit="createPlaylist(event)">
+                    <div class="form-group">
+                        <label for="playlistTitle">Nome da Playlist</label>
+                        <input type="text" id="playlistTitle" required placeholder="Digite o nome da playlist...">
+                    </div>
+                    <div class="form-group">
+                        <label for="playlistDescription">Descrição</label>
+                        <textarea id="playlistDescription" placeholder="Descreva o conteúdo da playlist..." rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="playlistCourse">Curso Associado</label>
+                        <select id="playlistCourse">
+                            <option value="">Selecione um curso</option>
+                            <option value="fundamentos-ia">Fundamentos da IA</option>
+                            <option value="gestao-projetos">Gestão de Projetos Culturais</option>
+                            <option value="educacao-especial">Educação Especial Inclusiva</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="playlistPrivacy">Privacidade</label>
+                        <select id="playlistPrivacy">
+                            <option value="unlisted">Não listada</option>
+                            <option value="private">Privada</option>
+                            <option value="public">Pública</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="hidePlaylistModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Criar Playlist</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Details Modal -->
+    <div class="modal" id="videoDetailsModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Detalhes do Vídeo</h3>
+                <button class="modal-close" onclick="hideVideoDetailsModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="video-details-content" id="videoDetailsContent">
+                    <!-- Video details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                            <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/gerenciar-videos.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

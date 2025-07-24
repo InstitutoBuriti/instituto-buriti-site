@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard do Admin - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* Header Mobile */
+        .mobile-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: url('images/LogomarcaInstitutoBuriti.png') center/contain no-repeat;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FF7847, #973CBF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hamburger {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: white;
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: rgba(151, 60, 191, 0.95);
+            backdrop-filter: blur(20px);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            padding: 2rem 1rem;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        /* Dashboard Content */
+        .dashboard-container {
+            padding: 1rem;
+            max-width: 100%;
+            padding-bottom: 100px;
+        }
+
+        .welcome-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: url('images/ChatGPTImage11dejul.de2025,16_00_19.png') center/cover;
+            margin: 0 auto 1rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .welcome-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-text p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .admin-badge {
+            background: linear-gradient(45deg, #FF7847, #973CBF);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF7847;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Function Cards */
+        .functions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .function-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .function-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .function-card.critical {
+            border-left: 4px solid #FF4757;
+        }
+
+        .function-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .function-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 120, 71, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .function-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .function-description {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .function-action {
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #FF7847, #973CBF);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .function-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 120, 71, 0.3);
+        }
+
+        .function-action.danger {
+            background: linear-gradient(45deg, #FF4757, #FF3742);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .admin-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .admin-item.pending {
+            border-left: 4px solid #FFA502;
+        }
+
+        .admin-item.critical {
+            border-left: 4px solid #FF4757;
+        }
+
+        .admin-item.success {
+            border-left: 4px solid #2ED573;
+        }
+
+        .admin-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .action-btn {
+            background: #FF7847;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .action-btn.danger {
+            background: #FF4757;
+        }
+
+        .action-btn.success {
+            background: #2ED573;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* System Status */
+        .system-status {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .status-indicator {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-online {
+            background: rgba(46, 213, 115, 0.2);
+            color: #2ED573;
+            border: 1px solid #2ED573;
+        }
+
+        .status-warning {
+            background: rgba(255, 165, 2, 0.2);
+            color: #FFA502;
+            border: 1px solid #FFA502;
+        }
+
+        .status-error {
+            background: rgba(255, 71, 87, 0.2);
+            color: #FF4757;
+            border: 1px solid #FF4757;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(151, 60, 191, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #FF7847;
+        }
+
+        .nav-item:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+            }
+            
+            .function-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Mobile -->
+    <header class="mobile-header">
+        <div class="logo-container">
+            <div class="logo"></div>
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <div class="nav-links">
+            <a href="dashboard-admin.html" class="nav-link">🛡️ Dashboard Admin</a>
+            <a href="dashboard-instrutor.html" class="nav-link">👨‍🏫 Ver como Instrutor</a>
+            <a href="dashboard-aluno.html" class="nav-link">📊 Ver como Aluno</a>
+            <a href="notificacoes.html" class="nav-link">🔔 Notificações</a>
+            <a href="#" class="nav-link" onclick="logout()">🚪 Sair</a>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="avatar"></div>
+            <div class="welcome-text">
+                <h2>Admin Carlos Oliveira</h2>
+                <p>Painel de Administração - Instituto Buriti</p>
+                <div class="admin-badge">🛡️ ADMINISTRADOR SUPREMO</div>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="system-status">
+            <span class="status-indicator status-online">🟢 Sistema Online</span>
+            <span class="status-indicator status-online">💾 Backup OK</span>
+            <span class="status-indicator status-warning">⚠️ 3 Pendências</span>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">1.247</div>
+                <div class="stat-label">Usuários Totais</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">45</div>
+                <div class="stat-label">Cursos Ativos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Instrutores</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">98.7%</div>
+                <div class="stat-label">Uptime Sistema</div>
+            </div>
+        </div>
+
+        <!-- Functions Grid -->
+        <div class="functions-grid">
+            <!-- Gestão de Usuários -->
+            <div class="function-card critical" onclick="openModal('usersModal')">
+                <div class="function-header">
+                    <div class="function-icon">👥</div>
+                    <div>
+                        <div class="function-title">Gestão de Usuários</div>
+                        <div class="function-description">Controle total sobre alunos, instrutores e admins</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>1.247 usuários registrados</strong><br>
+                    15 novos cadastros hoje, 3 aguardando aprovação
+                </div>
+                <button class="function-action">Gerenciar Usuários</button>
+            </div>
+
+            <!-- Gerenciamento de Cursos -->
+            <div class="function-card" onclick="openModal('coursesModal')">
+                <div class="function-header">
+                    <div class="function-icon">📚</div>
+                    <div>
+                        <div class="function-title">Gerenciamento de Cursos</div>
+                        <div class="function-description">Criar, editar e aprovar cursos da plataforma</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>45 cursos ativos</strong><br>
+                    8 cursos aguardando aprovação
+                </div>
+                <button class="function-action">Gerenciar Cursos</button>
+            </div>
+
+            <!-- Aprovação de Matrículas -->
+            <div class="function-card" onclick="openModal('enrollmentsModal')">
+                <div class="function-header">
+                    <div class="function-icon">✅</div>
+                    <div>
+                        <div class="function-title">Aprovação de Matrículas</div>
+                        <div class="function-description">Revisar e aprovar solicitações de matrícula</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>23 matrículas pendentes</strong><br>
+                    156 aprovadas esta semana
+                </div>
+                <button class="function-action">Revisar Matrículas</button>
+            </div>
+
+            <!-- Analytics do Sistema -->
+            <div class="function-card" onclick="openModal('analyticsModal')">
+                <div class="function-header">
+                    <div class="function-icon">📊</div>
+                    <div>
+                        <div class="function-title">Analytics do Sistema</div>
+                        <div class="function-description">Relatórios completos e métricas da plataforma</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>Crescimento: +15% este mês</strong><br>
+                    Engajamento: 87%, Satisfação: 4.9/5
+                </div>
+                <button class="function-action">Ver Analytics</button>
+            </div>
+
+            <!-- Notificações em Massa -->
+            <div class="function-card" onclick="openModal('massNotifyModal')">
+                <div class="function-header">
+                    <div class="function-icon">📢</div>
+                    <div>
+                        <div class="function-title">Notificações em Massa</div>
+                        <div class="function-description">Envie comunicados para toda a plataforma</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>Última campanha: 98% entrega</strong><br>
+                    1.156 usuários alcançados
+                </div>
+                <button class="function-action">Criar Campanha</button>
+            </div>
+
+            <!-- Painel de Backup -->
+            <div class="function-card critical" onclick="openModal('backupModal')">
+                <div class="function-header">
+                    <div class="function-icon">💾</div>
+                    <div>
+                        <div class="function-title">Painel de Backup</div>
+                        <div class="function-description">Gerenciar backups e segurança dos dados</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>Último backup: há 2 horas</strong><br>
+                    Status: ✅ Todos os dados seguros
+                </div>
+                <button class="function-action">Gerenciar Backups</button>
+            </div>
+
+            <!-- Configuração de Gamificação -->
+            <div class="function-card" onclick="openModal('gamificationConfigModal')">
+                <div class="function-header">
+                    <div class="function-icon">🎮</div>
+                    <div>
+                        <div class="function-title">Configuração de Gamificação</div>
+                        <div class="function-description">Definir regras, badges e sistema de pontos</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>156 badges ativas</strong><br>
+                    Sistema de XP configurado
+                </div>
+                <button class="function-action">Configurar Sistema</button>
+            </div>
+
+            <!-- Perfil e Configurações Admin -->
+            <div class="function-card" onclick="openModal('adminProfileModal')">
+                <div class="function-header">
+                    <div class="function-icon">⚙️</div>
+                    <div>
+                        <div class="function-title">Perfil e Configurações Admin</div>
+                        <div class="function-description">Configurações avançadas do sistema</div>
+                    </div>
+                </div>
+                <div class="function-description">
+                    <strong>Acesso total liberado</strong><br>
+                    Última configuração: há 3 dias
+                </div>
+                <button class="function-action">Configurações</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Users Management Modal -->
+    <div class="modal" id="usersModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('usersModal')">×</button>
+            <h2>👥 Gestão de Usuários</h2>
+            <h3>⏳ Aguardando Aprovação</h3>
+            <div class="admin-item pending">
+                <div class="admin-title">Maria Santos - Aluna</div>
+                <div class="admin-description">Solicitou cadastro há 2 horas</div>
+                <button class="action-btn success">Aprovar</button>
+                <button class="action-btn danger">Rejeitar</button>
+            </div>
+            <div class="admin-item pending">
+                <div class="admin-title">Prof. Ana Costa - Instrutora</div>
+                <div class="admin-description">Solicitou cadastro há 1 dia</div>
+                <button class="action-btn success">Aprovar</button>
+                <button class="action-btn danger">Rejeitar</button>
+            </div>
+            <h3>👤 Usuários Ativos</h3>
+            <div class="admin-item success">
+                <div class="admin-title">1.247 usuários registrados</div>
+                <div class="admin-description">1.156 alunos, 12 instrutores, 3 admins</div>
+                <button class="action-btn">Ver Todos</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">🔒 Controles de Segurança</div>
+                <div class="admin-description">Banir, suspender ou redefinir senhas</div>
+                <button class="action-btn">Acessar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses Management Modal -->
+    <div class="modal" id="coursesModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('coursesModal')">×</button>
+            <h2>📚 Gerenciamento de Cursos</h2>
+            <h3>⏳ Aguardando Aprovação</h3>
+            <div class="admin-item pending">
+                <div class="admin-title">Inteligência Artificial Aplicada</div>
+                <div class="admin-description">Prof. João Santos - Enviado há 3 dias</div>
+                <button class="action-btn success">Aprovar</button>
+                <button class="action-btn">Revisar</button>
+                <button class="action-btn danger">Rejeitar</button>
+            </div>
+            <div class="admin-item pending">
+                <div class="admin-title">Blockchain e Criptomoedas</div>
+                <div class="admin-description">Prof. Ana Costa - Enviado há 1 semana</div>
+                <button class="action-btn success">Aprovar</button>
+                <button class="action-btn">Revisar</button>
+                <button class="action-btn danger">Rejeitar</button>
+            </div>
+            <h3>✅ Cursos Ativos</h3>
+            <div class="admin-item success">
+                <div class="admin-title">45 cursos publicados</div>
+                <div class="admin-description">Taxa média de conclusão: 78%</div>
+                <button class="action-btn">Gerenciar Todos</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">➕ Criar Novo Curso</div>
+                <div class="admin-description">Adicionar curso diretamente como admin</div>
+                <button class="action-btn">Criar Curso</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrollments Modal -->
+    <div class="modal" id="enrollmentsModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('enrollmentsModal')">×</button>
+            <h2>✅ Aprovação de Matrículas</h2>
+            <div class="admin-item pending">
+                <div class="admin-title">Maria Silva → Desenvolvimento Web</div>
+                <div class="admin-description">Solicitada há 1 hora - Documentos anexados</div>
+                <button class="action-btn success">Aprovar</button>
+                <button class="action-btn">Ver Docs</button>
+                <button class="action-btn danger">Rejeitar</button>
+            </div>
+            <div class="admin-item pending">
+                <div class="admin-title">João Santos → Python Avançado</div>
+                <div class="admin-description">Solicitada há 3 horas - Pré-requisitos OK</div>
+                <button class="action-btn success">Aprovar</button>
+                <button class="action-btn danger">Rejeitar</button>
+            </div>
+            <div class="admin-item pending">
+                <div class="admin-title">Ana Costa → Design UX/UI</div>
+                <div class="admin-description">Solicitada há 5 horas - Aguardando documentos</div>
+                <button class="action-btn">Solicitar Docs</button>
+                <button class="action-btn danger">Rejeitar</button>
+            </div>
+            <div class="admin-item success">
+                <div class="admin-title">📊 Estatísticas</div>
+                <div class="admin-description">156 aprovadas esta semana, 23 pendentes</div>
+                <button class="action-btn">Ver Relatório</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Modal -->
+    <div class="modal" id="analyticsModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('analyticsModal')">×</button>
+            <h2>📊 Analytics do Sistema</h2>
+            <div class="chart-container">
+                <h3>Crescimento de Usuários</h3>
+                <div class="chart-placeholder">📈</div>
+                <p>+15% de crescimento este mês</p>
+            </div>
+            <div class="admin-item success">
+                <div class="admin-title">🎯 Engajamento Geral</div>
+                <div class="admin-description">87% dos usuários ativos diariamente</div>
+            </div>
+            <div class="admin-item success">
+                <div class="admin-title">⭐ Satisfação</div>
+                <div class="admin-description">4.9/5.0 estrelas de avaliação média</div>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">💰 Receita</div>
+                <div class="admin-description">R$ 45.678 este mês (+22%)</div>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">🏆 Cursos Mais Populares</div>
+                <div class="admin-description">1. Python (234 alunos) 2. Web Dev (189 alunos)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mass Notifications Modal -->
+    <div class="modal" id="massNotifyModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('massNotifyModal')">×</button>
+            <h2>📢 Notificações em Massa</h2>
+            <div class="admin-item">
+                <div class="admin-title">📱 Notificação Push</div>
+                <div class="admin-description">Enviar para todos os usuários ativos</div>
+                <button class="action-btn">Criar Push</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">📧 Email Marketing</div>
+                <div class="admin-description">Campanha por email para base completa</div>
+                <button class="action-btn">Criar Email</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">🎯 Segmentada</div>
+                <div class="admin-description">Por curso, nível ou comportamento</div>
+                <button class="action-btn">Segmentar</button>
+            </div>
+            <div class="admin-item success">
+                <div class="admin-title">📊 Última Campanha</div>
+                <div class="admin-description">98% entrega, 23% abertura, 5% cliques</div>
+                <button class="action-btn">Ver Detalhes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup Modal -->
+    <div class="modal" id="backupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('backupModal')">×</button>
+            <h2>💾 Painel de Backup</h2>
+            <div class="admin-item success">
+                <div class="admin-title">✅ Backup Automático</div>
+                <div class="admin-description">Último: há 2 horas - Status: OK</div>
+                <button class="action-btn">Configurar</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">🔄 Backup Manual</div>
+                <div class="admin-description">Criar backup completo agora</div>
+                <button class="action-btn">Executar Backup</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">📥 Restaurar Sistema</div>
+                <div class="admin-description">Restaurar de backup anterior</div>
+                <button class="action-btn danger">Restaurar</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">☁️ Backup na Nuvem</div>
+                <div class="admin-description">Sincronização com AWS S3</div>
+                <button class="action-btn">Verificar Sync</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gamification Config Modal -->
+    <div class="modal" id="gamificationConfigModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('gamificationConfigModal')">×</button>
+            <h2>🎮 Configuração de Gamificação</h2>
+            <div class="admin-item">
+                <div class="admin-title">🏅 Gerenciar Badges</div>
+                <div class="admin-description">Criar, editar e configurar conquistas</div>
+                <button class="action-btn">Configurar Badges</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">⭐ Sistema de XP</div>
+                <div class="admin-description">Definir pontos por atividade</div>
+                <button class="action-btn">Configurar XP</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">🏆 Níveis e Ranking</div>
+                <div class="admin-description">Estrutura de progressão dos alunos</div>
+                <button class="action-btn">Configurar Níveis</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">🎁 Recompensas</div>
+                <div class="admin-description">Prêmios e benefícios por conquistas</div>
+                <button class="action-btn">Configurar Prêmios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Profile Modal -->
+    <div class="modal" id="adminProfileModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('adminProfileModal')">×</button>
+            <h2>⚙️ Configurações Admin</h2>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="avatar" style="margin: 0 auto 1rem;"></div>
+                <h3>Admin Carlos Oliveira</h3>
+                <p>carlos.admin@institutoburiti.com.br</p>
+                <div class="admin-badge">🛡️ ACESSO SUPREMO</div>
+            </div>
+            <div class="admin-item critical">
+                <div class="admin-title">🔐 Configurações de Segurança</div>
+                <div class="admin-description">2FA, logs de acesso, permissões</div>
+                <button class="action-btn">Configurar</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">🌐 Configurações do Sistema</div>
+                <div class="admin-description">URLs, domínios, integrações</div>
+                <button class="action-btn">Configurar</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">📧 Configurações de Email</div>
+                <div class="admin-description">SMTP, templates, automações</div>
+                <button class="action-btn">Configurar</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-title">💳 Configurações de Pagamento</div>
+                <div class="admin-description">Gateways, taxas, relatórios</div>
+                <button class="action-btn">Configurar</button>
+            </div>
+            <div class="admin-item danger">
+                <div class="admin-title">⚠️ Zona de Perigo</div>
+                <div class="admin-description">Reset sistema, exclusões em massa</div>
+                <button class="action-btn danger">Acessar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="dashboard-admin.html" class="nav-item active">
+            <div class="nav-icon">🛡️</div>
+            <span>Admin</span>
+        </a>
+        <a href="dashboard-instrutor.html" class="nav-item">
+            <div class="nav-icon">👨‍🏫</div>
+            <span>Instrutor</span>
+        </a>
+        <a href="dashboard-aluno.html" class="nav-item">
+            <div class="nav-icon">📊</div>
+            <span>Aluno</span>
+        </a>
+        <a href="notificacoes.html" class="nav-item">
+            <div class="nav-icon">🔔</div>
+            <span>Notificações</span>
+        </a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.function-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Função para logout
+        function logout() {
+            if (typeof api !== 'undefined') {
+                api.logout();
+            } else {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.href = '/login.html?logout=true';
+            }
+        }
+    </script>
+</body>
+</html>
+

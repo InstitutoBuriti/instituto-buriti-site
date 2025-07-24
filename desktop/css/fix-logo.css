@@ -1,0 +1,113 @@
+/* Fix para problema da logo cobrindo a tela */
+
+/* Reset da logo */
+.logo-img {
+    height: 50px !important;
+    width: auto !important;
+    max-width: 180px !important;
+    max-height: 50px !important;
+    object-fit: contain !important;
+    position: static !important;
+    z-index: auto !important;
+    transform: none !important;
+    display: block !important;
+}
+
+/* Fix do header */
+.header {
+    position: relative !important;
+    z-index: 1000 !important;
+    height: auto !important;
+    min-height: 80px !important;
+    max-height: 100px !important;
+}
+
+.header-content {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    height: 80px !important;
+    padding: 0 !important;
+}
+
+.logo {
+    flex-shrink: 0 !important;
+    max-width: 200px !important;
+}
+
+/* Fix do container */
+.container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 1rem !important;
+    position: relative !important;
+}
+
+/* Fix geral para elementos que podem estar causando overflow */
+body {
+    overflow-x: hidden !important;
+    position: relative !important;
+}
+
+html {
+    overflow-x: hidden !important;
+}
+
+/* Fix para qualquer elemento com posicionamento absoluto problemático */
+* {
+    max-width: 100vw !important;
+}
+
+img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Fix específico para logos grandes */
+img[src*="LogomarcaInstitutoBuriti"] {
+    height: 50px !important;
+    width: auto !important;
+    max-width: 180px !important;
+    max-height: 50px !important;
+    object-fit: contain !important;
+}
+
+/* Fix para navegação */
+.nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+}
+
+.nav-link {
+    white-space: nowrap !important;
+    font-size: 0.9rem !important;
+}
+
+/* Fix para mobile */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 1rem 0 !important;
+        gap: 1rem !important;
+    }
+    
+    .logo-img {
+        height: 40px !important;
+        max-width: 150px !important;
+    }
+    
+    .nav {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem !important;
+        padding: 0.5rem !important;
+    }
+}
+

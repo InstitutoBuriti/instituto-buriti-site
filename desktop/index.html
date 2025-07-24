@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instituto Buriti - Educação de Qualidade no Conforto do Seu Lar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item active">
+                <a href="#home">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="#quem-somos">Quem Somos</a>
+            </div>
+            <div class="nav-item">
+                <a href="#cursos">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="#seja-instrutor">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="#contato">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown">
+                <button class="login-btn">Login</button>
+                <div class="dropdown-menu">
+                    <a href="#login-aluno" class="dropdown-item">Aluno</a>
+                    <a href="#login-instrutor" class="dropdown-item">Instrutor</a>
+                    <a href="#login-admin" class="dropdown-item">Administrador</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <div class="logo-container">
+                        <img src="images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="hero-logo">
+                        <!-- SVG Dynamic Elements -->
+                        <svg class="svg-decoration" viewBox="0 0 200 200">
+                            <circle cx="50" cy="50" r="30" fill="rgba(160, 32, 240, 0.1)" class="floating-circle">
+                                <animate attributeName="cy" values="50;30;50" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <path d="M20,80 Q60,40 100,80 T180,80" stroke="rgba(255, 111, 0, 0.3)" stroke-width="2" fill="none" class="floating-wave">
+                                <animate attributeName="d" values="M20,80 Q60,40 100,80 T180,80;M20,80 Q60,60 100,80 T180,80;M20,80 Q60,40 100,80 T180,80" dur="4s" repeatCount="indefinite"/>
+                            </path>
+                            <circle cx="150" cy="120" r="20" fill="rgba(255, 111, 0, 0.15)" class="floating-blob">
+                                <animate attributeName="r" values="20;25;20" dur="2.5s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                    </div>
+                    <h1 class="hero-title">Educação de Qualidade no Conforto do Seu Lar</h1>
+                    <p class="hero-subtitle">Transforme sua carreira com nossos cursos online especializados. Aprenda com os melhores profissionais do mercado e obtenha certificações reconhecidas.</p>
+                </div>
+                <div class="hero-right">
+                    <div class="hero-image-container">
+                        <img src="images/ChatGPTImage10dejul.de2025,23_58_19.png" alt="Mulher estudando online" class="hero-image">
+                        <div class="floating-elements">
+                            <div class="floating-circle-1"></div>
+                            <div class="floating-circle-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossos Principais Eventos -->
+    <section class="events-section">
+        <div class="container">
+            <h2 class="section-title">Nossos Principais Eventos</h2>
+            <div class="events-grid">
+                <div class="event-card">
+                    <img src="images/IMG_84EADD704191-1.jpeg" alt="CONCIPOL" class="event-image">
+                    <div class="event-content">
+                        <h3>CONCIPOL</h3>
+                        <p>Congresso de Ciências Políticas com premiação e reconhecimento nacional.</p>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/IMG_DA1DB1AB9101-1.jpeg" alt="Palestras Especializadas" class="event-image">
+                    <div class="event-content">
+                        <h3>Palestras Especializadas</h3>
+                        <p>Eventos com especialistas renomados em diversas áreas do conhecimento.</p>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/PHOTO-2024-08-07-10-27-31.jpg" alt="Ópera da Serra da Capivara" class="event-image">
+                    <div class="event-content">
+                        <h3>Ópera da Serra da Capivara</h3>
+                        <p>Espetáculo cultural único na Serra da Capivara, patrimônio mundial da UNESCO.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cursos em Destaque -->
+    <section class="courses-section">
+        <div class="container">
+            <h2 class="section-title">Cursos em Destaque</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image-container">
+                        <img src="images/ba9db69f-0f74-4cea-9844-dc1c7080f525.jpg.webp" alt="Fundamentos da Inteligência Artificial" class="course-image">
+                    </div>
+                    <div class="course-content">
+                        <h3>Fundamentos da Inteligência Artificial</h3>
+                        <p>Domine os conceitos fundamentais de IA e machine learning com aplicações práticas.</p>
+                        <div class="course-info">
+                            <span class="course-price">R$ 500,00</span>
+                            <span class="course-badge pbl">PBL</span>
+                        </div>
+                        <p class="course-instructor">Dr. Carlos Mendes</p>
+                        <button class="course-btn">Ver Detalhes</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image-container">
+                        <img src="images/web-size-Gestão-de-Mudanças-e-Gestão-de-Projetos-1-1.png" alt="Gestão de Projetos Culturais" class="course-image">
+                    </div>
+                    <div class="course-content">
+                        <h3>Gestão de Projetos Culturais</h3>
+                        <p>Aprenda a elaborar, executar e gerenciar projetos culturais de sucesso.</p>
+                        <div class="course-info">
+                            <span class="course-price">R$ 350,00</span>
+                            <span class="course-badge ead">EAD</span>
+                        </div>
+                        <p class="course-instructor">Admin Geral</p>
+                        <button class="course-btn">Ver Detalhes</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image-container">
+                        <img src="images/desenvolvimento-web.jpg" alt="Desenvolvimento Web" class="course-image">
+                    </div>
+                    <div class="course-content">
+                        <h3>Desenvolvimento Web</h3>
+                        <p>Crie sites e aplicações web modernas com as tecnologias mais atuais do mercado.</p>
+                        <div class="course-info">
+                            <span class="course-price">R$ 299,90</span>
+                            <span class="course-badge ead">EAD</span>
+                        </div>
+                        <p class="course-instructor">Maria Santos</p>
+                        <button class="course-btn">Ver Detalhes</button>
+                    </div>
+                </div>
+            </div>
+            <div class="courses-cta">
+                <a href="#todos-cursos" class="btn-secondary">Ver Todos os Cursos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona para Alunos -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Como Funciona para Alunos</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-avatar">
+                        <img src="images/ChatGPTImage11dejul.de2025,18_57_29.png" alt="Escolha seu Curso" class="step-image">
+                    </div>
+                    <h3>Escolha seu Curso</h3>
+                    <p>Navegue por nossa biblioteca de cursos e encontre o que melhor se adequa aos seus objetivos profissionais.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-avatar">
+                        <img src="images/ChatGPTImage11dejul.de2025,19_02_17.png" alt="Aprenda no seu Ritmo" class="step-image">
+                    </div>
+                    <h3>Aprenda no seu Ritmo</h3>
+                    <p>Acesse o conteúdo quando e onde quiser. Nossa plataforma está disponível 24/7 para seu aprendizado.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-avatar">
+                        <img src="images/ChatGPTImage11dejul.de2025,19_33_34.png" alt="Receba seu Certificado" class="step-image">
+                    </div>
+                    <h3>Receba seu Certificado</h3>
+                    <p>Após concluir o curso, receba um certificado reconhecido pelo mercado para impulsionar sua carreira.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compartilhe seu Conhecimento -->
+    <section class="share-knowledge">
+        <div class="container">
+            <div class="share-content">
+                <div class="share-text">
+                    <h2>Compartilhe seu Conhecimento</h2>
+                    <p>Transforme sua expertise em uma fonte de renda. Nossa plataforma oferece todas as ferramentas necessárias para você criar e vender seus cursos online.</p>
+                    <ul class="benefits-list">
+                        <li>💰 Receba 70% da receita dos seus cursos</li>
+                        <li>🎓 Plataforma completa para ensinar</li>
+                        <li>🛠️ Suporte técnico especializado</li>
+                        <li>📢 Marketing e divulgação inclusos</li>
+                    </ul>
+                    <button class="btn-primary">Publique Seu Curso</button>
+                </div>
+                <div class="share-image">
+                    <img src="images/ChatGPTImage11dejul.de2025,15_22_29.png" alt="Instrutor com violão" class="instructor-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Últimas Notícias e Artigos -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="section-title">Últimas Notícias e Artigos</h2>
+            <p class="section-subtitle">Fique por dentro das novidades do mundo da educação e tecnologia</p>
+            <div class="news-grid">
+                <article class="news-card">
+                    <img src="images/WhatsApp-Image-2023-07-03-at-17.31.11.jpeg" alt="Instituto Buriti lança novo curso de IA" class="news-image">
+                    <div class="news-content">
+                        <h3>Instituto Buriti lança novo curso de IA</h3>
+                        <p>Novo curso de Inteligência Artificial com metodologia PBL já está disponível na plataforma.</p>
+                        <time class="news-date">15 de Janeiro, 2024</time>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <img src="images/studyabroad-photo-ibero.jpg" alt="Parceria com universidades renomadas" class="news-image">
+                    <div class="news-content">
+                        <h3>Parceria com universidades renomadas</h3>
+                        <p>Firmamos parcerias estratégicas para ampliar nosso catálogo de cursos especializados.</p>
+                        <time class="news-date">10 de Janeiro, 2024</time>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <img src="images/8-perguntas-e-respostas-sobre-educacao-especial-e-inclusiva.jpg.webp" alt="Educação especial na perspectiva da educação inclusiva" class="news-image">
+                    <div class="news-content">
+                        <h3>Educação especial na perspectiva da educação inclusiva</h3>
+                        <p>Explorando metodologias inovadoras para uma educação mais inclusiva e acessível.</p>
+                        <time class="news-date">05 de Janeiro, 2024</time>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#quem-somos">Quem Somos</a></li>
+                            <li><a href="#cursos">Cursos</a></li>
+                            <li><a href="#seja-instrutor">Seja um Instrutor</a></li>
+                            <li><a href="#contato">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+

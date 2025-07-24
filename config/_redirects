@@ -1,0 +1,28 @@
+# Redirects for Instituto Buriti
+# This file handles URL redirects and rewrites for Netlify
+
+# Force HTTPS
+http://institutoburiti.com.br/* https://institutoburiti.com.br/:splat 301!
+http://www.institutoburiti.com.br/* https://www.institutoburiti.com.br/:splat 301!
+
+# Root redirect to device detection
+/ /index.html 200
+
+# Mobile version routes
+/mobile/* /mobile/:splat 200
+
+# Desktop version routes
+/desktop/* /desktop/:splat 200
+
+# Legacy redirects (if needed)
+/home /desktop/index.html 301
+/sobre /desktop/index.html#sobre 301
+/cursos /desktop/index.html#cursos 301
+/contato /desktop/index.html#contato 301
+
+# API routes (if backend is integrated)
+/api/* https://your-backend-url.com/api/:splat 200
+
+# 404 fallback
+/* /404.html 404
+

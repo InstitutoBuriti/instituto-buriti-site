@@ -1,0 +1,124 @@
+/* Device Detection Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.logo-loading {
+    margin-bottom: 2rem;
+    animation: pulse 2s infinite;
+}
+
+.logo-loading img {
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* NoScript fallback styles */
+.noscript-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+.noscript-message h1 {
+    color: #973CBF;
+    margin-bottom: 1rem;
+}
+
+.noscript-message p {
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.noscript-message a {
+    color: #973CBF;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0 0.5rem;
+}
+
+.noscript-message a:hover {
+    text-decoration: underline;
+}
+
+/* Hide loading screen when JavaScript is disabled */
+noscript .loading-screen {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .loading-text {
+        font-size: 1rem;
+    }
+    
+    .logo-loading img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .noscript-message {
+        padding: 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+

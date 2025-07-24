@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro no Pagamento - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/pagamentos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-home">
+                    <div class="home-bg"></div>
+                    <span>Home</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="quem-somos.html" class="nav-link">Quem Somos</a>
+                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
+                <a href="seja-instrutor.html" class="nav-link">Seja um Instrutor</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+                <div class="nav-dropdown">
+                    <button class="nav-link dropdown-btn">
+                        Login <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="login-aluno.html"><i class="fas fa-user-graduate"></i> Aluno</a>
+                        <a href="login-instrutor.html"><i class="fas fa-chalkboard-teacher"></i> Instrutor</a>
+                        <a href="login-admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Error Hero -->
+        <section class="error-hero">
+            <div class="error-content">
+                <!-- Error Animation -->
+                <div class="error-animation">
+                    <div class="error-circle">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                    </div>
+                    <div class="error-waves">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                    </div>
+                </div>
+
+                <h1>😔 Ops! Algo deu errado</h1>
+                <p class="error-subtitle">Não foi possível processar seu pagamento. Mas não se preocupe, vamos resolver isso juntos!</p>
+                
+                <!-- Error Details -->
+                <div class="error-details">
+                    <div class="error-card">
+                        <div class="error-info">
+                            <h3>Código do Erro</h3>
+                            <p id="errorCode">PAY_001</p>
+                        </div>
+                    </div>
+                    
+                    <div class="error-card">
+                        <div class="error-info">
+                            <h3>Descrição</h3>
+                            <p id="errorMessage">Falha na comunicação com o processador de pagamento</p>
+                        </div>
+                    </div>
+                    
+                    <div class="error-card">
+                        <div class="error-info">
+                            <h3>Horário</h3>
+                            <p id="errorTime">19/07/2025 às 14:30</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Floating Error Elements -->
+            <div class="floating-elements">
+                <svg class="float-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="30" fill="rgba(239, 68, 68, 0.1)" />
+                </svg>
+                <svg class="float-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(245, 158, 11, 0.1)" />
+                </svg>
+                <svg class="float-3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="50" height="50" fill="rgba(139, 92, 246, 0.1)" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Course Info Section -->
+        <section class="course-info">
+            <div class="container">
+                <div class="info-content">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="/upload/ChatGPTImage19dejul.de2025,19_04_54.png" alt="Curso" id="courseImage">
+                            <div class="pending-badge">
+                                <i class="fas fa-clock"></i>
+                                <span>Aguardando Pagamento</span>
+                            </div>
+                        </div>
+                        
+                        <div class="course-info-details">
+                            <h2 id="courseTitle">Fundamentos da Inteligência Artificial</h2>
+                            <p class="instructor" id="courseInstructor">Dr. Carlos Mendes</p>
+                            <p class="course-description">Seu curso está reservado! Assim que o pagamento for processado, você terá acesso imediato ao conteúdo.</p>
+                            
+                            <div class="course-value">
+                                <span class="value-label">Valor:</span>
+                                <span class="value-amount" id="courseAmount">R$ 199,90</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions Section -->
+        <section class="solutions">
+            <div class="container">
+                <h2>Vamos Resolver Isso</h2>
+                <p class="section-subtitle">Escolha uma das opções abaixo para tentar novamente</p>
+                
+                <div class="solutions-grid">
+                    <div class="solution-card primary">
+                        <div class="solution-icon">
+                            <i class="fas fa-redo"></i>
+                        </div>
+                        <h3>Tentar Novamente</h3>
+                        <p>Refazer o pagamento com os mesmos dados ou escolher outro método de pagamento.</p>
+                        <a href="checkout.html" class="btn-primary" id="retryPayment">
+                            <i class="fas fa-credit-card"></i>
+                            Tentar Novamente
+                        </a>
+                    </div>
+                    
+                    <div class="solution-card">
+                        <div class="solution-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <h3>Pagar com PIX</h3>
+                        <p>Pagamento instantâneo e seguro através do PIX. Aprovação imediata.</p>
+                        <a href="checkout.html?method=pix" class="btn-secondary">
+                            <i class="fas fa-mobile-alt"></i>
+                            Pagar com PIX
+                        </a>
+                    </div>
+                    
+                    <div class="solution-card">
+                        <div class="solution-icon">
+                            <i class="fas fa-barcode"></i>
+                        </div>
+                        <h3>Gerar Boleto</h3>
+                        <p>Pague no banco, lotérica ou pelo internet banking. Vencimento em 3 dias.</p>
+                        <a href="checkout.html?method=boleto" class="btn-secondary">
+                            <i class="fas fa-university"></i>
+                            Gerar Boleto
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Issues Section -->
+        <section class="common-issues">
+            <div class="container">
+                <h2>Problemas Mais Comuns</h2>
+                <div class="issues-grid">
+                    <div class="issue-card">
+                        <div class="issue-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Cartão Recusado</h3>
+                        <div class="issue-solutions">
+                            <p><strong>Possíveis causas:</strong></p>
+                            <ul>
+                                <li>Limite insuficiente</li>
+                                <li>Cartão vencido ou bloqueado</li>
+                                <li>Dados incorretos</li>
+                            </ul>
+                            <p><strong>Soluções:</strong></p>
+                            <ul>
+                                <li>Verifique os dados do cartão</li>
+                                <li>Entre em contato com seu banco</li>
+                                <li>Tente outro cartão ou método</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="issue-card">
+                        <div class="issue-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h3>Problema de Conexão</h3>
+                        <div class="issue-solutions">
+                            <p><strong>Possíveis causas:</strong></p>
+                            <ul>
+                                <li>Internet instável</li>
+                                <li>Timeout na transação</li>
+                                <li>Problema temporário</li>
+                            </ul>
+                            <p><strong>Soluções:</strong></p>
+                            <ul>
+                                <li>Verifique sua conexão</li>
+                                <li>Aguarde alguns minutos</li>
+                                <li>Tente novamente</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="issue-card">
+                        <div class="issue-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Segurança Bancária</h3>
+                        <div class="issue-solutions">
+                            <p><strong>Possíveis causas:</strong></p>
+                            <ul>
+                                <li>Bloqueio por segurança</li>
+                                <li>Compra internacional</li>
+                                <li>Valor alto</li>
+                            </ul>
+                            <p><strong>Soluções:</strong></p>
+                            <ul>
+                                <li>Autorize a compra no app do banco</li>
+                                <li>Ligue para o banco</li>
+                                <li>Use PIX ou boleto</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="support-section">
+            <div class="container">
+                <div class="support-content">
+                    <div class="support-info">
+                        <h2>Ainda Precisa de Ajuda?</h2>
+                        <p>Nossa equipe está pronta para resolver qualquer problema e garantir que você tenha acesso ao seu curso.</p>
+                        
+                        <div class="support-options">
+                            <div class="support-option urgent">
+                                <div class="option-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div class="option-info">
+                                    <h3>WhatsApp Urgente</h3>
+                                    <p>Atendimento imediato para problemas de pagamento</p>
+                                    <a href="https://wa.me/5511999999999?text=Olá! Tive um problema com o pagamento do curso." target="_blank" class="urgent-btn">
+                                        <i class="fab fa-whatsapp"></i>
+                                        Chamar Agora
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="support-option">
+                                <div class="option-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="option-info">
+                                    <h3>Email Suporte</h3>
+                                    <p>Envie detalhes do erro para análise técnica</p>
+                                    <a href="mailto:suporte@institutoburiti.com.br?subject=Erro no Pagamento">Enviar Email</a>
+                                </div>
+                            </div>
+                            
+                            <div class="support-option">
+                                <div class="option-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="option-info">
+                                    <h3>Telefone</h3>
+                                    <p>Atendimento de segunda a sexta, 8h às 18h</p>
+                                    <a href="tel:+5511999999999">(11) 99999-9999</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="support-visual">
+                        <div class="support-illustration">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="support-guarantee">
+                            <div class="guarantee-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Resposta em até 1 hora</span>
+                            </div>
+                            <div class="guarantee-item">
+                                <i class="fas fa-shield-check"></i>
+                                <span>100% Seguro</span>
+                            </div>
+                            <div class="guarantee-item">
+                                <i class="fas fa-undo"></i>
+                                <span>Reembolso garantido</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alternative Courses Section -->
+        <section class="alternatives">
+            <div class="container">
+                <h2>Enquanto Isso, Que Tal Estes Cursos Gratuitos?</h2>
+                <p class="section-subtitle">Comece a aprender agora mesmo com nossos cursos gratuitos</p>
+                
+                <div class="courses-grid">
+                    <div class="course-alternative">
+                        <div class="course-thumb">
+                            <img src="/upload/IMG_65A477CACFA8-1.jpeg" alt="Educação Inclusiva">
+                            <div class="free-badge">Gratuito</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Educação Especial Inclusiva</h3>
+                            <p class="course-instructor">Prof. Ana Oliveira</p>
+                            <div class="course-stats">
+                                <span><i class="fas fa-clock"></i> 20h</span>
+                                <span><i class="fas fa-users"></i> 2.1k alunos</span>
+                                <span><i class="fas fa-star"></i> 4.9</span>
+                            </div>
+                            <a href="curso-template.html?course=educacao-inclusiva" class="btn-free">
+                                <i class="fas fa-play"></i>
+                                Começar Grátis
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="course-alternative">
+                        <div class="course-thumb">
+                            <img src="/upload/IMG_1885.JPG" alt="Introdução à Cultura">
+                            <div class="free-badge">Gratuito</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Introdução à Cultura Digital</h3>
+                            <p class="course-instructor">Carlos Silva</p>
+                            <div class="course-stats">
+                                <span><i class="fas fa-clock"></i> 15h</span>
+                                <span><i class="fas fa-users"></i> 1.8k alunos</span>
+                                <span><i class="fas fa-star"></i> 4.7</span>
+                            </div>
+                            <a href="curso-template.html?course=cultura-digital" class="btn-free">
+                                <i class="fas fa-play"></i>
+                                Começar Grátis
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                    <div class="footer-text">
+                        <p class="footer-slogan">Educação que transforma. Cultura que conecta.</p>
+                        <p class="footer-company">Instituto Buriti, uma empresa 100% digital.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                    <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> contato@institutoburiti.com.br</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Instituto Buriti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/pagamento-erro.js"></script>
+</body>
+</html>
+

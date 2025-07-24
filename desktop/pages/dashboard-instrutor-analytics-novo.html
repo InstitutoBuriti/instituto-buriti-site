@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Instrutor - Analytics | Instituto Buriti</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/analytics-global.css">
+    <link rel="stylesheet" href="../css/dashboard-instrutor.css">
+    <link rel="stylesheet" href="../css/fix-logo.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo-img">
+                </div>
+                <nav class="nav">
+                    <a href="../index.html" class="nav-link">Início</a>
+                    <a href="../pages/biblioteca-cursos.html" class="nav-link">Cursos</a>
+                    <a href="../pages/quem-somos.html" class="nav-link">Quem Somos</a>
+                    <a href="../pages/seja-instrutor.html" class="nav-link">Seja um Instrutor</a>
+                    <a href="../pages/contato.html" class="nav-link">Contato</a>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle">
+                            <i class="fas fa-user"></i>
+                            Login
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="../pages/login-aluno.html" class="dropdown-item">
+                                <i class="fas fa-graduation-cap"></i>
+                                Área do Aluno
+                            </a>
+                            <a href="../pages/login-instrutor.html" class="dropdown-item">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                Área do Instrutor
+                            </a>
+                            <a href="../pages/login-admin.html" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                Área Administrativa
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="../index.html">Início</a>
+            <span class="separator">→</span>
+            <a href="../pages/dashboard-instrutor.html">Dashboard</a>
+            <span class="separator">→</span>
+            <span class="current">Analytics</span>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="floating-elements">
+                <svg class="floating-element" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="30" fill="rgba(160, 32, 240, 0.1)"/>
+                </svg>
+                <svg class="floating-element" viewBox="0 0 100 100">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(107, 140, 121, 0.1)"/>
+                </svg>
+                <svg class="floating-element" viewBox="0 0 100 100">
+                    <rect x="25" y="25" width="50" height="50" fill="rgba(169, 80, 40, 0.1)"/>
+                </svg>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Dashboard do Instrutor</h1>
+                <p>Acompanhe o desempenho dos seus cursos, engajamento dos alunos e métricas de ensino em tempo real.</p>
+                <div class="hero-actions">
+                    <a href="#metrics" class="btn btn-primary">
+                        <i class="fas fa-chart-line"></i>
+                        Ver Métricas
+                    </a>
+                    <a href="#courses" class="btn btn-outline">
+                        <i class="fas fa-book"></i>
+                        Meus Cursos
+                    </a>
+                    <a href="#reports" class="btn btn-outline">
+                        <i class="fas fa-file-alt"></i>
+                        Relatórios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructor Profile Section -->
+    <section class="instructor-profile">
+        <div class="container">
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Prof. João Silva" class="avatar-img">
+                    <div class="status-indicator status-online"></div>
+                </div>
+                <div class="profile-info">
+                    <h2>Prof. João Silva</h2>
+                    <p class="profile-title">Especialista em Marketing Digital</p>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">3</span>
+                            <span class="stat-label">Cursos Ativos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">127</span>
+                            <span class="stat-label">Alunos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">4.8</span>
+                            <span class="stat-label">Avaliação</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">R$ 15.400</span>
+                            <span class="stat-label">Receita Mensal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-edit"></i>
+                        Editar Perfil
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-eye"></i>
+                        Ver Perfil Público
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-card">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="period-filter">Período</label>
+                        <select id="period-filter" class="filter-select">
+                            <option value="7">Últimos 7 dias</option>
+                            <option value="30" selected>Últimos 30 dias</option>
+                            <option value="90">Últimos 3 meses</option>
+                            <option value="365">Último ano</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="course-filter">Curso</label>
+                        <select id="course-filter" class="filter-select">
+                            <option value="">Todos os Cursos</option>
+                            <option value="marketing">Marketing Digital para Educadores</option>
+                            <option value="content">Estratégias de Conteúdo</option>
+                            <option value="social">Redes Sociais para Professores</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="metric-filter">Métrica</label>
+                        <select id="metric-filter" class="filter-select">
+                            <option value="">Todas as Métricas</option>
+                            <option value="engagement">Engajamento</option>
+                            <option value="completion">Conclusão</option>
+                            <option value="revenue">Receita</option>
+                            <option value="ratings">Avaliações</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="search-filter">Buscar</label>
+                        <input type="text" id="search-filter" class="filter-input" placeholder="Buscar alunos, atividades...">
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn btn-outline btn-sm" onclick="clearFilters()">
+                            <i class="fas fa-times"></i>
+                            Limpar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-section" id="metrics">
+        <div class="container">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-value">127</div>
+                        <div class="metric-label">Alunos Ativos</div>
+                        <div class="metric-change positive">+8 esta semana</div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">Cursos Publicados</div>
+                        <div class="metric-change positive">+1 este mês</div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-value">4.8</div>
+                        <div class="metric-label">Avaliação Média</div>
+                        <div class="metric-change positive">+0.2 este mês</div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-value">78%</div>
+                        <div class="metric-label">Taxa de Conclusão</div>
+                        <div class="metric-change positive">+5% este mês</div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-value">R$ 15.400</div>
+                        <div class="metric-label">Receita Mensal</div>
+                        <div class="metric-change positive">+12% este mês</div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-value">2h 34min</div>
+                        <div class="metric-label">Tempo Médio de Estudo</div>
+                        <div class="metric-change positive">+15min esta semana</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts-section">
+        <div class="container">
+            <div class="charts-grid">
+                <!-- Engagement Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Engajamento dos Alunos</h3>
+                        <div class="chart-tabs">
+                            <button class="tab-btn active" data-period="daily">Diário</button>
+                            <button class="tab-btn" data-period="weekly">Semanal</button>
+                            <button class="tab-btn" data-period="monthly">Mensal</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="engagementChart"></canvas>
+                    </div>
+                    <div class="engagement-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">89%</span>
+                            <span class="stat-label">Participação em Aulas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">76%</span>
+                            <span class="stat-label">Entrega de Atividades</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">92%</span>
+                            <span class="stat-label">Interação em Fóruns</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Performance dos Cursos</h3>
+                        <div class="chart-tabs">
+                            <button class="tab-btn active" data-metric="students">Alunos</button>
+                            <button class="tab-btn" data-metric="completion">Conclusão</button>
+                            <button class="tab-btn" data-metric="revenue">Receita</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Revenue Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Tendência de Receita</h3>
+                        <div class="chart-tabs">
+                            <button class="tab-btn active" data-view="revenue">Receita</button>
+                            <button class="tab-btn" data-view="enrollments">Matrículas</button>
+                            <button class="tab-btn" data-view="certificates">Certificados</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    <div class="revenue-breakdown">
+                        <div class="breakdown-item">
+                            <div>
+                                <div class="breakdown-label">Curso Principal</div>
+                                <div class="breakdown-value">R$ 8.900</div>
+                            </div>
+                            <div class="breakdown-percent">58%</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div>
+                                <div class="breakdown-label">Curso Secundário</div>
+                                <div class="breakdown-value">R$ 4.200</div>
+                            </div>
+                            <div class="breakdown-percent">27%</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div>
+                                <div class="breakdown-label">Curso Novo</div>
+                                <div class="breakdown-value">R$ 2.300</div>
+                            </div>
+                            <div class="breakdown-percent">15%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ratings Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Avaliações dos Alunos</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ratingsChart"></canvas>
+                    </div>
+                    <div class="ratings-summary">
+                        <div class="rating-item">
+                            <div class="rating-stars">★★★★★</div>
+                            <div class="rating-count">89 avaliações</div>
+                        </div>
+                        <div class="rating-item">
+                            <div class="rating-stars">★★★★☆</div>
+                            <div class="rating-count">23 avaliações</div>
+                        </div>
+                        <div class="rating-item">
+                            <div class="rating-stars">★★★☆☆</div>
+                            <div class="rating-count">8 avaliações</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Courses Section -->
+    <section class="my-courses-section" id="courses">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meus Cursos</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Criar Novo Curso
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-download"></i>
+                        Exportar Dados
+                    </button>
+                </div>
+            </div>
+            
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-status status-active">Ativo</span>
+                        <div class="course-actions">
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h4>Marketing Digital para Educadores</h4>
+                        <p>Aprenda estratégias modernas de marketing digital aplicadas ao contexto educacional.</p>
+                        <div class="course-stats">
+                            <div class="stat">
+                                <span class="stat-value">64</span>
+                                <span class="stat-label">Alunos</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">71%</span>
+                                <span class="stat-label">Conclusão</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">4.4</span>
+                                <span class="stat-label">Avaliação</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">R$ 7.680</span>
+                                <span class="stat-label">Receita</span>
+                            </div>
+                        </div>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 71%"></div>
+                            </div>
+                            <span class="progress-text">71% de conclusão média</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-status status-active">Ativo</span>
+                        <div class="course-actions">
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h4>Estratégias de Conteúdo Digital</h4>
+                        <p>Domine a criação de conteúdo envolvente para plataformas digitais educacionais.</p>
+                        <div class="course-stats">
+                            <div class="stat">
+                                <span class="stat-value">38</span>
+                                <span class="stat-label">Alunos</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">84%</span>
+                                <span class="stat-label">Conclusão</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">4.7</span>
+                                <span class="stat-label">Avaliação</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">R$ 4.560</span>
+                                <span class="stat-label">Receita</span>
+                            </div>
+                        </div>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 84%"></div>
+                            </div>
+                            <span class="progress-text">84% de conclusão média</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 3 -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-status status-draft">Rascunho</span>
+                        <div class="course-actions">
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h4>Redes Sociais para Professores</h4>
+                        <p>Como usar redes sociais de forma estratégica para ampliar seu alcance educacional.</p>
+                        <div class="course-stats">
+                            <div class="stat">
+                                <span class="stat-value">-</span>
+                                <span class="stat-label">Alunos</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">-</span>
+                                <span class="stat-label">Conclusão</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">-</span>
+                                <span class="stat-label">Avaliação</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">R$ 0</span>
+                                <span class="stat-label">Receita</span>
+                            </div>
+                        </div>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span class="progress-text">65% do conteúdo criado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Activity Section -->
+    <section class="student-activity-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Atividade dos Alunos</h2>
+            </div>
+            
+            <div class="activity-filters">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="submissions">Submissões</button>
+                <button class="filter-btn" data-filter="questions">Perguntas</button>
+                <button class="filter-btn" data-filter="achievements">Conquistas</button>
+            </div>
+
+            <div class="activity-feed">
+                <!-- Activity 1 -->
+                <div class="activity-item" data-type="submission">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face" alt="Ana Silva">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <span class="activity-user">Ana Silva</span>
+                            <span class="activity-action">entregou a atividade</span>
+                            <span class="activity-target">"Criação de Persona"</span>
+                        </div>
+                        <div class="activity-details">
+                            <span class="activity-course">Marketing Digital para Educadores</span>
+                            <span class="activity-time">há 2 horas</span>
+                        </div>
+                    </div>
+                    <div class="activity-actions">
+                        <button class="btn btn-sm btn-outline">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline">
+                            <i class="fas fa-comment"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Activity 2 -->
+                <div class="activity-item" data-type="question">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" alt="Carlos Santos">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <span class="activity-user">Carlos Santos</span>
+                            <span class="activity-action">fez uma pergunta em</span>
+                            <span class="activity-target">"Fórum de Dúvidas"</span>
+                        </div>
+                        <div class="activity-details">
+                            <span class="activity-course">Estratégias de Conteúdo Digital</span>
+                            <span class="activity-time">há 4 horas</span>
+                        </div>
+                        <div class="activity-preview">
+                            "Como posso adaptar o conteúdo para diferentes faixas etárias?"
+                        </div>
+                    </div>
+                    <div class="activity-actions">
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fas fa-reply"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Activity 3 -->
+                <div class="activity-item" data-type="achievement">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="Maria Oliveira">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <span class="activity-user">Maria Oliveira</span>
+                            <span class="activity-action">conquistou o badge</span>
+                            <span class="activity-target">"Primeira Campanha"</span>
+                        </div>
+                        <div class="activity-details">
+                            <span class="activity-course">Marketing Digital para Educadores</span>
+                            <span class="activity-time">há 6 horas</span>
+                        </div>
+                    </div>
+                    <div class="activity-badge">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                </div>
+
+                <!-- Activity 4 -->
+                <div class="activity-item" data-type="completion">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" alt="João Costa">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <span class="activity-user">João Costa</span>
+                            <span class="activity-action">completou o módulo</span>
+                            <span class="activity-target">"Fundamentos do Marketing"</span>
+                        </div>
+                        <div class="activity-details">
+                            <span class="activity-course">Marketing Digital para Educadores</span>
+                            <span class="activity-time">há 1 dia</span>
+                        </div>
+                    </div>
+                    <div class="activity-progress">
+                        <div class="progress-circle">
+                            <svg width="40" height="40">
+                                <circle cx="20" cy="20" r="18" fill="none" stroke="#e5e7eb" stroke-width="4"/>
+                                <circle cx="20" cy="20" r="18" fill="none" stroke="#A020F0" stroke-width="4" 
+                                        stroke-dasharray="113" stroke-dashoffset="31.64"/>
+                            </svg>
+                            <span class="progress-text">70%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-pagination">
+                <button class="btn btn-outline">
+                    <i class="fas fa-plus"></i>
+                    Carregar Mais Atividades
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                    </div>
+                    <p class="footer-description">Educação que transforma. Cultura que conecta.</p>
+                    <p class="footer-tagline">Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@institutoburiti.com.br</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <p><i class="fas fa-map-marker-alt"></i> São Paulo, SP</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="../pages/quem-somos.html">Quem Somos</a></li>
+                        <li><a href="../pages/biblioteca-cursos.html">Cursos</a></li>
+                        <li><a href="../pages/seja-instrutor.html">Seja um Instrutor</a></li>
+                        <li><a href="../pages/contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes Sociais</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/analytics-core.js"></script>
+    <script src="../js/dashboard-instrutor.js"></script>
+</body>
+</html>
+

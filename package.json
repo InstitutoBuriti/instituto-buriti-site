@@ -1,0 +1,47 @@
+{
+  "name": "instituto-buriti-unified",
+  "version": "1.0.0",
+  "description": "Unified web platform for Instituto Buriti with smart device detection",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'Static site - open index.html in browser'",
+    "build": "echo 'No build process required for static site'",
+    "test": "echo 'No tests configured'",
+    "deploy": "echo 'Deploy via Netlify GitHub integration'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contatoinstitutoburiti/instituto-buriti-unified.git"
+  },
+  "keywords": [
+    "education",
+    "website",
+    "responsive",
+    "mobile",
+    "desktop",
+    "netlify",
+    "instituto-buriti"
+  ],
+  "author": {
+    "name": "Instituto Buriti",
+    "email": "contato@institutoburiti.com.br",
+    "url": "https://www.institutoburiti.com.br"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "homepage": "https://www.institutoburiti.com.br",
+  "bugs": {
+    "url": "https://github.com/contatoinstitutoburiti/instituto-buriti-unified/issues",
+    "email": "suporte@institutoburiti.com.br"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
+

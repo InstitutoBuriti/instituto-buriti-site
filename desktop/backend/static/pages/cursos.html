@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cursos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item">
+                <a href="../index.html">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item active">
+                <a href="cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown">
+                <button class="login-btn">Login</button>
+                <div class="dropdown-menu">
+                    <a href="login-aluno.html" class="dropdown-item">Aluno</a>
+                    <a href="login-instrutor.html" class="dropdown-item">Instrutor</a>
+                    <a href="login-admin.html" class="dropdown-item">Administrador</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Catálogo de Cursos</h1>
+                    <p class="hero-subtitle">Transforme seu futuro com formações que unem inovação, impacto social e qualidade técnica.</p>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image-container">
+                        <img src="../images/hero-student.png" alt="Estudante aprendendo online" class="hero-image">
+                        <div class="floating-elements">
+                            <svg class="floating-dot dot-1" viewBox="0 0 20 20">
+                                <circle cx="10" cy="10" r="8" fill="#973CBF" fill-opacity="0.3"/>
+                            </svg>
+                            <svg class="floating-dot dot-2" viewBox="0 0 15 15">
+                                <circle cx="7.5" cy="7.5" r="6" fill="#6B8C79" fill-opacity="0.4"/>
+                            </svg>
+                            <svg class="floating-dot dot-3" viewBox="0 0 25 25">
+                                <circle cx="12.5" cy="12.5" r="10" fill="#A020F0" fill-opacity="0.2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtros e Navegação -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="categoria">Categoria:</label>
+                    <select id="categoria" class="filter-select">
+                        <option value="">Todas</option>
+                        <option value="tecnologia">Tecnologias</option>
+                        <option value="gestao">Gestão</option>
+                        <option value="cultura">Cultura</option>
+                        <option value="educacao">Educação</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Tipo:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="gratuito"> Gratuito</label>
+                        <label><input type="checkbox" value="pago"> Pago</label>
+                        <label><input type="checkbox" value="certificado"> Com Certificado</label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="carga-horaria">Carga Horária:</label>
+                    <select id="carga-horaria" class="filter-select">
+                        <option value="">Todas</option>
+                        <option value="curta">< 10h</option>
+                        <option value="media">10-30h</option>
+                        <option value="longa">> 30h</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Nível:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="nivel" value=""> Todos</label>
+                        <label><input type="radio" name="nivel" value="iniciante"> Iniciante</label>
+                        <label><input type="radio" name="nivel" value="intermediario"> Intermediário</label>
+                        <label><input type="radio" name="nivel" value="avancado"> Avançado</label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="ordenar">Ordenar por:</label>
+                    <select id="ordenar" class="filter-select">
+                        <option value="recentes">Mais Recentes</option>
+                        <option value="acessados">Mais Acessados</option>
+                        <option value="alfabetico">A-Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destaques -->
+    <section class="highlights-section">
+        <div class="container">
+            <div class="highlights-grid">
+                <article class="highlight-card">
+                    <div class="highlight-image">
+                        <img src="../images/ba9db69f-0f74-4cea-9844-dc1c7080f525.jpg.webp" alt="Fundamentos da Inteligência Artificial">
+                        <div class="highlight-badge novo">Mais Recente</div>
+                    </div>
+                    <div class="highlight-content">
+                        <h3 class="highlight-title">Fundamentos da Inteligência Artificial</h3>
+                        <p class="highlight-description">Curso introdutório com foco na aplicação prática da IA em diversos contextos, com linguagem acessível e instrutores experientes.</p>
+                        <button class="highlight-btn">Saiba Mais</button>
+                    </div>
+                </article>
+                
+                <article class="highlight-card">
+                    <div class="highlight-image">
+                        <img src="../images/desenvolvimento-web.jpg" alt="Desenvolvimento Web">
+                        <div class="highlight-badge popular">Mais Acessado</div>
+                    </div>
+                    <div class="highlight-content">
+                        <h3 class="highlight-title">Desenvolvimento Web</h3>
+                        <p class="highlight-description">Curso completo de programação web com foco em HTML, CSS, JavaScript, frameworks modernos e responsividade.</p>
+                        <button class="highlight-btn">Saiba Mais</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Cursos -->
+    <section class="courses-catalog">
+        <div class="container">
+            <div class="courses-grid">
+                <!-- Curso 1: IA -->
+                <article class="course-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="course-image">
+                        <img src="../images/ba9db69f-0f74-4cea-9844-dc1c7080f525.jpg.webp" alt="Fundamentos da Inteligência Artificial">
+                        <div class="course-badge">Novo</div>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">Fundamentos da Inteligência Artificial</h3>
+                        <p class="course-description">Curso introdutório com foco na aplicação prática da IA em diversos contextos, com linguagem acessível e instrutores experientes.</p>
+                        <div class="course-meta">
+                            <span class="course-price">R$ 500,00</span>
+                            <span class="course-method">PBL</span>
+                        </div>
+                        <button class="course-btn">Saiba Mais</button>
+                    </div>
+                </article>
+
+                <!-- Curso 2: Gestão de Projetos -->
+                <article class="course-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="course-image">
+                        <img src="../images/web-size-Gestão-de-Mudanças-e-Gestão-de-Projetos-1-1.png" alt="Gestão de Projetos Culturais">
+                        <div class="course-badge popular">Popular</div>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">Gestão de Projetos Culturais</h3>
+                        <p class="course-description">Capacitação voltada à estruturação, captação de recursos e execução de projetos na área cultural.</p>
+                        <div class="course-meta">
+                            <span class="course-price">R$ 350,00</span>
+                            <span class="course-method">EAD</span>
+                        </div>
+                        <button class="course-btn">Saiba Mais</button>
+                    </div>
+                </article>
+
+                <!-- Curso 3: Desenvolvimento Web -->
+                <article class="course-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="course-image">
+                        <img src="../images/desenvolvimento-web.jpg" alt="Desenvolvimento Web">
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">Desenvolvimento Web</h3>
+                        <p class="course-description">Curso completo de programação web com foco em HTML, CSS, JavaScript, frameworks modernos e responsividade.</p>
+                        <div class="course-meta">
+                            <span class="course-price">R$ 299,90</span>
+                            <span class="course-method">EAD</span>
+                        </div>
+                        <button class="course-btn">Saiba Mais</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-section">
+        <div class="cta-background">
+            <svg class="cta-shape cta-shape-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#973CBF" fill-opacity="0.1" d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,89.8,-0.2C89.6,15.9,86.6,31.8,78.9,45.1C71.2,58.4,58.8,69.1,44.7,76.4C30.6,83.7,15.3,87.6,-0.2,87.9C-15.7,88.2,-31.4,84.9,-45.1,77.6C-58.8,70.3,-70.5,59,-76.4,-44.7C-82.3,-30.4,-82.4,-15.2,-82.1,0.2C-81.8,15.6,-81.1,31.2,-75.1,44.7C-69.1,58.2,-57.8,69.6,-44.7,76.4C-31.6,83.2,-15.8,85.4,-0.2,85.7C15.4,86,30.8,84.4,44.7,76.4Z" transform="translate(100 100)" />
+            </svg>
+            <svg class="cta-shape cta-shape-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#6B8C79" fill-opacity="0.08" d="M39.1,-67.8C50.7,-60.2,59.8,-48.4,65.4,-35.1C71,-21.8,73.1,-7,72.8,7.9C72.5,22.8,69.8,37.8,62.4,50.1C55,62.4,42.9,72,28.9,77.1C14.9,82.2,-1,82.8,-16.8,79.9C-32.6,77,-48.3,70.6,-59.8,59.8C-71.3,49,-78.6,33.8,-81.2,17.8C-83.8,1.8,-81.7,-15,-75.1,-29.4C-68.5,-43.8,-57.4,-55.8,-44.7,-62.8C-32,-69.8,-17.7,-71.8,-2.8,-67.5C12.1,-63.2,27.5,-75.4,39.1,-67.8Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Pronto para transformar sua carreira?</h2>
+                <p class="cta-subtitle">Explore nossos cursos e encontre o caminho certo para o seu desenvolvimento profissional.</p>
+                <div class="cta-buttons">
+                    <a href="cursos.html" class="cta-btn primary">Ver Todos os Cursos</a>
+                    <a href="seja-instrutor.html" class="cta-btn secondary">Seja um Instrutor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="cursos.html">Cursos</a></li>
+                            <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/cursos.js"></script>
+    <script src="../js/cursos-filters.js"></script>
+</body>
+</html>
+

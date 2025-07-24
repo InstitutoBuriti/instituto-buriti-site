@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Financeiro - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/admin-financeiro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-home">
+                    <div class="home-bg"></div>
+                    <span>Home</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="dashboard-admin.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="admin-financeiro.html" class="nav-link active">
+                    <i class="fas fa-chart-line"></i>
+                    Financeiro
+                </a>
+                <div class="nav-dropdown">
+                    <button class="nav-link dropdown-btn">
+                        <i class="fas fa-user-shield"></i>
+                        Admin <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="dashboard-admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="breadcrumb">
+                    <a href="dashboard-admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <span><i class="fas fa-chevron-right"></i></span>
+                    <span>Painel Financeiro</span>
+                </div>
+                <h1>Painel Financeiro</h1>
+                <p>Visão completa das finanças, receitas e análises do Instituto Buriti</p>
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <button class="action-btn primary" id="generateReportBtn">
+                        <i class="fas fa-file-alt"></i>
+                        Gerar Relatório
+                    </button>
+                    <button class="action-btn secondary" id="exportDataBtn">
+                        <i class="fas fa-download"></i>
+                        Exportar Dados
+                    </button>
+                    <button class="action-btn outline" id="refreshDataBtn">
+                        <i class="fas fa-sync-alt"></i>
+                        Atualizar
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Floating SVG Elements -->
+            <div class="floating-elements">
+                <svg class="float-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="30" fill="rgba(139, 92, 246, 0.1)" />
+                </svg>
+                <svg class="float-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,90 10,90" fill="rgba(249, 115, 22, 0.1)" />
+                </svg>
+                <svg class="float-3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="50" height="50" fill="rgba(16, 185, 129, 0.1)" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Financial Overview -->
+        <section class="financial-overview">
+            <div class="container">
+                <div class="overview-grid">
+                    <div class="metric-card revenue">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="metric-trend up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+12.5%</span>
+                            </div>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Receita Total</h3>
+                            <div class="metric-value" id="totalRevenue">R$ 47.850,00</div>
+                            <div class="metric-period">Este mês</div>
+                        </div>
+                        <div class="metric-chart">
+                            <canvas id="revenueChart" width="100" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card subscriptions">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="metric-trend up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+8.3%</span>
+                            </div>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Assinantes Ativos</h3>
+                            <div class="metric-value" id="activeSubscribers">1.247</div>
+                            <div class="metric-period">Usuários</div>
+                        </div>
+                        <div class="metric-chart">
+                            <canvas id="subscribersChart" width="100" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card courses">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="metric-trend up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+15.7%</span>
+                            </div>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Vendas de Cursos</h3>
+                            <div class="metric-value" id="courseSales">342</div>
+                            <div class="metric-period">Este mês</div>
+                        </div>
+                        <div class="metric-chart">
+                            <canvas id="coursesChart" width="100" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card conversion">
+                        <div class="metric-header">
+                            <div class="metric-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="metric-trend down">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>-2.1%</span>
+                            </div>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Taxa de Conversão</h3>
+                            <div class="metric-value" id="conversionRate">3.8%</div>
+                            <div class="metric-period">Visitantes → Clientes</div>
+                        </div>
+                        <div class="metric-chart">
+                            <canvas id="conversionChart" width="100" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Analytics -->
+        <section class="revenue-analytics">
+            <div class="container">
+                <div class="analytics-header">
+                    <h2>Análise de Receitas</h2>
+                    <div class="period-selector">
+                        <button class="period-btn active" data-period="7d">7 dias</button>
+                        <button class="period-btn" data-period="30d">30 dias</button>
+                        <button class="period-btn" data-period="90d">90 dias</button>
+                        <button class="period-btn" data-period="1y">1 ano</button>
+                    </div>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="chart-card main-chart">
+                        <div class="chart-header">
+                            <h3>Receita ao Longo do Tempo</h3>
+                            <div class="chart-controls">
+                                <button class="chart-control active" data-type="revenue">Receita</button>
+                                <button class="chart-control" data-type="transactions">Transações</button>
+                                <button class="chart-control" data-type="users">Usuários</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="mainRevenueChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card revenue-sources">
+                        <div class="chart-header">
+                            <h3>Fontes de Receita</h3>
+                            <div class="chart-legend" id="revenueLegend"></div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenueSourcesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Methods & Transactions -->
+        <section class="payment-analysis">
+            <div class="container">
+                <div class="analysis-grid">
+                    <div class="payment-methods-card">
+                        <h3>Métodos de Pagamento</h3>
+                        <div class="payment-methods-list">
+                            <div class="payment-method">
+                                <div class="method-info">
+                                    <div class="method-icon">
+                                        <i class="fas fa-credit-card"></i>
+                                    </div>
+                                    <div class="method-details">
+                                        <span class="method-name">Cartão de Crédito</span>
+                                        <span class="method-percentage">68.5%</span>
+                                    </div>
+                                </div>
+                                <div class="method-amount">R$ 32.750,00</div>
+                                <div class="method-bar">
+                                    <div class="method-progress" style="width: 68.5%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <div class="method-info">
+                                    <div class="method-icon">
+                                        <i class="fas fa-qrcode"></i>
+                                    </div>
+                                    <div class="method-details">
+                                        <span class="method-name">PIX</span>
+                                        <span class="method-percentage">23.2%</span>
+                                    </div>
+                                </div>
+                                <div class="method-amount">R$ 11.100,00</div>
+                                <div class="method-bar">
+                                    <div class="method-progress" style="width: 23.2%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <div class="method-info">
+                                    <div class="method-icon">
+                                        <i class="fas fa-barcode"></i>
+                                    </div>
+                                    <div class="method-details">
+                                        <span class="method-name">Boleto</span>
+                                        <span class="method-percentage">8.3%</span>
+                                    </div>
+                                </div>
+                                <div class="method-amount">R$ 4.000,00</div>
+                                <div class="method-bar">
+                                    <div class="method-progress" style="width: 8.3%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="transaction-status-card">
+                        <h3>Status das Transações</h3>
+                        <div class="status-chart-container">
+                            <canvas id="transactionStatusChart"></canvas>
+                        </div>
+                        <div class="status-summary">
+                            <div class="status-item success">
+                                <div class="status-indicator"></div>
+                                <span class="status-label">Aprovadas</span>
+                                <span class="status-value">94.2%</span>
+                            </div>
+                            <div class="status-item pending">
+                                <div class="status-indicator"></div>
+                                <span class="status-label">Pendentes</span>
+                                <span class="status-value">3.1%</span>
+                            </div>
+                            <div class="status-item failed">
+                                <div class="status-indicator"></div>
+                                <span class="status-label">Falharam</span>
+                                <span class="status-value">2.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Courses & Performance -->
+        <section class="course-performance">
+            <div class="container">
+                <h2>Performance dos Cursos</h2>
+                <div class="performance-grid">
+                    <div class="top-courses-card">
+                        <div class="card-header">
+                            <h3>Cursos Mais Vendidos</h3>
+                            <button class="view-all-btn">Ver Todos</button>
+                        </div>
+                        <div class="courses-list" id="topCoursesList">
+                            <div class="course-item">
+                                <div class="course-rank">1</div>
+                                <div class="course-info">
+                                    <img src="/upload/ChatGPTImage19dejul.de2025,19_04_54.png" alt="Curso IA" class="course-thumb">
+                                    <div class="course-details">
+                                        <h4>Fundamentos da IA</h4>
+                                        <span class="course-instructor">Dr. Carlos Mendes</span>
+                                    </div>
+                                </div>
+                                <div class="course-metrics">
+                                    <div class="course-sales">127 vendas</div>
+                                    <div class="course-revenue">R$ 25.400,00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="course-item">
+                                <div class="course-rank">2</div>
+                                <div class="course-info">
+                                    <img src="/upload/IMG_F027CED18C1C-1.jpeg" alt="Gestão Cultural" class="course-thumb">
+                                    <div class="course-details">
+                                        <h4>Gestão de Projetos Culturais</h4>
+                                        <span class="course-instructor">Maria Santos</span>
+                                    </div>
+                                </div>
+                                <div class="course-metrics">
+                                    <div class="course-sales">89 vendas</div>
+                                    <div class="course-revenue">R$ 13.350,00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="course-item">
+                                <div class="course-rank">3</div>
+                                <div class="course-info">
+                                    <img src="/upload/IMG_65A477CACFA8-1.jpeg" alt="Educação Inclusiva" class="course-thumb">
+                                    <div class="course-details">
+                                        <h4>Educação Especial Inclusiva</h4>
+                                        <span class="course-instructor">Prof. Ana Oliveira</span>
+                                    </div>
+                                </div>
+                                <div class="course-metrics">
+                                    <div class="course-sales">76 vendas</div>
+                                    <div class="course-revenue">R$ 9.100,00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="revenue-by-category-card">
+                        <div class="card-header">
+                            <h3>Receita por Categoria</h3>
+                            <div class="time-filter">
+                                <select id="categoryTimeFilter">
+                                    <option value="month">Este mês</option>
+                                    <option value="quarter">Trimestre</option>
+                                    <option value="year">Ano</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="category-chart-container">
+                            <canvas id="categoryRevenueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Transactions -->
+        <section class="recent-transactions">
+            <div class="container">
+                <div class="transactions-header">
+                    <h2>Transações Recentes</h2>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Buscar transações..." id="transactionSearch">
+                        </div>
+                        <button class="filter-btn" id="filterTransactionsBtn">
+                            <i class="fas fa-filter"></i>
+                            Filtros
+                        </button>
+                        <button class="export-btn" id="exportTransactionsBtn">
+                            <i class="fas fa-download"></i>
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="transactions-table">
+                    <div class="table-header">
+                        <div class="header-cell">ID</div>
+                        <div class="header-cell">Cliente</div>
+                        <div class="header-cell">Produto</div>
+                        <div class="header-cell">Método</div>
+                        <div class="header-cell">Status</div>
+                        <div class="header-cell">Valor</div>
+                        <div class="header-cell">Data</div>
+                        <div class="header-cell">Ações</div>
+                    </div>
+                    
+                    <div class="table-body" id="transactionsTableBody">
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <span class="transaction-id">#IB-001247</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="customer-info">
+                                    <div class="customer-avatar">AS</div>
+                                    <div class="customer-details">
+                                        <span class="customer-name">Ana Silva</span>
+                                        <span class="customer-email">ana.silva@email.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="product-name">Assinatura Premium</span>
+                                <span class="product-type">Mensal</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="payment-method">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Cartão •••• 1234</span>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="status success">
+                                    <i class="fas fa-check-circle"></i>
+                                    Aprovada
+                                </span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="amount">R$ 59,90</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="date">19/07/2025</span>
+                                <span class="time">14:30</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="Ver Detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn" title="Estornar">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="action-btn" title="Recibo">
+                                        <i class="fas fa-receipt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <span class="transaction-id">#IB-001246</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="customer-info">
+                                    <div class="customer-avatar">JM</div>
+                                    <div class="customer-details">
+                                        <span class="customer-name">João Mendes</span>
+                                        <span class="customer-email">joao.mendes@email.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="product-name">Fundamentos da IA</span>
+                                <span class="product-type">Curso Individual</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="payment-method">
+                                    <i class="fas fa-qrcode"></i>
+                                    <span>PIX</span>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="status pending">
+                                    <i class="fas fa-clock"></i>
+                                    Pendente
+                                </span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="amount">R$ 199,90</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="date">19/07/2025</span>
+                                <span class="time">13:45</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="Ver Detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn" title="Cancelar">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="action-btn" title="Recibo">
+                                        <i class="fas fa-receipt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <span class="transaction-id">#IB-001245</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="customer-info">
+                                    <div class="customer-avatar">MS</div>
+                                    <div class="customer-details">
+                                        <span class="customer-name">Maria Santos</span>
+                                        <span class="customer-email">maria.santos@email.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="product-name">Plano Anual</span>
+                                <span class="product-type">Assinatura</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="payment-method">
+                                    <i class="fas fa-barcode"></i>
+                                    <span>Boleto</span>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="status failed">
+                                    <i class="fas fa-times-circle"></i>
+                                    Falhou
+                                </span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="amount">R$ 499,90</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="date">18/07/2025</span>
+                                <span class="time">16:20</span>
+                            </div>
+                            <div class="table-cell">
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="Ver Detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn" title="Tentar Novamente">
+                                        <i class="fas fa-redo"></i>
+                                    </button>
+                                    <button class="action-btn" title="Contatar Cliente">
+                                        <i class="fas fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-pagination">
+                    <div class="pagination-info">
+                        Mostrando 1-10 de 247 transações
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                            Anterior
+                        </button>
+                        <div class="pagination-numbers">
+                            <button class="pagination-number active">1</button>
+                            <button class="pagination-number">2</button>
+                            <button class="pagination-number">3</button>
+                            <span class="pagination-dots">...</span>
+                            <button class="pagination-number">25</button>
+                        </div>
+                        <button class="pagination-btn">
+                            Próxima
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Reports -->
+        <section class="financial-reports">
+            <div class="container">
+                <h2>Relatórios Financeiros</h2>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="report-info">
+                            <h3>Relatório Mensal</h3>
+                            <p>Análise completa das receitas e despesas do mês</p>
+                            <div class="report-meta">
+                                <span class="report-date">Julho 2025</span>
+                                <span class="report-status ready">Pronto</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="report-btn view">
+                                <i class="fas fa-eye"></i>
+                                Visualizar
+                            </button>
+                            <button class="report-btn download">
+                                <i class="fas fa-download"></i>
+                                Baixar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="report-info">
+                            <h3>Análise Trimestral</h3>
+                            <p>Tendências e projeções para o próximo trimestre</p>
+                            <div class="report-meta">
+                                <span class="report-date">Q2 2025</span>
+                                <span class="report-status processing">Processando</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="report-btn view" disabled>
+                                <i class="fas fa-clock"></i>
+                                Aguarde
+                            </button>
+                            <button class="report-btn schedule">
+                                <i class="fas fa-bell"></i>
+                                Notificar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="report-info">
+                            <h3>Relatório Fiscal</h3>
+                            <p>Dados para declaração de impostos e compliance</p>
+                            <div class="report-meta">
+                                <span class="report-date">2025</span>
+                                <span class="report-status ready">Pronto</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="report-btn view">
+                                <i class="fas fa-eye"></i>
+                                Visualizar
+                            </button>
+                            <button class="report-btn download">
+                                <i class="fas fa-download"></i>
+                                Baixar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                    <div class="footer-text">
+                        <p class="footer-slogan">Educação que transforma. Cultura que conecta.</p>
+                        <p class="footer-company">Instituto Buriti, uma empresa 100% digital.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                    <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> contato@institutoburiti.com.br</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Instituto Buriti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/admin-financeiro.js"></script>
+</body>
+</html>
+

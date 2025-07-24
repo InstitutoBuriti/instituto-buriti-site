@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 50%, #6B8C79 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 10px 30px rgba(151, 60, 191, 0.3);
+        }
+
+        .login-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .profile-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 0.8rem 0.5rem;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .profile-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-option.active {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(151, 60, 191, 0.3);
+        }
+
+        .login-button {
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(151, 60, 191, 0.3);
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(151, 60, 191, 0.4);
+        }
+
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .back-link a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: white;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 0.8rem;
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .demo-credentials {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .demo-credentials h4 {
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .demo-credentials p {
+            margin: 0.2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">🎓</div>
+            <h1 class="login-title">Bem-vindo de volta!</h1>
+            <p class="login-subtitle">Acesse sua conta do Instituto Buriti</p>
+        </div>
+
+        <div class="demo-credentials">
+            <h4>🔑 Credenciais de Demonstração:</h4>
+            <p><strong>Aluno:</strong> aluno@institutoburiti.com.br / senha123</p>
+            <p><strong>Instrutor:</strong> instrutor@institutoburiti.com.br / senha123</p>
+            <p><strong>Admin:</strong> admin@institutoburiti.com.br / senha123</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="email">E-mail</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    class="form-input" 
+                    placeholder="seu@email.com"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Senha</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Sua senha"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Tipo de Acesso</label>
+                <div class="profile-selector">
+                    <div class="profile-option active" data-profile="aluno">
+                        👨‍🎓<br>Aluno
+                    </div>
+                    <div class="profile-option" data-profile="instrutor">
+                        👨‍🏫<br>Instrutor
+                    </div>
+                    <div class="profile-option" data-profile="admin">
+                        🛡️<br>Admin
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="login-button" id="loginButton">
+                🚀 Entrar
+            </button>
+        </form>
+
+        <div class="loading" id="loadingMessage">
+            Conectando...
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← Voltar ao início</a>
+        </div>
+    </div>
+
+    <!-- Instituto Buriti API Client -->
+    <script src="js/api.js"></script>
+
+    <script>
+        let selectedProfile = 'aluno';
+
+        // Profile selector functionality
+        document.querySelectorAll('.profile-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.profile-option').forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                selectedProfile = option.dataset.profile;
+            });
+        });
+
+        // Auto-fill demo credentials
+        document.querySelectorAll('.profile-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const profile = option.dataset.profile;
+                document.getElementById('email').value = `${profile}@institutoburiti.com.br`;
+                document.getElementById('password').value = 'senha123';
+            });
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const loginButton = document.getElementById('loginButton');
+
+            // Hide previous errors
+            errorMessage.style.display = 'none';
+            
+            // Show loading
+            loadingMessage.style.display = 'block';
+            loginButton.disabled = true;
+            loginButton.textContent = 'Conectando...';
+
+            try {
+                // Attempt login
+                const response = await api.login(email, password, selectedProfile);
+                
+                if (response.success && response.token) {
+                    // Login successful
+                    console.log('Login realizado com sucesso:', response);
+                    
+                    // Store user info
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userType', selectedProfile);
+                    
+                    // Redirect to appropriate dashboard
+                    window.location.href = `dashboard-${selectedProfile}.html`;
+                } else {
+                    throw new Error(response.message || 'Credenciais inválidas');
+                }
+                
+            } catch (error) {
+                console.error('Erro no login:', error);
+                
+                // Show error message
+                errorMessage.textContent = error.message || 'Erro ao fazer login. Verifique suas credenciais.';
+                errorMessage.style.display = 'block';
+                
+            } finally {
+                // Hide loading
+                loadingMessage.style.display = 'none';
+                loginButton.disabled = false;
+                loginButton.textContent = '🚀 Entrar';
+            }
+        });
+
+        // Auto-fill first demo credential on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('email').value = 'aluno@institutoburiti.com.br';
+            document.getElementById('password').value = 'senha123';
+        });
+
+        // Check if already logged in
+        if (api.isAuthenticated()) {
+            const userType = localStorage.getItem('userType') || 'aluno';
+            window.location.href = `dashboard-${userType}.html`;
+        }
+    </script>
+</body>
+</html>
+

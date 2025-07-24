@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Usuários - Instituto Buriti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .search-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+        }
+
+        .users-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #973CBF;
+        }
+
+        .user-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-email {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: #973CBF;
+            font-weight: bold;
+        }
+
+        .user-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .suspend-btn {
+            background: #ff9800;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .admin-actions {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #973CBF;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-suspended {
+            background: #ff9800;
+            color: white;
+        }
+
+        .status-pending {
+            background: #2196F3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo">
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="page-title">👥 Gestão de Usuários</h1>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1.247</div>
+                    <div class="stat-label">Total Usuários</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">892</div>
+                    <div class="stat-label">Alunos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">45</div>
+                    <div class="stat-label">Instrutores</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Admins</div>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <input type="text" class="search-bar" placeholder="🔍 Buscar usuários por nome, email ou ID...">
+                <div class="filter-buttons">
+                    <button class="filter-btn active">Todos</button>
+                    <button class="filter-btn">Alunos</button>
+                    <button class="filter-btn">Instrutores</button>
+                    <button class="filter-btn">Admins</button>
+                    <button class="filter-btn">Ativos</button>
+                    <button class="filter-btn">Suspensos</button>
+                </div>
+            </div>
+
+            <div class="users-section">
+                <h3 class="section-title">
+                    <i class="fas fa-users"></i>
+                    Lista de Usuários
+                </h3>
+
+                <div class="user-item">
+                    <div class="user-avatar">AS</div>
+                    <div class="user-info">
+                        <div class="user-name">Ana Silva Santos</div>
+                        <div class="user-email">ana.silva@email.com</div>
+                        <div class="user-role">
+                            Aluna • <span class="status-badge status-active">Ativo</span>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn suspend-btn">
+                            <i class="fas fa-pause"></i> Suspender
+                        </button>
+                    </div>
+                </div>
+
+                <div class="user-item">
+                    <div class="user-avatar">MS</div>
+                    <div class="user-info">
+                        <div class="user-name">Prof. Maria Silva</div>
+                        <div class="user-email">maria.silva@institutoburiti.com.br</div>
+                        <div class="user-role">
+                            Instrutora • <span class="status-badge status-active">Ativo</span>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn suspend-btn">
+                            <i class="fas fa-pause"></i> Suspender
+                        </button>
+                    </div>
+                </div>
+
+                <div class="user-item">
+                    <div class="user-avatar">CS</div>
+                    <div class="user-info">
+                        <div class="user-name">Carlos Santos</div>
+                        <div class="user-email">carlos.santos@email.com</div>
+                        <div class="user-role">
+                            Aluno • <span class="status-badge status-suspended">Suspenso</span>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+
+                <div class="user-item">
+                    <div class="user-avatar">JO</div>
+                    <div class="user-info">
+                        <div class="user-name">João Oliveira</div>
+                        <div class="user-email">joao.oliveira@email.com</div>
+                        <div class="user-role">
+                            Aluno • <span class="status-badge status-pending">Pendente</span>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Aprovar
+                        </button>
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-times"></i> Rejeitar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="user-item">
+                    <div class="user-avatar">LF</div>
+                    <div class="user-info">
+                        <div class="user-name">Lucia Ferreira</div>
+                        <div class="user-email">lucia.ferreira@email.com</div>
+                        <div class="user-role">
+                            Aluna • <span class="status-badge status-active">Ativo</span>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn edit-btn">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn suspend-btn">
+                            <i class="fas fa-pause"></i> Suspender
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-actions">
+                <h3 class="section-title">
+                    <i class="fas fa-tools"></i>
+                    Ações Administrativas
+                </h3>
+                <button class="admin-btn">
+                    <i class="fas fa-user-plus"></i> Adicionar Usuário
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-upload"></i> Importar CSV
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-download"></i> Exportar Dados
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-envelope"></i> Email em Massa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-admin.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="usuarios.html" class="nav-item active">
+            <i class="fas fa-users"></i>
+            <span>Usuários</span>
+        </a>
+        <a href="cursos.html" class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>Cursos</span>
+        </a>
+        <a href="relatorios.html" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Relatórios</span>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>        </div>
+    </div>
+
+    <!-- Instituto Buriti API Client -->
+    <script src="../js/api.js"></script>
+    
+    <script>
+        // Carregar dados reais de usuários
+        async function carregarUsuarios() {
+            try {
+                showLoading('users-container');
+                
+                const user = api.getCurrentUser();
+                if (!user || user.perfil !== 'admin') {
+                    window.location.href = '../index.html';
+                    return;
+                }
+
+                // Buscar dados de usuários
+                const response = await api.getUsuarios();
+                const dados = response.data || response;
+                const estatisticas = response.estatisticas || {};
+                
+                // Atualizar estatísticas
+                atualizarEstatisticas(estatisticas);
+                
+                // Renderizar usuários
+                renderizarUsuarios(dados);
+                
+            } catch (error) {
+                console.error('Erro ao carregar usuários:', error);
+                showError('users-container', 'Erro ao carregar dados de usuários. Tente novamente.');
+            }
+        }
+
+        function atualizarEstatisticas(stats) {
+            // Corrigindo seletores para corresponder à estrutura HTML real
+            const statCards = document.querySelectorAll('.stat-card .stat-number');
+            
+            if (stats.total_usuarios && statCards[0]) {
+                statCards[0].textContent = stats.total_usuarios;
+            }
+            if (stats.alunos && statCards[1]) {
+                statCards[1].textContent = stats.alunos;
+            }
+            if (stats.instrutores && statCards[2]) {
+                statCards[2].textContent = stats.instrutores;
+            }
+            if (stats.admins && statCards[3]) {
+                statCards[3].textContent = stats.admins;
+            }
+        }
+
+        function renderizarUsuarios(usuarios) {
+            // Procurar container correto na estrutura HTML
+            let container = document.querySelector('.users-section');
+            if (!container) return;
+            
+            // Encontrar ou criar área para lista de usuários
+            let usersList = container.querySelector('.users-list');
+            if (!usersList) {
+                usersList = document.createElement('div');
+                usersList.className = 'users-list';
+                container.appendChild(usersList);
+            }
+
+            // Limpar lista existente
+            usersList.innerHTML = '';
+
+            usuarios.forEach(usuario => {
+                const statusClass = usuario.status === 'ativo' ? 'status-active' : 'status-inactive';
+                const perfilIcon = usuario.perfil === 'aluno' ? '👨‍🎓' : 
+                                  usuario.perfil === 'instrutor' ? '👨‍🏫' : '🛡️';
+                
+                const usuarioHTML = `
+                    <div class="user-item">
+                        <div class="user-avatar">${perfilIcon}</div>
+                        <div class="user-info">
+                            <div class="user-name">${usuario.nome}</div>
+                            <div class="user-email">${usuario.email}</div>
+                            <div class="user-role">
+                                ${usuario.perfil} • <span class="status-badge ${statusClass}">${usuario.status}</span>
+                            </div>
+                        </div>
+                        <div class="user-actions">
+                            <button class="action-btn edit-btn">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="action-btn suspend-btn">
+                                <i class="fas fa-pause"></i> ${usuario.status === 'ativo' ? 'Suspender' : 'Ativar'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                usersList.innerHTML += usuarioHTML;
+            });
+        }
+
+        // Carregar dados ao inicializar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verificar autenticação e permissão de admin
+            if (!api.isAuthenticated()) {
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            const user = api.getCurrentUser();
+            if (!user || user.perfil !== 'admin') {
+                alert('Acesso negado. Apenas administradores podem acessar esta página.');
+                window.location.href = '../dashboard-' + (user?.perfil || 'aluno') + '.html';
+                return;
+            }
+            
+            // Adicionar container para loading/error se não existir
+            const container = document.querySelector('.container');
+            if (!container.id) {
+                container.id = 'users-container';
+            }
+            
+            // Carregar dados de usuários
+            carregarUsuarios();
+        });
+    </script>
+</body>
+</html>

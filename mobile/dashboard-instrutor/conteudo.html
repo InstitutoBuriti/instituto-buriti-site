@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Conteúdo - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .page-title p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .course-selector {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .course-selector label {
+            font-weight: bold;
+        }
+
+        .course-selector select {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            min-width: 200px;
+        }
+
+        .course-selector select option {
+            background: #333;
+            color: white;
+        }
+
+        .content-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: #FFD700;
+            color: #333;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .content-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-type {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .content-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-publicado {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-rascunho {
+            background: #FF9800;
+            color: white;
+        }
+
+        .status-revisao {
+            background: #2196F3;
+            color: white;
+        }
+
+        .content-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background: #FFD700;
+            color: #333;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .add-content-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: #FFD700;
+            color: #333;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .add-content-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-item.active {
+            opacity: 1;
+            color: #FFD700;
+        }
+
+        .nav-item:hover {
+            opacity: 1;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin-bottom: 80px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-selector {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .course-selector select {
+                min-width: auto;
+            }
+
+            .content-tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            🎓 Instituto Buriti
+        </div>
+        <button class="back-btn" onclick="history.back()">← Voltar</button>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>📝 Gerenciar Conteúdo</h1>
+            <p>Crie e organize o conteúdo dos seus cursos</p>
+        </div>
+
+        <div class="course-selector">
+            <label>Curso:</label>
+            <select>
+                <option>Desenvolvimento Web Completo</option>
+                <option>Python para Data Science</option>
+                <option>Design Gráfico Avançado</option>
+                <option>Marketing Digital Estratégico</option>
+            </select>
+        </div>
+
+        <div class="content-tabs">
+            <button class="tab-btn active" onclick="showTab('aulas')">📹 Aulas</button>
+            <button class="tab-btn" onclick="showTab('materiais')">📄 Materiais</button>
+            <button class="tab-btn" onclick="showTab('exercicios')">✏️ Exercícios</button>
+            <button class="tab-btn" onclick="showTab('avaliacoes')">📊 Avaliações</button>
+        </div>
+
+        <div id="aulas" class="tab-content active">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">Introdução ao HTML</div>
+                            <div class="content-type">Vídeo Aula</div>
+                        </div>
+                        <div class="content-status status-publicado">Publicado</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>Duração: 25 min</span>
+                        <span>89 visualizações</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Editar</button>
+                        <button class="btn-secondary">Estatísticas</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">CSS Básico e Estilização</div>
+                            <div class="content-type">Vídeo Aula</div>
+                        </div>
+                        <div class="content-status status-publicado">Publicado</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>Duração: 32 min</span>
+                        <span>76 visualizações</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Editar</button>
+                        <button class="btn-secondary">Estatísticas</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">JavaScript Interativo</div>
+                            <div class="content-type">Vídeo Aula</div>
+                        </div>
+                        <div class="content-status status-rascunho">Rascunho</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>Duração: 45 min</span>
+                        <span>0 visualizações</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Continuar</button>
+                        <button class="btn-secondary">Publicar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="materiais" class="tab-content">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">Guia de HTML Tags</div>
+                            <div class="content-type">PDF</div>
+                        </div>
+                        <div class="content-status status-publicado">Publicado</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>Tamanho: 2.5 MB</span>
+                        <span>156 downloads</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Editar</button>
+                        <button class="btn-secondary">Download</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">Código de Exemplo</div>
+                            <div class="content-type">Arquivo ZIP</div>
+                        </div>
+                        <div class="content-status status-publicado">Publicado</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>Tamanho: 1.2 MB</span>
+                        <span>89 downloads</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Editar</button>
+                        <button class="btn-secondary">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="exercicios" class="tab-content">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">Exercício: Primeira Página</div>
+                            <div class="content-type">Prática</div>
+                        </div>
+                        <div class="content-status status-publicado">Publicado</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>Dificuldade: Fácil</span>
+                        <span>67 submissões</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Editar</button>
+                        <button class="btn-secondary">Correções</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">Projeto: Site Pessoal</div>
+                            <div class="content-type">Projeto</div>
+                        </div>
+                        <div class="content-status status-revisao">Em Revisão</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>Dificuldade: Médio</span>
+                        <span>23 submissões</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Revisar</button>
+                        <button class="btn-secondary">Aprovar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="avaliacoes" class="tab-content">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">Quiz: Fundamentos HTML</div>
+                            <div class="content-type">Quiz</div>
+                        </div>
+                        <div class="content-status status-publicado">Publicado</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>10 questões</span>
+                        <span>89 tentativas</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Editar</button>
+                        <button class="btn-secondary">Resultados</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-header">
+                        <div>
+                            <div class="content-title">Prova Final</div>
+                            <div class="content-type">Avaliação</div>
+                        </div>
+                        <div class="content-status status-rascunho">Rascunho</div>
+                    </div>
+                    <div class="content-meta">
+                        <span>25 questões</span>
+                        <span>0 tentativas</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn-primary">Continuar</button>
+                        <button class="btn-secondary">Publicar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="add-content-btn">+</button>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-instrutor.html" class="nav-item">
+            <div class="nav-icon">📊</div>
+            <div>Dashboard</div>
+        </a>
+        <a href="cursos.html" class="nav-item">
+            <div class="nav-icon">📚</div>
+            <div>Cursos</div>
+        </a>
+        <a href="conteudo.html" class="nav-item active">
+            <div class="nav-icon">📝</div>
+            <div>Conteúdo</div>
+        </a>
+        <a href="alunos.html" class="nav-item">
+            <div class="nav-icon">👥</div>
+            <div>Alunos</div>
+        </a>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Esconder todas as abas
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remover classe active de todos os botões
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Mostrar aba selecionada
+            document.getElementById(tabName).classList.add('active');
+            
+            // Adicionar classe active ao botão clicado
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Cursos - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/biblioteca.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item home-nav">
+                <a href="../index.html" class="home-link">
+                    <span class="home-bg"></span>
+                    <span class="home-text">Home</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item active">
+                <a href="biblioteca-cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown">
+                <button class="login-button">Login</button>
+                <div class="dropdown-content">
+                    <a href="login-aluno.html" class="dropdown-item">
+                        <i class="fas fa-user-graduate"></i> Aluno
+                    </a>
+                    <a href="login-instrutor.html" class="dropdown-item">
+                        <i class="fas fa-chalkboard-teacher"></i> Instrutor
+                    </a>
+                    <a href="login-admin.html" class="dropdown-item">
+                        <i class="fas fa-user-shield"></i> Admin
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-biblioteca">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Biblioteca de Cursos</h1>
+                <p>Explore nossa coleção completa de cursos online. Aprenda no seu ritmo com os melhores profissionais do mercado.</p>
+            </div>
+        </div>
+        
+        <!-- Elementos SVG Decorativos -->
+        <div class="floating-elements">
+            <svg class="floating-svg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="30" fill="rgba(139, 92, 246, 0.1)" />
+            </svg>
+            <svg class="floating-svg" viewBox="0 0 100 100">
+                <polygon points="50,10 90,90 10,90" fill="rgba(249, 115, 22, 0.1)" />
+            </svg>
+            <svg class="floating-svg" viewBox="0 0 100 100">
+                <rect x="25" y="25" width="50" height="50" fill="rgba(124, 58, 237, 0.1)" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Filtros e Busca -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-container">
+                <!-- Barra de Busca -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar cursos...">
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="areaFilter">Área</label>
+                        <select id="areaFilter">
+                            <option value="">Todas as áreas</option>
+                            <option value="tecnologia">Tecnologia</option>
+                            <option value="artes">Artes</option>
+                            <option value="educacao">Educação</option>
+                            <option value="negocios">Negócios</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="nivelFilter">Nível</label>
+                        <select id="nivelFilter">
+                            <option value="">Todos os níveis</option>
+                            <option value="basico">Básico</option>
+                            <option value="intermediario">Intermediário</option>
+                            <option value="avancado">Avançado</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="tipoFilter">Tipo</label>
+                        <select id="tipoFilter">
+                            <option value="">Todos os tipos</option>
+                            <option value="gratuito">Gratuito</option>
+                            <option value="pago">Pago</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <button id="clearFilters" class="clear-filters-btn">
+                            <i class="fas fa-times"></i>
+                            Limpar Filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Cursos -->
+    <section class="catalog-section">
+        <div class="container">
+            <div class="catalog-header">
+                <h2>Cursos Disponíveis</h2>
+                <div class="results-info">
+                    <span id="resultsCount">3 cursos encontrados</span>
+                </div>
+            </div>
+
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Curso 1: Fundamentos da IA -->
+                <div class="course-card" data-area="tecnologia" data-nivel="basico" data-tipo="gratuito">
+                    <div class="course-image">
+                        <img src="../upload/ChatGPTImage19dejul.de2025,19_04_54.png" alt="Fundamentos da Inteligência Artificial">
+                        <div class="course-badge gratuito">Gratuito</div>
+                        <div class="course-level">Básico</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">
+                            <i class="fas fa-robot"></i>
+                            Tecnologia
+                        </div>
+                        <h3>Fundamentos da Inteligência Artificial</h3>
+                        <p>Domine os conceitos fundamentais de IA e machine learning com aplicações práticas. Aprenda desde os algoritmos básicos até implementações reais.</p>
+                        
+                        <div class="course-meta">
+                            <div class="course-duration">
+                                <i class="fas fa-clock"></i>
+                                40 horas
+                            </div>
+                            <div class="course-students">
+                                <i class="fas fa-users"></i>
+                                1.2k alunos
+                            </div>
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                4.8
+                            </div>
+                        </div>
+
+                        <div class="course-instructor">
+                            <img src="../upload/IMG_1885.JPG" alt="Dr. Carlos Mendes">
+                            <span>Dr. Carlos Mendes</span>
+                        </div>
+
+                        <div class="course-actions">
+                            <button class="btn-primary course-access-btn" onclick="accessCourse('ia-fundamentos')">
+                                <i class="fas fa-play"></i>
+                                Acessar Curso
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Curso 2: Gestão de Projetos Culturais -->
+                <div class="course-card" data-area="artes" data-nivel="intermediario" data-tipo="pago">
+                    <div class="course-image">
+                        <img src="../upload/imagemóperasite.jpg" alt="Gestão de Projetos Culturais">
+                        <div class="course-badge pago">R$ 350,00</div>
+                        <div class="course-level">Intermediário</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">
+                            <i class="fas fa-palette"></i>
+                            Artes
+                        </div>
+                        <h3>Gestão de Projetos Culturais</h3>
+                        <p>Aprenda a elaborar, executar e gerenciar projetos culturais de sucesso. Desde a concepção até a prestação de contas.</p>
+                        
+                        <div class="course-meta">
+                            <div class="course-duration">
+                                <i class="fas fa-clock"></i>
+                                60 horas
+                            </div>
+                            <div class="course-students">
+                                <i class="fas fa-users"></i>
+                                850 alunos
+                            </div>
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                4.9
+                            </div>
+                        </div>
+
+                        <div class="course-instructor">
+                            <img src="../upload/IMG_F027CED18C1C-1.jpeg" alt="Maria Santos">
+                            <span>Maria Santos</span>
+                        </div>
+
+                        <div class="course-actions">
+                            <button class="btn-primary course-access-btn" onclick="accessCourse('gestao-cultural')">
+                                <i class="fas fa-play"></i>
+                                Acessar Curso
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Curso 3: Educação Especial -->
+                <div class="course-card" data-area="educacao" data-nivel="avancado" data-tipo="gratuito">
+                    <div class="course-image">
+                        <img src="../upload/IMG_65A477CACFA8-1.jpeg" alt="Educação Especial na Perspectiva Inclusiva">
+                        <div class="course-badge gratuito">Gratuito</div>
+                        <div class="course-level">Avançado</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">
+                            <i class="fas fa-graduation-cap"></i>
+                            Educação
+                        </div>
+                        <h3>Educação Especial na Perspectiva Inclusiva</h3>
+                        <p>Explore metodologias inovadoras para uma educação mais inclusiva e acessível. Teoria e prática para transformar vidas.</p>
+                        
+                        <div class="course-meta">
+                            <div class="course-duration">
+                                <i class="fas fa-clock"></i>
+                                80 horas
+                            </div>
+                            <div class="course-students">
+                                <i class="fas fa-users"></i>
+                                2.1k alunos
+                            </div>
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                4.7
+                            </div>
+                        </div>
+
+                        <div class="course-instructor">
+                            <img src="../upload/IMG_1885.JPG" alt="Prof. Ana Oliveira">
+                            <span>Prof. Ana Oliveira</span>
+                        </div>
+
+                        <div class="course-actions">
+                            <button class="btn-primary course-access-btn" onclick="accessCourse('educacao-inclusiva')">
+                                <i class="fas fa-play"></i>
+                                Acessar Curso
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mensagem quando não há resultados -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="no-results-content">
+                    <i class="fas fa-search"></i>
+                    <h3>Nenhum curso encontrado</h3>
+                    <p>Tente ajustar os filtros ou buscar por outros termos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Não encontrou o que procurava?</h2>
+                <p>Temos mais cursos sendo desenvolvidos. Cadastre-se para receber novidades!</p>
+                <div class="cta-actions">
+                    <button class="btn-primary">
+                        <i class="fas fa-bell"></i>
+                        Receber Novidades
+                    </button>
+                    <a href="seja-instrutor-novo.html" class="btn-secondary">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Seja um Instrutor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                </div>
+                <p class="footer-description">Educação que transforma. Cultura que conecta.</p>
+                <p class="footer-tagline">Instituto Buriti, uma empresa 100% digital.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                    <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-envelope"></i> contato@institutoburiti.com.br</p>
+                    <p><i class="fas fa-phone"></i> (86) 98170-8388</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Teresina, Piauí</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/biblioteca.js"></script>
+</body>
+</html>
+

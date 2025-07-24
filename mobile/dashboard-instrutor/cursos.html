@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Cursos - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .page-title p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .actions-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+        }
+
+        .filter-btn, .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-btn.active {
+            background: #FFD700;
+            color: #333;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-category {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .course-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-ativo {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-rascunho {
+            background: #FF9800;
+            color: white;
+        }
+
+        .status-pausado {
+            background: #f44336;
+            color: white;
+        }
+
+        .course-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .course-stat {
+            text-align: center;
+        }
+
+        .course-stat-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .course-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background: #FFD700;
+            color: #333;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-item.active {
+            opacity: 1;
+            color: #FFD700;
+        }
+
+        .nav-item:hover {
+            opacity: 1;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin-bottom: 80px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            🎓 Instituto Buriti
+        </div>
+        <button class="back-btn" onclick="history.back()">← Voltar</button>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>📚 Meus Cursos</h1>
+            <p>Gerencie seus cursos e acompanhe o desempenho dos alunos</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Cursos Ativos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">247</div>
+                <div class="stat-label">Alunos Matriculados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4.8</div>
+                <div class="stat-label">Avaliação Média</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">92%</div>
+                <div class="stat-label">Taxa de Conclusão</div>
+            </div>
+        </div>
+
+        <div class="actions-bar">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Buscar cursos por título ou categoria...">
+            </div>
+            <button class="filter-btn active">Todos</button>
+            <button class="filter-btn">Ativos</button>
+            <button class="filter-btn">Rascunhos</button>
+            <button class="action-btn">+ Novo Curso</button>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Desenvolvimento Web Completo</div>
+                        <div class="course-category">Tecnologia</div>
+                    </div>
+                    <div class="course-status status-ativo">Ativo</div>
+                </div>
+                <div class="course-stats">
+                    <div class="course-stat">
+                        <div class="course-stat-number">89</div>
+                        <div class="course-stat-label">Alunos</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">4.9</div>
+                        <div class="course-stat-label">Avaliação</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">95%</div>
+                        <div class="course-stat-label">Conclusão</div>
+                    </div>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-primary">Gerenciar</button>
+                    <button class="btn-secondary">Relatórios</button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Python para Data Science</div>
+                        <div class="course-category">Tecnologia</div>
+                    </div>
+                    <div class="course-status status-ativo">Ativo</div>
+                </div>
+                <div class="course-stats">
+                    <div class="course-stat">
+                        <div class="course-stat-number">67</div>
+                        <div class="course-stat-label">Alunos</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">4.7</div>
+                        <div class="course-stat-label">Avaliação</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">88%</div>
+                        <div class="course-stat-label">Conclusão</div>
+                    </div>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-primary">Gerenciar</button>
+                    <button class="btn-secondary">Relatórios</button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Design Gráfico Avançado</div>
+                        <div class="course-category">Design</div>
+                    </div>
+                    <div class="course-status status-ativo">Ativo</div>
+                </div>
+                <div class="course-stats">
+                    <div class="course-stat">
+                        <div class="course-stat-number">45</div>
+                        <div class="course-stat-label">Alunos</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">4.8</div>
+                        <div class="course-stat-label">Avaliação</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">91%</div>
+                        <div class="course-stat-label">Conclusão</div>
+                    </div>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-primary">Gerenciar</button>
+                    <button class="btn-secondary">Relatórios</button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Marketing Digital Estratégico</div>
+                        <div class="course-category">Marketing</div>
+                    </div>
+                    <div class="course-status status-rascunho">Rascunho</div>
+                </div>
+                <div class="course-stats">
+                    <div class="course-stat">
+                        <div class="course-stat-number">0</div>
+                        <div class="course-stat-label">Alunos</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">-</div>
+                        <div class="course-stat-label">Avaliação</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">75%</div>
+                        <div class="course-stat-label">Criação</div>
+                    </div>
+                </div>
+                <div class="course-actions">
+                    <button class="btn-primary">Continuar</button>
+                    <button class="btn-secondary">Publicar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-instrutor.html" class="nav-item">
+            <div class="nav-icon">📊</div>
+            <div>Dashboard</div>
+        </a>
+        <a href="cursos.html" class="nav-item active">
+            <div class="nav-icon">📚</div>
+            <div>Cursos</div>
+        </a>
+        <a href="alunos.html" class="nav-item">
+            <div class="nav-icon">👥</div>
+            <div>Alunos</div>
+        </a>
+        <a href="relatorios.html" class="nav-item">
+            <div class="nav-icon">📈</div>
+            <div>Relatórios</div>
+        </a>
+    </div>
+</body>
+</html>
+

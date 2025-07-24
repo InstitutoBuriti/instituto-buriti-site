@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Aluno - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item">
+                <a href="../index.html">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item">
+                <a href="cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown active">
+                <button class="login-btn">Login</button>
+                <div class="dropdown-menu">
+                    <a href="login-aluno.html" class="dropdown-item active">Aluno</a>
+                    <a href="login-instrutor.html" class="dropdown-item">Instrutor</a>
+                    <a href="login-admin.html" class="dropdown-item">Administrador</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="login-background">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="login-content">
+                <!-- Hero Text -->
+                <div class="hero-text">
+                    <h1 class="hero-title">Bem-vindo de volta!</h1>
+                    <p class="hero-subtitle">Acesse sua área do aluno e continue sua jornada de aprendizado. Seus cursos, certificados e progresso estão esperando por você.</p>
+                </div>
+
+                <!-- Login Box -->
+                <div class="login-box">
+                    <div class="login-header">
+                        <h2 class="login-title">Login do Aluno</h2>
+                    </div>
+                    
+                    <form class="login-form" id="loginForm">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+                        </div>
+                        
+                        <button type="submit" class="login-submit">
+                            <span class="btn-text">Entrar</span>
+                            <div class="btn-ripple"></div>
+                        </button>
+                    </form>
+                    
+                    <div class="login-links">
+                        <a href="#" class="forgot-password">Esqueci minha senha</a>
+                        <a href="cursos.html" class="register-link">Ainda não tem uma conta? Ver Cursos</a>
+                    </div>
+                    
+                    <div class="test-credentials">
+                        <h4>Credenciais de Teste:</h4>
+                        <p><strong>E-mail:</strong> ana.silva@teste.com</p>
+                        <p><strong>Senha:</strong> senhaAluno</p>
+                        <button type="button" class="fill-credentials" onclick="fillTestCredentials()">Preencher Automaticamente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="cursos.html">Cursos</a></li>
+                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/login.js"></script>
+</body>
+</html>
+

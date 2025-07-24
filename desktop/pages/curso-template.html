@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentos da Inteligência Artificial - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/curso.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="curso-body">
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item home-nav">
+                <a href="../index.html" class="home-link">
+                    <span class="home-bg"></span>
+                    <span class="home-text">Home</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item">
+                <a href="biblioteca-cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown">
+                <button class="login-button">Login</button>
+                <div class="dropdown-content">
+                    <a href="login-aluno.html" class="dropdown-item">
+                        <i class="fas fa-user-graduate"></i> Aluno
+                    </a>
+                    <a href="login-instrutor.html" class="dropdown-item">
+                        <i class="fas fa-chalkboard-teacher"></i> Instrutor
+                    </a>
+                    <a href="login-admin.html" class="dropdown-item">
+                        <i class="fas fa-user-shield"></i> Admin
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Banner do Curso -->
+    <section class="course-banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <div class="container">
+                <div class="banner-info">
+                    <div class="course-breadcrumb">
+                        <a href="biblioteca-cursos.html">
+                            <i class="fas fa-arrow-left"></i>
+                            Voltar aos Cursos
+                        </a>
+                    </div>
+                    
+                    <div class="course-header">
+                        <div class="course-category-badge">
+                            <i class="fas fa-robot"></i>
+                            Tecnologia
+                        </div>
+                        <h1 id="courseTitle">Fundamentos da Inteligência Artificial</h1>
+                        <p class="course-description">
+                            Domine os conceitos fundamentais de IA e machine learning com aplicações práticas. 
+                            Aprenda desde os algoritmos básicos até implementações reais.
+                        </p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-clock"></i>
+                                <span>40 horas</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span>1.2k alunos</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-certificate"></i>
+                                <span>Certificado</span>
+                            </div>
+                        </div>
+
+                        <div class="instructor-info">
+                            <img src="../upload/IMG_1885.JPG" alt="Dr. Carlos Mendes" class="instructor-avatar">
+                            <div class="instructor-details">
+                                <span class="instructor-name">Dr. Carlos Mendes</span>
+                                <span class="instructor-title">Especialista em IA e Machine Learning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <div class="course-container">
+        <!-- Sidebar -->
+        <aside class="course-sidebar" id="courseSidebar">
+            <div class="sidebar-header">
+                <h3>Conteúdo do Curso</h3>
+                <div class="progress-overview">
+                    <div class="progress-circle">
+                        <svg class="progress-ring" width="60" height="60">
+                            <circle class="progress-ring-circle" cx="30" cy="30" r="25" stroke="#e2e8f0" stroke-width="4" fill="transparent"/>
+                            <circle class="progress-ring-progress" cx="30" cy="30" r="25" stroke="#8B5CF6" stroke-width="4" fill="transparent" stroke-dasharray="157" stroke-dashoffset="94"/>
+                        </svg>
+                        <span class="progress-text">40%</span>
+                    </div>
+                    <div class="progress-info">
+                        <span class="progress-label">Progresso</span>
+                        <span class="progress-detail">4 de 10 aulas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-list">
+                <!-- Módulo 1 -->
+                <div class="module-section">
+                    <div class="module-header">
+                        <h4>
+                            <i class="fas fa-play-circle"></i>
+                            Módulo 1: Introdução à IA
+                        </h4>
+                        <span class="module-duration">2h 30min</span>
+                    </div>
+                    <div class="lessons-list">
+                        <div class="lesson-item completed" data-lesson="1">
+                            <div class="lesson-status">
+                                <i class="fas fa-check-circle completed"></i>
+                            </div>
+                            <div class="lesson-info">
+                                <span class="lesson-title">O que é Inteligência Artificial?</span>
+                                <span class="lesson-duration">15min</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item completed" data-lesson="2">
+                            <div class="lesson-status">
+                                <i class="fas fa-check-circle completed"></i>
+                            </div>
+                            <div class="lesson-info">
+                                <span class="lesson-title">História e Evolução da IA</span>
+                                <span class="lesson-duration">20min</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item completed" data-lesson="3">
+                            <div class="lesson-status">
+                                <i class="fas fa-check-circle completed"></i>
+                            </div>
+                            <div class="lesson-info">
+                                <span class="lesson-title">Tipos de IA: Fraca vs Forte</span>
+                                <span class="lesson-duration">18min</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item current" data-lesson="4">
+                            <div class="lesson-status">
+                                <i class="fas fa-play-circle current"></i>
+                            </div>
+                            <div class="lesson-info">
+                                <span class="lesson-title">Aplicações Práticas da IA</span>
+                                <span class="lesson-duration">25min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 2 -->
+                <div class="module-section">
+                    <div class="module-header">
+                        <h4>
+                            <i class="fas fa-brain"></i>
+                            Módulo 2: Machine Learning
+                        </h4>
+                        <span class="module-duration">3h 15min</span>
+                    </div>
+                    <div class="lessons-list">
+                        <div class="lesson-item" data-lesson="5">
+                            <div class="lesson-status">
+                                <i class="fas fa-lock locked"></i>
+                            </div>
+                            <div class="lesson-info">
+                                <span class="lesson-title">Introdução ao Machine Learning</span>
+                                <span class="lesson-duration">30min</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" data-lesson="6">
+                            <div class="lesson-status">
+                                <i class="fas fa-lock locked"></i>
+                            </div>
+                            <div class="lesson-info">
+                                <span class="lesson-title">Algoritmos Supervisionados</span>
+                                <span class="lesson-duration">45min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 3 -->
+                <div class="module-section">
+                    <div class="module-header">
+                        <h4>
+                            <i class="fas fa-network-wired"></i>
+                            Módulo 3: Redes Neurais
+                        </h4>
+                        <span class="module-duration">4h 00min</span>
+                    </div>
+                    <div class="lessons-list">
+                        <div class="lesson-item" data-lesson="7">
+                            <div class="lesson-status">
+                                <i class="fas fa-lock locked"></i>
+                            </div>
+                            <div class="lesson-info">
+                                <span class="lesson-title">Fundamentos de Redes Neurais</span>
+                                <span class="lesson-duration">40min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificado -->
+            <div class="certificate-section">
+                <div class="certificate-card locked">
+                    <div class="certificate-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certificate-info">
+                        <h4>Certificado de Conclusão</h4>
+                        <p>Complete todas as aulas para desbloquear</p>
+                        <div class="certificate-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                            <span>40% concluído</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="course-main">
+            <!-- Player de Vídeo -->
+            <div class="video-container">
+                <div class="video-player" id="videoPlayer">
+                    <iframe 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0&modestbranding=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <div class="video-controls">
+                    <div class="video-info">
+                        <h2 id="currentLessonTitle">Aplicações Práticas da IA</h2>
+                        <div class="video-meta">
+                            <span class="lesson-number">Aula 4 de 10</span>
+                            <span class="lesson-duration">25 minutos</span>
+                        </div>
+                    </div>
+                    
+                    <div class="video-actions">
+                        <button class="btn-secondary" id="markCompleteBtn">
+                            <i class="fas fa-check"></i>
+                            Marcar como Concluída
+                        </button>
+                        <button class="btn-primary" id="takeNotesBtn">
+                            <i class="fas fa-sticky-note"></i>
+                            Fazer Anotações
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Descrição da Aula -->
+            <div class="lesson-content">
+                <div class="content-tabs">
+                    <button class="tab-btn active" data-tab="description">
+                        <i class="fas fa-info-circle"></i>
+                        Descrição
+                    </button>
+                    <button class="tab-btn" data-tab="materials">
+                        <i class="fas fa-download"></i>
+                        Materiais
+                    </button>
+                    <button class="tab-btn" data-tab="notes">
+                        <i class="fas fa-sticky-note"></i>
+                        Minhas Anotações
+                    </button>
+                </div>
+
+                <div class="tab-content">
+                    <!-- Aba Descrição -->
+                    <div class="tab-panel active" id="description">
+                        <div class="lesson-description">
+                            <h3>Sobre esta aula</h3>
+                            <p>
+                                Nesta aula, exploraremos as aplicações práticas da Inteligência Artificial no mundo real. 
+                                Veremos como a IA está transformando diferentes setores da economia e sociedade.
+                            </p>
+                            
+                            <h4>O que você vai aprender:</h4>
+                            <ul>
+                                <li>Aplicações de IA na medicina e saúde</li>
+                                <li>IA no setor financeiro e bancário</li>
+                                <li>Automação industrial e robótica</li>
+                                <li>IA em veículos autônomos</li>
+                                <li>Assistentes virtuais e chatbots</li>
+                                <li>Reconhecimento de imagem e voz</li>
+                            </ul>
+
+                            <h4>Recursos adicionais:</h4>
+                            <div class="additional-resources">
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Slides da Apresentação
+                                </a>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-link"></i>
+                                    Artigos Complementares
+                                </a>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-code"></i>
+                                    Exemplos de Código
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aba Materiais -->
+                    <div class="tab-panel" id="materials">
+                        <div class="materials-list">
+                            <h3>Materiais de Apoio</h3>
+                            <div class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h4>Slides - Aplicações Práticas da IA</h4>
+                                    <p>Apresentação completa da aula em PDF</p>
+                                    <span class="material-size">2.5 MB</span>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-file-code"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h4>Exemplos de Código Python</h4>
+                                    <p>Scripts demonstrando conceitos da aula</p>
+                                    <span class="material-size">1.2 MB</span>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aba Anotações -->
+                    <div class="tab-panel" id="notes">
+                        <div class="notes-section">
+                            <h3>Minhas Anotações</h3>
+                            <div class="notes-editor">
+                                <textarea 
+                                    placeholder="Faça suas anotações sobre esta aula..."
+                                    id="notesTextarea"
+                                ></textarea>
+                                <div class="notes-actions">
+                                    <button class="btn-primary save-notes-btn">
+                                        <i class="fas fa-save"></i>
+                                        Salvar Anotações
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navegação -->
+            <div class="lesson-navigation">
+                <button class="nav-btn prev-btn" id="prevLessonBtn">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>
+                        <small>Aula Anterior</small>
+                        <strong>Tipos de IA: Fraca vs Forte</strong>
+                    </span>
+                </button>
+                
+                <button class="nav-btn next-btn" id="nextLessonBtn">
+                    <span>
+                        <small>Próxima Aula</small>
+                        <strong>Introdução ao Machine Learning</strong>
+                    </span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/curso.js"></script>
+</body>
+</html>
+

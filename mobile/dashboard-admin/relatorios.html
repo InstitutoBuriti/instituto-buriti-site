@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics do Sistema - Instituto Buriti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #973CBF 0%, #FF7847 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 100%;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .kpi-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #973CBF;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .kpi-change {
+            font-size: 0.7rem;
+            margin-top: 0.25rem;
+        }
+
+        .kpi-positive {
+            color: #4CAF50;
+        }
+
+        .kpi-negative {
+            color: #f44336;
+        }
+
+        .chart-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .metric-item:last-child {
+            border-bottom: none;
+        }
+
+        .metric-info {
+            flex: 1;
+        }
+
+        .metric-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .metric-value {
+            font-weight: bold;
+            color: #973CBF;
+            font-size: 1.1rem;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .performance-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .performance-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #973CBF, #FF7847);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .admin-actions {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-btn {
+            background: linear-gradient(45deg, #973CBF, #FF7847);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #973CBF;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+        }
+
+        .content-wrapper {
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="logo">
+            <span class="logo-text">Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="page-title">📊 Analytics do Sistema</h1>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-number">1.247</div>
+                    <div class="kpi-label">Usuários Ativos</div>
+                    <div class="kpi-change kpi-positive">+12% este mês</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">47</div>
+                    <div class="kpi-label">Cursos Ativos</div>
+                    <div class="kpi-change kpi-positive">+3 novos</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">89%</div>
+                    <div class="kpi-label">Taxa Conclusão</div>
+                    <div class="kpi-change kpi-positive">+5% vs mês anterior</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-number">4.8</div>
+                    <div class="kpi-label">Satisfação Média</div>
+                    <div class="kpi-change kpi-positive">+0.2 pontos</div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h3 class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Crescimento de Usuários - Últimos 6 Meses
+                </h3>
+                <div class="chart-placeholder">
+                    📈 Gráfico de Crescimento de Usuários
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h3 class="section-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Distribuição por Tipo de Usuário
+                </h3>
+                <div class="chart-placeholder">
+                    🥧 Gráfico de Pizza - Tipos de Usuário
+                </div>
+            </div>
+
+            <div class="performance-grid">
+                <div class="performance-card">
+                    <h4 class="performance-title">
+                        <i class="fas fa-server"></i>
+                        Performance do Sistema
+                    </h4>
+                    <div class="metric-item">
+                        <div class="metric-info">
+                            <div class="metric-name">Uptime</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 99.9%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-value">99.9%</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-info">
+                            <div class="metric-name">Tempo de Resposta</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-value">120ms</div>
+                    </div>
+                </div>
+
+                <div class="performance-card">
+                    <h4 class="performance-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Engajamento dos Cursos
+                    </h4>
+                    <div class="metric-item">
+                        <div class="metric-info">
+                            <div class="metric-name">Desenvolvimento Web</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-value">92%</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-info">
+                            <div class="metric-name">Educação Especial</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 87%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-value">87%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h3 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Métricas Detalhadas
+                </h3>
+
+                <div class="metric-item">
+                    <div class="metric-info">
+                        <div class="metric-name">Novos Usuários (30 dias)</div>
+                        <div class="metric-description">Crescimento de usuários no último mês</div>
+                    </div>
+                    <div class="metric-value">+156</div>
+                </div>
+
+                <div class="metric-item">
+                    <div class="metric-info">
+                        <div class="metric-name">Certificados Emitidos</div>
+                        <div class="metric-description">Total de certificados gerados</div>
+                    </div>
+                    <div class="metric-value">892</div>
+                </div>
+
+                <div class="metric-item">
+                    <div class="metric-info">
+                        <div class="metric-name">Horas de Estudo</div>
+                        <div class="metric-description">Total de horas estudadas na plataforma</div>
+                    </div>
+                    <div class="metric-value">12.450h</div>
+                </div>
+
+                <div class="metric-item">
+                    <div class="metric-info">
+                        <div class="metric-name">Posts no Fórum</div>
+                        <div class="metric-description">Atividade na comunidade</div>
+                    </div>
+                    <div class="metric-value">2.156</div>
+                </div>
+
+                <div class="metric-item">
+                    <div class="metric-info">
+                        <div class="metric-name">Taxa de Retenção</div>
+                        <div class="metric-description">Usuários que retornam após 30 dias</div>
+                    </div>
+                    <div class="metric-value">78%</div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h3 class="section-title">
+                    <i class="fas fa-mobile-alt"></i>
+                    Acesso por Dispositivo
+                </h3>
+                <div class="chart-placeholder">
+                    📱 Gráfico de Barras - Desktop vs Mobile
+                </div>
+            </div>
+
+            <div class="admin-actions">
+                <h3 class="section-title">
+                    <i class="fas fa-download"></i>
+                    Exportar Relatórios
+                </h3>
+                <button class="admin-btn">
+                    <i class="fas fa-file-pdf"></i> Relatório PDF
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-file-excel"></i> Dados Excel
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-chart-line"></i> Dashboard Avançado
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-calendar"></i> Agendar Relatório
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="../dashboard-admin.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="usuarios.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Usuários</span>
+        </a>
+        <a href="cursos.html" class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>Cursos</span>
+        </a>
+        <a href="relatorios.html" class="nav-item active">
+            <i class="fas fa-chart-bar"></i>
+            <span>Relatórios</span>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - Instituto Buriti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #FFD700, rgba(255, 215, 0, 0.3));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-left: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #FFD700;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            opacity: 0.9;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .detail-item {
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 0.3rem;
+        }
+
+        .detail-value {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .status-completed {
+            background: #4CAF50;
+        }
+
+        .status-active {
+            background: #2196F3;
+        }
+
+        .status-paused {
+            background: #FF9800;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .stats-summary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            .timeline-item {
+                margin-left: 0.5rem;
+            }
+
+            .timeline-item::before {
+                left: -1.5rem;
+            }
+
+            .timeline::before {
+                left: 0.75rem;
+            }
+
+            .filters {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 0.5rem;
+            }
+
+            .filter-btn {
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .timeline-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span>📊</span>
+            <span>Instituto Buriti</span>
+        </div>
+        <button class="back-btn" onclick="history.back()">← Voltar</button>
+    </div>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>📊 Histórico de Matrículas</h1>
+            <p>Acompanhe sua jornada de aprendizado</p>
+        </div>
+
+        <div class="stats-summary">
+            <h3 style="text-align: center; margin-bottom: 1rem;">📈 Resumo Geral</h3>
+            <div class="stats-grid">
+                <div>
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Cursos Matriculados</div>
+                </div>
+                <div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Concluídos</div>
+                </div>
+                <div>
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Em Andamento</div>
+                </div>
+                <div>
+                    <div class="stat-number">124h</div>
+                    <div class="stat-label">Horas Estudadas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active">Todos</button>
+            <button class="filter-btn">Concluídos</button>
+            <button class="filter-btn">Em Andamento</button>
+            <button class="filter-btn">Pausados</button>
+            <button class="filter-btn">2025</button>
+            <button class="filter-btn">2024</button>
+        </div>
+
+        <div class="timeline">
+            <!-- Item 1 -->
+            <div class="timeline-item">
+                <div class="timeline-date">📅 22 de Julho de 2025</div>
+                <div class="timeline-title">Matrícula em Inglês para Negócios</div>
+                <div class="timeline-description">
+                    Iniciou o curso de Inglês para Negócios focado em comunicação empresarial e vocabulário técnico.
+                </div>
+                <div class="timeline-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Progresso</div>
+                        <div class="detail-value">45%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Horas Estudadas</div>
+                        <div class="detail-value">13.5h</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Nota Atual</div>
+                        <div class="detail-value">8.7</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Previsão</div>
+                        <div class="detail-value">15/08</div>
+                    </div>
+                </div>
+                <span class="status-badge status-active">Em Andamento</span>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="timeline-item">
+                <div class="timeline-date">📅 18 de Julho de 2025</div>
+                <div class="timeline-title">Conclusão: Gestão de Projetos Ágeis</div>
+                <div class="timeline-description">
+                    Concluído com sucesso! Aprendeu metodologias Scrum, Kanban e técnicas de liderança de equipes ágeis.
+                </div>
+                <div class="timeline-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Progresso</div>
+                        <div class="detail-value">100%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Horas Estudadas</div>
+                        <div class="detail-value">25h</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Nota Final</div>
+                        <div class="detail-value">9.2</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Certificado</div>
+                        <div class="detail-value">Disponível</div>
+                    </div>
+                </div>
+                <span class="status-badge status-completed">Concluído</span>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="timeline-item">
+                <div class="timeline-date">📅 10 de Julho de 2025</div>
+                <div class="timeline-title">Matrícula em Python para Data Science</div>
+                <div class="timeline-description">
+                    Iniciou estudos em análise de dados, pandas, numpy e visualização com matplotlib e seaborn.
+                </div>
+                <div class="timeline-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Progresso</div>
+                        <div class="detail-value">62%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Horas Estudadas</div>
+                        <div class="detail-value">21.7h</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Nota Atual</div>
+                        <div class="detail-value">9.1</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Previsão</div>
+                        <div class="detail-value">05/08</div>
+                    </div>
+                </div>
+                <span class="status-badge status-active">Em Andamento</span>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="timeline-item">
+                <div class="timeline-date">📅 05 de Julho de 2025</div>
+                <div class="timeline-title">Conclusão: Fundamentos do Design Gráfico</div>
+                <div class="timeline-description">
+                    Concluído com excelência! Dominou teoria das cores, tipografia e princípios de design visual.
+                </div>
+                <div class="timeline-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Progresso</div>
+                        <div class="detail-value">100%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Horas Estudadas</div>
+                        <div class="detail-value">15h</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Nota Final</div>
+                        <div class="detail-value">9.5</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Certificado</div>
+                        <div class="detail-value">Disponível</div>
+                    </div>
+                </div>
+                <span class="status-badge status-completed">Concluído</span>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="timeline-item">
+                <div class="timeline-date">📅 28 de Junho de 2025</div>
+                <div class="timeline-title">Conclusão: Introdução ao Figma</div>
+                <div class="timeline-description">
+                    Curso gratuito concluído! Aprendeu os fundamentos da ferramenta de design e prototipagem.
+                </div>
+                <div class="timeline-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Progresso</div>
+                        <div class="detail-value">100%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Horas Estudadas</div>
+                        <div class="detail-value">12h</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Tipo</div>
+                        <div class="detail-value">Gratuito</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Certificado</div>
+                        <div class="detail-value">Disponível</div>
+                    </div>
+                </div>
+                <span class="status-badge status-completed">Concluído</span>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="timeline-item">
+                <div class="timeline-date">📅 15 de Junho de 2025</div>
+                <div class="timeline-title">Matrícula em Desenvolvimento Web Completo</div>
+                <div class="timeline-description">
+                    Iniciou jornada no desenvolvimento web com HTML, CSS, JavaScript, React e Node.js.
+                </div>
+                <div class="timeline-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Progresso</div>
+                        <div class="detail-value">85%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Horas Estudadas</div>
+                        <div class="detail-value">34h</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Nota Atual</div>
+                        <div class="detail-value">8.9</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Previsão</div>
+                        <div class="detail-value">25/07</div>
+                    </div>
+                </div>
+                <span class="status-badge status-active">Em Andamento</span>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="timeline-item">
+                <div class="timeline-date">📅 01 de Junho de 2025</div>
+                <div class="timeline-title">Cadastro na Plataforma</div>
+                <div class="timeline-description">
+                    Bem-vindo ao Instituto Buriti! Perfil criado e primeira exploração da plataforma realizada.
+                </div>
+                <div class="timeline-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Tipo de Conta</div>
+                        <div class="detail-value">Aluno</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Nível Inicial</div>
+                        <div class="detail-value">1</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">XP Inicial</div>
+                        <div class="detail-value">0</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Status</div>
+                        <div class="detail-value">Ativo</div>
+                    </div>
+                </div>
+                <span class="status-badge status-completed">Concluído</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidade dos filtros
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Aqui você pode implementar a lógica de filtro
+                const filter = this.textContent.toLowerCase();
+                console.log('Filtro selecionado:', filter);
+            });
+        });
+    </script>
+</body>
+</html>
+
