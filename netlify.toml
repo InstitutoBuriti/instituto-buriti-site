@@ -3,7 +3,7 @@
 
 [build]
   # Build settings
-  publish = "."
+  publish = "desktop"
   command = "echo 'Static site - no build required'"
 
 # Redirect rules for device detection
@@ -92,7 +92,6 @@
   status = 301
   force = true
 
-# Environment variables (if needed)
+# Environment variables (if needed )
 [build.environment]
   NODE_VERSION = "18"
-
