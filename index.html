@@ -43,7 +43,7 @@
 
     <!-- Device Detection Script -->
     <script>
-        (function() {
+        (function( ) {
             'use strict';
             
             // Device detection function
@@ -67,7 +67,7 @@
                 localStorage.setItem('instituto_buriti_version', version);
             }
             
-            // Redirect function
+            // Redirect function - CORRIGIDO para funcionar com publish="desktop"
             function redirectToVersion(version) {
                 const currentPath = window.location.pathname;
                 const currentSearch = window.location.search;
@@ -79,13 +79,13 @@
                         window.location.href = '/mobile/index.html' + currentSearch + currentHash;
                     }
                 } else {
-                    // Redirect to desktop version
+                    // Desktop version - Como publish="desktop", não precisa redirecionar
+                    // A pasta desktop já é servida como raiz
                     if (currentPath.startsWith('/mobile/')) {
-                        const newPath = currentPath.replace('/mobile/', '/desktop/');
-                        window.location.href = newPath + currentSearch + currentHash;
-                    } else if (currentPath === '/' || currentPath === '/index.html') {
-                        window.location.href = '/desktop/index.html' + currentSearch + currentHash;
+                        // Se estiver na mobile, redireciona para raiz (que é desktop)
+                        window.location.href = '/' + currentSearch + currentHash;
                     }
+                    // Se já estiver na raiz, não faz nada (já está na versão desktop)
                 }
             }
             
@@ -123,26 +123,17 @@
                 initDeviceDetection();
             }
             
-            // Add version switcher functionality
-            window.switchVersion = function(version) {
-                setPreferredVersion(version);
-                redirectToVersion(version);
-            };
-            
+            // Hide loading screen after detection
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(function() {
+                        loadingScreen.style.display = 'none';
+                    }, 300);
+                }
+            }, 1000);
         })();
     </script>
-    
-    <!-- Fallback content for users with JavaScript disabled -->
-    <noscript>
-        <div class="noscript-message">
-            <h1>Instituto Buriti</h1>
-            <p>Para a melhor experiência, por favor habilite o JavaScript em seu navegador.</p>
-            <p>
-                <a href="/desktop/index.html">Versão Desktop</a> | 
-                <a href="/mobile/index.html">Versão Mobile</a>
-            </p>
-        </div>
-    </noscript>
 </body>
 </html>
-
