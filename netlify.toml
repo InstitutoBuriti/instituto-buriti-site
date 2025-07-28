@@ -2,8 +2,8 @@
 # This file configures smart device detection and routing
 
 [build]
-  # Build settings
-  publish = "."
+  # Build settings - serve from desktop folder
+  publish = "desktop"
   command = "echo 'Static site - no build required'"
 
 # Redirect rules for device detection
