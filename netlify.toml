@@ -3,8 +3,27 @@
 
 [build]
   # Build settings
-  publish = "desktop"
+  publish = "."
   command = "echo 'Static site - no build required'"
+
+# Redirect rules for device detection
+[[redirects]]
+  # Root redirect to device detection
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  # Mobile version redirects
+  from = "/mobile/*"
+  to = "/mobile/:splat"
+  status = 200
+
+[[redirects]]
+  # Desktop version redirects  
+  from = "/desktop/*"
+  to = "/desktop/:splat"
+  status = 200
 
 # Headers for better performance and security
 [[headers]]
@@ -73,6 +92,7 @@
   status = 301
   force = true
 
-# Environment variables (if needed )
+# Environment variables (if needed)
 [build.environment]
   NODE_VERSION = "18"
+
