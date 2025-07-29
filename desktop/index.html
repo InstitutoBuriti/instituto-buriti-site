@@ -309,5 +309,47 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+    // CORREÇÃO DEFINITIVA GROK - JavaScript para forçar grids 3 colunas
+    document.addEventListener('DOMContentLoaded', function() {
+        // Força grid 3 colunas para cursos
+        const coursesGrid = document.querySelector('.courses-grid');
+        if (coursesGrid) {
+            coursesGrid.style.display = 'grid';
+            coursesGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            coursesGrid.style.gap = '40px';
+            coursesGrid.style.width = '100%';
+        }
+        
+        // Força grid 3 colunas para notícias
+        const newsGrid = document.querySelector('.news-grid');
+        if (newsGrid) {
+            newsGrid.style.display = 'grid';
+            newsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            newsGrid.style.gap = '40px';
+            newsGrid.style.width = '100%';
+        }
+        
+        // Força flex horizontal para steps
+        const stepsGrid = document.querySelector('.steps-grid');
+        if (stepsGrid) {
+            stepsGrid.style.display = 'flex';
+            stepsGrid.style.justifyContent = 'space-between';
+            stepsGrid.style.gap = '40px';
+            stepsGrid.style.flexDirection = 'row';
+        }
+        
+        // Força flex horizontal para share-content
+        const shareContent = document.querySelector('.share-content');
+        if (shareContent) {
+            shareContent.style.display = 'flex';
+            shareContent.style.alignItems = 'center';
+            shareContent.style.gap = '40px';
+            shareContent.style.flexDirection = 'row';
+        }
+        
+        console.log('GROK FIXES APPLIED: All grids forced to 3 columns via JavaScript');
+    });
+    </script>
 </body>
 </html>
