@@ -310,52 +310,111 @@
 
     <script src="js/main.js"></script>
     <script type="text/javascript">
-    /* GROK FIXES - SOLUÇÃO DEFINITIVA COM PROTEÇÃO ESPECIAL */
+    /* GROK FIXES PERMANENTE - SOLUÇÃO COMPLETA PARA TODAS AS SEÇÕES */
     (function() {
         'use strict';
         
         var grokFixesApplied = false;
         var attempts = 0;
-        var maxAttempts = 10;
+        var maxAttempts = 15;
         
         function log(msg) {
             if (typeof console !== 'undefined' && console.log) {
-                console.log('GROK FIXES: ' + msg);
+                console.log('GROK FIXES PERMANENTE: ' + msg);
             }
         }
         
-        function applyFixes() {
+        function applyAllFixes() {
             attempts++;
-            log('Tentativa ' + attempts + ' de aplicar correções...');
+            log('Tentativa ' + attempts + ' - Aplicando TODAS as correções...');
+            
+            var fixesApplied = 0;
             
             try {
+                // 1. CORREÇÃO CURSOS EM DESTAQUE - 3 COLUNAS
                 var coursesGrid = document.querySelector('.courses-grid');
                 if (coursesGrid) {
                     var currentGrid = window.getComputedStyle(coursesGrid).gridTemplateColumns;
-                    log('Grid atual: ' + currentGrid);
+                    log('Cursos - Grid atual: ' + currentGrid);
                     
-                    if (currentGrid === '464px 464px' || currentGrid.indexOf('464px') !== -1) {
+                    if (currentGrid === '464px 464px' || currentGrid.split(' ').length !== 3) {
+                        log('Cursos - Aplicando correção 3 colunas...');
+                        
                         coursesGrid.style.setProperty('display', 'grid', 'important');
                         coursesGrid.style.setProperty('grid-template-columns', 'repeat(3, 1fr)', 'important');
                         coursesGrid.style.setProperty('gap', '40px', 'important');
                         coursesGrid.style.setProperty('width', '100%', 'important');
+                        coursesGrid.style.setProperty('max-width', '100%', 'important');
                         
-                        var newGrid = window.getComputedStyle(coursesGrid).gridTemplateColumns;
-                        log('Grid após correção: ' + newGrid);
-                        
-                        if (newGrid.split(' ').length === 3) {
-                            grokFixesApplied = true;
-                            log('SUCESSO! Correção aplicada - 3 colunas detectadas');
-                            return true;
-                        }
+                        fixesApplied++;
+                        log('Cursos - Correção aplicada');
                     } else if (currentGrid.split(' ').length === 3) {
-                        grokFixesApplied = true;
-                        log('SUCESSO! Grid já está correto - 3 colunas');
-                        return true;
+                        log('Cursos - Grid já correto (3 colunas)');
+                        fixesApplied++;
                     }
                 } else {
-                    log('Elemento .courses-grid não encontrado');
+                    log('Cursos - Elemento .courses-grid não encontrado');
                 }
+                
+                // 2. CORREÇÃO COMO FUNCIONA - LAYOUT HORIZONTAL
+                var stepsGrid = document.querySelector('.steps-grid');
+                if (stepsGrid) {
+                    var currentDisplay = window.getComputedStyle(stepsGrid).display;
+                    var currentDirection = window.getComputedStyle(stepsGrid).flexDirection;
+                    log('Steps - Display: ' + currentDisplay + ', Direction: ' + currentDirection);
+                    
+                    if (currentDisplay !== 'flex' || currentDirection !== 'row') {
+                        log('Steps - Aplicando correção layout horizontal...');
+                        
+                        stepsGrid.style.setProperty('display', 'flex', 'important');
+                        stepsGrid.style.setProperty('justify-content', 'space-between', 'important');
+                        stepsGrid.style.setProperty('gap', '40px', 'important');
+                        stepsGrid.style.setProperty('flex-direction', 'row', 'important');
+                        stepsGrid.style.setProperty('width', '100%', 'important');
+                        stepsGrid.style.setProperty('align-items', 'flex-start', 'important');
+                        
+                        fixesApplied++;
+                        log('Steps - Correção aplicada');
+                    } else {
+                        log('Steps - Layout já correto (horizontal)');
+                        fixesApplied++;
+                    }
+                } else {
+                    log('Steps - Elemento .steps-grid não encontrado');
+                }
+                
+                // 3. CORREÇÃO NOTÍCIAS - 3 COLUNAS
+                var newsGrid = document.querySelector('.news-grid');
+                if (newsGrid) {
+                    var currentNewsGrid = window.getComputedStyle(newsGrid).gridTemplateColumns;
+                    log('Notícias - Grid atual: ' + currentNewsGrid);
+                    
+                    if (currentNewsGrid === '464px 464px' || currentNewsGrid.split(' ').length !== 3) {
+                        log('Notícias - Aplicando correção 3 colunas...');
+                        
+                        newsGrid.style.setProperty('display', 'grid', 'important');
+                        newsGrid.style.setProperty('grid-template-columns', 'repeat(3, 1fr)', 'important');
+                        newsGrid.style.setProperty('gap', '40px', 'important');
+                        newsGrid.style.setProperty('width', '100%', 'important');
+                        newsGrid.style.setProperty('max-width', '100%', 'important');
+                        
+                        fixesApplied++;
+                        log('Notícias - Correção aplicada');
+                    } else if (currentNewsGrid.split(' ').length === 3) {
+                        log('Notícias - Grid já correto (3 colunas)');
+                        fixesApplied++;
+                    }
+                } else {
+                    log('Notícias - Elemento .news-grid não encontrado');
+                }
+                
+                // 4. VERIFICAÇÃO FINAL
+                if (fixesApplied >= 3) {
+                    grokFixesApplied = true;
+                    log('SUCESSO TOTAL! Todas as ' + fixesApplied + ' correções aplicadas permanentemente');
+                    return true;
+                }
+                
             } catch (e) {
                 log('Erro ao aplicar correções: ' + e.message);
             }
@@ -363,30 +422,56 @@
             return false;
         }
         
-        function checkAndApply() {
+        function checkAndApplyAll() {
             if (grokFixesApplied || attempts >= maxAttempts) {
+                if (attempts >= maxAttempts) {
+                    log('Máximo de tentativas atingido');
+                }
                 return;
             }
             
-            if (applyFixes()) {
+            if (applyAllFixes()) {
                 return;
             }
             
-            setTimeout(checkAndApply, 1000);
+            setTimeout(checkAndApplyAll, 1000);
         }
         
-        // Múltiplos pontos de execução
+        // MÚLTIPLOS PONTOS DE EXECUÇÃO PARA GARANTIR APLICAÇÃO
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', checkAndApply);
+            document.addEventListener('DOMContentLoaded', checkAndApplyAll);
         } else {
-            checkAndApply();
+            checkAndApplyAll();
         }
         
-        window.addEventListener('load', checkAndApply);
-        setTimeout(checkAndApply, 2000);
-        setTimeout(checkAndApply, 5000);
+        window.addEventListener('load', checkAndApplyAll);
         
-        log('Sistema de correções inicializado');
+        // Execução em intervalos para garantir permanência
+        setTimeout(checkAndApplyAll, 500);
+        setTimeout(checkAndApplyAll, 1000);
+        setTimeout(checkAndApplyAll, 2000);
+        setTimeout(checkAndApplyAll, 3000);
+        setTimeout(checkAndApplyAll, 5000);
+        
+        // Observador para mudanças no DOM (garantia extra)
+        if (window.MutationObserver) {
+            var observer = new MutationObserver(function() {
+                if (!grokFixesApplied) {
+                    setTimeout(checkAndApplyAll, 300);
+                }
+            });
+            
+            if (document.body) {
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    attributeFilter: ['style', 'class']
+                });
+            }
+        }
+        
+        log('Sistema de correções PERMANENTE inicializado - Todas as seções serão corrigidas');
     })();
     </script>
 </body>
