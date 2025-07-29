@@ -6,6 +6,20 @@
   publish = "desktop"
   command = "echo 'Static site - no build required'"
 
+# Disable asset optimization to prevent CSS minification issues
+[build.processing]
+  skip_processing = false
+[build.processing.css]
+  bundle = false
+  minify = false
+[build.processing.js]
+  bundle = false
+  minify = false
+[build.processing.html]
+  pretty_urls = true
+[build.processing.images]
+  compress = false
+
 # Redirect rules for device detection
 [[redirects]]
   # Root redirect to device detection
@@ -46,7 +60,7 @@
 [[headers]]
   for = "*.css"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, no-cache, no-store, must-revalidate"
 
 [[headers]]
   for = "*.js"

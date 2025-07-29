@@ -1037,3 +1037,56 @@ body {
   transform: scale(1.05) !important;
 }
 
+
+/* FORÇA MÁXIMA - CSS COM ESPECIFICIDADE EXTREMA */
+@media (min-width: 768px) {
+  body .events-grid.events-grid.events-grid,
+  body .courses-grid.courses-grid.courses-grid,
+  body .news-grid.news-grid.news-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    width: 100% !important;
+  }
+  
+  body .steps-grid.steps-grid.steps-grid {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+  }
+  
+  body .share-section.share-section.share-section {
+    display: flex !important;
+    align-items: center !important;
+    gap: 40px !important;
+    flex-direction: row !important;
+  }
+}
+
+/* FORÇA MÁXIMA - IMAGENS */
+body .card img.card img.card img,
+body .course-img.course-img.course-img,
+body .news-img.news-img.news-img {
+  width: 100% !important;
+  aspect-ratio: 16/9 !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
+}
+
+/* FORÇA MÁXIMA - EFEITOS */
+body .card.card.card,
+body .course-card.course-card.course-card,
+body .news-card.news-card.news-card,
+body .step.step.step {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+  transition: transform 0.3s ease !important;
+}
+
+body .card:hover.card:hover.card:hover,
+body .course-card:hover.course-card:hover.course-card:hover,
+body .news-card:hover.news-card:hover.news-card:hover,
+body .step:hover.step:hover.step:hover {
+  transform: translateY(-5px) !important;
+}
+
