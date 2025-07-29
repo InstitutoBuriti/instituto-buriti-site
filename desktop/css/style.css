@@ -1090,3 +1090,70 @@ body .step:hover.step:hover.step:hover {
   transform: translateY(-5px) !important;
 }
 
+
+
+/* CORREÇÕES GROK - GRIDS ABAIXO DE EVENTOS */
+@media (min-width: 768px) {
+  .courses-grid, .news-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+  }
+  body .how-it-works .steps-grid {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+    flex-direction: row !important;
+  }
+  body .how-it-works .step-card {
+    flex: 1 !important;
+    max-width: calc(33.333% - 27px) !important;
+  }
+  .share-knowledge .share-content {
+    display: flex !important;
+    align-items: center !important;
+    gap: 40px !important; /* Imagem esquerda, texto direita */
+    flex-direction: row !important;
+  }
+}
+
+
+/* CORREÇÕES GROK - IMAGENS E PROPORÇÕES */
+@media (min-width: 768px) {
+  .course-image img, .news-image img {
+    width: 100% !important;
+    aspect-ratio: 4/3 !important; /* Como aprovado para cursos/notícias */
+    object-fit: cover !important;
+    border-radius: 8px !important;
+  }
+  .step-illustration img {
+    width: 120px !important;
+    aspect-ratio: 1/1 !important;
+    border-radius: 50% !important; /* Bonecas circular */
+  }
+  .share-img {
+    width: 50% !important;
+    aspect-ratio: 16/9 !important;
+    order: 1 !important; /* Imagem esquerda */
+  }
+  .share-text {
+    order: 2 !important; /* Texto direita */
+  }
+}
+
+
+/* CORREÇÕES GROK - EFEITOS VISUAIS */
+@media (min-width: 768px) {
+  .course-card, .news-card, .step-card {
+    border-radius: 8px !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    transition: transform 0.3s ease !important;
+  }
+  .course-card:hover, .news-card:hover, .step-card:hover {
+    transform: translateY(-5px) !important;
+  }
+  .course-btn:hover, .news-btn:hover, .btn:hover {
+    transform: scale(1.05) !important;
+  }
+}
+
