@@ -310,8 +310,10 @@
 
     <script src="js/main.js"></script>
     <script>
-    // CORREÇÃO DEFINITIVA GROK - JavaScript para forçar grids 3 colunas
-    document.addEventListener('DOMContentLoaded', function() {
+    // CORREÇÃO DEFINITIVA GROK - JavaScript com window.onload e logs
+    window.addEventListener('load', function() {
+        console.log('GROK FIX: Window loaded, applying grid fixes...');
+        
         // Força grid 3 colunas para cursos
         const coursesGrid = document.querySelector('.courses-grid');
         if (coursesGrid) {
@@ -319,6 +321,9 @@
             coursesGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
             coursesGrid.style.gap = '40px';
             coursesGrid.style.width = '100%';
+            console.log('GROK FIX: Courses grid fixed to 3 columns');
+        } else {
+            console.log('GROK FIX: Courses grid NOT FOUND');
         }
         
         // Força grid 3 colunas para notícias
@@ -328,6 +333,9 @@
             newsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
             newsGrid.style.gap = '40px';
             newsGrid.style.width = '100%';
+            console.log('GROK FIX: News grid fixed to 3 columns');
+        } else {
+            console.log('GROK FIX: News grid NOT FOUND');
         }
         
         // Força flex horizontal para steps
@@ -337,6 +345,9 @@
             stepsGrid.style.justifyContent = 'space-between';
             stepsGrid.style.gap = '40px';
             stepsGrid.style.flexDirection = 'row';
+            console.log('GROK FIX: Steps grid fixed to horizontal flex');
+        } else {
+            console.log('GROK FIX: Steps grid NOT FOUND');
         }
         
         // Força flex horizontal para share-content
@@ -346,10 +357,26 @@
             shareContent.style.alignItems = 'center';
             shareContent.style.gap = '40px';
             shareContent.style.flexDirection = 'row';
+            console.log('GROK FIX: Share content fixed to horizontal flex');
+        } else {
+            console.log('GROK FIX: Share content NOT FOUND');
         }
         
-        console.log('GROK FIXES APPLIED: All grids forced to 3 columns via JavaScript');
+        console.log('GROK FIXES APPLIED: All grids forced to 3 columns via JavaScript with window.onload');
     });
+    
+    // Backup com setTimeout para garantir execução
+    setTimeout(function() {
+        console.log('GROK FIX BACKUP: Applying fixes with setTimeout...');
+        const coursesGrid = document.querySelector('.courses-grid');
+        if (coursesGrid && window.getComputedStyle(coursesGrid).gridTemplateColumns === '464px 464px') {
+            coursesGrid.style.display = 'grid';
+            coursesGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            coursesGrid.style.gap = '40px';
+            coursesGrid.style.width = '100%';
+            console.log('GROK FIX BACKUP: Courses grid fixed via setTimeout');
+        }
+    }, 2000);
     </script>
 </body>
 </html>
