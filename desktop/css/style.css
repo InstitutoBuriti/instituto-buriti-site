@@ -358,10 +358,11 @@ body {
 }
 
 .courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
     margin-top: 60px;
+    width: 100% !important;
 }
 
 .course-card {
@@ -645,10 +646,11 @@ body {
 }
 
 .news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
     margin-top: 60px;
+    width: 100% !important;
 }
 
 .news-card {
