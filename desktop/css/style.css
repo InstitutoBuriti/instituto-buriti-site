@@ -926,3 +926,60 @@ body {
   transform: scale(1.05); /* Aumenta no hover */
 }
 
+
+/* STEP 2 - FIX GRIDS E DISPOSIÇÃO - RESTAURE 3 COLUNAS */
+@media (min-width: 768px) { /* Desktop view */
+  .events-grid, .courses-grid, .news-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* Força 3 colunas */
+    gap: 40px; /* Espaçamento como aprovado */
+  }
+  .steps-grid { /* Como Funciona */
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .share-section { /* Compartilhe */
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Imagem esquerda, texto direita */
+  }
+}
+
+
+/* STEP 3 - FIX IMAGENS E TAMANHOS - PROPORÇÕES PERFEITAS */
+.card img, .course-img, .news-img {
+  width: 100%; /* Full card */
+  aspect-ratio: 16/9; /* Wide como aprovado, sem distorção */
+  object-fit: cover; /* Preenche sem esticar */
+  border-radius: 8px; /* Arredondados */
+}
+.step img { /* Como Funciona */
+  width: 120px; /* Tamanho aprovado com bonecas */
+  height: auto;
+  aspect-ratio: 1/1; /* Quadrado/circular */
+}
+.share-img { /* Compartilhe */
+  width: 50%; /* Metade tela */
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+}
+
+
+/* STEP 4 - FIX EFEITOS E ANIMAÇÕES - RESTAURE SHADOWS/HOVER */
+.card, .step, .news-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadows leves */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animação hover */
+}
+.card:hover, .step:hover, .news-card:hover {
+  transform: translateY(-5px); /* Levanta no hover */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Shadow mais forte */
+}
+.btn { /* Botões como Ver Detalhes/Saiba Mais */
+  transition: background 0.3s, transform 0.3s;
+}
+.btn:hover {
+  transform: scale(1.05); /* Aumenta no hover */
+}
+
