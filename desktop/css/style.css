@@ -1210,3 +1210,148 @@ html body .container .share-section .share-content {
     }
 }
 
+
+
+/* CORREÇÃO DEFINITIVA GROK - ESPECIFICIDADE MÁXIMA ABSOLUTA */
+/* Força grids 3 colunas com especificidade impossível de sobrescrever */
+
+html body div.container section.courses-section div.courses-grid,
+html body div.container section.courses-section .courses-grid,
+html body .container .courses-section .courses-grid,
+.container .courses-section .courses-grid,
+.courses-section .courses-grid,
+.courses-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-auto-flow: row !important;
+}
+
+html body div.container section.news-section div.news-grid,
+html body div.container section.news-section .news-grid,
+html body .container .news-section .news-grid,
+.container .news-section .news-grid,
+.news-section .news-grid,
+.news-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-auto-flow: row !important;
+}
+
+html body div.container section.steps-section div.steps-grid,
+html body div.container section.steps-section .steps-grid,
+html body .container .steps-section .steps-grid,
+.container .steps-section .steps-grid,
+.steps-section .steps-grid,
+.steps-grid {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Força especificidade com IDs também */
+#courses-grid,
+#news-grid,
+#steps-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    width: 100% !important;
+}
+
+/* Força com atributos também */
+[class*="courses-grid"],
+[class*="news-grid"] {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    width: 100% !important;
+}
+
+[class*="steps-grid"] {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+    flex-direction: row !important;
+    width: 100% !important;
+}
+
+/* Força com pseudo-elementos para garantir */
+.courses-grid::before,
+.courses-grid::after {
+    display: none !important;
+}
+
+.news-grid::before,
+.news-grid::after {
+    display: none !important;
+}
+
+/* Media query para desktop com especificidade máxima */
+@media screen and (min-width: 768px) {
+    html body div.container section.courses-section div.courses-grid,
+    html body div.container section.courses-section .courses-grid,
+    html body .container .courses-section .courses-grid,
+    .container .courses-section .courses-grid,
+    .courses-section .courses-grid,
+    .courses-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 40px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    html body div.container section.news-section div.news-grid,
+    html body div.container section.news-section .news-grid,
+    html body .container .news-section .news-grid,
+    .container .news-section .news-grid,
+    .news-section .news-grid,
+    .news-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 40px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    html body div.container section.steps-section div.steps-grid,
+    html body div.container section.steps-section .steps-grid,
+    html body .container .steps-section .steps-grid,
+    .container .steps-section .steps-grid,
+    .steps-section .steps-grid,
+    .steps-grid {
+        display: flex !important;
+        justify-content: space-between !important;
+        gap: 40px !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* FORÇA ABSOLUTA - ÚLTIMA TENTATIVA */
+* .courses-grid,
+* .news-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    width: 100% !important;
+}
+
+* .steps-grid {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+    flex-direction: row !important;
+    width: 100% !important;
+}
+
