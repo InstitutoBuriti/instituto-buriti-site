@@ -309,6 +309,85 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script src="js/grok-fixes.js"></script>
+    <script type="text/javascript">
+    /* GROK FIXES - SOLUÇÃO DEFINITIVA COM PROTEÇÃO ESPECIAL */
+    (function() {
+        'use strict';
+        
+        var grokFixesApplied = false;
+        var attempts = 0;
+        var maxAttempts = 10;
+        
+        function log(msg) {
+            if (typeof console !== 'undefined' && console.log) {
+                console.log('GROK FIXES: ' + msg);
+            }
+        }
+        
+        function applyFixes() {
+            attempts++;
+            log('Tentativa ' + attempts + ' de aplicar correções...');
+            
+            try {
+                var coursesGrid = document.querySelector('.courses-grid');
+                if (coursesGrid) {
+                    var currentGrid = window.getComputedStyle(coursesGrid).gridTemplateColumns;
+                    log('Grid atual: ' + currentGrid);
+                    
+                    if (currentGrid === '464px 464px' || currentGrid.indexOf('464px') !== -1) {
+                        coursesGrid.style.setProperty('display', 'grid', 'important');
+                        coursesGrid.style.setProperty('grid-template-columns', 'repeat(3, 1fr)', 'important');
+                        coursesGrid.style.setProperty('gap', '40px', 'important');
+                        coursesGrid.style.setProperty('width', '100%', 'important');
+                        
+                        var newGrid = window.getComputedStyle(coursesGrid).gridTemplateColumns;
+                        log('Grid após correção: ' + newGrid);
+                        
+                        if (newGrid.split(' ').length === 3) {
+                            grokFixesApplied = true;
+                            log('SUCESSO! Correção aplicada - 3 colunas detectadas');
+                            return true;
+                        }
+                    } else if (currentGrid.split(' ').length === 3) {
+                        grokFixesApplied = true;
+                        log('SUCESSO! Grid já está correto - 3 colunas');
+                        return true;
+                    }
+                } else {
+                    log('Elemento .courses-grid não encontrado');
+                }
+            } catch (e) {
+                log('Erro ao aplicar correções: ' + e.message);
+            }
+            
+            return false;
+        }
+        
+        function checkAndApply() {
+            if (grokFixesApplied || attempts >= maxAttempts) {
+                return;
+            }
+            
+            if (applyFixes()) {
+                return;
+            }
+            
+            setTimeout(checkAndApply, 1000);
+        }
+        
+        // Múltiplos pontos de execução
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkAndApply);
+        } else {
+            checkAndApply();
+        }
+        
+        window.addEventListener('load', checkAndApply);
+        setTimeout(checkAndApply, 2000);
+        setTimeout(checkAndApply, 5000);
+        
+        log('Sistema de correções inicializado');
+    })();
+    </script>
 </body>
 </html>
