@@ -1157,3 +1157,56 @@ body .step:hover.step:hover.step:hover {
   }
 }
 
+
+
+/* CORREÇÕES DEFINITIVAS GROK - GRIDS 3 COLUNAS */
+html body .container .courses-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    width: 100% !important;
+}
+
+html body .container .news-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    width: 100% !important;
+}
+
+html body .container .steps-grid {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+    flex-direction: row !important;
+}
+
+html body .container .share-section .share-content {
+    display: flex !important;
+    align-items: center !important;
+    gap: 40px !important;
+    flex-direction: row !important;
+}
+
+/* Força 3 colunas mesmo em telas menores para desktop */
+@media (min-width: 768px) {
+    html body .container .courses-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 40px !important;
+    }
+    
+    html body .container .news-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 40px !important;
+    }
+    
+    html body .container .steps-grid {
+        display: flex !important;
+        justify-content: space-between !important;
+        gap: 40px !important;
+        flex-direction: row !important;
+    }
+}
+
