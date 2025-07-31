@@ -2,9 +2,42 @@
 # This file configures smart device detection and routing
 
 [build]
-  # Build settings
+  # Build settings - serve from desktop folder
   publish = "desktop"
   command = "echo 'Static site - no build required'"
+
+# Disable asset optimization to prevent CSS minification issues
+[build.processing]
+  skip_processing = false
+[build.processing.css]
+  bundle = false
+  minify = false
+[build.processing.js]
+  bundle = false
+  minify = false
+[build.processing.html]
+  pretty_urls = true
+[build.processing.images]
+  compress = false
+
+# Redirect rules for device detection
+[[redirects]]
+  # Root redirect to device detection
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  # Mobile version redirects
+  from = "/mobile/*"
+  to = "/mobile/:splat"
+  status = 200
+
+[[redirects]]
+  # Desktop version redirects  
+  from = "/desktop/*"
+  to = "/desktop/:splat"
+  status = 200
 
 # Headers for better performance and security
 [[headers]]
@@ -27,7 +60,7 @@
 [[headers]]
   for = "*.css"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, no-cache, no-store, must-revalidate"
 
 [[headers]]
   for = "*.js"
@@ -73,6 +106,7 @@
   status = 301
   force = true
 
-# Environment variables (if needed )
+# Environment variables (if needed)
 [build.environment]
   NODE_VERSION = "18"
+

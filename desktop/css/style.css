@@ -849,3 +849,142 @@ body {
     }
 }
 
+
+/* CORREÇÕES ESPECÍFICAS PARA GRIDS - SEGUINDO PLANO DETALHADO */
+@media (min-width: 768px) {
+    .courses-grid, .news-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 40px !important;
+    }
+    .steps-grid {
+        display: flex !important;
+        justify-content: space-between !important;
+        gap: 40px !important;
+    }
+    .share-section {
+        display: flex !important;
+        align-items: center !important;
+        gap: 40px !important;
+        flex-direction: row !important; /* Imagem esquerda, texto direita */
+    }
+}
+
+
+/* CORREÇÕES DE IMAGENS E PROPORÇÕES - SEGUINDO PLANO DETALHADO */
+.course-img, .news-img {
+    width: 100% !important;
+    aspect-ratio: 4/3 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+}
+
+.step img {
+    width: 120px !important;
+    aspect-ratio: 1/1 !important;
+    border-radius: 50% !important; /* Bonecas circular */
+}
+
+.share-img {
+    width: 50% !important;
+    aspect-ratio: 16/9 !important;
+    order: 1 !important;
+}
+
+
+/* EFEITOS HOVER E TRANSIÇÕES - SEGUINDO PLANO DETALHADO */
+.course-card, .news-card, .step {
+    border-radius: 8px !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.course-card:hover, .news-card:hover, .step:hover {
+    transform: translateY(-5px) !important;
+}
+
+.btn:hover {
+    transform: scale(1.05) !important;
+}
+
+
+/* ========================================
+   PASSO 2: CORREÇÃO DAS COLUNAS - GROK
+   ======================================== */
+@media (min-width: 768px) {
+  .courses-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+  }
+  .news-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+  }
+  .steps-grid {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+  }
+  .share-section {
+    display: flex !important;
+    align-items: center !important;
+    gap: 40px !important;
+    flex-direction: row !important;
+  }
+}
+
+
+/* ========================================
+   PASSO 3: CORREÇÃO DOS TAMANHOS - GROK
+   ======================================== */
+.course-img {
+  width: 100% !important;
+  aspect-ratio: 4/3 !important;
+  object-fit: cover !important;
+}
+.news-img {
+  width: 100% !important;
+  aspect-ratio: 4/3 !important;
+  object-fit: cover !important;
+}
+.step img {
+  width: 120px !important;
+  aspect-ratio: 1/1 !important;
+  border-radius: 50% !important;
+}
+.share-img {
+  width: 50% !important;
+  aspect-ratio: 16/9 !important;
+}
+
+
+/* ========================================
+   PASSO 4: CORREÇÃO DOS EFEITOS HOVER - GROK
+   ======================================== */
+.course-card {
+  box-shadow: 0 4px 8px gray !important;
+  transition: transform 0.3s !important;
+}
+.course-card:hover {
+  transform: translateY(-5px) !important;
+}
+.news-card {
+  box-shadow: 0 4px 8px gray !important;
+  transition: transform 0.3s !important;
+}
+.news-card:hover {
+  transform: translateY(-5px) !important;
+}
+.step {
+  box-shadow: 0 4px 8px gray !important;
+  transition: transform 0.3s !important;
+}
+.step:hover {
+  transform: translateY(-5px) !important;
+}
+.btn:hover {
+  transform: scale(1.05) !important;
+}
+
