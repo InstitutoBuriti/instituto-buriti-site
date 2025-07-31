@@ -299,8 +299,8 @@ body {
 }
 
 .events-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 40px;
     margin-top: 60px;
 }
@@ -321,18 +321,7 @@ body {
 .event-image {
     width: 100%;
     height: 250px;
-    overflow: hidden;
-}
-
-.event-image img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.event-card:hover .event-image img {
-    transform: scale(1.05);
 }
 
 .event-content {
@@ -358,11 +347,10 @@ body {
 }
 
 .courses-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
     margin-top: 60px;
-    width: 100% !important;
 }
 
 .course-card {
@@ -646,11 +634,10 @@ body {
 }
 
 .news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
     margin-top: 60px;
-    width: 100% !important;
 }
 
 .news-card {
@@ -776,12 +763,6 @@ body {
 }
 
 /* Responsive Design */
-@media (min-width: 769px) {
-    .events-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
-}
-
 @media (max-width: 768px) {
     .nav {
         flex-direction: column;
@@ -814,10 +795,7 @@ body {
         gap: 30px;
     }
     
-    .events-grid {
-        grid-template-columns: 1fr;
-    }
-    
+    .events-grid,
     .courses-grid,
     .news-grid {
         grid-template-columns: 1fr;
@@ -872,558 +850,60 @@ body {
 }
 
 
-/* CORREÇÕES PARA LAYOUT APROVADO - GRIDS E DISPOSIÇÃO */
-@media (min-width: 768px) { /* Desktop view */
-  .events-grid, .courses-grid, .news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important; /* Força 3 colunas */
-    gap: 40px; /* Espaçamento como aprovado */
-  }
-  .steps-grid { /* Como Funciona */
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
-  }
-  .share-section { /* Compartilhe */
-    display: flex;
-    align-items: center;
-    gap: 40px; /* Imagem esquerda, texto direita */
-  }
-}
-
-
-/* CORREÇÕES PARA IMAGENS E TAMANHOS - PROPORÇÕES PERFEITAS */
-.card img, .course-img, .news-img {
-  width: 100%; /* Full card */
-  aspect-ratio: 16/9; /* Wide como aprovado, sem distorção */
-  object-fit: cover; /* Preenche sem esticar */
-  border-radius: 8px; /* Arredondados */
-}
-.step img { /* Como Funciona */
-  width: 120px; /* Tamanho aprovado com bonecas */
-  height: auto;
-  aspect-ratio: 1/1; /* Quadrado/circular */
-}
-.share-img { /* Compartilhe */
-  width: 50%; /* Metade tela */
-  aspect-ratio: 16/9;
-  border-radius: 8px;
-}
-
-
-/* CORREÇÕES PARA EFEITOS E ANIMAÇÕES - SHADOWS/HOVER */
-.card, .step, .news-card {
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadows leves */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animação hover */
-}
-.card:hover, .step:hover, .news-card:hover {
-  transform: translateY(-5px); /* Levanta no hover */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Shadow mais forte */
-}
-.btn { /* Botões como Ver Detalhes/Saiba Mais */
-  transition: background 0.3s, transform 0.3s;
-}
-.btn:hover {
-  transform: scale(1.05); /* Aumenta no hover */
-}
-
-
-/* FIX GRIDS - SEGUINDO GUIA EXATO DO USUÁRIO */
+/* CORREÇÕES ESPECÍFICAS PARA GRIDS - SEGUINDO PLANO DETALHADO */
 @media (min-width: 768px) {
-  .events-grid, .courses-grid, .news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-  }
-  .steps-grid {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-  }
-  .share-section {
-    display: flex !important;
-    align-items: center !important;
-    gap: 40px !important;
-  }
-}
-
-/* FIX IMAGENS - SEGUINDO GUIA EXATO DO USUÁRIO */
-.card img, .course-img, .news-img {
-  width: 100% !important;
-  aspect-ratio: 16/9 !important;
-  object-fit: cover !important;
-  border-radius: 8px !important;
-}
-.step img {
-  width: 120px !important;
-  aspect-ratio: 1/1 !important;
-  border-radius: 50% !important;
-}
-.share-img {
-  width: 50% !important;
-  aspect-ratio: 16/9 !important;
-  border-radius: 8px !important;
-}
-
-/* FIX EFEITOS - SEGUINDO GUIA EXATO DO USUÁRIO */
-.card, .step, .news-card {
-  border-radius: 8px !important;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-  transition: transform 0.3s ease !important;
-}
-.card:hover, .step:hover, .news-card:hover {
-  transform: translateY(-5px) !important;
-}
-.btn {
-  transition: transform 0.3s !important;
-}
-.btn:hover {
-  transform: scale(1.05) !important;
-}
-
-
-/* FIX GRIDS ABAIXO DE EVENTOS - SEGUINDO GUIA EXATO DO GROK */
-@media (min-width: 768px) {
-  .courses-grid, .news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-  }
-  .steps-grid {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-  }
-  .share-section {
-    display: flex !important;
-    align-items: center !important;
-    gap: 40px !important;
-    flex-direction: row !important; /* Esquerda imagem, direita texto */
-  }
-}
-
-
-/* FIX IMAGENS/TAMANHOS ABAIXO - SEGUINDO GUIA EXATO DO GROK */
-.course-img, .news-img {
-  width: 100% !important;
-  aspect-ratio: 4/3 !important;
-  object-fit: cover !important;
-  border-radius: 8px !important;
-}
-.step img {
-  width: 120px !important;
-  aspect-ratio: 1/1 !important;
-  border-radius: 50% !important;
-}
-.share-img {
-  width: 50% !important;
-  aspect-ratio: 16/9 !important;
-  order: 1 !important; /* Esquerda */
-}
-.share-text {
-  order: 2 !important; /* Texto direita */
-}
-
-
-/* FIX EFEITOS ABAIXO - SEGUINDO GUIA EXATO DO GROK */
-.course-card, .news-card, .step {
-  border-radius: 8px !important;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-  transition: transform 0.3s ease !important;
-}
-.course-card:hover, .news-card:hover, .step:hover {
-  transform: translateY(-5px) !important;
-}
-.btn:hover {
-  transform: scale(1.05) !important;
-}
-
-
-/* FORÇA MÁXIMA - CSS COM ESPECIFICIDADE EXTREMA */
-@media (min-width: 768px) {
-  body .events-grid.events-grid.events-grid,
-  body .courses-grid.courses-grid.courses-grid,
-  body .news-grid.news-grid.news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    width: 100% !important;
-  }
-  
-  body .steps-grid.steps-grid.steps-grid {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-  }
-  
-  body .share-section.share-section.share-section {
-    display: flex !important;
-    align-items: center !important;
-    gap: 40px !important;
-    flex-direction: row !important;
-  }
-}
-
-/* FORÇA MÁXIMA - IMAGENS */
-body .card img.card img.card img,
-body .course-img.course-img.course-img,
-body .news-img.news-img.news-img {
-  width: 100% !important;
-  aspect-ratio: 16/9 !important;
-  object-fit: cover !important;
-  border-radius: 8px !important;
-}
-
-/* FORÇA MÁXIMA - EFEITOS */
-body .card.card.card,
-body .course-card.course-card.course-card,
-body .news-card.news-card.news-card,
-body .step.step.step {
-  border-radius: 8px !important;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-  transition: transform 0.3s ease !important;
-}
-
-body .card:hover.card:hover.card:hover,
-body .course-card:hover.course-card:hover.course-card:hover,
-body .news-card:hover.news-card:hover.news-card:hover,
-body .step:hover.step:hover.step:hover {
-  transform: translateY(-5px) !important;
-}
-
-
-
-/* CORREÇÕES GROK - GRIDS ABAIXO DE EVENTOS */
-@media (min-width: 768px) {
-  .courses-grid, .news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-  }
-  body .how-it-works .steps-grid {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-    flex-direction: row !important;
-  }
-  body .how-it-works .step-card {
-    flex: 1 !important;
-    max-width: calc(33.333% - 27px) !important;
-  }
-  .share-knowledge .share-content {
-    display: flex !important;
-    align-items: center !important;
-    gap: 40px !important; /* Imagem esquerda, texto direita */
-    flex-direction: row !important;
-  }
-}
-
-
-/* CORREÇÕES GROK - IMAGENS E PROPORÇÕES */
-@media (min-width: 768px) {
-  .course-image img, .news-image img {
-    width: 100% !important;
-    aspect-ratio: 4/3 !important; /* Como aprovado para cursos/notícias */
-    object-fit: cover !important;
-    border-radius: 8px !important;
-  }
-  .step-illustration img {
-    width: 120px !important;
-    aspect-ratio: 1/1 !important;
-    border-radius: 50% !important; /* Bonecas circular */
-  }
-  .share-img {
-    width: 50% !important;
-    aspect-ratio: 16/9 !important;
-    order: 1 !important; /* Imagem esquerda */
-  }
-  .share-text {
-    order: 2 !important; /* Texto direita */
-  }
-}
-
-
-/* CORREÇÕES GROK - EFEITOS VISUAIS */
-@media (min-width: 768px) {
-  .course-card, .news-card, .step-card {
-    border-radius: 8px !important;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-    transition: transform 0.3s ease !important;
-  }
-  .course-card:hover, .news-card:hover, .step-card:hover {
-    transform: translateY(-5px) !important;
-  }
-  .course-btn:hover, .news-btn:hover, .btn:hover {
-    transform: scale(1.05) !important;
-  }
-}
-
-
-
-/* CORREÇÕES DEFINITIVAS GROK - GRIDS 3 COLUNAS */
-html body .container .courses-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    width: 100% !important;
-}
-
-html body .container .news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    width: 100% !important;
-}
-
-html body .container .steps-grid {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-    flex-direction: row !important;
-}
-
-html body .container .share-section .share-content {
-    display: flex !important;
-    align-items: center !important;
-    gap: 40px !important;
-    flex-direction: row !important;
-}
-
-/* Força 3 colunas mesmo em telas menores para desktop */
-@media (min-width: 768px) {
-    html body .container .courses-grid {
+    .courses-grid, .news-grid {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important;
         gap: 40px !important;
     }
-    
-    html body .container .news-grid {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 40px !important;
-    }
-    
-    html body .container .steps-grid {
-        display: flex !important;
-        justify-content: space-between !important;
-        gap: 40px !important;
-        flex-direction: row !important;
-    }
-}
-
-
-
-/* CORREÇÃO DEFINITIVA GROK - ESPECIFICIDADE MÁXIMA ABSOLUTA */
-/* Força grids 3 colunas com especificidade impossível de sobrescrever */
-
-html body div.container section.courses-section div.courses-grid,
-html body div.container section.courses-section .courses-grid,
-html body .container .courses-section .courses-grid,
-.container .courses-section .courses-grid,
-.courses-section .courses-grid,
-.courses-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    grid-auto-flow: row !important;
-}
-
-html body div.container section.news-section div.news-grid,
-html body div.container section.news-section .news-grid,
-html body .container .news-section .news-grid,
-.container .news-section .news-grid,
-.news-section .news-grid,
-.news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    grid-auto-flow: row !important;
-}
-
-html body div.container section.steps-section div.steps-grid,
-html body div.container section.steps-section .steps-grid,
-html body .container .steps-section .steps-grid,
-.container .steps-section .steps-grid,
-.steps-section .steps-grid,
-.steps-grid {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-    flex-direction: row !important;
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-/* Força especificidade com IDs também */
-#courses-grid,
-#news-grid,
-#steps-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    width: 100% !important;
-}
-
-/* Força com atributos também */
-[class*="courses-grid"],
-[class*="news-grid"] {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    width: 100% !important;
-}
-
-[class*="steps-grid"] {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-    flex-direction: row !important;
-    width: 100% !important;
-}
-
-/* Força com pseudo-elementos para garantir */
-.courses-grid::before,
-.courses-grid::after {
-    display: none !important;
-}
-
-.news-grid::before,
-.news-grid::after {
-    display: none !important;
-}
-
-/* Media query para desktop com especificidade máxima */
-@media screen and (min-width: 768px) {
-    html body div.container section.courses-section div.courses-grid,
-    html body div.container section.courses-section .courses-grid,
-    html body .container .courses-section .courses-grid,
-    .container .courses-section .courses-grid,
-    .courses-section .courses-grid,
-    .courses-grid {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 40px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    html body div.container section.news-section div.news-grid,
-    html body div.container section.news-section .news-grid,
-    html body .container .news-section .news-grid,
-    .container .news-section .news-grid,
-    .news-section .news-grid,
-    .news-grid {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 40px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    html body div.container section.steps-section div.steps-grid,
-    html body div.container section.steps-section .steps-grid,
-    html body .container .steps-section .steps-grid,
-    .container .steps-section .steps-grid,
-    .steps-section .steps-grid,
     .steps-grid {
         display: flex !important;
         justify-content: space-between !important;
         gap: 40px !important;
-        flex-direction: row !important;
-        width: 100% !important;
-        max-width: 100% !important;
+    }
+    .share-section {
+        display: flex !important;
+        align-items: center !important;
+        gap: 40px !important;
+        flex-direction: row !important; /* Imagem esquerda, texto direita */
     }
 }
 
-/* FORÇA ABSOLUTA - ÚLTIMA TENTATIVA */
-* .courses-grid,
-* .news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    width: 100% !important;
-}
 
-* .steps-grid {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-    flex-direction: row !important;
-    width: 100% !important;
-}
-
-
-
-/* ========================================
-   CORREÇÕES ESPECÍFICAS CONFORME GROK
-   ======================================== */
-
-/* 2. Fix Grids Abaixo - Correção dos layouts quebrados */
-@media (min-width: 768px) {
-  .courses-grid, .news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-  }
-  .steps-grid {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 40px !important;
-  }
-  .share-section {
-    display: flex !important;
-    align-items: center !important;
-    gap: 40px !important;
-    flex-direction: row !important; /* Imagem esquerda, texto direita */
-  }
-}
-
-/* 3. Fix Imagens/Tamanhos Abaixo - Correção das proporções */
+/* CORREÇÕES DE IMAGENS E PROPORÇÕES - SEGUINDO PLANO DETALHADO */
 .course-img, .news-img {
-  width: 100% !important;
-  aspect-ratio: 4/3 !important;
-  object-fit: cover !important;
-  border-radius: 8px !important;
+    width: 100% !important;
+    aspect-ratio: 4/3 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
 }
 
 .step img {
-  width: 120px !important;
-  aspect-ratio: 1/1 !important;
-  border-radius: 50% !important; /* Bonecas circular */
+    width: 120px !important;
+    aspect-ratio: 1/1 !important;
+    border-radius: 50% !important; /* Bonecas circular */
 }
 
 .share-img {
-  width: 50% !important;
-  aspect-ratio: 16/9 !important;
-  order: 1 !important;
+    width: 50% !important;
+    aspect-ratio: 16/9 !important;
+    order: 1 !important;
 }
 
-/* 4. Fix Efeitos Abaixo - Hover effects padronizados */
+
+/* EFEITOS HOVER E TRANSIÇÕES - SEGUINDO PLANO DETALHADO */
 .course-card, .news-card, .step {
-  border-radius: 8px !important;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-  transition: transform 0.3s ease !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    transition: transform 0.3s ease !important;
 }
 
 .course-card:hover, .news-card:hover, .step:hover {
-  transform: translateY(-5px) !important;
+    transform: translateY(-5px) !important;
 }
 
 .btn:hover {
-  transform: scale(1.05) !important;
-}
-
-/* Correção específica para layout Compartilhe */
-.share-section .share-text {
-  order: 2 !important; /* Texto à direita */
-}
-
-.share-section .share-img {
-  order: 1 !important; /* Imagem à esquerda */
+    transform: scale(1.05) !important;
 }
 
