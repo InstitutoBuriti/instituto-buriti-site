@@ -1,7 +1,7 @@
 /**
  * Mobile Detection Script - Instituto Buriti
  * Detecta dispositivos móveis e redireciona para versão mobile apropriada
- * Versão: 1.0 Final
+ * Versão: 1.1 CORRIGIDA - Caminhos relativos para Netlify
  * Autor: Manus AI
  */
 
@@ -66,27 +66,28 @@
         // Normalizar path (remover parâmetros e hash)
         const cleanPath = currentPath.split('?')[0].split('#')[0];
         
+        // CORREÇÃO: Usar caminhos relativos em vez de absolutos
         // Mapeamento completo de páginas
         const pathMappings = {
-            '/': '/mobile/index.html',
-            '/index.html': '/mobile/index.html',
-            '/pages/quem-somos.html': '/mobile/sobre-nos.html',
-            '/pages/cursos.html': '/mobile/cursos.html',
-            '/pages/biblioteca-cursos.html': '/mobile/cursos.html',
-            '/pages/seja-instrutor-novo.html': '/mobile/seja-instrutor.html',
-            '/pages/contato.html': '/mobile/contato.html',
-            '/pages/login-aluno.html': '/mobile/login.html',
-            '/pages/login-instrutor.html': '/mobile/login.html',
-            '/pages/login-admin.html': '/mobile/login.html',
-            '/pages/dashboard-aluno.html': '/mobile/dashboard-aluno.html',
-            '/pages/dashboard-instrutor.html': '/mobile/dashboard-instrutor.html',
-            '/pages/dashboard-admin.html': '/mobile/dashboard-admin.html',
-            '/pages/forum.html': '/mobile/forum.html',
-            '/pages/gamificacao.html': '/mobile/gamificacao.html'
+            '/': 'mobile/index.html',
+            '/index.html': 'mobile/index.html',
+            '/pages/quem-somos.html': 'mobile/sobre-nos.html',
+            '/pages/cursos.html': 'mobile/cursos.html',
+            '/pages/biblioteca-cursos.html': 'mobile/cursos.html',
+            '/pages/seja-instrutor-novo.html': 'mobile/seja-instrutor.html',
+            '/pages/contato.html': 'mobile/contato.html',
+            '/pages/login-aluno.html': 'mobile/login.html',
+            '/pages/login-instrutor.html': 'mobile/login.html',
+            '/pages/login-admin.html': 'mobile/login.html',
+            '/pages/dashboard-aluno.html': 'mobile/dashboard-aluno.html',
+            '/pages/dashboard-instrutor.html': 'mobile/dashboard-instrutor.html',
+            '/pages/dashboard-admin.html': 'mobile/dashboard-admin.html',
+            '/pages/forum.html': 'mobile/forum.html',
+            '/pages/gamificacao.html': 'mobile/gamificacao.html'
         };
         
         // Retornar mapeamento ou página padrão
-        const mobilePath = pathMappings[cleanPath] || '/mobile/index.html';
+        const mobilePath = pathMappings[cleanPath] || 'mobile/index.html';
         
         debugLog('Path mapping:', {
             original: currentPath,
@@ -167,7 +168,7 @@
         desktopLink.addEventListener('mouseleave', function() {
             this.style.background = 'rgba(0,0,0,0.8)';
             this.style.transform = 'scale(1)';
-        });
+        };
         
         document.body.appendChild(desktopLink);
     }
