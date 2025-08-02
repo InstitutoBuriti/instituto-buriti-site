@@ -348,6 +348,6 @@ document.addEventListener('click', function(e) {
         showNotification('Funcionalidade de recuperação de senha será implementada em breve.', 'info');
     }
 });
-// Correção aplicada - redirecionamentos funcionais
+
 
 
