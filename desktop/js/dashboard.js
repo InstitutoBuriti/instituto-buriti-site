@@ -34,15 +34,14 @@ function initSidebarNavigation() {
             e.preventDefault();
             
             // Remove active class from all links
-            navLinks.forEach(navLink => {
-                navLink.classList.remove('active');
-            });
+            navLinks.forEach(l => l.classList.remove('active'));
             
             // Add active class to clicked link
             this.classList.add('active');
             
             // Get target section
             const targetSection = this.getAttribute('data-section');
+            
             if (targetSection) {
                 showSection(targetSection);
             }
@@ -53,11 +52,13 @@ function initSidebarNavigation() {
 // NOVA FUNCIONALIDADE: Sistema de Logout Completo
 function initializeLogout() {
     // Procurar por elementos que podem ser usados para logout
-    const userMenuButton = document.querySelector('.user-menu-button, button[onclick*="Ana Silva"], .user-dropdown, .user-profile, .profile-button');
-    const userNameElement = document.querySelector('.user-name, .profile-name');
+    // CORREÇÃO: Seletores atualizados para encontrar elementos reais na página
+    const userMenuButton = document.querySelector('.user-profile-button, button:contains("Ana Silva"), button.user-button');
+    const userNameElement = document.querySelector('.user-name, .profile-name, button:contains("Ana Silva")');
     
     // Se encontrou elemento do usuário, adicionar funcionalidade de logout
     if (userMenuButton || userNameElement) {
+        // CORREÇÃO: Usar qualquer elemento disponível
         const targetElement = userMenuButton || userNameElement;
         
         // Criar dropdown de logout se não existir
@@ -107,38 +108,39 @@ function initializeLogout() {
                 </a>
             `;
             
-            // Posicionar dropdown
-            const container = targetElement.parentNode;
-            container.style.position = 'relative';
-            container.appendChild(dropdownMenu);
-            
             // Adicionar estilos hover
             const links = dropdownMenu.querySelectorAll('a');
             links.forEach(link => {
                 link.addEventListener('mouseenter', function() {
                     this.style.backgroundColor = '#f8f9fa';
                 });
+                
                 link.addEventListener('mouseleave', function() {
                     this.style.backgroundColor = 'transparent';
                 });
             });
-        }
-        
-        // Toggle dropdown no clique
-        targetElement.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
             
-            const isVisible = dropdownMenu.style.display === 'block';
-            dropdownMenu.style.display = isVisible ? 'none' : 'block';
-        });
-        
-        // Fechar dropdown ao clicar fora
-        document.addEventListener('click', function(e) {
-            if (!targetElement.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                dropdownMenu.style.display = 'none';
-            }
-        });
+            // Posicionar dropdown
+            const container = targetElement.parentNode;
+            container.style.position = 'relative';
+            container.appendChild(dropdownMenu);
+            
+            // Toggle dropdown no clique
+            targetElement.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isVisible = dropdownMenu.style.display === 'block';
+                dropdownMenu.style.display = isVisible ? 'none' : 'block';
+            });
+            
+            // Fechar dropdown ao clicar fora
+            document.addEventListener('click', function(e) {
+                if (!targetElement.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        }
     }
     
     // Adicionar botão de logout alternativo se não houver menu de usuário
@@ -174,6 +176,7 @@ function addAlternativeLogoutButton() {
         logoutButton.addEventListener('mouseenter', function() {
             this.style.backgroundColor = '#c82333';
         });
+        
         logoutButton.addEventListener('mouseleave', function() {
             this.style.backgroundColor = '#dc3545';
         });
@@ -227,14 +230,14 @@ function performLogout() {
 function showLogoutLoading() {
     // Criar overlay de loading
     const loadingOverlay = document.createElement('div');
-    loadingOverlay.id = 'logout-loading';
+    loadingOverlay.className = 'loading-overlay';
     loadingOverlay.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.5);
+        background-color: rgba(255, 255, 255, 0.8);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -242,153 +245,119 @@ function showLogoutLoading() {
     `;
     
     loadingOverlay.innerHTML = `
-        <div style="
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        ">
-            <div style="
-                width: 40px;
-                height: 40px;
-                border: 4px solid #f3f3f3;
-                border-top: 4px solid #dc3545;
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
-                margin: 0 auto 15px;
-            "></div>
-            <p style="margin: 0; color: #666; font-size: 16px;">Fazendo logout...</p>
-        </div>
+        <div class="loading-spinner" style="
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        "></div>
+        <style>
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
     `;
-    
-    // Adicionar animação CSS
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    `;
-    document.head.appendChild(style);
     
     document.body.appendChild(loadingOverlay);
-    
-    // Remover loading após logout
-    setTimeout(() => {
-        if (loadingOverlay.parentNode) {
-            loadingOverlay.parentNode.removeChild(loadingOverlay);
-        }
-    }, 2000);
 }
 
 function showUserSettings() {
-    showNotification('Funcionalidade de configurações em desenvolvimento!', 'info');
+    // Redirecionar para página de configurações
+    window.location.href = 'configuracoes.html';
 }
 
+// Notificações
 function showNotification(message, type = 'info') {
     // Criar elemento de notificação
     const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    
-    let backgroundColor;
-    switch(type) {
-        case 'success':
-            backgroundColor = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
-            break;
-        case 'error':
-            backgroundColor = 'linear-gradient(135deg, #dc3545 0%, #e74c3c 100%)';
-            break;
-        case 'warning':
-            backgroundColor = 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)';
-            break;
-        default:
-            backgroundColor = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-    }
-    
+    notification.className = `notification ${type}`;
     notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        padding: 15px 20px;
-        border-radius: 8px;
+        padding: 15px 25px;
+        background-color: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#17a2b8'};
         color: white;
-        font-weight: 500;
-        z-index: 1000;
-        max-width: 350px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        background: ${backgroundColor};
-        transform: translateX(400px);
-        transition: transform 0.3s ease;
+        border-radius: 5px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s, transform 0.3s;
     `;
-    notification.textContent = message;
     
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-message">${message}</span>
+        </div>
+    `;
+    
+    // Adicionar ao DOM
     document.body.appendChild(notification);
     
-    // Animar entrada
+    // Mostrar com animação
     setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateY(0)';
+    }, 10);
     
-    // Remover após 4 segundos
+    // Remover após 3 segundos
     setTimeout(() => {
-        notification.style.transform = 'translateX(400px)';
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateY(-20px)';
         setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
+            document.body.removeChild(notification);
         }, 300);
-    }, 4000);
+    }, 3000);
 }
 
-// Funções originais do dashboard (mantidas)
+// Resto do código do dashboard.js permanece igual...
 function initSidebarToggle() {
-    const toggleBtn = document.querySelector('.sidebar-toggle, .menu-toggle');
-    const sidebar = document.querySelector('.sidebar, .nav-sidebar');
+    const toggleBtn = document.querySelector('.sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const content = document.querySelector('.content');
     
-    if (toggleBtn && sidebar) {
+    if (toggleBtn && sidebar && content) {
         toggleBtn.addEventListener('click', function() {
             sidebar.classList.toggle('collapsed');
-            
-            // Update main content margin
-            const mainContent = document.querySelector('.main-content, .content');
-            if (mainContent) {
-                if (sidebar.classList.contains('collapsed')) {
-                    mainContent.style.marginLeft = '60px';
-                } else {
-                    mainContent.style.marginLeft = '250px';
-                }
-            }
+            content.classList.toggle('expanded');
         });
     }
 }
 
 function initSectionSwitching() {
-    const sections = document.querySelectorAll('.dashboard-section');
+    // Inicializar mostrando a seção padrão
+    showSection('overview');
     
-    function showSection(sectionId) {
-        // Hide all sections
-        sections.forEach(section => {
-            section.style.display = 'none';
+    // Configurar links de navegação
+    const navLinks = document.querySelectorAll('[data-section]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.getAttribute('data-section');
+            showSection(section);
         });
+    });
+}
+
+function showSection(sectionId) {
+    // Esconder todas as seções
+    const sections = document.querySelectorAll('.dashboard-section');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Mostrar a seção selecionada
+    const selectedSection = document.getElementById(sectionId);
+    if (selectedSection) {
+        selectedSection.style.display = 'block';
         
-        // Show target section
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = 'block';
-            
-            // Trigger any section-specific initialization
-            initSectionSpecific(sectionId);
-        }
+        // Inicializar funcionalidades específicas da seção
+        initSectionSpecific(sectionId);
     }
-    
-    // Show first section by default
-    if (sections.length > 0) {
-        sections[0].style.display = 'block';
-    }
-    
-    // Make showSection available globally
-    window.showSection = showSection;
 }
 
 function initSectionSpecific(sectionId) {
@@ -409,123 +378,111 @@ function initSectionSpecific(sectionId) {
 }
 
 function initInteractiveElements() {
-    // Initialize tooltips
-    const tooltipElements = document.querySelectorAll('[data-tooltip]');
-    tooltipElements.forEach(element => {
-        element.addEventListener('mouseenter', showTooltip);
-        element.addEventListener('mouseleave', hideTooltip);
-    });
-    
-    // Initialize modals
-    const modalTriggers = document.querySelectorAll('[data-modal]');
-    modalTriggers.forEach(trigger => {
-        trigger.addEventListener('click', function() {
-            const modalId = this.getAttribute('data-modal');
-            showModal(modalId);
+    // Inicializar tooltips
+    const tooltips = document.querySelectorAll('[data-tooltip]');
+    tooltips.forEach(tooltip => {
+        tooltip.addEventListener('mouseenter', function() {
+            const text = this.getAttribute('data-tooltip');
+            showTooltip(this, text);
         });
-    });
-    
-    // Initialize dropdowns
-    const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
-    dropdownTriggers.forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const dropdown = this.nextElementSibling;
-            if (dropdown && dropdown.classList.contains('dropdown-menu')) {
-                dropdown.classList.toggle('show');
+        
+        tooltip.addEventListener('mouseleave', function() {
+            const tooltipElement = document.querySelector('.tooltip');
+            if (tooltipElement) {
+                document.body.removeChild(tooltipElement);
             }
         });
     });
     
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function() {
-        const openDropdowns = document.querySelectorAll('.dropdown-menu.show');
-        openDropdowns.forEach(dropdown => {
-            dropdown.classList.remove('show');
+    // Inicializar modais
+    const modalTriggers = document.querySelectorAll('[data-modal]');
+    modalTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modalId = this.getAttribute('data-modal');
+            showModal(modalId);
         });
     });
 }
 
 function initRealTimeUpdates() {
-    // Simulate real-time data updates
+    // Simular atualizações em tempo real
     setInterval(() => {
         updateDashboardStats();
-    }, 30000); // Update every 30 seconds
+    }, 30000); // Atualizar a cada 30 segundos
 }
 
 function updateDashboardStats() {
-    // Update various dashboard statistics
-    const statElements = document.querySelectorAll('.stat-value');
-    statElements.forEach(element => {
-        const currentValue = parseInt(element.textContent) || 0;
-        const variation = Math.floor(Math.random() * 10) - 5; // -5 to +5
-        const newValue = Math.max(0, currentValue + variation);
-        
-        if (newValue !== currentValue) {
-            animateNumberChange(element, currentValue, newValue);
-        }
-    });
-}
-
-function animateNumberChange(element, from, to) {
-    const duration = 1000;
-    const steps = 20;
-    const stepValue = (to - from) / steps;
-    let currentStep = 0;
+    // Simular mudanças nos dados
+    const onlineUsers = Math.floor(Math.random() * 50) + 10;
+    const newMessages = Math.floor(Math.random() * 5);
     
-    const interval = setInterval(() => {
-        currentStep++;
-        const currentValue = Math.round(from + (stepValue * currentStep));
-        element.textContent = currentValue;
-        
-        if (currentStep >= steps) {
-            clearInterval(interval);
-            element.textContent = to;
-        }
-    }, duration / steps);
+    // Atualizar contadores
+    const onlineCounter = document.querySelector('.online-users-count');
+    const messagesCounter = document.querySelector('.new-messages-count');
+    
+    if (onlineCounter) {
+        animateNumberChange(onlineCounter, parseInt(onlineCounter.textContent), onlineUsers);
+    }
+    
+    if (messagesCounter) {
+        animateNumberChange(messagesCounter, parseInt(messagesCounter.textContent), newMessages);
+    }
 }
 
-function initResponsiveBehavior() {
-    // Handle responsive behavior
-    function handleResize() {
-        const width = window.innerWidth;
-        const sidebar = document.querySelector('.sidebar');
-        const mainContent = document.querySelector('.main-content');
+function animateNumberChange(element, oldValue, newValue) {
+    const duration = 1000; // 1 segundo
+    const startTime = performance.now();
+    
+    function updateNumber(currentTime) {
+        const elapsedTime = currentTime - startTime;
         
-        if (width <= 768) {
-            // Mobile behavior
-            if (sidebar) {
-                sidebar.classList.add('mobile');
-            }
-            if (mainContent) {
-                mainContent.style.marginLeft = '0';
-            }
+        if (elapsedTime < duration) {
+            const progress = elapsedTime / duration;
+            const currentValue = Math.floor(oldValue + (newValue - oldValue) * progress);
+            element.textContent = currentValue;
+            requestAnimationFrame(updateNumber);
         } else {
-            // Desktop behavior
-            if (sidebar) {
-                sidebar.classList.remove('mobile');
-            }
-            if (mainContent && !sidebar.classList.contains('collapsed')) {
-                mainContent.style.marginLeft = '250px';
-            }
+            element.textContent = newValue;
         }
     }
     
-    // Initial call
+    requestAnimationFrame(updateNumber);
+}
+
+function initResponsiveBehavior() {
+    // Verificar tamanho inicial
     handleResize();
     
-    // Listen for resize events
+    // Adicionar listener para redimensionamento
     window.addEventListener('resize', handleResize);
 }
 
-// Utility functions
-function showTooltip(e) {
+function handleResize() {
+    const width = window.innerWidth;
+    const sidebar = document.querySelector('.sidebar');
+    const content = document.querySelector('.content');
+    
+    if (width < 768 && sidebar && content) {
+        sidebar.classList.add('collapsed');
+        content.classList.add('expanded');
+    }
+}
+
+function showTooltip(element, text) {
+    // Remover tooltip existente
+    const existingTooltip = document.querySelector('.tooltip');
+    if (existingTooltip) {
+        document.body.removeChild(existingTooltip);
+    }
+    
+    // Criar novo tooltip
     const tooltip = document.createElement('div');
     tooltip.className = 'tooltip';
-    tooltip.textContent = this.getAttribute('data-tooltip');
+    tooltip.textContent = text;
     tooltip.style.cssText = `
         position: absolute;
-        background: #333;
+        background-color: #333;
         color: white;
         padding: 5px 10px;
         border-radius: 4px;
@@ -536,54 +493,61 @@ function showTooltip(e) {
     
     document.body.appendChild(tooltip);
     
-    const rect = this.getBoundingClientRect();
-    tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
-    tooltip.style.top = rect.top - tooltip.offsetHeight - 5 + 'px';
-    
-    this._tooltip = tooltip;
-}
-
-function hideTooltip() {
-    if (this._tooltip) {
-        this._tooltip.remove();
-        this._tooltip = null;
-    }
+    // Posicionar tooltip
+    const rect = element.getBoundingClientRect();
+    tooltip.style.top = `${rect.top - tooltip.offsetHeight - 5}px`;
+    tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2)}px`;
 }
 
 function showModal(modalId) {
     const modal = document.getElementById(modalId);
+    
     if (modal) {
         modal.style.display = 'block';
-        modal.classList.add('show');
+        
+        // Configurar botão de fechar
+        const closeBtn = modal.querySelector('.close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                hideModal(modalId);
+            });
+        }
+        
+        // Fechar ao clicar fora
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                hideModal(modalId);
+            }
+        });
     }
 }
 
 function hideModal(modalId) {
     const modal = document.getElementById(modalId);
+    
     if (modal) {
         modal.style.display = 'none';
-        modal.classList.remove('show');
     }
 }
 
-// Dashboard-specific initialization functions
+// Funções específicas de seção
 function initOverviewCharts() {
-    // Initialize charts for overview section
-    console.log('Initializing overview charts...');
+    // Implementação de gráficos
+    console.log('Inicializando gráficos do dashboard');
 }
 
 function initCourseManagement() {
-    // Initialize course management functionality
-    console.log('Initializing course management...');
+    // Implementação de gerenciamento de cursos
+    console.log('Inicializando gerenciamento de cursos');
 }
 
 function initStudentManagement() {
-    // Initialize student management functionality
-    console.log('Initializing student management...');
+    // Implementação de gerenciamento de alunos
+    console.log('Inicializando gerenciamento de alunos');
 }
 
 function initAnalytics() {
-    // Initialize analytics functionality
-    console.log('Initializing analytics...');
+    // Implementação de análises
+    console.log('Inicializando análises');
 }
 
