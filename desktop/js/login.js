@@ -66,19 +66,21 @@ function handleLogin(e) {
     
     // Reset button state
     setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-        btnText.textContent = 'Entrar';
+        if (submitBtn && btnText) {
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            btnText.textContent = 'Entrar';
+        }
     }, 2000);
 }
 
 function validateCredentials(email, password) {
     const currentPage = window.location.pathname;
     
-    // Test credentials for each user type
+    // CORREÇÃO CRÍTICA: Credenciais corrigidas para corresponder às exibidas na página
     const credentials = {
         'login-aluno.html': {
-            email: 'ana.silva@email.com',
+            email: 'ana.silva@teste.com',  // ← CORRIGIDO: @teste.com
             password: 'senhaAluno'
         },
         'login-instrutor.html': {
@@ -91,10 +93,11 @@ function validateCredentials(email, password) {
         }
     };
     
-    // Check if current page is in credentials
-    if (currentPage.includes(Object.keys(credentials).find(page => currentPage.includes(page)))) {
-        return email === credentials[Object.keys(credentials).find(page => currentPage.includes(page))].email && 
-               password === credentials[Object.keys(credentials).find(page => currentPage.includes(page))].password;
+    // Verificar qual página está sendo acessada
+    for (const [page, creds] of Object.entries(credentials)) {
+        if (currentPage.includes(page)) {
+            return email === creds.email && password === creds.password;
+        }
     }
     
     return false;
@@ -108,13 +111,15 @@ function redirectToDashboard() {
     showNotification('Redirecionando para o Dashboard...', 'info');
     
     // CORREÇÃO: Redirecionamento imediato sem setTimeout aninhado
-    if (currentPage.includes('login-aluno.html')) {
-        window.location.href = 'dashboard-aluno.html';
-    } else if (currentPage.includes('login-instrutor.html')) {
-        window.location.href = 'dashboard-instrutor.html';
-    } else if (currentPage.includes('login-admin.html')) {
-        window.location.href = 'dashboard-admin.html';
-    }
+    setTimeout(() => {
+        if (currentPage.includes('login-aluno.html')) {
+            window.location.href = 'dashboard-aluno.html';
+        } else if (currentPage.includes('login-instrutor.html')) {
+            window.location.href = 'dashboard-instrutor.html';
+        } else if (currentPage.includes('login-admin.html')) {
+            window.location.href = 'dashboard-admin.html';
+        }
+    }, 1000); // Redirecionamento após 1 segundo para permitir visualização da mensagem
 }
 
 // NOVA FUNCIONALIDADE: Recuperação de senha
@@ -138,17 +143,59 @@ function showForgotPasswordModal() {
         modal = document.createElement('div');
         modal.id = 'forgotPasswordModal';
         modal.className = 'modal';
+        modal.style.cssText = `
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        `;
+        
         modal.innerHTML = `
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Recuperação de Senha</h2>
-                <p>Informe seu e-mail para receber instruções de recuperação de senha.</p>
+            <div class="modal-content" style="
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: none;
+                border-radius: 10px;
+                width: 90%;
+                max-width: 400px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            ">
+                <span class="close" style="
+                    color: #aaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                    cursor: pointer;
+                ">&times;</span>
+                <h2 style="margin-top: 0; color: #333;">Recuperação de Senha</h2>
+                <p style="color: #666;">Informe seu e-mail para receber instruções de recuperação de senha.</p>
                 <form id="forgotPasswordForm">
-                    <div class="form-group">
-                        <label for="recovery-email">E-mail</label>
-                        <input type="email" id="recovery-email" placeholder="Seu e-mail cadastrado" required>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="recovery-email" style="display: block; margin-bottom: 5px; color: #333;">E-mail</label>
+                        <input type="email" id="recovery-email" placeholder="Seu e-mail cadastrado" required style="
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid #ddd;
+                            border-radius: 5px;
+                            font-size: 16px;
+                            box-sizing: border-box;
+                        ">
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <button type="submit" style="
+                        background: #007bff;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 16px;
+                        width: 100%;
+                    ">Enviar</button>
                 </form>
             </div>
         `;
@@ -159,6 +206,13 @@ function showForgotPasswordModal() {
         const closeBtn = modal.querySelector('.close');
         closeBtn.addEventListener('click', () => {
             modal.style.display = 'none';
+        });
+        
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
         });
         
         const form = modal.querySelector('#forgotPasswordForm');
@@ -207,9 +261,14 @@ function loadSavedCredentials() {
     const rememberCheckbox = document.getElementById('remember-login');
     
     if (savedEmail && savedPassword && rememberCheckbox) {
-        document.getElementById('email').value = savedEmail;
-        document.getElementById('password').value = savedPassword;
-        rememberCheckbox.checked = true;
+        const emailField = document.getElementById('email');
+        const passwordField = document.getElementById('password');
+        
+        if (emailField && passwordField) {
+            emailField.value = savedEmail;
+            passwordField.value = savedPassword;
+            rememberCheckbox.checked = true;
+        }
     }
 }
 
@@ -238,8 +297,19 @@ function showFormError(message) {
     if (!errorElement) {
         errorElement = document.createElement('div');
         errorElement.className = 'form-error';
+        errorElement.style.cssText = `
+            color: #dc3545;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+        `;
         const form = document.getElementById('loginForm');
-        form.appendChild(errorElement);
+        if (form) {
+            form.appendChild(errorElement);
+        }
     }
     
     errorElement.textContent = message;
@@ -252,8 +322,19 @@ function showSuccessMessage(message) {
     if (!successElement) {
         successElement = document.createElement('div');
         successElement.className = 'form-success';
+        successElement.style.cssText = `
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+        `;
         const form = document.getElementById('loginForm');
-        form.appendChild(successElement);
+        if (form) {
+            form.appendChild(successElement);
+        }
     }
     
     successElement.textContent = message;
@@ -269,6 +350,28 @@ function showNotification(message, type = 'info') {
     // Criar elemento de notificação
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
+    
+    const bgColor = type === 'success' ? '#28a745' : 
+                   type === 'error' ? '#dc3545' : 
+                   type === 'warning' ? '#ffc107' : '#17a2b8';
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        background-color: ${bgColor};
+        color: white;
+        border-radius: 5px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s, transform 0.3s;
+        max-width: 300px;
+        font-size: 14px;
+    `;
+    
     notification.innerHTML = `
         <div class="notification-content">
             <span class="notification-message">${message}</span>
@@ -280,14 +383,18 @@ function showNotification(message, type = 'info') {
     
     // Mostrar com animação
     setTimeout(() => {
-        notification.classList.add('show');
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateY(0)';
     }, 10);
     
     // Remover após 3 segundos
     setTimeout(() => {
-        notification.classList.remove('show');
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateY(-20px)';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
         }, 300);
     }, 3000);
 }
@@ -355,4 +462,8 @@ function validateField(field) {
     
     return true;
 }
+
+// DESABILITAR AUTHMANAGER TEMPORARIAMENTE PARA EVITAR CONFLITOS
+// Comentar a linha abaixo se existir no final do arquivo ou em outro local:
+// window.authManager = new AuthManager();
 
