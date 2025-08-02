@@ -74,9 +74,9 @@
                 const currentHash = window.location.hash;
                 
                 if (version === 'mobile') {
-                    // Redirect to mobile version
+                    // CORREÇÃO: Usar caminho relativo em vez de absoluto
                     if (!currentPath.startsWith('/mobile/')) {
-                        window.location.href = '/mobile/index.html' + currentSearch + currentHash;
+                        window.location.href = 'mobile/index.html' + currentSearch + currentHash;
                     }
                 } else {
                     // Redirect to desktop version
@@ -84,7 +84,7 @@
                         const newPath = currentPath.replace('/mobile/', '/desktop/');
                         window.location.href = newPath + currentSearch + currentHash;
                     } else if (currentPath === '/' || currentPath === '/index.html') {
-                        window.location.href = '/desktop/index.html' + currentSearch + currentHash;
+                        window.location.href = 'index.html' + currentSearch + currentHash;
                     }
                 }
             }
@@ -138,8 +138,8 @@
             <h1>Instituto Buriti</h1>
             <p>Para a melhor experiência, por favor habilite o JavaScript em seu navegador.</p>
             <p>
-                <a href="/desktop/index.html">Versão Desktop</a> | 
-                <a href="/mobile/index.html">Versão Mobile</a>
+                <a href="index.html">Versão Desktop</a> | 
+                <a href="mobile/index.html">Versão Mobile</a>
             </p>
         </div>
     </noscript>

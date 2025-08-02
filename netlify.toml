@@ -1,5 +1,6 @@
 # Netlify Configuration for Instituto Buriti
 # This file configures smart device detection and routing
+# VERSÃO CORRIGIDA - Removidos redirects conflitantes
 
 [build]
   # Build settings - serve from desktop folder
@@ -20,24 +21,18 @@
 [build.processing.images]
   compress = false
 
-# Redirect rules for device detection
+# CORREÇÃO: Simplificar redirects para evitar conflitos
 [[redirects]]
   # Root redirect to device detection
   from = "/"
   to = "/index.html"
   status = 200
 
-[[redirects]]
-  # Mobile version redirects
-  from = "/mobile/*"
-  to = "/mobile/:splat"
-  status = 200
-
-[[redirects]]
-  # Desktop version redirects  
-  from = "/desktop/*"
-  to = "/desktop/:splat"
-  status = 200
+# REMOVIDO: Redirect conflitante do mobile que causava problemas
+# [[redirects]]
+#   from = "/mobile/*"
+#   to = "/mobile/:splat"
+#   status = 200
 
 # Headers for better performance and security
 [[headers]]
