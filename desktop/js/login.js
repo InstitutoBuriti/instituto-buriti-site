@@ -102,13 +102,16 @@ function redirectToDashboard() {
     
     if (currentPage.includes('login-aluno.html')) {
         showNotification('Redirecionando para o Dashboard do Aluno...', 'info');
-        // window.location.href = 'dashboard-aluno.html';
+        // CORREÇÃO: Redirecionamento descomentado e funcional
+        window.location.href = 'dashboard-aluno.html';
     } else if (currentPage.includes('login-instrutor.html')) {
         showNotification('Redirecionando para o Dashboard do Instrutor...', 'info');
-        // window.location.href = 'dashboard-instrutor.html';
+        // CORREÇÃO: Redirecionamento descomentado e funcional
+        window.location.href = 'dashboard-instrutor.html';
     } else if (currentPage.includes('login-admin.html')) {
         showNotification('Redirecionando para o Painel Administrativo...', 'info');
-        // window.location.href = 'dashboard-admin.html';
+        // CORREÇÃO: Redirecionamento descomentado e funcional
+        window.location.href = 'dashboard-admin.html';
     }
 }
 
@@ -345,4 +348,5 @@ document.addEventListener('click', function(e) {
         showNotification('Funcionalidade de recuperação de senha será implementada em breve.', 'info');
     }
 });
+
 
