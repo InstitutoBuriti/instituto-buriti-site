@@ -103,15 +103,15 @@ function redirectToDashboard() {
     if (currentPage.includes('login-aluno.html')) {
         showNotification('Redirecionando para o Dashboard do Aluno...', 'info');
         // CORREÇÃO: Redirecionamento descomentado e funcional
-        window.location.href = 'dashboard-aluno.html';
+        window.location.href = 'window.location.href = 'dashboard-aluno.html';';
     } else if (currentPage.includes('login-instrutor.html')) {
         showNotification('Redirecionando para o Dashboard do Instrutor...', 'info');
         // CORREÇÃO: Redirecionamento descomentado e funcional
-        window.location.href = 'dashboard-instrutor.html';
+        window.location.href = 'window.location.href = 'dashboard-instrutor.html';';
     } else if (currentPage.includes('login-admin.html')) {
         showNotification('Redirecionando para o Painel Administrativo...', 'info');
         // CORREÇÃO: Redirecionamento descomentado e funcional
-        window.location.href = 'dashboard-admin.html';
+        window.location.href = 'window.location.href = 'dashboard-admin.html';';
     }
 }
 
