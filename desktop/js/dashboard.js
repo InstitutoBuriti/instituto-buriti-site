@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeDashboard();
+    initializeLogout(); // ← NOVA FUNCIONALIDADE
 });
 
 function initializeDashboard() {
@@ -33,565 +34,556 @@ function initSidebarNavigation() {
             e.preventDefault();
             
             // Remove active class from all links
-            navLinks.forEach(l => l.classList.remove('active'));
+            navLinks.forEach(navLink => {
+                navLink.classList.remove('active');
+            });
             
             // Add active class to clicked link
             this.classList.add('active');
             
             // Get target section
             const targetSection = this.getAttribute('data-section');
-            
-            // Switch to target section
-            switchSection(targetSection);
-            
-            // Add ripple effect
-            createRippleEffect(this, e);
-        });
-    });
-}
-
-// Sidebar Toggle
-function initSidebarToggle() {
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebar = document.getElementById('sidebar');
-    
-    if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('collapsed');
-            
-            // Save state to localStorage
-            const isCollapsed = sidebar.classList.contains('collapsed');
-            localStorage.setItem('sidebarCollapsed', isCollapsed);
-        });
-        
-        // Restore sidebar state
-        const savedState = localStorage.getItem('sidebarCollapsed');
-        if (savedState === 'true') {
-            sidebar.classList.add('collapsed');
-        }
-    }
-}
-
-// Section Switching
-function initSectionSwitching() {
-    // Set initial active section
-    const initialSection = 'overview';
-    switchSection(initialSection);
-}
-
-function switchSection(sectionId) {
-    // Hide all sections
-    const sections = document.querySelectorAll('.dashboard-section');
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Show target section
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-        
-        // Animate section entrance
-        animateSectionEntrance(targetSection);
-        
-        // Load section-specific data
-        loadSectionData(sectionId);
-    }
-}
-
-// Interactive Elements
-function initInteractiveElements() {
-    // Initialize buttons
-    initButtons();
-    
-    // Initialize progress bars
-    initProgressBars();
-    
-    // Initialize cards
-    initCards();
-    
-    // Initialize tooltips
-    initTooltips();
-}
-
-function initButtons() {
-    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-live');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Add loading state
-            if (!this.disabled) {
-                this.classList.add('loading');
-                
-                // Create ripple effect
-                createRippleEffect(this, e);
-                
-                // Simulate action
-                setTimeout(() => {
-                    this.classList.remove('loading');
-                    handleButtonAction(this);
-                }, 1000);
+            if (targetSection) {
+                showSection(targetSection);
             }
         });
     });
 }
 
-function handleButtonAction(button) {
-    const buttonText = button.textContent.trim();
+// NOVA FUNCIONALIDADE: Sistema de Logout Completo
+function initializeLogout() {
+    // Procurar por elementos que podem ser usados para logout
+    const userMenuButton = document.querySelector('.user-menu-button, button[onclick*="Ana Silva"], .user-dropdown, .user-profile, .profile-button');
+    const userNameElement = document.querySelector('.user-name, .profile-name');
     
-    switch(buttonText) {
-        case 'Continuar':
-        case 'Continuar Curso':
-            showNotification('Redirecionando para o curso...', 'success');
-            break;
-        case 'Ver Detalhes':
-            showNotification('Carregando detalhes do curso...', 'info');
-            break;
-        case 'Entrar':
-            showNotification('Entrando na aula ao vivo...', 'success');
-            break;
-        default:
-            showNotification('Ação executada com sucesso!', 'success');
-    }
-}
-
-function initProgressBars() {
-    const progressBars = document.querySelectorAll('.progress-fill');
-    
-    // Animate progress bars on load
-    progressBars.forEach(bar => {
-        const targetWidth = bar.style.width;
-        bar.style.width = '0%';
+    // Se encontrou elemento do usuário, adicionar funcionalidade de logout
+    if (userMenuButton || userNameElement) {
+        const targetElement = userMenuButton || userNameElement;
         
-        setTimeout(() => {
-            bar.style.width = targetWidth;
-        }, 500);
-    });
-}
-
-function initCards() {
-    const cards = document.querySelectorAll('.dashboard-card, .stat-card, .course-card');
-    
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-4px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-}
-
-function initTooltips() {
-    const elementsWithTooltips = document.querySelectorAll('[data-tooltip]');
-    
-    elementsWithTooltips.forEach(element => {
-        element.addEventListener('mouseenter', function(e) {
-            showTooltip(e, this.getAttribute('data-tooltip'));
-        });
-        
-        element.addEventListener('mouseleave', function() {
-            hideTooltip();
-        });
-    });
-}
-
-// Real-time Updates
-function initRealTimeUpdates() {
-    // Update time-sensitive elements
-    updateTimeElements();
-    
-    // Set interval for updates
-    setInterval(updateTimeElements, 60000); // Update every minute
-    
-    // Simulate real-time notifications
-    simulateNotifications();
-}
-
-function updateTimeElements() {
-    const now = new Date();
-    
-    // Update live class countdown
-    updateLiveClassCountdown(now);
-    
-    // Update deadline urgency
-    updateDeadlineUrgency(now);
-    
-    // Update last activity time
-    updateLastActivityTime(now);
-}
-
-function updateLiveClassCountdown(now) {
-    const liveClassButton = document.querySelector('.btn-live');
-    if (liveClassButton) {
-        // Simulate countdown (for demo purposes)
-        const hoursUntilClass = 2;
-        const minutesUntilClass = 15;
-        
-        if (hoursUntilClass > 0) {
-            liveClassButton.innerHTML = `<i class="fas fa-video"></i> Entrar (em ${hoursUntilClass}h)`;
-            liveClassButton.disabled = true;
-        } else if (minutesUntilClass > 15) {
-            liveClassButton.innerHTML = `<i class="fas fa-video"></i> Entrar (em ${minutesUntilClass}min)`;
-            liveClassButton.disabled = true;
-        } else {
-            liveClassButton.innerHTML = `<i class="fas fa-video"></i> Entrar Agora`;
-            liveClassButton.disabled = false;
-            liveClassButton.classList.add('pulse');
-        }
-    }
-}
-
-function updateDeadlineUrgency(now) {
-    const deadlineItems = document.querySelectorAll('.deadline-item');
-    
-    deadlineItems.forEach(item => {
-        const deadlineText = item.querySelector('.deadline-date').textContent;
-        // In a real app, you would parse the actual deadline date
-        // For demo, we'll simulate urgency based on existing classes
-        
-        if (item.classList.contains('urgent')) {
-            item.style.animation = 'pulse 2s infinite';
-        }
-    });
-}
-
-function updateLastActivityTime(now) {
-    // Update last activity timestamps
-    const timeElements = document.querySelectorAll('[data-time]');
-    
-    timeElements.forEach(element => {
-        const timestamp = element.getAttribute('data-time');
-        const relativeTime = getRelativeTime(new Date(timestamp), now);
-        element.textContent = relativeTime;
-    });
-}
-
-function simulateNotifications() {
-    // Simulate incoming notifications
-    setTimeout(() => {
-        showNotification('Nova mensagem do instrutor Carlos Mendes', 'info');
-        updateNotificationBadge('messages', 1);
-    }, 5000);
-    
-    setTimeout(() => {
-        showNotification('Lembrete: Ensaio sobre Acessibilidade Web vence amanhã', 'warning');
-        updateNotificationBadge('deadlines', 1);
-    }, 10000);
-}
-
-// Responsive Behavior
-function initResponsiveBehavior() {
-    const sidebar = document.getElementById('sidebar');
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    
-    // Handle mobile sidebar
-    if (window.innerWidth <= 1024) {
-        sidebar.classList.add('collapsed');
-        
-        // Add overlay for mobile
-        const overlay = document.createElement('div');
-        overlay.className = 'sidebar-overlay';
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('open');
-            overlay.remove();
-        });
-        
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-            if (sidebar.classList.contains('open')) {
-                document.body.appendChild(overlay);
-            }
-        });
-    }
-    
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 1024) {
-            sidebar.classList.remove('open');
-            const overlay = document.querySelector('.sidebar-overlay');
-            if (overlay) overlay.remove();
-        }
-    });
-}
-
-// Utility Functions
-function createRippleEffect(element, event) {
-    const ripple = document.createElement('span');
-    const rect = element.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-    
-    ripple.style.cssText = `
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
-        transform: scale(0);
-        animation: ripple 0.6s linear;
-        width: ${size}px;
-        height: ${size}px;
-        left: ${x}px;
-        top: ${y}px;
-        pointer-events: none;
-    `;
-    
-    element.style.position = 'relative';
-    element.style.overflow = 'hidden';
-    element.appendChild(ripple);
-    
-    setTimeout(() => {
-        ripple.remove();
-    }, 600);
-}
-
-function animateSectionEntrance(section) {
-    const cards = section.querySelectorAll('.dashboard-card, .stat-card, .course-card');
-    
-    cards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            card.style.transition = 'all 0.6s ease';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, index * 100);
-    });
-}
-
-function loadSectionData(sectionId) {
-    // Simulate loading section-specific data
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.classList.add('loading');
-        
-        setTimeout(() => {
-            section.classList.remove('loading');
-            
-            // Load specific data based on section
-            switch(sectionId) {
-                case 'courses':
-                    loadCoursesData();
-                    break;
-                case 'assignments':
-                    loadAssignmentsData();
-                    break;
-                case 'performance':
-                    loadPerformanceData();
-                    break;
-            }
-        }, 500);
-    }
-}
-
-function loadCoursesData() {
-    // Simulate loading courses data
-    console.log('Loading courses data...');
-}
-
-function loadAssignmentsData() {
-    // Simulate loading assignments data
-    console.log('Loading assignments data...');
-}
-
-function loadPerformanceData() {
-    // Simulate loading performance data
-    console.log('Loading performance data...');
-}
-
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <i class="fas fa-${getNotificationIcon(type)}"></i>
-            <span>${message}</span>
-        </div>
-        <button class="notification-close" onclick="this.parentElement.remove()">
-            <i class="fas fa-times"></i>
-        </button>
-    `;
-    
-    // Add notification styles if not already added
-    if (!document.querySelector('#notification-styles')) {
-        const styles = document.createElement('style');
-        styles.id = 'notification-styles';
-        styles.textContent = `
-            .notification {
-                position: fixed;
-                top: 100px;
-                right: 20px;
+        // Criar dropdown de logout se não existir
+        let dropdownMenu = document.querySelector('.user-dropdown-menu');
+        if (!dropdownMenu) {
+            dropdownMenu = document.createElement('div');
+            dropdownMenu.className = 'user-dropdown-menu';
+            dropdownMenu.style.cssText = `
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 100%;
                 background: white;
-                padding: 16px;
+                border: 1px solid #ddd;
                 border-radius: 8px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                min-width: 300px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                min-width: 180px;
                 z-index: 1000;
-                animation: slideInRight 0.3s ease;
-            }
-            .notification-success { border-left: 4px solid #10B981; }
-            .notification-error { border-left: 4px solid #EF4444; }
-            .notification-warning { border-left: 4px solid #F59E0B; }
-            .notification-info { border-left: 4px solid #3B82F6; }
-            .notification-content { display: flex; align-items: center; gap: 8px; }
-            .notification-close { background: none; border: none; cursor: pointer; }
-            @keyframes slideInRight {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-        `;
-        document.head.appendChild(styles);
-    }
-    
-    document.body.appendChild(notification);
-    
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        if (notification.parentElement) {
-            notification.remove();
-        }
-    }, 5000);
-}
-
-function getNotificationIcon(type) {
-    switch(type) {
-        case 'success': return 'check-circle';
-        case 'error': return 'exclamation-circle';
-        case 'warning': return 'exclamation-triangle';
-        case 'info': return 'info-circle';
-        default: return 'bell';
-    }
-}
-
-function updateNotificationBadge(section, count) {
-    const navLink = document.querySelector(`[data-section="${section}"]`);
-    if (navLink) {
-        let badge = navLink.querySelector('.notification-badge');
-        if (!badge) {
-            badge = document.createElement('span');
-            badge.className = 'notification-badge';
-            navLink.appendChild(badge);
+                padding: 8px 0;
+            `;
+            
+            dropdownMenu.innerHTML = `
+                <a href="#" onclick="performLogout()" class="logout-link" style="
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 16px;
+                    color: #dc3545;
+                    text-decoration: none;
+                    font-size: 14px;
+                    transition: background-color 0.2s;
+                ">
+                    <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
+                    Sair
+                </a>
+                <a href="#" onclick="showUserSettings()" class="settings-link" style="
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 16px;
+                    color: #666;
+                    text-decoration: none;
+                    font-size: 14px;
+                    transition: background-color 0.2s;
+                    border-top: 1px solid #eee;
+                ">
+                    <i class="fas fa-cog" style="margin-right: 8px;"></i>
+                    Configurações
+                </a>
+            `;
+            
+            // Posicionar dropdown
+            const container = targetElement.parentNode;
+            container.style.position = 'relative';
+            container.appendChild(dropdownMenu);
+            
+            // Adicionar estilos hover
+            const links = dropdownMenu.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#f8f9fa';
+                });
+                link.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                });
+            });
         }
         
-        const currentCount = parseInt(badge.textContent) || 0;
-        const newCount = currentCount + count;
-        badge.textContent = newCount;
-        badge.style.display = newCount > 0 ? 'block' : 'none';
+        // Toggle dropdown no clique
+        targetElement.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isVisible = dropdownMenu.style.display === 'block';
+            dropdownMenu.style.display = isVisible ? 'none' : 'block';
+        });
+        
+        // Fechar dropdown ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (!targetElement.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    }
+    
+    // Adicionar botão de logout alternativo se não houver menu de usuário
+    if (!userMenuButton && !userNameElement) {
+        addAlternativeLogoutButton();
     }
 }
 
-function showTooltip(event, text) {
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip';
-    tooltip.textContent = text;
-    tooltip.style.cssText = `
-        position: absolute;
-        background: #1f2937;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        z-index: 1000;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    `;
+function addAlternativeLogoutButton() {
+    // Procurar por local adequado para adicionar botão de logout
+    const sidebar = document.querySelector('.sidebar, .nav-sidebar, .side-nav');
+    const header = document.querySelector('.header, .top-bar, .navbar');
     
-    document.body.appendChild(tooltip);
+    const targetContainer = sidebar || header;
     
-    const rect = tooltip.getBoundingClientRect();
-    tooltip.style.left = `${event.clientX - rect.width / 2}px`;
-    tooltip.style.top = `${event.clientY - rect.height - 10}px`;
-    
-    setTimeout(() => {
-        tooltip.style.opacity = '1';
-    }, 100);
-    
-    window.currentTooltip = tooltip;
-}
-
-function hideTooltip() {
-    if (window.currentTooltip) {
-        window.currentTooltip.remove();
-        window.currentTooltip = null;
+    if (targetContainer) {
+        const logoutButton = document.createElement('button');
+        logoutButton.className = 'logout-button';
+        logoutButton.style.cssText = `
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px;
+            transition: background-color 0.2s;
+        `;
+        logoutButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> Sair';
+        logoutButton.onclick = performLogout;
+        
+        logoutButton.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#c82333';
+        });
+        logoutButton.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '#dc3545';
+        });
+        
+        targetContainer.appendChild(logoutButton);
     }
 }
 
-function getRelativeTime(date, now) {
-    const diffMs = now - date;
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMins / 60);
-    const diffDays = Math.floor(diffHours / 24);
+function performLogout() {
+    // Mostrar confirmação
+    const confirmLogout = confirm('Tem certeza que deseja sair?');
     
-    if (diffMins < 1) return 'agora';
-    if (diffMins < 60) return `${diffMins}min atrás`;
-    if (diffHours < 24) return `${diffHours}h atrás`;
-    if (diffDays < 7) return `${diffDays}d atrás`;
-    return date.toLocaleDateString('pt-BR');
-}
-
-function logout() {
-    if (confirm('Tem certeza que deseja sair?')) {
-        showNotification('Fazendo logout...', 'info');
+    if (confirmLogout) {
+        // Mostrar loading
+        showLogoutLoading();
+        
+        // Limpar dados de autenticação
+        if (typeof authManager !== 'undefined') {
+            authManager.logout();
+        } else {
+            // Fallback manual
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_data');
+            localStorage.removeItem('remembered_email');
+            localStorage.removeItem('remembered_password');
+        }
+        
+        // Simular processo de logout
         setTimeout(() => {
-            window.location.href = '../pages/login-aluno.html';
-        }, 1000);
+            // Mostrar mensagem de sucesso
+            showNotification('Logout realizado com sucesso!', 'success');
+            
+            // Redirecionar para login após 1 segundo
+            setTimeout(() => {
+                // Determinar página de login baseada na URL atual
+                const currentUrl = window.location.pathname;
+                let loginPage = 'login-aluno.html';
+                
+                if (currentUrl.includes('admin')) {
+                    loginPage = 'login-admin.html';
+                } else if (currentUrl.includes('instrutor')) {
+                    loginPage = 'login-instrutor.html';
+                }
+                
+                window.location.href = loginPage;
+            }, 1000);
+        }, 1500);
     }
 }
 
-// Add CSS animations
-const animationStyles = document.createElement('style');
-animationStyles.textContent = `
-    @keyframes ripple {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-    
-    @keyframes pulse {
-        0%, 100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.05);
-        }
-    }
-    
-    .pulse {
-        animation: pulse 2s infinite;
-    }
-    
-    .notification-badge {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: #EF4444;
-        color: white;
-        border-radius: 50%;
-        width: 18px;
-        height: 18px;
-        font-size: 0.7rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-    }
-    
-    .sidebar-overlay {
+function showLogoutLoading() {
+    // Criar overlay de loading
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.id = 'logout-loading';
+    loadingOverlay.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 99;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    `;
+    
+    loadingOverlay.innerHTML = `
+        <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        ">
+            <div style="
+                width: 40px;
+                height: 40px;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #dc3545;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin: 0 auto 15px;
+            "></div>
+            <p style="margin: 0; color: #666; font-size: 16px;">Fazendo logout...</p>
+        </div>
+    `;
+    
+    // Adicionar animação CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    document.body.appendChild(loadingOverlay);
+    
+    // Remover loading após logout
+    setTimeout(() => {
+        if (loadingOverlay.parentNode) {
+            loadingOverlay.parentNode.removeChild(loadingOverlay);
+        }
+    }, 2000);
+}
+
+function showUserSettings() {
+    showNotification('Funcionalidade de configurações em desenvolvimento!', 'info');
+}
+
+function showNotification(message, type = 'info') {
+    // Criar elemento de notificação
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    
+    let backgroundColor;
+    switch(type) {
+        case 'success':
+            backgroundColor = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+            break;
+        case 'error':
+            backgroundColor = 'linear-gradient(135deg, #dc3545 0%, #e74c3c 100%)';
+            break;
+        case 'warning':
+            backgroundColor = 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)';
+            break;
+        default:
+            backgroundColor = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
     }
-`;
-document.head.appendChild(animationStyles);
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 500;
+        z-index: 1000;
+        max-width: 350px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        background: ${backgroundColor};
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+    `;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Animar entrada
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remover após 4 segundos
+    setTimeout(() => {
+        notification.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+}
+
+// Funções originais do dashboard (mantidas)
+function initSidebarToggle() {
+    const toggleBtn = document.querySelector('.sidebar-toggle, .menu-toggle');
+    const sidebar = document.querySelector('.sidebar, .nav-sidebar');
+    
+    if (toggleBtn && sidebar) {
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            
+            // Update main content margin
+            const mainContent = document.querySelector('.main-content, .content');
+            if (mainContent) {
+                if (sidebar.classList.contains('collapsed')) {
+                    mainContent.style.marginLeft = '60px';
+                } else {
+                    mainContent.style.marginLeft = '250px';
+                }
+            }
+        });
+    }
+}
+
+function initSectionSwitching() {
+    const sections = document.querySelectorAll('.dashboard-section');
+    
+    function showSection(sectionId) {
+        // Hide all sections
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+        
+        // Show target section
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.style.display = 'block';
+            
+            // Trigger any section-specific initialization
+            initSectionSpecific(sectionId);
+        }
+    }
+    
+    // Show first section by default
+    if (sections.length > 0) {
+        sections[0].style.display = 'block';
+    }
+    
+    // Make showSection available globally
+    window.showSection = showSection;
+}
+
+function initSectionSpecific(sectionId) {
+    switch(sectionId) {
+        case 'overview':
+            initOverviewCharts();
+            break;
+        case 'courses':
+            initCourseManagement();
+            break;
+        case 'students':
+            initStudentManagement();
+            break;
+        case 'analytics':
+            initAnalytics();
+            break;
+    }
+}
+
+function initInteractiveElements() {
+    // Initialize tooltips
+    const tooltipElements = document.querySelectorAll('[data-tooltip]');
+    tooltipElements.forEach(element => {
+        element.addEventListener('mouseenter', showTooltip);
+        element.addEventListener('mouseleave', hideTooltip);
+    });
+    
+    // Initialize modals
+    const modalTriggers = document.querySelectorAll('[data-modal]');
+    modalTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-modal');
+            showModal(modalId);
+        });
+    });
+    
+    // Initialize dropdowns
+    const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
+    dropdownTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = this.nextElementSibling;
+            if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+                dropdown.classList.toggle('show');
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function() {
+        const openDropdowns = document.querySelectorAll('.dropdown-menu.show');
+        openDropdowns.forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+    });
+}
+
+function initRealTimeUpdates() {
+    // Simulate real-time data updates
+    setInterval(() => {
+        updateDashboardStats();
+    }, 30000); // Update every 30 seconds
+}
+
+function updateDashboardStats() {
+    // Update various dashboard statistics
+    const statElements = document.querySelectorAll('.stat-value');
+    statElements.forEach(element => {
+        const currentValue = parseInt(element.textContent) || 0;
+        const variation = Math.floor(Math.random() * 10) - 5; // -5 to +5
+        const newValue = Math.max(0, currentValue + variation);
+        
+        if (newValue !== currentValue) {
+            animateNumberChange(element, currentValue, newValue);
+        }
+    });
+}
+
+function animateNumberChange(element, from, to) {
+    const duration = 1000;
+    const steps = 20;
+    const stepValue = (to - from) / steps;
+    let currentStep = 0;
+    
+    const interval = setInterval(() => {
+        currentStep++;
+        const currentValue = Math.round(from + (stepValue * currentStep));
+        element.textContent = currentValue;
+        
+        if (currentStep >= steps) {
+            clearInterval(interval);
+            element.textContent = to;
+        }
+    }, duration / steps);
+}
+
+function initResponsiveBehavior() {
+    // Handle responsive behavior
+    function handleResize() {
+        const width = window.innerWidth;
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        
+        if (width <= 768) {
+            // Mobile behavior
+            if (sidebar) {
+                sidebar.classList.add('mobile');
+            }
+            if (mainContent) {
+                mainContent.style.marginLeft = '0';
+            }
+        } else {
+            // Desktop behavior
+            if (sidebar) {
+                sidebar.classList.remove('mobile');
+            }
+            if (mainContent && !sidebar.classList.contains('collapsed')) {
+                mainContent.style.marginLeft = '250px';
+            }
+        }
+    }
+    
+    // Initial call
+    handleResize();
+    
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
+}
+
+// Utility functions
+function showTooltip(e) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    tooltip.textContent = this.getAttribute('data-tooltip');
+    tooltip.style.cssText = `
+        position: absolute;
+        background: #333;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        z-index: 1000;
+        pointer-events: none;
+    `;
+    
+    document.body.appendChild(tooltip);
+    
+    const rect = this.getBoundingClientRect();
+    tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
+    tooltip.style.top = rect.top - tooltip.offsetHeight - 5 + 'px';
+    
+    this._tooltip = tooltip;
+}
+
+function hideTooltip() {
+    if (this._tooltip) {
+        this._tooltip.remove();
+        this._tooltip = null;
+    }
+}
+
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block';
+        modal.classList.add('show');
+    }
+}
+
+function hideModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('show');
+    }
+}
+
+// Dashboard-specific initialization functions
+function initOverviewCharts() {
+    // Initialize charts for overview section
+    console.log('Initializing overview charts...');
+}
+
+function initCourseManagement() {
+    // Initialize course management functionality
+    console.log('Initializing course management...');
+}
+
+function initStudentManagement() {
+    // Initialize student management functionality
+    console.log('Initializing student management...');
+}
+
+function initAnalytics() {
+    // Initialize analytics functionality
+    console.log('Initializing analytics...');
+}
 

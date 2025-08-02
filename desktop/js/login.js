@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeLoginForm();
     initializeAnimations();
     initializeFormValidation();
+    initializeForgotPassword();
+    initializeRememberLogin();
 });
 
 function initializeLoginForm() {
@@ -13,12 +15,12 @@ function initializeLoginForm() {
     if (form && submitBtn) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            handleLogin();
+            handleLogin(e);
         });
     }
 }
 
-function handleLogin() {
+function handleLogin(e) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const submitBtn = document.querySelector('.login-submit');
@@ -51,6 +53,12 @@ function handleLogin() {
         const isValidLogin = validateCredentials(email, password);
         
         if (isValidLogin) {
+            // Save credentials if "remember me" is checked
+            const rememberCheckbox = document.getElementById('remember-login');
+            if (rememberCheckbox) {
+                saveCredentials(email, password, rememberCheckbox.checked);
+            }
+            
             showSuccessMessage('Login realizado com sucesso!');
             
             // Redirect based on user type
@@ -74,7 +82,7 @@ function validateCredentials(email, password) {
     // Test credentials for each user type
     const credentials = {
         'login-aluno.html': {
-            email: 'ana.silva@teste.com',
+            email: 'ana.silva@email.com',
             password: 'senhaAluno'
         },
         'login-instrutor.html': {
@@ -97,68 +105,312 @@ function validateCredentials(email, password) {
     return false;
 }
 
+// CORREÇÃO CRÍTICA: Função redirectToDashboard corrigida
 function redirectToDashboard() {
     const currentPage = window.location.pathname;
     
     if (currentPage.includes('login-aluno.html')) {
         showNotification('Redirecionando para o Dashboard do Aluno...', 'info');
-        // CORREÇÃO: Redirecionamento descomentado e funcional
-        window.location.href = 'window.location.href = 'dashboard-aluno.html';';
+        setTimeout(() => {
+            window.location.href = 'dashboard-aluno.html';
+        }, 1500);
     } else if (currentPage.includes('login-instrutor.html')) {
         showNotification('Redirecionando para o Dashboard do Instrutor...', 'info');
-        // CORREÇÃO: Redirecionamento descomentado e funcional
-        window.location.href = 'window.location.href = 'dashboard-instrutor.html';';
+        setTimeout(() => {
+            window.location.href = 'dashboard-instrutor.html';
+        }, 1500);
     } else if (currentPage.includes('login-admin.html')) {
         showNotification('Redirecionando para o Painel Administrativo...', 'info');
-        // CORREÇÃO: Redirecionamento descomentado e funcional
-        window.location.href = 'window.location.href = 'dashboard-admin.html';';
+        setTimeout(() => {
+            window.location.href = 'dashboard-admin.html';
+        }, 1500);
     }
 }
 
-function fillTestCredentials() {
-    const currentPage = window.location.pathname;
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
+// NOVA FUNCIONALIDADE: Recuperação de senha
+function initializeForgotPassword() {
+    const forgotPasswordLink = document.querySelector('a[href*="esqueci"], .forgot-password, a[onclick*="esqueci"]');
     
-    let testEmail = '';
-    let testPassword = '';
-    
-    if (currentPage.includes('login-aluno.html')) {
-        testEmail = 'ana.silva@teste.com';
-        testPassword = 'senhaAluno';
-    } else if (currentPage.includes('login-instrutor.html')) {
-        testEmail = 'prof.joao@teste.com';
-        testPassword = 'senhaInstrutor';
-    } else if (currentPage.includes('login-admin.html')) {
-        testEmail = 'admin@institutoburiti.com';
-        testPassword = 'senhaAdmin';
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            showForgotPasswordModal();
+        });
+    }
+}
+
+function showForgotPasswordModal() {
+    // Criar modal se não existir
+    let modal = document.getElementById('forgot-password-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'forgot-password-modal';
+        modal.className = 'modal';
+        modal.style.cssText = `
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        `;
+        
+        modal.innerHTML = `
+            <div class="modal-content" style="
+                background-color: #fefefe;
+                margin: 10% auto;
+                padding: 20px;
+                border: none;
+                border-radius: 10px;
+                width: 90%;
+                max-width: 400px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            ">
+                <span class="close" style="
+                    color: #aaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                    cursor: pointer;
+                ">&times;</span>
+                <h2 style="color: #333; margin-bottom: 20px;">Recuperar Senha</h2>
+                <form id="forgot-password-form">
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="recovery-email" style="display: block; margin-bottom: 5px; color: #555;">E-mail:</label>
+                        <input type="email" id="recovery-email" required 
+                               placeholder="Digite seu e-mail cadastrado"
+                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                    </div>
+                    <button type="submit" style="
+                        width: 100%;
+                        padding: 12px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 16px;
+                        font-weight: bold;
+                    ">Enviar Link de Recuperação</button>
+                </form>
+                <div id="recovery-message" style="display: none; margin-top: 15px;"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Event listeners do modal
+        modal.querySelector('.close').addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        modal.querySelector('#forgot-password-form').addEventListener('submit', handleForgotPassword);
     }
     
-    // Animate the filling
-    emailInput.value = '';
-    passwordInput.value = '';
+    modal.style.display = 'block';
+}
+
+function handleForgotPassword(e) {
+    e.preventDefault();
+    const email = document.getElementById('recovery-email').value;
+    const messageDiv = document.getElementById('recovery-message');
     
-    typeText(emailInput, testEmail, 50, () => {
-        typeText(passwordInput, testPassword, 50);
+    // Simular envio (implementar integração real posteriormente)
+    messageDiv.innerHTML = `
+        <div style="
+            padding: 15px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            color: #155724;
+        ">
+            <i class="fas fa-check-circle" style="margin-right: 8px;"></i>
+            Link de recuperação enviado para ${email}!<br>
+            Verifique sua caixa de entrada e spam.
+        </div>
+    `;
+    messageDiv.style.display = 'block';
+    
+    setTimeout(() => {
+        document.getElementById('forgot-password-modal').style.display = 'none';
+        messageDiv.style.display = 'none';
+        document.getElementById('recovery-email').value = '';
+    }, 3000);
+}
+
+// NOVA FUNCIONALIDADE: Lembrar Login
+function initializeRememberLogin() {
+    const loginForm = document.getElementById('loginForm');
+    if (!loginForm) return;
+    
+    // Adicionar checkbox se não existir
+    let rememberCheckbox = document.getElementById('remember-login');
+    if (!rememberCheckbox) {
+        const passwordField = document.getElementById('password');
+        if (passwordField) {
+            const rememberDiv = document.createElement('div');
+            rememberDiv.className = 'form-group remember-me';
+            rememberDiv.style.cssText = 'margin: 15px 0; display: flex; align-items: center;';
+            rememberDiv.innerHTML = `
+                <label style="display: flex; align-items: center; cursor: pointer; font-size: 14px; color: #666;">
+                    <input type="checkbox" id="remember-login" name="remember" style="margin-right: 8px;">
+                    <span>Lembrar-me</span>
+                </label>
+            `;
+            passwordField.parentNode.insertBefore(rememberDiv, passwordField.nextSibling);
+        }
+    }
+    
+    // Carregar credenciais salvas
+    loadSavedCredentials();
+}
+
+function loadSavedCredentials() {
+    const savedEmail = localStorage.getItem('remembered_email');
+    const savedPassword = localStorage.getItem('remembered_password');
+    
+    if (savedEmail && savedPassword) {
+        const emailField = document.getElementById('email');
+        const passwordField = document.getElementById('password');
+        const rememberCheckbox = document.getElementById('remember-login');
+        
+        if (emailField && passwordField) {
+            emailField.value = savedEmail;
+            passwordField.value = atob(savedPassword); // Decodificar
+            if (rememberCheckbox) {
+                rememberCheckbox.checked = true;
+            }
+        }
+    }
+}
+
+function saveCredentials(email, password, remember) {
+    if (remember) {
+        localStorage.setItem('remembered_email', email);
+        localStorage.setItem('remembered_password', btoa(password)); // Codificar básico
+    } else {
+        localStorage.removeItem('remembered_email');
+        localStorage.removeItem('remembered_password');
+    }
+}
+
+// Utility functions
+function clearFormErrors() {
+    const errorElements = document.querySelectorAll('.form-error, .error-message');
+    errorElements.forEach(element => {
+        element.remove();
     });
     
-    showNotification('Credenciais de teste preenchidas!', 'success');
+    const formGroups = document.querySelectorAll('.form-group');
+    formGroups.forEach(group => {
+        group.classList.remove('error');
+    });
 }
 
-function typeText(element, text, speed, callback) {
-    let i = 0;
-    const timer = setInterval(() => {
-        element.value += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-            clearInterval(timer);
-            if (callback) callback();
+function showFormError(message) {
+    const form = document.getElementById('loginForm');
+    if (!form) return;
+    
+    // Remove existing errors
+    clearFormErrors();
+    
+    // Create error element
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'form-error';
+    errorDiv.style.cssText = `
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+        padding: 12px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        font-size: 14px;
+    `;
+    errorDiv.textContent = message;
+    
+    // Insert at top of form
+    form.insertBefore(errorDiv, form.firstChild);
+}
+
+function showSuccessMessage(message) {
+    const form = document.getElementById('loginForm');
+    if (!form) return;
+    
+    // Remove existing messages
+    clearFormErrors();
+    
+    // Create success element
+    const successDiv = document.createElement('div');
+    successDiv.className = 'success-message';
+    successDiv.style.cssText = `
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+        padding: 12px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        font-size: 14px;
+    `;
+    successDiv.textContent = message;
+    
+    // Insert at top of form
+    form.insertBefore(successDiv, form.firstChild);
+}
+
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        z-index: 1000;
+        max-width: 300px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        background: ${type === 'info' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#dc3545'};
+    `;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
         }
-    }, speed);
+    }, 3000);
+}
+
+// Animation functions (mantidas do arquivo original)
+function initializeAnimations() {
+    // Animações de entrada
+    const formElements = document.querySelectorAll('.form-group');
+    formElements.forEach((element, index) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            element.style.transition = 'all 0.5s ease';
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
 }
 
 function initializeFormValidation() {
-    const inputs = document.querySelectorAll('input[required]');
+    const inputs = document.querySelectorAll('input[type="email"], input[type="password"]');
     
     inputs.forEach(input => {
         input.addEventListener('blur', function() {
@@ -166,188 +418,56 @@ function initializeFormValidation() {
         });
         
         input.addEventListener('input', function() {
-            if (this.classList.contains('error')) {
-                validateField(this);
+            // Remove error styling on input
+            this.parentNode.classList.remove('error');
+            const errorMsg = this.parentNode.querySelector('.field-error');
+            if (errorMsg) {
+                errorMsg.remove();
             }
         });
     });
 }
 
 function validateField(field) {
-    const formGroup = field.closest('.form-group');
     const value = field.value.trim();
+    const fieldType = field.type;
+    let isValid = true;
+    let errorMessage = '';
     
-    // Clear previous states
-    formGroup.classList.remove('error', 'success');
-    
-    if (!value) {
-        setFieldError(formGroup, 'Este campo é obrigatório.');
-        return false;
+    // Remove previous error
+    field.parentNode.classList.remove('error');
+    const existingError = field.parentNode.querySelector('.field-error');
+    if (existingError) {
+        existingError.remove();
     }
     
-    if (field.type === 'email') {
+    // Validation logic
+    if (!value) {
+        isValid = false;
+        errorMessage = 'Este campo é obrigatório.';
+    } else if (fieldType === 'email') {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
-            setFieldError(formGroup, 'Por favor, insira um e-mail válido.');
-            return false;
+            isValid = false;
+            errorMessage = 'Por favor, insira um e-mail válido.';
+        }
+    } else if (fieldType === 'password') {
+        if (value.length < 6) {
+            isValid = false;
+            errorMessage = 'A senha deve ter pelo menos 6 caracteres.';
         }
     }
     
-    if (field.type === 'password' && value.length < 6) {
-        setFieldError(formGroup, 'A senha deve ter pelo menos 6 caracteres.');
-        return false;
+    // Show error if invalid
+    if (!isValid) {
+        field.parentNode.classList.add('error');
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'field-error';
+        errorDiv.style.cssText = 'color: #dc3545; font-size: 12px; margin-top: 5px;';
+        errorDiv.textContent = errorMessage;
+        field.parentNode.appendChild(errorDiv);
     }
     
-    formGroup.classList.add('success');
-    return true;
+    return isValid;
 }
-
-function setFieldError(formGroup, message) {
-    formGroup.classList.add('error');
-    
-    let errorElement = formGroup.querySelector('.error-message');
-    if (!errorElement) {
-        errorElement = document.createElement('div');
-        errorElement.className = 'error-message';
-        formGroup.appendChild(errorElement);
-    }
-    
-    errorElement.textContent = message;
-}
-
-function clearFormErrors() {
-    const formGroups = document.querySelectorAll('.form-group');
-    formGroups.forEach(group => {
-        group.classList.remove('error', 'success');
-    });
-    
-    const errorMessages = document.querySelectorAll('.error-message');
-    errorMessages.forEach(msg => msg.remove());
-}
-
-function showFormError(message) {
-    showNotification(message, 'error');
-}
-
-function showSuccessMessage(message) {
-    showNotification(message, 'success');
-}
-
-function showNotification(message, type) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    
-    // Style the notification
-    Object.assign(notification.style, {
-        position: 'fixed',
-        top: '20px',
-        right: '20px',
-        padding: '16px 24px',
-        borderRadius: '12px',
-        color: 'white',
-        fontWeight: '600',
-        zIndex: '9999',
-        transform: 'translateX(100%)',
-        transition: 'transform 0.3s ease',
-        maxWidth: '400px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)'
-    });
-    
-    if (type === 'success') {
-        notification.style.background = 'linear-gradient(135deg, #10B981, #059669)';
-    } else if (type === 'error') {
-        notification.style.background = 'linear-gradient(135deg, #EF4444, #DC2626)';
-    } else if (type === 'info') {
-        notification.style.background = 'linear-gradient(135deg, #3B82F6, #1D4ED8)';
-    }
-    
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Remove after 4 seconds
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 4000);
-}
-
-function initializeAnimations() {
-    // Add ripple effect to buttons
-    const buttons = document.querySelectorAll('.login-submit, .fill-credentials');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const rect = this.getBoundingClientRect();
-            const ripple = document.createElement('span');
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple-effect');
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-    });
-    
-    // Add floating animation to shapes with random timing
-    const shapes = document.querySelectorAll('.shape');
-    shapes.forEach((shape, index) => {
-        const randomDelay = Math.random() * 2;
-        const randomDuration = 4 + Math.random() * 4;
-        
-        shape.style.animationDelay = `${randomDelay}s`;
-        shape.style.animationDuration = `${randomDuration}s`;
-    });
-}
-
-// Add CSS for ripple effect
-const style = document.createElement('style');
-style.textContent = `
-    .ripple-effect {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(0);
-        animation: rippleAnimation 0.6s linear;
-        pointer-events: none;
-    }
-    
-    @keyframes rippleAnimation {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Add loading animation
-window.addEventListener('load', function() {
-    document.body.classList.add('loaded');
-});
-
-// Handle forgot password links
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('forgot-password')) {
-        e.preventDefault();
-        showNotification('Funcionalidade de recuperação de senha será implementada em breve.', 'info');
-    }
-});
-
-
 
