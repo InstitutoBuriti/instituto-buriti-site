@@ -77,7 +77,8 @@ function handleLogin(e) {
 function validateCredentials(email, password) {
     const currentPage = window.location.pathname;
     
-    // CORREÇÃO CRÍTICA: Credenciais corrigidas para corresponder às exibidas na página
+    // CORREÇÃO CRÍTICA: Credenciais corrigidas para corresponder às exibidas na págin
+    a
     const credentials = {
         'login-aluno.html': {
             email: 'ana.silva@teste.com',  // ← CORRIGIDO: @teste.com
