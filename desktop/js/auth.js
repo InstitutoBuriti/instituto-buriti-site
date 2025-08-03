@@ -3,7 +3,7 @@
  * Gerenciamento de login, logout e verificação de tokens
  * 
  * VERSÃO COM VALIDAÇÃO LOCAL PARA DEMONSTRAÇÃO
- */
+ */ 
 
 // Configuração para usar validação local temporariamente
 const USE_SUPABASE = false;
