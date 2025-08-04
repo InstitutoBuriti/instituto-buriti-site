@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Aluno - Instituto Buriti</title>
+    
+    <!-- FASE 3 QWEN: Proteção do Dashboard -->
+    <script>
+        // Verificar autenticação antes de carregar a página
+        (function() {
+            console.log('🚀 FASE 3 QWEN: Verificando autenticação...');
+            
+            // Verificar se há token de autenticação
+            const authToken = localStorage.getItem('auth_token');
+            const userData = localStorage.getItem('user_data');
+            
+            // Se não há dados de autenticação, redirecionar para login
+            if (!authToken && !userData) {
+                console.log('🚨 FASE 3 QWEN: Acesso negado - sem autenticação');
+                console.log('🚀 FASE 3 QWEN: Redirecionando para login...');
+                window.location.href = 'login-aluno.html';
+                return;
+            }
+            
+            console.log('✅ FASE 3 QWEN: Autenticação verificada - acesso permitido');
+        })();
+    </script>
+    
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -327,106 +350,129 @@
                 </div>
             </section>
 
-            <!-- Other sections would be implemented similarly -->
-            <!-- For brevity, showing structure for remaining sections -->
-            
+            <!-- Deadlines Section -->
             <section id="deadlines" class="dashboard-section">
                 <div class="section-header">
                     <h1>Próximos Prazos</h1>
-                    <p>Fique em dia com suas atividades e avaliações</p>
+                    <p>Fique em dia com suas atividades e não perca nenhum prazo importante</p>
                 </div>
-                <!-- Deadlines content -->
+                <!-- Content would continue here -->
             </section>
 
+            <!-- Live Classes Section -->
             <section id="live-classes" class="dashboard-section">
                 <div class="section-header">
                     <h1>Aulas ao Vivo</h1>
-                    <p>Participe das aulas síncronas e acesse gravações</p>
+                    <p>Participe das aulas ao vivo e interaja com professores e colegas</p>
                 </div>
-                <!-- Live classes content -->
+                <!-- Content would continue here -->
             </section>
 
+            <!-- Assignments Section -->
             <section id="assignments" class="dashboard-section">
                 <div class="section-header">
-                    <h1>Atividades e Avaliações</h1>
-                    <p>Complete suas tarefas e veja suas notas</p>
+                    <h1>Atividades</h1>
+                    <p>Gerencie suas atividades e acompanhe seu desempenho</p>
                 </div>
-                <!-- Assignments content -->
+                <!-- Content would continue here -->
             </section>
 
+            <!-- Materials Section -->
             <section id="materials" class="dashboard-section">
                 <div class="section-header">
-                    <h1>Materiais de Estudo</h1>
-                    <p>Acesse PDFs, vídeos e recursos complementares</p>
+                    <h1>Materiais</h1>
+                    <p>Acesse todos os materiais de apoio dos seus cursos</p>
                 </div>
-                <!-- Materials content -->
+                <!-- Content would continue here -->
             </section>
 
+            <!-- Messages Section -->
             <section id="messages" class="dashboard-section">
                 <div class="section-header">
-                    <h1>Mensagens e Notificações</h1>
-                    <p>Comunicação com instrutores e avisos importantes</p>
+                    <h1>Mensagens</h1>
+                    <p>Comunique-se com professores e colegas</p>
                 </div>
-                <!-- Messages content -->
+                <!-- Content would continue here -->
             </section>
 
+            <!-- Performance Section -->
             <section id="performance" class="dashboard-section">
                 <div class="section-header">
-                    <h1>Painel de Performance</h1>
-                    <p>Acompanhe seu desempenho e evolução</p>
+                    <h1>Performance</h1>
+                    <p>Acompanhe seu desempenho e evolução nos cursos</p>
                 </div>
-                <!-- Performance content -->
+                <!-- Content would continue here -->
             </section>
 
+            <!-- Settings Section -->
             <section id="settings" class="dashboard-section">
                 <div class="section-header">
-                    <h1>Configurações do Perfil</h1>
-                    <p>Gerencie suas informações pessoais e preferências</p>
+                    <h1>Configurações</h1>
+                    <p>Personalize sua experiência no Instituto Buriti</p>
                 </div>
-                <!-- Settings content -->
+                <!-- Content would continue here -->
             </section>
         </main>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
-                    <h3>Educação que transforma. Cultura que conecta.</h3>
-                    <p>Instituto Buriti, uma empresa 100% digital.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Links Rápidos</h4>
-                        <ul>
-                            <li><a href="../index.html">Home</a></li>
-                            <li><a href="quem-somos.html">Quem Somos</a></li>
-                            <li><a href="cursos.html">Cursos</a></li>
-                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                            <li><a href="contato.html">Contato</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contato</h4>
-                        <ul>
-                            <li>📧 contato@institutoburiti.com.br</li>
-                            <li>📞 (86) 98170-8388</li>
-                            <li>📍 Teresina, Piauí</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- FASE 2 QWEN: Sistema de Logout -->
+    <script>
+        // Função de logout implementada na FASE 2
+        function logout() {
+            console.log('🚀 FASE 2 QWEN: Executando logout...');
+            
+            // Limpar dados de autenticação
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_data');
+            
+            console.log('✅ FASE 2 QWEN: Dados limpos - redirecionando...');
+            
+            // Redirecionar para login
+            window.location.href = 'login-aluno.html';
+        }
 
-    <script src="../js/main.js"></script>
-    <script src="../js/dashboard.js"></script>
-</bo
-    dy>
+        // Configurar navegação do dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('collapsed');
+                });
+            }
+
+            // Navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.dashboard-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const targetSection = this.getAttribute('data-section');
+                    const section = document.getElementById(targetSection);
+                    if (section) {
+                        section.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Scripts -->
+    <script src="../js/dashboard-auth.js"></script>
+    
+    <!-- FASE 3 QWEN: Proteção implementada em 2025-08-04T00:42:00.000Z -->
+</body>
 </html>
 
