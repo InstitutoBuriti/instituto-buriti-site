@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Aluno - Instituto Buriti</title>
+    
+    <!-- FASE 1 SEÇÃO 4 QWEN: Proteção da Página de Perfil -->
+    <script>
+        // Verificar autenticação antes de carregar a página
+        (function() {
+            console.log('🚀 FASE 1 SEÇÃO 4 QWEN: Verificando autenticação para perfil...');
+            
+            // Verificar se há token de autenticação
+            const authToken = localStorage.getItem('auth_token');
+            const userData = localStorage.getItem('user_data');
+            
+            // Se não há dados de autenticação, redirecionar para login
+            if (!authToken && !userData) {
+                console.log('🚨 FASE 1 SEÇÃO 4 QWEN: Acesso negado - sem autenticação');
+                console.log('🚀 FASE 1 SEÇÃO 4 QWEN: Redirecionando para login...');
+                window.location.href = 'login-aluno.html';
+                return;
+            }
+            
+            console.log('✅ FASE 1 SEÇÃO 4 QWEN: Autenticação verificada - acesso ao perfil permitido');
+        })();
+    </script>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item">
+                <a href="../index.html">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item">
+                <a href="cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown">
+                <button class="login-btn">Ana Silva</button>
+                <div class="dropdown-menu">
+                    <a href="dashboard-aluno.html" class="dropdown-item">Dashboard</a>
+                    <a href="perfil-aluno.html" class="dropdown-item active">Perfil</a>
+                    <a href="#" class="dropdown-item" onclick="logout()">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-details">
+                        <h3 id="sidebar-user-name">Ana Silva</h3>
+                        <p>Aluna</p>
+                    </div>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard-aluno.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Visão Geral</span>
+                </a>
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-user"></i>
+                    <span>Meu Perfil</span>
+                </a>
+                <a href="#courses" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Meus Cursos</span>
+                </a>
+                <a href="#deadlines" class="nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Próximos Prazos</span>
+                </a>
+                <a href="#live-classes" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    <span>Aulas ao Vivo</span>
+                </a>
+                <a href="#assignments" class="nav-link">
+                    <i class="fas fa-tasks"></i>
+                    <span>Atividades</span>
+                </a>
+                <a href="#materials" class="nav-link">
+                    <i class="fas fa-folder"></i>
+                    <span>Materiais</span>
+                </a>
+                <a href="#messages" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Mensagens</span>
+                </a>
+                <a href="#performance" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Performance</span>
+                </a>
+                <a href="#settings" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Profile Section -->
+            <section id="profile" class="dashboard-section active">
+                <div class="section-header">
+                    <h1>Meu Perfil</h1>
+                    <p>Gerencie suas informações pessoais e configurações de conta</p>
+                </div>
+
+                <!-- Profile Info Card -->
+                <div class="dashboard-card profile-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-user"></i> Informações Pessoais</h3>
+                        <button class="btn-secondary" id="edit-profile-btn">
+                            <i class="fas fa-edit"></i> Editar Perfil
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <div class="profile-info-grid">
+                            <!-- Profile Avatar -->
+                            <div class="profile-avatar-section">
+                                <div class="profile-avatar-large">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <button class="btn-secondary btn-small" id="change-avatar-btn">
+                                    <i class="fas fa-camera"></i> Alterar Foto
+                                </button>
+                            </div>
+
+                            <!-- Profile Details -->
+                            <div class="profile-details">
+                                <div class="profile-field">
+                                    <label>Nome Completo</label>
+                                    <div class="field-value" id="display-name">Ana Silva</div>
+                                    <input type="text" class="field-input" id="input-name" value="Ana Silva" style="display: none;">
+                                </div>
+
+                                <div class="profile-field">
+                                    <label>E-mail</label>
+                                    <div class="field-value" id="display-email">ana.silva@email.com</div>
+                                    <input type="email" class="field-input" id="input-email" value="ana.silva@email.com" style="display: none;">
+                                </div>
+
+                                <div class="profile-field">
+                                    <label>Telefone</label>
+                                    <div class="field-value" id="display-phone">(11) 99999-9999</div>
+                                    <input type="tel" class="field-input" id="input-phone" value="(11) 99999-9999" style="display: none;">
+                                </div>
+
+                                <div class="profile-field">
+                                    <label>Data de Nascimento</label>
+                                    <div class="field-value" id="display-birthdate">15/03/1995</div>
+                                    <input type="date" class="field-input" id="input-birthdate" value="1995-03-15" style="display: none;">
+                                </div>
+
+                                <div class="profile-field">
+                                    <label>Cidade</label>
+                                    <div class="field-value" id="display-city">São Paulo, SP</div>
+                                    <input type="text" class="field-input" id="input-city" value="São Paulo, SP" style="display: none;">
+                                </div>
+
+                                <div class="profile-field">
+                                    <label>Profissão</label>
+                                    <div class="field-value" id="display-profession">Desenvolvedora Web</div>
+                                    <input type="text" class="field-input" id="input-profession" value="Desenvolvedora Web" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Edit Mode Buttons -->
+                        <div class="profile-actions" id="profile-actions" style="display: none;">
+                            <button class="btn-primary" id="save-profile-btn">
+                                <i class="fas fa-save"></i> Salvar Alterações
+                            </button>
+                            <button class="btn-secondary" id="cancel-edit-btn">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Statistics -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-bar"></i> Estatísticas da Conta</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="member-since">Março 2024</h3>
+                                    <p>Membro desde</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="total-courses">2</h3>
+                                    <p>Cursos Matriculados</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="completed-courses">0</h3>
+                                    <p>Cursos Concluídos</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="total-achievements">3</h3>
+                                    <p>Conquistas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-shield-alt"></i> Segurança da Conta</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="security-options">
+                            <div class="security-item">
+                                <div class="security-info">
+                                    <h4>Alterar Senha</h4>
+                                    <p>Mantenha sua conta segura alterando sua senha regularmente</p>
+                                </div>
+                                <button class="btn-secondary" id="change-password-btn">
+                                    <i class="fas fa-key"></i> Alterar Senha
+                                </button>
+                            </div>
+                            <div class="security-item">
+                                <div class="security-info">
+                                    <h4>Último Acesso</h4>
+                                    <p id="last-login">Hoje às 14:30 - São Paulo, SP</p>
+                                </div>
+                                <span class="status-badge success">Ativo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferences -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-cog"></i> Preferências</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="preferences-grid">
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Notificações por E-mail</h4>
+                                    <p>Receber atualizações sobre cursos e atividades</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="email-notifications" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Notificações Push</h4>
+                                    <p>Receber notificações no navegador</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="push-notifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <h4>Modo Escuro</h4>
+                                    <p>Alternar entre tema claro e escuro</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="dark-mode">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="message-container" class="message-container"></div>
+
+    <!-- Scripts -->
+    <script src="../js/dashboard-auth.js"></script>
+    <script src="../js/perfil.js"></script>
+    <script>
+        // FASE 1 SEÇÃO 4 QWEN: Logs de debug para perfil
+        console.log('🚀 FASE 1 SEÇÃO 4 QWEN: Página de perfil carregada');
+        console.log('📄 FASE 1 SEÇÃO 4 QWEN: Inicializando funcionalidades do perfil...');
+        
+        // Função de logout (mantida do dashboard)
+        function logout() {
+            console.log('🚪 FASE 1 SEÇÃO 4 QWEN: Executando logout do perfil...');
+            
+            // Limpar dados de autenticação
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_data');
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userEmail');
+            
+            console.log('🧹 FASE 1 SEÇÃO 4 QWEN: Dados de autenticação limpos');
+            console.log('🚀 FASE 1 SEÇÃO 4 QWEN: Redirecionando para login...');
+            
+            // Redirecionar para login
+            window.location.href = 'login-aluno.html';
+        }
+    </script>
+</body>
+</html>
+
