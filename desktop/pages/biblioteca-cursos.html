@@ -31,19 +31,9 @@
             <div class="nav-item">
                 <a href="contato.html">Contato</a>
             </div>
-            <div class="nav-item login-dropdown">
-                <button class="login-button">Login</button>
-                <div class="dropdown-content">
-                    <a href="login-aluno.html" class="dropdown-item">
-                        <i class="fas fa-user-graduate"></i> Aluno
-                    </a>
-                    <a href="login-instrutor.html" class="dropdown-item">
-                        <i class="fas fa-chalkboard-teacher"></i> Instrutor
-                    </a>
-                    <a href="login-admin.html" class="dropdown-item">
-                        <i class="fas fa-user-shield"></i> Admin
-                    </a>
-                </div>
+            <!-- FASE 2 SEÇÃO 4 QWEN: Header dinâmico baseado em autenticação -->
+            <div class="nav-item login-dropdown" id="authSection">
+                <!-- Conteúdo será preenchido dinamicamente pelo JavaScript -->
             </div>
         </nav>
     </header>
@@ -85,6 +75,16 @@
 
                 <!-- Filtros -->
                 <div class="filters-grid">
+                    <!-- FASE 2 SEÇÃO 4 QWEN: Novo filtro por status de usuário -->
+                    <div class="filter-group" id="userStatusFilter" style="display: none;">
+                        <label for="statusFilter">Status</label>
+                        <select id="statusFilter">
+                            <option value="">Todos os cursos</option>
+                            <option value="inscrito">Meus Cursos</option>
+                            <option value="disponivel">Disponíveis</option>
+                        </select>
+                    </div>
+
                     <div class="filter-group">
                         <label for="areaFilter">Área</label>
                         <select id="areaFilter">
@@ -138,11 +138,13 @@
 
             <div class="courses-grid" id="coursesGrid">
                 <!-- Curso 1: Fundamentos da IA -->
-                <div class="course-card" data-area="tecnologia" data-nivel="basico" data-tipo="gratuito">
+                <div class="course-card" data-area="tecnologia" data-nivel="basico" data-tipo="gratuito" data-course-id="ia-fundamentos">
                     <div class="course-image">
                         <img src="../upload/ChatGPTImage19dejul.de2025,19_04_54.png" alt="Fundamentos da Inteligência Artificial">
                         <div class="course-badge gratuito">Gratuito</div>
                         <div class="course-level">Básico</div>
+                        <!-- FASE 2 SEÇÃO 4 QWEN: Indicador de status de inscrição -->
+                        <div class="enrollment-status" id="status-ia-fundamentos" style="display: none;"></div>
                     </div>
                     <div class="course-content">
                         <div class="course-category">
@@ -172,21 +174,24 @@
                             <span>Dr. Carlos Mendes</span>
                         </div>
 
+                        <!-- FASE 2 SEÇÃO 4 QWEN: Botão dinâmico baseado em status de inscrição -->
                         <div class="course-actions">
-                            <button class="btn-primary course-access-btn" onclick="accessCourse('ia-fundamentos')">
+                            <button class="btn-primary course-action-btn" id="btn-ia-fundamentos" data-course-id="ia-fundamentos">
                                 <i class="fas fa-play"></i>
-                                Acessar Curso
+                                <span class="btn-text">Acessar Curso</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Curso 2: Gestão de Projetos Culturais -->
-                <div class="course-card" data-area="artes" data-nivel="intermediario" data-tipo="pago">
+                <div class="course-card" data-area="artes" data-nivel="intermediario" data-tipo="pago" data-course-id="gestao-cultural">
                     <div class="course-image">
                         <img src="../upload/imagemóperasite.jpg" alt="Gestão de Projetos Culturais">
                         <div class="course-badge pago">R$ 350,00</div>
                         <div class="course-level">Intermediário</div>
+                        <!-- FASE 2 SEÇÃO 4 QWEN: Indicador de status de inscrição -->
+                        <div class="enrollment-status" id="status-gestao-cultural" style="display: none;"></div>
                     </div>
                     <div class="course-content">
                         <div class="course-category">
@@ -216,21 +221,24 @@
                             <span>Maria Santos</span>
                         </div>
 
+                        <!-- FASE 2 SEÇÃO 4 QWEN: Botão dinâmico baseado em status de inscrição -->
                         <div class="course-actions">
-                            <button class="btn-primary course-access-btn" onclick="accessCourse('gestao-cultural')">
+                            <button class="btn-primary course-action-btn" id="btn-gestao-cultural" data-course-id="gestao-cultural">
                                 <i class="fas fa-play"></i>
-                                Acessar Curso
+                                <span class="btn-text">Acessar Curso</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Curso 3: Educação Especial -->
-                <div class="course-card" data-area="educacao" data-nivel="avancado" data-tipo="gratuito">
+                <div class="course-card" data-area="educacao" data-nivel="avancado" data-tipo="gratuito" data-course-id="educacao-inclusiva">
                     <div class="course-image">
                         <img src="../upload/IMG_65A477CACFA8-1.jpeg" alt="Educação Especial na Perspectiva Inclusiva">
                         <div class="course-badge gratuito">Gratuito</div>
                         <div class="course-level">Avançado</div>
+                        <!-- FASE 2 SEÇÃO 4 QWEN: Indicador de status de inscrição -->
+                        <div class="enrollment-status" id="status-educacao-inclusiva" style="display: none;"></div>
                     </div>
                     <div class="course-content">
                         <div class="course-category">
@@ -260,10 +268,11 @@
                             <span>Prof. Ana Oliveira</span>
                         </div>
 
+                        <!-- FASE 2 SEÇÃO 4 QWEN: Botão dinâmico baseado em status de inscrição -->
                         <div class="course-actions">
-                            <button class="btn-primary course-access-btn" onclick="accessCourse('educacao-inclusiva')">
+                            <button class="btn-primary course-action-btn" id="btn-educacao-inclusiva" data-course-id="educacao-inclusiva">
                                 <i class="fas fa-play"></i>
-                                Acessar Curso
+                                <span class="btn-text">Acessar Curso</span>
                             </button>
                         </div>
                     </div>
@@ -280,6 +289,14 @@
             </div>
         </div>
     </section>
+
+    <!-- FASE 2 SEÇÃO 4 QWEN: Container para mensagens de feedback -->
+    <div id="message-container" class="message-container" style="display: none;">
+        <div class="message-content">
+            <i class="message-icon"></i>
+            <span class="message-text"></span>
+        </div>
+    </div>
 
     <!-- Call to Action -->
     <section class="cta-section">
@@ -339,7 +356,30 @@
 
     <!-- Scripts -->
     <script src="../js/auth.js"></script>
-    <script src="../js/biblioteca.js"></script>
+    <script src="../js/biblioteca-fase2.js"></script>
+    
+    <!-- FASE 2 SEÇÃO 4 QWEN: Script inline para inicialização -->
+    <script>
+        // 🚀 FASE 2 SEÇÃO 4 QWEN: Inicialização da biblioteca integrada
+        console.log('🚀 FASE 2 SEÇÃO 4 QWEN: Carregando biblioteca integrada...');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 FASE 2 SEÇÃO 4 QWEN: DOM carregado, inicializando biblioteca...');
+            
+            // Verificar se bibliotecaManager está disponível
+            if (typeof bibliotecaManager !== 'undefined') {
+                console.log('🔧 FASE 2 SEÇÃO 4 QWEN: Inicializando bibliotecaManager...');
+                bibliotecaManager.init();
+            } else {
+                console.log('⚠️ FASE 2 SEÇÃO 4 QWEN: bibliotecaManager não encontrado, aguardando...');
+                setTimeout(() => {
+                    if (typeof bibliotecaManager !== 'undefined') {
+                        bibliotecaManager.init();
+                    }
+                }, 100);
+            }
+        });
+    </script>
 </body>
 </html>
 

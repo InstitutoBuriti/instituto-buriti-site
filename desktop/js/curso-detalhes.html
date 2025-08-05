@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Curso - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/curso-detalhes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item home-nav">
+                <a href="../index.html" class="home-link">
+                    <span class="home-bg"></span>
+                    <span class="home-text">Home</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item">
+                <a href="biblioteca-cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <!-- FASE 2 SEÇÃO 4 QWEN: Header dinâmico baseado em autenticação -->
+            <div class="nav-item login-dropdown" id="authSection">
+                <!-- Conteúdo será preenchido dinamicamente pelo JavaScript -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- FASE 2 SEÇÃO 4 QWEN: Breadcrumb de navegação -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <span class="separator">/</span>
+                <a href="biblioteca-cursos.html">Cursos</a>
+                <span class="separator">/</span>
+                <span class="current" id="courseBreadcrumb">Detalhes do Curso</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- FASE 2 SEÇÃO 4 QWEN: Cabeçalho do curso -->
+    <section class="course-header">
+        <div class="container">
+            <div class="course-header-content">
+                <div class="course-info">
+                    <div class="course-category" id="courseCategory">
+                        <i class="fas fa-tag"></i>
+                        <span>Carregando...</span>
+                    </div>
+                    <h1 id="courseTitle">Carregando título do curso...</h1>
+                    <p id="courseDescription">Carregando descrição do curso...</p>
+                    
+                    <div class="course-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="courseDuration">-- horas</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-users"></i>
+                            <span id="courseStudents">-- alunos</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-star"></i>
+                            <span id="courseRating">--</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-signal"></i>
+                            <span id="courseLevel">--</span>
+                        </div>
+                    </div>
+
+                    <div class="course-instructor">
+                        <img id="instructorImage" src="" alt="Instrutor">
+                        <div class="instructor-info">
+                            <span class="instructor-label">Instrutor</span>
+                            <span class="instructor-name" id="instructorName">Carregando...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-actions">
+                    <div class="course-price" id="coursePrice">
+                        <span class="price-label">Preço</span>
+                        <span class="price-value">Carregando...</span>
+                    </div>
+                    
+                    <!-- FASE 2 SEÇÃO 4 QWEN: Botão dinâmico baseado em status -->
+                    <button class="btn-primary course-main-action" id="mainActionBtn">
+                        <i class="fas fa-play"></i>
+                        <span>Carregando...</span>
+                    </button>
+
+                    <!-- FASE 2 SEÇÃO 4 QWEN: Indicador de progresso para usuários inscritos -->
+                    <div class="course-progress" id="courseProgress" style="display: none;">
+                        <div class="progress-info">
+                            <span>Seu Progresso</span>
+                            <span class="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FASE 2 SEÇÃO 4 QWEN: Conteúdo do curso -->
+    <section class="course-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Coluna principal -->
+                <div class="main-content">
+                    <!-- Abas de navegação -->
+                    <div class="course-tabs">
+                        <button class="tab-btn active" data-tab="overview">
+                            <i class="fas fa-info-circle"></i>
+                            Visão Geral
+                        </button>
+                        <button class="tab-btn" data-tab="curriculum" id="curriculumTab">
+                            <i class="fas fa-list"></i>
+                            Currículo
+                        </button>
+                        <button class="tab-btn" data-tab="reviews">
+                            <i class="fas fa-star"></i>
+                            Avaliações
+                        </button>
+                    </div>
+
+                    <!-- Conteúdo das abas -->
+                    <div class="tab-content">
+                        <!-- Aba Visão Geral -->
+                        <div class="tab-pane active" id="overview">
+                            <div class="overview-content">
+                                <h3>Sobre este curso</h3>
+                                <div id="courseOverview">
+                                    <p>Carregando informações do curso...</p>
+                                </div>
+
+                                <h3>O que você vai aprender</h3>
+                                <ul class="learning-objectives" id="learningObjectives">
+                                    <li>Carregando objetivos...</li>
+                                </ul>
+
+                                <h3>Pré-requisitos</h3>
+                                <div id="prerequisites">
+                                    <p>Carregando pré-requisitos...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aba Currículo -->
+                        <div class="tab-pane" id="curriculum">
+                            <div class="curriculum-content">
+                                <h3>Conteúdo do Curso</h3>
+                                <div class="curriculum-stats">
+                                    <span><strong>5</strong> módulos</span>
+                                    <span><strong>25</strong> aulas</span>
+                                    <span><strong>40</strong> horas de conteúdo</span>
+                                </div>
+                                
+                                <!-- FASE 2 SEÇÃO 4 QWEN: Lista de módulos e aulas -->
+                                <div class="modules-list" id="modulesList">
+                                    <!-- Conteúdo será preenchido dinamicamente -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aba Avaliações -->
+                        <div class="tab-pane" id="reviews">
+                            <div class="reviews-content">
+                                <h3>Avaliações dos Alunos</h3>
+                                <div class="reviews-summary">
+                                    <div class="rating-overview">
+                                        <span class="rating-number" id="overallRating">4.8</span>
+                                        <div class="rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-count">Baseado em 156 avaliações</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="reviews-list" id="reviewsList">
+                                    <!-- Avaliações serão carregadas dinamicamente -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Card de ação rápida -->
+                    <div class="action-card">
+                        <h4>Acesso Rápido</h4>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" id="quickEnrollBtn">
+                                <i class="fas fa-plus"></i>
+                                <span>Inscrever-se</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="window.history.back()">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Voltar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cursos relacionados -->
+                    <div class="related-courses">
+                        <h4>Cursos Relacionados</h4>
+                        <div class="related-list" id="relatedCourses">
+                            <!-- Cursos relacionados serão carregados dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FASE 2 SEÇÃO 4 QWEN: Container para mensagens de feedback -->
+    <div id="message-container" class="message-container" style="display: none;">
+        <div class="message-content">
+            <i class="message-icon"></i>
+            <span class="message-text"></span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
+                </div>
+                <p class="footer-description">Educação que transforma. Cultura que conecta.</p>
+                <p class="footer-tagline">Instituto Buriti, uma empresa 100% digital.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="quem-somos.html">Quem Somos</a></li>
+                    <li><a href="biblioteca-cursos.html">Cursos</a></li>
+                    <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-envelope"></i> contato@institutoburiti.com.br</p>
+                    <p><i class="fas fa-phone"></i> (86) 98170-8388</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Teresina, Piauí</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/curso-detalhes.js"></script>
+    
+    <!-- FASE 2 SEÇÃO 4 QWEN: Script inline para inicialização -->
+    <script>
+        // 🚀 FASE 2 SEÇÃO 4 QWEN: Inicialização da página de detalhes
+        console.log('🚀 FASE 2 SEÇÃO 4 QWEN: Carregando página de detalhes do curso...');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 FASE 2 SEÇÃO 4 QWEN: DOM carregado, inicializando detalhes...');
+            
+            // Verificar se cursoDetalhesManager está disponível
+            if (typeof cursoDetalhesManager !== 'undefined') {
+                console.log('🔧 FASE 2 SEÇÃO 4 QWEN: Inicializando cursoDetalhesManager...');
+                cursoDetalhesManager.init();
+            } else {
+                console.log('⚠️ FASE 2 SEÇÃO 4 QWEN: cursoDetalhesManager não encontrado, aguardando...');
+                setTimeout(() => {
+                    if (typeof cursoDetalhesManager !== 'undefined') {
+                        cursoDetalhesManager.init();
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
+
