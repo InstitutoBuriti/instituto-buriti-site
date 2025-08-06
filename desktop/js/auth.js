@@ -130,6 +130,12 @@ class AuthManager {
                 return this.user;
     }
 
+    // FASE 2 SEÇÃO 4 QWEN: Função de compatibilidade para biblioteca.js
+    getCurrentUser() {
+                console.log("👤 QWEN DEBUG: getCurrentUser chamada - redirecionando para getUser()");
+                return this.getUser();
+    }
+
     verifyToken() {
                 console.log("🔍 QWEN DEBUG: Verificando token...");
                 // Para demonstração, sempre considerar token válido se existir
