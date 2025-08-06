@@ -4,35 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca de Cursos - Instituto Buriti</title>
-    
-    <!-- FONTS (Mantendo o padrão do site) -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- CSS BASE (Mantendo o padrão do site) -->
-    <link rel="stylesheet" href="../css/mobile-base.css">
-    <link rel="stylesheet" href="../css/style.css">
-    
-    <!-- CSS ESPECÍFICO DA BIBLIOTECA (Este será o novo arquivo de estilo) -->
-    <link rel="stylesheet" href="../css/biblioteca-nova.css">
-
-    <!-- Ícones (Mantendo o padrão do site) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/biblioteca-cursos.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <nav class="nav">
-            <div class="nav-item active">
+            <div class="nav-item">
                 <a href="../index.html">Home</a>
             </div>
             <div class="nav-item">
                 <a href="/pages/quem-somos">Quem Somos</a>
             </div>
-            <div class="nav-item">
+            <div class="nav-item active">
                 <a href="/pages/cursos">Cursos</a>
             </div>
             <div class="nav-item">
-                <a href="/pages/seja-instrutor-novo">Seja um Instrutor</a>
+                <a href="/pages/seja-instrutor">Seja um Instrutor</a>
             </div>
             <div class="nav-item">
                 <a href="/pages/contato">Contato</a>
@@ -40,107 +30,196 @@
             <div class="nav-item login-dropdown">
                 <button class="login-btn">Login</button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/pages/login-aluno">Aluno</a>
-                    <a class="dropdown-item" href="/pages/login-instrutor">Instrutor</a>
-                    <a class="dropdown-item" href="/pages/login-admin">Administrador</a>
+                    <a href="/pages/login-aluno" class="dropdown-item">Aluno</a>
+                    <a href="/pages/login-instrutor" class="dropdown-item">Instrutor</a>
+                    <a href="/pages/login-admin" class="dropdown-item">Administrador</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- CONTEÚDO PRINCIPAL - NOVO DESIGN PROPOSTO -->
     <main>
-        <!-- Hero Section - Nova Estética -->
-        <section class="hero-biblioteca-nova">
-            <div class="hero-overlay"></div>
-            <div class="container hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">Explore Nossa Biblioteca de Cursos</h1>
-                    <p class="hero-subtitle">Encontre o conhecimento que transforma. Navegue por nossa coleção completa de cursos online, organizados para sua jornada de aprendizado.</p>
-                </div>
-                <div class="hero-image-placeholder">
-                    <!-- Um elemento visual sutil, como um gradiente abstrato ou uma ilustração simples -->
-                    <div class="hero-graphic"></div>
-                </div>
+        <!-- HERO SECTION -->
+        <section class="hero-biblioteca" style="
+            position: relative;
+            padding: 100px 0 60px;
+            background: linear-gradient(135deg, #A020F0 0%, #FF6F00 100%);
+            overflow: hidden;
+        ">
+            <div class="container" style="position: relative; z-index:2; max-width:800px; margin:0 auto; text-align:center;">
+                <h1 class="hero-title" style="
+                    font-family: 'Playfair Display', serif;
+                    font-size:40px; font-weight:700; color:#ffffff;
+                    margin-bottom:16px; line-height:1.2;
+                ">
+                    Explore Our <span style="color:#FF6F00;">Course Library</span>
+                </h1>
+                <p class="hero-subtitle" style="
+                    font-family: 'Inter', sans-serif;
+                    font-size:16px; font-weight:400; color:rgba(255,255,255,0.9);
+                    margin-bottom:32px;
+                ">
+                    Find the knowledge that transforms. Browse our complete collection of online courses.
+                </p>
+                <input id="searchHero" type="text" placeholder="What do you want to learn today?" style="
+                    width:100%; max-width:500px;
+                    padding:12px 16px; font-size:16px;
+                    border:2px solid rgba(255,255,255,0.5); border-radius:8px;
+                    background:rgba(255,255,255,0.2); color:#ffffff;
+                "/>
             </div>
+
+            <!-- Decorative SVGs (waves and bubbles) -->
+            <svg viewBox="0 0 1440 320" style="
+                position:absolute; bottom:0; left:0; width:100%; height:200px;
+                z-index:1;
+            ">
+                <path fill="#A020F0" d="M0,160L1440,96L1440,320L0,320Z"></path>
+                <path fill-opacity="0.3" fill="#FF6F00" d="M0,224L1440,128L1440,320L0,320Z"></path>
+            </svg>
+            <svg viewBox="0 0 200 200" style="
+                position:absolute; top:10%; right:15%; width:120px; height:120px;
+            ">
+                <circle cx="100" cy="100" r="50" fill="rgba(255,255,255,0.1)">
+                    <animate attributeName="r" values="50;30;50" dur="4s" repeatCount="indefinite"/>
+                </circle>
+            </svg>
         </section>
 
-        <!-- Seção de Filtros - Nova Estética -->
-        <section class="section-filtros">
+        <!-- FILTERS SECTION -->
+        <section class="filtros-biblioteca" style="background:#ffffff; padding:60px 0;">
             <div class="container">
-                <div class="filtros-header">
-                    <h2 class="section-title">Encontre o Curso Perfeito</h2>
-                    <p class="section-subtitle">Utilize os filtros para refinar sua busca.</p>
-                </div>
-                <div class="filtros-wrapper">
-                    <div class="filtro-group">
-                        <label for="searchInput" class="filtro-label">Buscar Cursos</label>
-                        <input type="text" id="searchInput" class="filtro-input" placeholder="Digite o nome do curso...">
+                <h2 class="section-title" style="
+                    font-family: 'Playfair Display', serif;
+                    font-size:32px; font-weight:600; color:#343a40; text-align:center; margin-bottom:24px;
+                ">
+                    Find the Perfect Course
+                </h2>
+                <div class="filtros-wrapper" style="
+                    display:flex; flex-wrap:wrap; gap:16px;
+                    background:#f8f9fa; padding:24px; border-radius:12px;
+                    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+                ">
+                    <!-- SEARCH INPUT -->
+                    <div class="filtro-group" style="flex:1; min-width:200px;">
+                        <label for="searchInput" class="filtro-label" style="
+                            font-family: 'Inter', sans-serif;
+                            font-size:14px; font-weight:500; color:#343a40;
+                        ">
+                            Search Courses
+                        </label>
+                        <input id="searchInput" type="text" placeholder="Type the course name…" style="
+                            width:100%; padding:12px; margin-top:4px;
+                            border:1px solid #dee2e6; border-radius:8px;
+                            font-size:16px; font-family: 'Inter', sans-serif;
+                        "/>
                     </div>
-                    <div class="filtro-group">
-                        <label for="areaFilter" class="filtro-label">Área do Conhecimento</label>
-                        <select id="areaFilter" class="filtro-select">
-                            <option value="">Todas</option>
-                            <option value="tecnologia">Tecnologia</option>
-                            <option value="artes">Artes</option>
-                            <option value="educacao">Educação</option>
-                        </select>
-                    </div>
-                    <div class="filtro-group">
-                        <label for="nivelFilter" class="filtro-label">Nível</label>
-                        <select id="nivelFilter" class="filtro-select">
-                            <option value="">Todos</option>
-                            <option value="basico">Básico</option>
-                            <option value="intermediario">Intermediário</option>
-                            <option value="avancado">Avançado</option>
-                        </select>
-                    </div>
-                    <div class="filtro-group">
-                        <label for="tipoFilter" class="filtro-label">Tipo</label>
-                        <select id="tipoFilter" class="filtro-select">
-                            <option value="">Todos</option>
-                            <option value="gratuito">Gratuito</option>
-                            <option value="pago">Pago</option>
+                    
+                    <!-- CATEGORY SELECT -->
+                    <div class="filtro-group" style="flex:1; min-width:200px;">
+                        <label for="categorySelect" class="filtro-label" style="
+                            font-family: 'Inter', sans-serif;
+                            font-size:14px; font-weight:500; color:#343a40;
+                        ">
+                            Category
+                        </label>
+                        <select id="categorySelect" style="
+                            width:100%; padding:12px; margin-top:4px;
+                            border:1px solid #dee2e6; border-radius:8px;
+                            font-size:16px; font-family: 'Inter', sans-serif;
+                        ">
+                            <option value="">All Categories</option>
+                            <option value="tecnologia">Technology</option>
+                            <option value="artes">Arts</option>
+                            <option value="educacao">Education</option>
                         </select>
                     </div>
                     
-                    <!-- Filtro de Status do Usuário (Inicialmente Oculto) -->
-                    <div class="filtro-group filtro-usuario" id="userStatusFilter" style="display: none;">
-                        <label for="statusFilter" class="filtro-label">Meus Cursos</label>
-                        <select id="statusFilter" class="filtro-select">
-                            <option value="all">Todos</option>
-                            <option value="enrolled">Inscrito</option>
-                            <option value="not-enrolled">Não Inscrito</option>
+                    <!-- LEVEL SELECT -->
+                    <div class="filtro-group" style="flex:1; min-width:200px;">
+                        <label for="levelSelect" class="filtro-label" style="
+                            font-family: 'Inter', sans-serif;
+                            font-size:14px; font-weight:500; color:#343a40;
+                        ">
+                            Level
+                        </label>
+                        <select id="levelSelect" style="
+                            width:100%; padding:12px; margin-top:4px;
+                            border:1px solid #dee2e6; border-radius:8px;
+                            font-size:16px; font-family: 'Inter', sans-serif;
+                        ">
+                            <option value="">All Levels</option>
+                            <option value="basico">Basic</option>
+                            <option value="intermediario">Intermediate</option>
+                            <option value="avancado">Advanced</option>
                         </select>
                     </div>
                     
-                    <div class="filtro-group filtro-actions">
-                        <button id="clearFilters" class="btn-clear-filters">
-                            <i class="fas fa-times"></i> Limpar Filtros
+                    <!-- DURATION SELECT -->
+                    <div class="filtro-group" style="flex:1; min-width:200px;">
+                        <label for="durationSelect" class="filtro-label" style="
+                            font-family: 'Inter', sans-serif;
+                            font-size:14px; font-weight:500; color:#343a40;
+                        ">
+                            Duration
+                        </label>
+                        <select id="durationSelect" style="
+                            width:100%; padding:12px; margin-top:4px;
+                            border:1px solid #dee2e6; border-radius:8px;
+                            font-size:16px; font-family: 'Inter', sans-serif;
+                        ">
+                            <option value="">All Durations</option>
+                            <option value="curta">Short (< 10h)</option>
+                            <option value="media">Medium (10-30h)</option>
+                            <option value="longa">Long (> 30h)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filtro-actions" style="display:flex; align-items:flex-end;">
+                        <button id="clearFilters" style="
+                            background:#FF6F00; color:#ffffff;
+                            padding:12px 20px; font-size:16px; font-weight:500;
+                            border:none; border-radius:8px; cursor:pointer;
+                            transition: background 0.3s ease;
+                            font-family: 'Inter', sans-serif;
+                        " onmouseover="this.style.background='#e55a00'" onmouseout="this.style.background='#FF6F00'">
+                            Clear Filters
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Seção de Cursos - Nova Estética -->
-        <section class="section-cursos">
+        <!-- COURSES GRID -->
+        <section class="cursos-biblioteca" style="padding:40px 0 80px; background:#ffffff;">
             <div class="container">
-                <div id="messageContainer" class="message-container" style="display: none;">
-                    <div class="message-content">
-                        <i class="message-icon fas"></i>
-                        <span class="message-text"></span>
-                    </div>
+                <div class="cursos-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:32px;">
+                    <h2 class="section-title" style="
+                        font-family: 'Playfair Display', serif;
+                        font-size:32px; font-weight:600; color:#343a40;
+                    ">
+                        Our Courses
+                    </h2>
+                    <span id="coursesCount" style="
+                        background:#A020F0; color:#ffffff; padding:8px 16px;
+                        border-radius:20px; font-size:14px; font-weight:500;
+                        font-family: 'Inter', sans-serif;
+                    ">0 courses</span>
                 </div>
-                <div class="cursos-header">
-                    <h2 class="section-title">Nossos Cursos</h2>
-                    <div class="cursos-count" id="coursesCount">Carregando cursos...</div>
-                </div>
-                <div class="courses-grid" id="coursesContainer">
-                    <!-- Os cursos serão inseridos aqui dinamicamente pelo JavaScript -->
-                    <!-- Placeholder para carregamento -->
-                    <div class="loading-placeholder">
-                        <p><i class="fas fa-spinner fa-spin"></i> Carregando cursos...</p>
+                <div id="coursesContainer" class="courses-grid" style="
+                    display:grid;
+                    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+                    gap:32px;
+                ">
+                    <!-- Course cards will be dynamically loaded here -->
+                    <div class="loading-message" style="
+                        grid-column: 1 / -1;
+                        text-align: center;
+                        padding: 40px;
+                        font-family: 'Inter', sans-serif;
+                        color: #6c757d;
+                    ">
+                        Loading courses...
                     </div>
                 </div>
             </div>
@@ -160,10 +239,10 @@
                     <div class="footer-column">
                         <h4>Links Rápidos</h4>
                         <ul>
-                            <li><a href="/">Home</a></li>
+                            <li><a href="../index.html">Home</a></li>
                             <li><a href="/pages/quem-somos">Quem Somos</a></li>
                             <li><a href="/pages/cursos">Cursos</a></li>
-                            <li><a href="/pages/seja-instrutor-novo">Seja um Instrutor</a></li>
+                            <li><a href="/pages/seja-instrutor">Seja um Instrutor</a></li>
                             <li><a href="/pages/contato">Contato</a></li>
                         </ul>
                     </div>
@@ -185,23 +264,7 @@
 
     <!-- Scripts -->
     <script src="../js/auth.js"></script>
-    <script src="../js/biblioteca.js?v=2"></script> <!-- O script da FASE 2 deve continuar funcionando -->
-    <script>
-        // Inicialização do sistema da biblioteca
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 FASE 2 SEÇÃO 4 QWEN: DOM carregado, inicializando biblioteca...');
-            if (typeof bibliotecaManager !== 'undefined') {
-                bibliotecaManager.init();
-            } else {
-                console.log('⚠️ FASE 2 SEÇÃO 4 QWEN: bibliotecaManager não encontrado, aguardando...');
-                setTimeout(() => {
-                    if (typeof bibliotecaManager !== 'undefined') {
-                        bibliotecaManager.init();
-                    }
-                }, 100);
-            }
-        });
-    </script>
+    <script src="../js/biblioteca.js?v=2"></script>
 </body>
 </html>
 
