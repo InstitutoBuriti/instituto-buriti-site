@@ -52,7 +52,7 @@ const bibliotecaManager = {
         try {
             // Integração com auth.js da Seção 3
             if (typeof authManager !== 'undefined' && authManager.isAuthenticated()) {
-                this.currentUser = authManager.getCurrentUser();
+                this.currentUser = authManager.getUser();
                 console.log('✅ FASE 2 SEÇÃO 4 QWEN: Usuário autenticado:', this.currentUser.name);
                 this.updateAuthHeader();
                 this.showUserFilters();
