@@ -1,5 +1,6 @@
 // 🚀 FASE 2 SEÇÃO 4 QWEN: Sistema de Biblioteca Integrada com Usuário Logado
 // Implementação completa conforme metodologia Qwen - VERSÃO ATUALIZADA COM NAVEGAÇÃO
+// Atualizado em: 05/08/2025 - Correção conforme diagnóstico da Qwen
 
 const bibliotecaManager = {
     // Estado da aplicação
@@ -400,12 +401,6 @@ const bibliotecaManager = {
             resultsCount.textContent = `${visibleCount} curso${visibleCount !== 1 ? 's' : ''} encontrado${visibleCount !== 1 ? 's' : ''}`;
         }
         
-        // Mostrar/ocultar mensagem de "nenhum resultado"
-        const noResults = document.getElementById('noResults');
-        if (noResults) {
-            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-        }
-        
         console.log('✅ FASE 2 SEÇÃO 4 QWEN: Filtros aplicados, cursos visíveis:', visibleCount);
     },
 
@@ -417,62 +412,75 @@ const bibliotecaManager = {
         document.getElementById('areaFilter').value = '';
         document.getElementById('nivelFilter').value = '';
         document.getElementById('tipoFilter').value = '';
-        
-        const statusFilter = document.getElementById('statusFilter');
-        if (statusFilter) {
-            statusFilter.value = '';
+        if (document.getElementById('statusFilter')) {
+            document.getElementById('statusFilter').value = '';
         }
         
         this.applyFilters();
-        this.showMessage('info', 'Filtros limpos');
         
         console.log('✅ FASE 2 SEÇÃO 4 QWEN: Filtros limpos');
     },
 
-    // 📢 FASE 2 SEÇÃO 4 QWEN: Sistema de mensagens
-    showMessage(type, text) {
-        console.log(`📢 FASE 2 SEÇÃO 4 QWEN: Mensagem (${type}): ${text}`);
+    // 💬 FASE 2 SEÇÃO 4 QWEN: Sistema de mensagens
+    showMessage(type, message) {
+        console.log(`💬 FASE 2 SEÇÃO 4 QWEN: Mensagem ${type}:`, message);
         
-        const messageContainer = document.getElementById('message-container');
-        if (!messageContainer) return;
+        // Remover mensagem anterior se existir
+        const existingMessage = document.getElementById('messageContainer');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
         
-        const messageIcon = messageContainer.querySelector('.message-icon');
-        const messageText = messageContainer.querySelector('.message-text');
-        
-        // Configurar ícone baseado no tipo
-        const icons = {
-            success: 'fas fa-check-circle',
-            error: 'fas fa-exclamation-circle',
-            info: 'fas fa-info-circle',
-            warning: 'fas fa-exclamation-triangle'
-        };
-        
-        messageIcon.className = `message-icon ${icons[type] || icons.info}`;
-        messageText.textContent = text;
+        // Criar nova mensagem
+        const messageContainer = document.createElement('div');
+        messageContainer.id = 'messageContainer';
         messageContainer.className = `message-container ${type}`;
-        messageContainer.style.display = 'block';
+        messageContainer.innerHTML = `
+            <div class="message-content">
+                <i class="fas ${this.getMessageIcon(type)}"></i>
+                <span>${message}</span>
+                <button class="message-close" onclick="this.parentElement.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
         
-        // Auto-ocultar após 3 segundos
+        // Adicionar ao DOM
+        document.body.appendChild(messageContainer);
+        
+        // Auto-remover após 5 segundos
         setTimeout(() => {
-            messageContainer.style.display = 'none';
-        }, 3000);
+            if (messageContainer.parentElement) {
+                messageContainer.remove();
+            }
+        }, 5000);
+    },
+
+    // 🎨 FASE 2 SEÇÃO 4 QWEN: Ícones das mensagens
+    getMessageIcon(type) {
+        const icons = {
+            'success': 'fa-check-circle',
+            'error': 'fa-exclamation-circle',
+            'warning': 'fa-exclamation-triangle',
+            'info': 'fa-info-circle'
+        };
+        return icons[type] || 'fa-info-circle';
     }
 };
 
-// 🚀 FASE 2 SEÇÃO 4 QWEN: Função global para compatibilidade
-function accessCourse(courseId) {
-    console.log('🔗 FASE 2 SEÇÃO 4 QWEN: Função legacy accessCourse chamada:', courseId);
-    bibliotecaManager.handleCourseAction(courseId);
-}
+// 🚀 FASE 2 SEÇÃO 4 QWEN: Inicialização automática quando DOM estiver pronto
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 FASE 2 SEÇÃO 4 QWEN: DOM carregado, inicializando biblioteca...');
+    bibliotecaManager.init();
+});
 
-// 🚀 FASE 2 SEÇÃO 4 QWEN: Logs de inicialização
-console.log('🚀 FASE 2 SEÇÃO 4 QWEN: Script biblioteca-fase2.js carregado - VERSÃO ATUALIZADA');
-console.log('🎯 FASE 2 SEÇÃO 4 QWEN: Metodologia Qwen - Sistema de Biblioteca Integrada');
-console.log('✅ FASE 2 SEÇÃO 4 QWEN: Funcionalidades implementadas:');
-console.log('   - Filtros por usuário logado');
-console.log('   - Sistema de inscrições simulado');
-console.log('   - Navegação para detalhes/aulas dos cursos');
-console.log('   - Integração com autenticação da Seção 3');
-console.log('   - Persistência no localStorage');
-console.log('   - Feedback visual completo');
+// 🔄 FASE 2 SEÇÃO 4 QWEN: Reinicialização quando usuário fizer login/logout
+window.addEventListener('storage', function(e) {
+    if (e.key === 'currentUser') {
+        console.log('🔄 FASE 2 SEÇÃO 4 QWEN: Estado de autenticação alterado, reinicializando...');
+        bibliotecaManager.init();
+    }
+});
+
+console.log('📚 FASE 2 SEÇÃO 4 QWEN: Sistema de biblioteca carregado e pronto!');
 
