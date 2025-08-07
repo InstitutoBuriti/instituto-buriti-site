@@ -1,160 +1,310 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biblioteca de Cursos - Instituto Buriti</title>
-  <!-- Tipografia Oficial -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <!-- CSS Base e Estilos Específicos -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/biblioteca-cursos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Cursos - Instituto Buriti</title>
+    
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/biblioteca-grok.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- Header (copiado integralmente da Home) -->
-  <header class="header">
-    <nav class="nav">
-      <div class="nav-item active">
-        <a href="index.html">Home</a>
-      </div>
-      <div class="nav-item">
-        <a href="pages/quem-somos.html">Quem Somos</a>
-      </div>
-      <div class="nav-item">
-        <a href="pages/cursos.html">Cursos</a>
-      </div>
-      <div class="nav-item">
-        <a href="pages/seja-instrutor-novo.html">Seja um Instrutor</a>
-      </div>
-      <div class="nav-item">
-        <a href="pages/contato.html">Contato</a>
-      </div>
-      <div class="nav-item login-dropdown">
-        <button class="login-btn">Login</button>
-        <div class="dropdown-menu">
-          <a href="pages/login-aluno.html" class="dropdown-item">Aluno</a>
-          <a href="pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
-          <a href="pages/login-admin.html" class="dropdown-item">Administrador</a>
-        </div>
-      </div>
-    </nav>
-  </header>
+    <!-- Header (Idêntico ao padrão do site) -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <!-- Logo -->
+                <div class="nav-logo">
+                    <a href="../index.html">
+                        <img src="../images/logo-instituto-buriti.png" alt="Instituto Buriti" class="logo-img">
+                    </a>
+                </div>
+                
+                <!-- Menu Principal -->
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="quem-somos.html" class="nav-link">Quem Somos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="biblioteca-cursos.html" class="nav-link active">Cursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="seja-instrutor.html" class="nav-link">Seja um Instrutor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contato.html" class="nav-link">Contato</a>
+                    </li>
+                </ul>
+                
+                <!-- Login Dropdown -->
+                <div class="nav-login">
+                    <button class="login-btn" id="loginDropdown">
+                        Login <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="login-dropdown" id="loginMenu">
+                        <a href="login-aluno.html" class="dropdown-item">
+                            <i class="fas fa-user-graduate"></i> Aluno
+                        </a>
+                        <a href="login-instrutor.html" class="dropdown-item">
+                            <i class="fas fa-chalkboard-teacher"></i> Instrutor
+                        </a>
+                        <a href="login-admin.html" class="dropdown-item">
+                            <i class="fas fa-user-shield"></i> Administrador
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Menu Mobile -->
+                <div class="nav-toggle" id="navToggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-  <main>
-    <!-- HERO SECTION -->
-    <section class="hero-biblioteca">
-      <div class="container" style="position: relative; z-index: 2; max-width: 800px; margin: 0 auto; text-align: center; padding: 100px 0 60px;">
-        <h1 class="hero-title">Explore Nossa <span style="color: #FF6F00;">Biblioteca de Cursos</span></h1>
-        <p class="hero-subtitle">Encontre o conhecimento que transforma. Navegue por nossa coleção completa de cursos online.</p>
-        <input id="searchHero" type="text" placeholder="O que você quer aprender hoje?" />
-      </div>
-      <!-- Decorações Animadas (SVG) -->
-      <svg viewBox="0 0 1440 320" style="position:absolute; bottom:0; left:0; width:100%; height:200px; z-index:1;">
-        <path fill="#6C1D8E" d="M0,160L1440,96L1440,320L0,320Z"></path>
-        <path fill-opacity="0.3" fill="#F2994A" d="M0,224L1440,128L1440,320L0,320Z"></path>
-      </svg>
-      <svg viewBox="0 0 200 200" style="position:absolute; top:10%; right:15%; width:120px; height:120px;">
-        <circle cx="100" cy="100" r="50" fill="rgba(255,255,255,0.1)">
-          <animate attributeName="r" values="50;30;50" dur="4s" repeatCount="indefinite"/>
-        </circle>
-      </svg>
+    <!-- Seção Hero com Filtro Obrigatório -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Encontre seu curso perfeito</h1>
+                <p class="hero-subtitle">Descubra o conhecimento que transforma. Navegue por nossa coleção completa de cursos online.</p>
+                
+                <!-- Formulário de Filtro -->
+                <div class="filter-card">
+                    <div class="filter-grid">
+                        <!-- Buscar Cursos -->
+                        <div class="filter-item">
+                            <label for="searchCourse" class="filter-label">Buscar Cursos</label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="text" 
+                                    id="searchCourse" 
+                                    class="filter-input" 
+                                    placeholder="Digite o nome do curso..."
+                                >
+                                <i class="fas fa-search input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Nível -->
+                        <div class="filter-item">
+                            <label for="courseLevel" class="filter-label">Nível</label>
+                            <select id="courseLevel" class="filter-select">
+                                <option value="">Todos os Níveis</option>
+                                <option value="iniciante">Iniciante</option>
+                                <option value="intermediario">Intermediário</option>
+                                <option value="avancado">Avançado</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Duração -->
+                        <div class="filter-item">
+                            <label for="courseDuration" class="filter-label">Duração</label>
+                            <select id="courseDuration" class="filter-select">
+                                <option value="">Todas as Durações</option>
+                                <option value="curto">Curto (até 10h)</option>
+                                <option value="medio">Médio (10-50h)</option>
+                                <option value="longo">Longo (50h+)</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Botão Limpar Filtros -->
+                        <div class="filter-item">
+                            <button type="button" class="clear-filters-btn" id="clearFilters">
+                                <i class="fas fa-times"></i>
+                                Limpar Filtros
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Elementos Decorativos -->
+        <div class="hero-decorations">
+            <div class="decoration-circle circle-1"></div>
+            <div class="decoration-circle circle-2"></div>
+            <div class="decoration-circle circle-3"></div>
+        </div>
     </section>
 
-    <!-- FILTROS SECTION -->
-    <section class="filtros-biblioteca">
-      <div class="container">
-        <h2 class="section-title">Encontre o Curso Perfeito</h2>
-        <div class="filtros-wrapper">
-          <div class="filtro-group">
-            <label for="searchInput">Buscar Cursos</label>
-            <input id="searchInput" type="text" placeholder="Digite o nome do curso…" />
-          </div>
-          <div class="filtro-group">
-            <label for="categorySelect">Categoria</label>
-            <select id="categorySelect">
-              <option value="">Todas as Categorias</option>
-              <option value="tecnologia">Tecnologia</option>
-              <option value="artes">Artes</option>
-              <option value="educacao">Educação</option>
-            </select>
-          </div>
-          <div class="filtro-group">
-            <label for="levelSelect">Nível</label>
-            <select id="levelSelect">
-              <option value="">Todos os Níveis</option>
-              <option value="basico">Básico</option>
-              <option value="intermediario">Intermediário</option>
-              <option value="avancado">Avançado</option>
-            </select>
-          </div>
-          <div class="filtro-group">
-            <label for="durationSelect">Duração</label>
-            <select id="durationSelect">
-              <option value="">Todas as Durações</option>
-              <option value="curta">Curta (&lt; 10h)</option>
-              <option value="media">Média (10–30h)</option>
-              <option value="longa">Longa (&gt; 30h)</option>
-            </select>
-          </div>
-          <div class="filtro-actions">
-            <button id="clearFilters">Limpar Filtros</button>
-          </div>
+    <!-- Seção Principal - Nossos Cursos -->
+    <section class="courses-section">
+        <div class="courses-container">
+            <div class="section-header">
+                <h2 class="section-title">Nossos Cursos</h2>
+                <div class="courses-count" id="coursesCount">0 cursos</div>
+            </div>
+            
+            <!-- Loading State -->
+            <div class="loading-state" id="loadingState">
+                <div class="loading-spinner"></div>
+                <p>Carregando cursos...</p>
+            </div>
+            
+            <!-- Grid de Cursos -->
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Os cursos serão carregados dinamicamente aqui -->
+            </div>
+            
+            <!-- Paginação -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button class="pagination-btn prev" id="prevPage">
+                    <i class="fas fa-chevron-left"></i>
+                    Anterior
+                </button>
+                <div class="pagination-numbers" id="paginationNumbers"></div>
+                <button class="pagination-btn next" id="nextPage">
+                    Próximo
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- CURSOS GRID SECTION -->
-    <section class="cursos-biblioteca">
-      <div class="container">
-        <div class="cursos-header">
-          <h2 class="section-title">Nossos Cursos</h2>
-          <span id="coursesCount">Carregando cursos...</span>
+    <!-- Seção de Destaques -->
+    <section class="highlights-section">
+        <div class="highlights-container">
+            <h2 class="section-title">Cursos em Destaque</h2>
+            <div class="highlights-carousel" id="highlightsCarousel">
+                <!-- Cursos destacados serão carregados aqui -->
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
         </div>
-        <div id="coursesContainer" class="courses-grid">
-          <div class="loading-message">Carregando cursos...</div>
-        </div>
-      </div>
     </section>
-  </main>
 
-  <!-- Footer (copiado integralmente da Home) -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
-          <h3>Educação que transforma. Cultura que conecta.</h3>
-          <p>Instituto Buriti, uma empresa 100% digital.</p>
+    <!-- Seção de Testemunhos -->
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <h2 class="section-title">O que nossos alunos dizem</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p>"Os cursos do Instituto Buriti transformaram minha carreira. A qualidade do conteúdo e a metodologia são excepcionais."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="../images/testimonial-1.jpg" alt="Ana Silva" class="author-photo">
+                        <div class="author-info">
+                            <h4>Ana Silva</h4>
+                            <span>Desenvolvedora Web</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p>"Aprendi no meu ritmo e consegui aplicar os conhecimentos imediatamente no meu trabalho. Recomendo!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="../images/testimonial-2.jpg" alt="Carlos Santos" class="author-photo">
+                        <div class="author-info">
+                            <h4>Carlos Santos</h4>
+                            <span>Gestor de Projetos</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p>"A plataforma é intuitiva e o suporte é excelente. Uma experiência de aprendizado única."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="../images/testimonial-3.jpg" alt="Maria Oliveira" class="author-photo">
+                        <div class="author-info">
+                            <h4>Maria Oliveira</h4>
+                            <span>Designer UX/UI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>Links Rápidos</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="pages/quem-somos.html">Quem Somos</a></li>
-              <li><a href="pages/cursos.html">Cursos</a></li>
-              <li><a href="pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-              <li><a href="pages/contato.html">Contato</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Contato</h4>
-            <ul>
-              <li>📧 contato@institutoburiti.com.br</li>
-              <li>📞 (86) 98170-8388</li>
-              <li>📍 Teresina, Piauí</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <!-- Scripts (mantendo funcionalidades originais) -->
-  <script src="js/auth.js"></script>
-  <script src="js/biblioteca.js?v=2"></script>
+    <!-- Chamada para Ação Final -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2 class="cta-title">Pronto para começar?</h2>
+                <p class="cta-subtitle">Explore mais cursos e transforme sua carreira hoje mesmo!</p>
+                <a href="#courses" class="cta-btn">
+                    Ver Todos os Cursos
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Idêntico ao padrão do site) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Logo e Slogan -->
+                <div class="footer-brand">
+                    <img src="../images/logo-instituto-buriti-white.png" alt="Instituto Buriti" class="footer-logo">
+                    <p class="footer-slogan">Educação que transforma. Cultura que conecta.</p>
+                    <p class="footer-description">Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                
+                <!-- Links Rápidos -->
+                <div class="footer-links">
+                    <h3 class="footer-title">Links Rápidos</h3>
+                    <ul class="footer-menu">
+                        <li><a href="../index.html" class="footer-link">Home</a></li>
+                        <li><a href="quem-somos.html" class="footer-link">Quem Somos</a></li>
+                        <li><a href="biblioteca-cursos.html" class="footer-link">Cursos</a></li>
+                        <li><a href="seja-instrutor.html" class="footer-link">Seja um Instrutor</a></li>
+                        <li><a href="contato.html" class="footer-link">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contato -->
+                <div class="footer-contact">
+                    <h3 class="footer-title">Contato</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contato@institutoburiti.com.br</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(86) 98170-8388</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Teresina, Piauí</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/biblioteca.js?v=2"></script>
+    <script src="../js/biblioteca-grok.js"></script>
 </body>
 </html>
+
