@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Cursos - Instituto Buriti</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <link rel="stylesheet" href="../css/biblioteca-nova.css">
+</head>
+<body>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item">
+                <a href="../index.html">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item active">
+                <a href="biblioteca-nova.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown" id="authSection">
+                <button class="login-btn">Login</button>
+                <div class="dropdown-menu">
+                    <a href="login-aluno.html" class="dropdown-item">Aluno</a>
+                    <a href="login-instrutor.html" class="dropdown-item">Instrutor</a>
+                    <a href="login-admin.html" class="dropdown-item">Administrador</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="biblioteca-hero">
+            <div class="container">
+                <h1 class="hero-title">Nossa Biblioteca de Cursos</h1>
+                <p class="hero-subtitle">Encontre o conhecimento que você busca para transformar sua carreira.</p>
+            </div>
+        </section>
+
+        <section class="filters-section">
+            <div class="container">
+                <div class="filters-grid">
+                    <div class="filter-group search-filter">
+                        <label for="searchInput">Buscar por nome</label>
+                        <input type="text" id="searchInput" placeholder="Ex: Inteligência Artificial">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="areaFilter">Área</label>
+                        <select id="areaFilter">
+                            <option value="">Todas</option>
+                            <option value="tecnologia">Tecnologia</option>
+                            <option value="artes">Artes</option>
+                            <option value="educacao">Educação</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="nivelFilter">Nível</label>
+                        <select id="nivelFilter">
+                            <option value="">Todos</option>
+                            <option value="basico">Básico</option>
+                            <option value="intermediario">Intermediário</option>
+                            <option value="avancado">Avançado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="tipoFilter">Tipo</label>
+                        <select id="tipoFilter">
+                            <option value="">Todos</option>
+                            <option value="gratuito">Gratuito</option>
+                            <option value="pago">Pago</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group" id="userStatusFilter" style="display: none;">
+                        <label for="statusFilter">Meus Cursos</label>
+                        <select id="statusFilter">
+                            <option value="all">Todos</option>
+                            <option value="enrolled">Inscrito</option>
+                            <option value="not-enrolled">Não Inscrito</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="courses-catalog">
+            <div class="container">
+                <div class="courses-header">
+                    <h2 class="section-title" id="coursesCount">Carregando cursos...</h2>
+                </div>
+                <div class="courses-grid" id="coursesContainer">
+                    <div class="loading-placeholder">
+                        <p>Buscando os melhores cursos para você...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <div id="messageContainer" class="message-container">
+        <span class="message-icon fas"></span>
+        <span class="message-text"></span>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="biblioteca-nova.html">Cursos</a></li>
+                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../js/biblioteca.js"></script>
+
+</body>
+</html>
