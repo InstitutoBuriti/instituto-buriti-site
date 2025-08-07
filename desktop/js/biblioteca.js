@@ -13,7 +13,8 @@ const bibliotecaManager = {
             area: 'tecnologia',
             nivel: 'basico',
             tipo: 'gratuito',
-            price: 0
+            price: 0,
+            description: 'Domine os conceitos fundamentais de IA e machine learning com aplicações práticas.'
         },
         {
             id: 'gestao-cultural',
@@ -21,7 +22,8 @@ const bibliotecaManager = {
             area: 'artes',
             nivel: 'intermediario',
             tipo: 'pago',
-            price: 350
+            price: 350,
+            description: 'Aprenda a elaborar, executar e gerenciar projetos culturais de sucesso.'
         },
         {
             id: 'educacao-inclusiva',
@@ -29,20 +31,30 @@ const bibliotecaManager = {
             area: 'educacao',
             nivel: 'avancado',
             tipo: 'gratuito',
-            price: 0
+            price: 0,
+            description: 'Explore metodologias inovadoras para uma educação mais acessível e inclusiva.'
         }
     ],
 
     // 🚀 FASE 2 SEÇÃO 4 QWEN: Inicialização do sistema
     init() {
+        // *** INÍCIO DA CORREÇÃO ***
+        // O bloco de código desta função foi reorganizado para garantir
+        // que a função renderCourses() seja chamada.
+
         console.log('🚀 FASE 2 SEÇÃO 4 QWEN: Inicializando biblioteca integrada...');
         
         this.checkAuthentication();
         this.loadUserEnrollments();
-        this.setupEventListeners();
+
+        // Esta é a ordem para desenhar os cursos na tela.
+        this.renderCourses(); 
+
+        this.setupEventListeners(); // Movido para depois de renderCourses
         this.updateUI();
         
         console.log('✅ FASE 2 SEÇÃO 4 QWEN: Biblioteca inicializada com sucesso');
+        // *** FIM DA CORREÇÃO ***
     },
 
     // 🔍 FASE 2 SEÇÃO 4 QWEN: Verificação de autenticação
@@ -113,35 +125,32 @@ const bibliotecaManager = {
     setupEventListeners() {
         console.log('🎛️ FASE 2 SEÇÃO 4 QWEN: Configurando event listeners...');
         
-        // Filtro de status do usuário
-        const statusFilter = document.getElementById('statusFilter');
-        if (statusFilter) {
-            statusFilter.addEventListener('change', () => this.applyFilters());
+        const coursesContainer = document.getElementById('coursesContainer');
+
+        // Usar delegação de eventos para os botões e títulos
+        if(coursesContainer) {
+            coursesContainer.addEventListener('click', (e) => {
+                const courseCard = e.target.closest('.course-card');
+                if (!courseCard) return;
+                const courseId = courseCard.dataset.courseId;
+
+                // Checar se o clique foi no botão de ação
+                if (e.target.closest('.course-action-btn')) {
+                    this.handleCourseAction(courseId);
+                }
+                // Checar se o clique foi no título
+                else if (e.target.closest('.course-title')) {
+                    this.navigateToCourseDetails(courseId);
+                }
+            });
         }
 
-        // Botões de ação dos cursos
-        document.querySelectorAll('.course-action-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const courseId = e.target.closest('.course-action-btn').dataset.courseId;
-                this.handleCourseAction(courseId);
-            });
-        });
-
-        // FASE 2 SEÇÃO 4 QWEN: Event listeners para títulos dos cursos (navegação para detalhes)
-        document.querySelectorAll('.course-card h3').forEach(title => {
-            title.style.cursor = 'pointer';
-            title.addEventListener('click', (e) => {
-                const courseCard = e.target.closest('.course-card');
-                const courseId = courseCard.dataset.courseId;
-                this.navigateToCourseDetails(courseId);
-            });
-        });
-
-        // Outros filtros existentes
+        // Filtros
         document.getElementById('searchInput')?.addEventListener('input', () => this.applyFilters());
         document.getElementById('areaFilter')?.addEventListener('change', () => this.applyFilters());
         document.getElementById('nivelFilter')?.addEventListener('change', () => this.applyFilters());
         document.getElementById('tipoFilter')?.addEventListener('change', () => this.applyFilters());
+        document.getElementById('statusFilter')?.addEventListener('change', () => this.applyFilters());
         document.getElementById('clearFilters')?.addEventListener('click', () => this.clearAllFilters());
         
         console.log('✅ FASE 2 SEÇÃO 4 QWEN: Event listeners configurados');
@@ -151,8 +160,7 @@ const bibliotecaManager = {
     updateUI() {
         console.log('🔄 FASE 2 SEÇÃO 4 QWEN: Atualizando interface...');
         
-        this.updateCourseButtons();
-        this.updateEnrollmentStatus();
+        // As atualizações agora são feitas dentro de applyFilters e renderCourses
         this.applyFilters();
         
         console.log('✅ FASE 2 SEÇÃO 4 QWEN: Interface atualizada');
@@ -164,33 +172,23 @@ const bibliotecaManager = {
         if (!authSection) return;
 
         if (this.currentUser) {
+            // Atualizar para o dropdown do usuário logado
             authSection.innerHTML = `
-                <button class="login-button">${this.currentUser.name}</button>
-                <div class="dropdown-content">
-                    <a href="dashboard-aluno.html" class="dropdown-item">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
-                    </a>
-                    <a href="perfil-aluno.html" class="dropdown-item">
-                        <i class="fas fa-user"></i> Perfil
-                    </a>
-                    <a href="#" class="dropdown-item" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i> Sair
-                    </a>
+                <button class="login-btn">${this.currentUser.name}</button>
+                <div class="dropdown-menu">
+                    <a href="dashboard-aluno.html" class="dropdown-item">Dashboard</a>
+                    <a href="perfil-aluno.html" class="dropdown-item">Perfil</a>
+                    <a href="#" class="dropdown-item" onclick="logout()">Sair</a>
                 </div>
             `;
         } else {
+            // Manter o dropdown de login padrão
             authSection.innerHTML = `
-                <button class="login-button">Login</button>
-                <div class="dropdown-content">
-                    <a href="login-aluno.html" class="dropdown-item">
-                        <i class="fas fa-user-graduate"></i> Aluno
-                    </a>
-                    <a href="login-instrutor.html" class="dropdown-item">
-                        <i class="fas fa-chalkboard-teacher"></i> Instrutor
-                    </a>
-                    <a href="login-admin.html" class="dropdown-item">
-                        <i class="fas fa-user-shield"></i> Admin
-                    </a>
+                <button class="login-btn">Login</button>
+                <div class="dropdown-menu">
+                    <a href="login-aluno.html" class="dropdown-item">Aluno</a>
+                    <a href="login-instrutor.html" class="dropdown-item">Instrutor</a>
+                    <a href="login-admin.html" class="dropdown-item">Administrador</a>
                 </div>
             `;
         }
@@ -218,57 +216,34 @@ const bibliotecaManager = {
     updateCourseButtons() {
         console.log('🔘 FASE 2 SEÇÃO 4 QWEN: Atualizando botões dos cursos...');
         
-        this.allCourses.forEach(course => {
-            const btn = document.getElementById(`btn-${course.id}`);
-            if (!btn) return;
+        document.querySelectorAll('.course-card').forEach(card => {
+            const courseId = card.dataset.courseId;
+            const course = this.allCourses.find(c => c.id === courseId);
+            const btn = card.querySelector('.course-action-btn');
+            if (!btn || !course) return;
 
-            const isEnrolled = this.userEnrollments.includes(course.id);
+            const isEnrolled = this.currentUser && this.userEnrollments.includes(course.id);
+
+            btn.classList.remove('login', 'enroll', 'continue');
             const btnText = btn.querySelector('.btn-text');
             const btnIcon = btn.querySelector('i');
 
             if (!this.currentUser) {
-                // Usuário não logado
+                btn.classList.add('login');
                 btnText.textContent = 'Fazer Login';
                 btnIcon.className = 'fas fa-sign-in-alt';
-                btn.className = 'btn-secondary course-action-btn';
             } else if (isEnrolled) {
-                // Usuário inscrito
+                btn.classList.add('continue');
                 btnText.textContent = 'Continuar Curso';
                 btnIcon.className = 'fas fa-play';
-                btn.className = 'btn-primary course-action-btn';
             } else {
-                // Usuário não inscrito
-                btnText.textContent = course.tipo === 'gratuito' ? 'Inscrever-se Grátis' : `Inscrever-se - R$ ${course.price}`;
+                btn.classList.add('enroll');
+                btnText.textContent = course.tipo === 'gratuito' ? 'Inscrever-se Grátis' : `Inscrever-se - R$ ${course.price.toFixed(2).replace('.', ',')}`;
                 btnIcon.className = 'fas fa-plus';
-                btn.className = 'btn-success course-action-btn';
             }
         });
         
         console.log('✅ FASE 2 SEÇÃO 4 QWEN: Botões atualizados');
-    },
-
-    // 📊 FASE 2 SEÇÃO 4 QWEN: Atualização do status de inscrição
-    updateEnrollmentStatus() {
-        console.log('📊 FASE 2 SEÇÃO 4 QWEN: Atualizando status de inscrição...');
-        
-        if (!this.currentUser) return;
-
-        this.allCourses.forEach(course => {
-            const statusElement = document.getElementById(`status-${course.id}`);
-            if (!statusElement) return;
-
-            const isEnrolled = this.userEnrollments.includes(course.id);
-            
-            if (isEnrolled) {
-                statusElement.innerHTML = '<i class="fas fa-check-circle"></i> Inscrito';
-                statusElement.className = 'enrollment-status enrolled';
-                statusElement.style.display = 'block';
-            } else {
-                statusElement.style.display = 'none';
-            }
-        });
-        
-        console.log('✅ FASE 2 SEÇÃO 4 QWEN: Status de inscrição atualizado');
     },
 
     // 🎯 FASE 2 SEÇÃO 4 QWEN: Manipulação de ações dos cursos
@@ -284,20 +259,10 @@ const bibliotecaManager = {
             return;
         }
 
-        const course = this.allCourses.find(c => c.id === courseId);
-        if (!course) {
-            console.log('❌ FASE 2 SEÇÃO 4 QWEN: Curso não encontrado:', courseId);
-            return;
-        }
-
         const isEnrolled = this.userEnrollments.includes(courseId);
-
         if (isEnrolled) {
-            // Continuar curso - navegar para detalhes
-            console.log('▶️ FASE 2 SEÇÃO 4 QWEN: Continuando curso:', course.title);
             this.navigateToCourseDetails(courseId);
         } else {
-            // Inscrever-se no curso
             this.enrollInCourse(courseId);
         }
     },
@@ -305,15 +270,9 @@ const bibliotecaManager = {
     // 🧭 FASE 2 SEÇÃO 4 QWEN: Navegação para detalhes do curso
     navigateToCourseDetails(courseId) {
         console.log('🧭 FASE 2 SEÇÃO 4 QWEN: Navegando para detalhes do curso:', courseId);
-        
         const course = this.allCourses.find(c => c.id === courseId);
-        if (!course) {
-            console.log('❌ FASE 2 SEÇÃO 4 QWEN: Curso não encontrado para navegação:', courseId);
-            return;
-        }
-
+        if (!course) return;
         this.showMessage('info', `Carregando detalhes de "${course.title}"...`);
-        
         setTimeout(() => {
             window.location.href = `curso-detalhes.html?curso=${courseId}`;
         }, 500);
@@ -326,27 +285,17 @@ const bibliotecaManager = {
         const course = this.allCourses.find(c => c.id === courseId);
         if (!course) return;
 
-        // Simular processo de inscrição
         this.showMessage('info', 'Processando inscrição...');
         
         setTimeout(() => {
-            // Adicionar à lista de inscrições
             this.userEnrollments.push(courseId);
             this.saveUserEnrollments();
-            
-            // Atualizar interface
             this.updateCourseButtons();
-            this.updateEnrollmentStatus();
             
-            // Feedback de sucesso
-            const message = course.tipo === 'gratuito' 
-                ? `Parabéns! Você foi inscrito em "${course.title}" com sucesso!`
-                : `Inscrição em "${course.title}" realizada com sucesso! Valor: R$ ${course.price}`;
-            
+            const message = `Inscrição em "${course.title}" realizada com sucesso!`;
             this.showMessage('success', message);
-            
             console.log('🎉 FASE 2 SEÇÃO 4 QWEN: Inscrição realizada com sucesso:', course.title);
-        }, 1500);
+        }, 1000);
     },
 
     // 🔍 FASE 2 SEÇÃO 4 QWEN: Sistema de filtros
@@ -367,109 +316,67 @@ const bibliotecaManager = {
             const area = card.dataset.area;
             const nivel = card.dataset.nivel;
             const tipo = card.dataset.tipo;
-            const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-            const description = card.querySelector('p')?.textContent.toLowerCase() || '';
+            const title = card.querySelector('.course-title')?.textContent.toLowerCase() || '';
             
-            // Filtro de busca
-            const matchesSearch = !searchTerm || title.includes(searchTerm) || description.includes(searchTerm);
-            
-            // Filtros de categoria
+            const matchesSearch = !searchTerm || title.includes(searchTerm);
             const matchesArea = !areaFilter || area === areaFilter;
             const matchesNivel = !nivelFilter || nivel === nivelFilter;
             const matchesTipo = !tipoFilter || tipo === tipoFilter;
             
-            // Filtro de status do usuário
             let matchesStatus = true;
-            if (statusFilter && this.currentUser) {
+            if (this.currentUser && statusFilter) {
                 const isEnrolled = this.userEnrollments.includes(courseId);
-                if (statusFilter === 'enrolled') {
-                    matchesStatus = isEnrolled;
-                } else if (statusFilter === 'not-enrolled') {
-                    matchesStatus = !isEnrolled;
-                }
+                if (statusFilter === 'enrolled') matchesStatus = isEnrolled;
+                if (statusFilter === 'not-enrolled') matchesStatus = !isEnrolled;
             }
             
             const isVisible = matchesSearch && matchesArea && matchesNivel && matchesTipo && matchesStatus;
             
-            card.style.display = isVisible ? 'block' : 'none';
+            card.style.display = isVisible ? 'flex' : 'none'; // Usar 'flex' para manter o layout do card
             if (isVisible) visibleCount++;
         });
         
-        // Atualizar contador de resultados
         const coursesCountElement = document.getElementById('coursesCount');
-        if (coursesCountElement) {
-            coursesCountElement.textContent = `${visibleCount} cursos encontrados`;
-        }
-
-        // Exibir mensagem se nenhum curso for encontrado
         const coursesContainer = document.getElementById('coursesContainer');
-        if (coursesContainer && visibleCount === 0) {
-            coursesContainer.innerHTML = `
-                <div class="no-courses-message">
-                    <h3>Nenhum curso encontrado com os filtros aplicados.</h3>
-                    <p>Tente ajustar suas opções de filtro ou limpar a busca.</p>
-                </div>
-            `;
-        } else if (coursesContainer) {
-            // Se houver cursos, garantir que o placeholder de carregamento seja removido
-            const loadingPlaceholder = coursesContainer.querySelector('.loading-placeholder');
-            if (loadingPlaceholder) {
-                loadingPlaceholder.remove();
+        const noCoursesMessage = coursesContainer.querySelector('.no-courses-message');
+
+        if (visibleCount > 0) {
+            coursesCountElement.textContent = `${visibleCount} curso${visibleCount > 1 ? 's' : ''} encontrado${visibleCount > 1 ? 's' : ''}`;
+            if(noCoursesMessage) noCoursesMessage.remove();
+        } else {
+            coursesCountElement.textContent = 'Nenhum curso encontrado';
+            if(!noCoursesMessage) {
+                coursesContainer.innerHTML += `
+                    <div class="no-courses-message" style="grid-column: 1 / -1;">
+                        <h3>Nenhum curso encontrado com os filtros aplicados.</h3>
+                        <p>Tente ajustar suas opções de filtro ou limpar a busca.</p>
+                    </div>
+                `;
             }
         }
-
+        
         console.log('✅ FASE 2 SEÇÃO 4 QWEN: Filtros aplicados. Cursos visíveis:', visibleCount);
-    },
-
-    // 🧹 FASE 2 SEÇÃO 4 QWEN: Limpar todos os filtros
-    clearAllFilters() {
-        console.log('🧹 FASE 2 SEÇÃO 4 QWEN: Limpando todos os filtros...');
-        document.getElementById('searchInput').value = '';
-        document.getElementById('areaFilter').value = '';
-        document.getElementById('nivelFilter').value = '';
-        document.getElementById('tipoFilter').value = '';
-        const statusFilter = document.getElementById('statusFilter');
-        if (statusFilter) statusFilter.value = 'all';
-        this.applyFilters();
-        console.log('✅ FASE 2 SEÇÃO 4 QWEN: Filtros limpos');
     },
 
     // 💬 FASE 2 SEÇÃO 4 QWEN: Exibir mensagens dinâmicas
     showMessage(type, text) {
         const messageContainer = document.getElementById('messageContainer');
+        if (!messageContainer) return;
         const messageText = messageContainer.querySelector('.message-text');
         const messageIcon = messageContainer.querySelector('.message-icon');
 
-        if (!messageContainer || !messageText || !messageIcon) return;
-
-        // Reset classes
-        messageContainer.className = 'message-container';
+        messageContainer.className = `message-container ${type} show`;
         messageIcon.className = 'message-icon fas';
 
-        // Set type and icon
-        messageContainer.classList.add(type);
         switch (type) {
-            case 'success':
-                messageIcon.classList.add('fa-check-circle');
-                break;
-            case 'error':
-                messageIcon.classList.add('fa-times-circle');
-                break;
-            case 'info':
-                messageIcon.classList.add('fa-info-circle');
-                break;
-            case 'warning':
-                messageIcon.classList.add('fa-exclamation-triangle');
-                break;
+            case 'success': messageIcon.classList.add('fa-check-circle'); break;
+            case 'error': messageIcon.classList.add('fa-times-circle'); break;
+            case 'info': messageIcon.classList.add('fa-info-circle'); break;
+            case 'warning': messageIcon.classList.add('fa-exclamation-triangle'); break;
         }
-
         messageText.textContent = text;
-        messageContainer.classList.add('show');
 
-        // Hide after 3 seconds
-        setTimeout(() => {
-            messageContainer.classList.remove('show');
-        }, 3000);
+        setTimeout(() => messageContainer.classList.remove('show'), 3000);
     },
 
     // ➕ FASE 2 SEÇÃO 4 QWEN: Renderizar cursos dinamicamente
@@ -478,45 +385,36 @@ const bibliotecaManager = {
         const coursesContainer = document.getElementById('coursesContainer');
         if (!coursesContainer) return;
 
-        // Limpar conteúdo existente, exceto o placeholder de carregamento
         coursesContainer.innerHTML = ''; 
 
         this.allCourses.forEach(course => {
-            const isEnrolled = this.currentUser && this.userEnrollments.includes(course.id);
-            const btnClass = !this.currentUser ? 'login' : (isEnrolled ? 'continue' : 'enroll');
-            const btnText = !this.currentUser ? 'Fazer Login' : (isEnrolled ? 'Continuar Curso' : (course.tipo === 'gratuito' ? 'Inscrever-se Grátis' : `Inscrever-se - R$ ${course.price}`));
-            const btnIcon = !this.currentUser ? 'fas fa-sign-in-alt' : (isEnrolled ? 'fas fa-play' : 'fas fa-plus');
             const priceDisplay = course.tipo === 'gratuito' ? 'Gratuito' : `R$ ${course.price.toFixed(2).replace('.', ',')}`;
             const priceClass = course.tipo === 'gratuito' ? 'free' : '';
 
-            const courseCard = `
-                <div class="course-card" data-course-id="${course.id}" data-area="${course.area}" data-nivel="${course.nivel}" data-tipo="${course.tipo}">
+            const courseHTML = `
+                <div class="course-card" data-course-id="${course.id}" data-area="${course.area}" data-nivel="${course.nivel}" data-tipo="${course.tipo}" style="display: flex;">
                     <div class="course-image">
-                        <!-- Imagem de placeholder ou ícone genérico -->
                         <i class="fas fa-book-open"></i>
                     </div>
                     <div class="course-content">
-                        <h3 class="course-title">${course.title}</h3>
+                        <h3 class="course-title" style="cursor: pointer;">${course.title}</h3>
                         <p class="course-description">${course.description || 'Descrição do curso não disponível.'}</p>
                         <div class="course-meta">
                             <span class="course-price ${priceClass}">${priceDisplay}</span>
-                            <!-- Adicionar mais metadados aqui se necessário -->
                         </div>
                         <div class="course-action">
-                            <button class="course-action-btn ${btnClass}" data-course-id="${course.id}">
-                                <i class="${btnIcon}"></i> <span class="btn-text">${btnText}</span>
+                            <button class="course-action-btn" data-course-id="${course.id}">
+                                <i class="fas fa-spinner fa-spin"></i> <span class="btn-text">Carregando...</span>
                             </button>
                         </div>
                     </div>
                 </div>
             `;
-            coursesContainer.insertAdjacentHTML('beforeend', courseCard);
+            coursesContainer.insertAdjacentHTML('beforeend', courseHTML);
         });
 
-        // Reconfigurar event listeners para os novos botões e títulos de curso
-        this.setupEventListeners();
-        this.applyFilters(); // Aplicar filtros após renderizar
-        console.log('✅ FASE 2 SEÇÃO 4 QWEN: Cursos renderizados e event listeners reconfigurados');
+        this.updateCourseButtons();
+        console.log('✅ FASE 2 SEÇÃO 4 QWEN: Cursos renderizados.');
     }
 };
 
@@ -524,12 +422,11 @@ const bibliotecaManager = {
 function logout() {
     if (typeof authManager !== 'undefined') {
         authManager.logout();
-        // Redirecionar ou atualizar a página após o logout
         window.location.reload(); 
     }
 }
 
-// Inicialização ao carregar o DOM (já no HTML, mas garantindo)
+// Inicialização ao carregar o DOM
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 DOM carregado, inicializando bibliotecaManager...');
     if (typeof bibliotecaManager !== 'undefined') {
