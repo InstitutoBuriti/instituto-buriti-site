@@ -6,9 +6,10 @@
     <title>Biblioteca de Cursos - Instituto Buriti</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="../css/biblioteca-nova.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/biblioteca-final.css">
 </head>
 <body>
 
@@ -21,10 +22,10 @@
                 <a href="quem-somos.html">Quem Somos</a>
             </div>
             <div class="nav-item active">
-                <a href="biblioteca-nova.html">Cursos</a>
+                <a href="biblioteca-final.html">Cursos</a>
             </div>
             <div class="nav-item">
-                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+                <a href="seja-instrutor.html">Seja um Instrutor</a>
             </div>
             <div class="nav-item">
                 <a href="contato.html">Contato</a>
@@ -40,58 +41,52 @@
         </nav>
     </header>
 
-    <main>
+    <main class="biblioteca-main">
         <section class="biblioteca-hero">
             <div class="container">
-                <h1 class="hero-title">Nossa Biblioteca de Cursos</h1>
-                <p class="hero-subtitle">Encontre o conhecimento que você busca para transformar sua carreira.</p>
+                <h1 class="hero-title-biblioteca">Explore um Universo de Conhecimento</h1>
+                <p class="hero-subtitle-biblioteca">Cursos que inspiram, capacitam e transformam. Encontre sua próxima jornada de aprendizado.</p>
             </div>
         </section>
 
         <section class="filters-section">
             <div class="container">
-                <div class="filters-grid">
-                    <div class="filter-group search-filter">
-                        <label for="searchInput">Buscar por nome</label>
-                        <input type="text" id="searchInput" placeholder="Ex: Inteligência Artificial">
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="areaFilter">Área</label>
-                        <select id="areaFilter">
-                            <option value="">Todas</option>
-                            <option value="tecnologia">Tecnologia</option>
-                            <option value="artes">Artes</option>
-                            <option value="educacao">Educação</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="nivelFilter">Nível</label>
-                        <select id="nivelFilter">
-                            <option value="">Todos</option>
-                            <option value="basico">Básico</option>
-                            <option value="intermediario">Intermediário</option>
-                            <option value="avancado">Avançado</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="tipoFilter">Tipo</label>
-                        <select id="tipoFilter">
-                            <option value="">Todos</option>
-                            <option value="gratuito">Gratuito</option>
-                            <option value="pago">Pago</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group" id="userStatusFilter" style="display: none;">
-                        <label for="statusFilter">Meus Cursos</label>
-                        <select id="statusFilter">
-                            <option value="all">Todos</option>
-                            <option value="enrolled">Inscrito</option>
-                            <option value="not-enrolled">Não Inscrito</option>
-                        </select>
+                <div class="filters-card">
+                    <div class="filters-grid">
+                        <div class="filter-group search-filter">
+                            <i class="fas fa-search filter-icon"></i>
+                            <input type="text" id="searchInput" placeholder="Qual conhecimento você busca hoje?">
+                        </div>
+                        <div class="filter-group">
+                            <select id="areaFilter">
+                                <option value="">Todas as Áreas</option>
+                                <option value="tecnologia">Tecnologia</option>
+                                <option value="artes">Artes</option>
+                                <option value="educacao">Educação</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <select id="nivelFilter">
+                                <option value="">Todos os Níveis</option>
+                                <option value="basico">Básico</option>
+                                <option value="intermediario">Intermediário</option>
+                                <option value="avancado">Avançado</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                             <select id="tipoFilter">
+                                <option value="">Todos os Tipos</option>
+                                <option value="gratuito">Gratuito</option>
+                                <option value="pago">Pago</option>
+                            </select>
+                        </div>
+                        <div class="filter-group" id="userStatusFilter" style="display: none;">
+                            <select id="statusFilter">
+                                <option value="all">Ver Todos</option>
+                                <option value="enrolled">Meus Cursos</option>
+                                <option value="not-enrolled">Não Inscrito</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,23 +95,16 @@
         <section class="courses-catalog">
             <div class="container">
                 <div class="courses-header">
-                    <h2 class="section-title" id="coursesCount">Carregando cursos...</h2>
+                    <h2 id="coursesCount">Carregando cursos...</h2>
                 </div>
                 <div class="courses-grid" id="coursesContainer">
-                    <div class="loading-placeholder">
-                        <p>Buscando os melhores cursos para você...</p>
                     </div>
-                </div>
             </div>
         </section>
 
     </main>
     
-    <div id="messageContainer" class="message-container">
-        <span class="message-icon fas"></span>
-        <span class="message-text"></span>
-    </div>
-
+    <div id="messageContainer"></div>
 
     <footer class="footer">
         <div class="container">
@@ -132,8 +120,8 @@
                         <ul>
                             <li><a href="../index.html">Home</a></li>
                             <li><a href="quem-somos.html">Quem Somos</a></li>
-                            <li><a href="biblioteca-nova.html">Cursos</a></li>
-                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                            <li><a href="biblioteca-final.html">Cursos</a></li>
+                            <li><a href="seja-instrutor.html">Seja um Instrutor</a></li>
                             <li><a href="contato.html">Contato</a></li>
                         </ul>
                     </div>
@@ -153,6 +141,8 @@
         </div>
     </footer>
     
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
     <script src="../js/biblioteca.js"></script>
 
 </body>
