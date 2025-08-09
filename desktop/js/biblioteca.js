@@ -1,17 +1,20 @@
-/* Instituto Buriti – biblioteca.js */
+/* Instituto Buriti — biblioteca.js (substituição total)
+ * Build: 2025-08-09 19:55:02 UTC
+ * Ver notas no cabeçalho deste arquivo.
+ */
 (() => {
   "use strict";
+  const DEBUG = true;
+  const log = (...a) => DEBUG && console.log("IB::", ...a);
+  const warn = (...a) => DEBUG && console.warn("IB::", ...a);
 
-  // Helpers
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-  const debounce = (fn, ms = 250) => { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); }; };
-  const normalize = (s) => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+  const normalize = (s) => (s||"").normalize("NFD").replace(/\p{Diacritic}/gu,"").toLowerCase().trim();
+  const escapeHtml = (str) => String(str||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
 
-  // Seletor padrão de imagem fallback (crie ../images/default-course.png)
   const DEFAULT_THUMB = "../images/default-course.png";
 
-  // Seletores do template
   const SEL = {
     container: "#coursesContainer, [data-courses-container], .courses-grid",
     categoria: "#categoria, [data-filter-categoria]",
@@ -20,271 +23,110 @@
     nivelRadios: 'input[name="nivel"]',
     ordenar: "#ordenar, [data-filter-ordenar]",
     clear: "#clearFiltersBtn, [data-clear-filters]",
-    authHeader: "#authHeader, [data-auth-header]",
-    userFiltersWrap: "#userFilters, [data-user-filters]",
   };
 
-  // Fonte de dados
-  const loadInitialCourses = () => {
-    if (Array.isArray(window.COURSES) && window.COURSES.length) return window.COURSES;
-    const scriptJSON = document.getElementById("courses-json");
-    if (scriptJSON) {
-      try {
-        const data = JSON.parse(scriptJSON.textContent || "[]");
-        if (Array.isArray(data)) return data;
-      } catch (_) {}
-    }
-    return []; // vazio por padrão; dados vêm do HTML
-  };
+  function loadInitialCourses() {
+    try {
+      if (Array.isArray(window.COURSES) && window.COURSES.length) {
+        log("Usando window.COURSES com", window.COURSES.length, "itens.");
+        return window.COURSES;
+      }
+    } catch(e) { warn("Erro lendo window.COURSES:", e); }
 
-  // Estado
-  const state = {
-    currentUser: null,
-    userEnrollments: new Set(),
-    allCourses: loadInitialCourses(),
-    filtered: [],
-    els: {},
-  };
+    try {
+      const s = document.getElementById("courses-json");
+      if (s) {
+        const data = JSON.parse(s.textContent||"[]");
+        if (Array.isArray(data) && data.length) {
+          log("Usando #courses-json com", data.length, "itens.");
+          return data;
+        }
+      }
+    } catch(e) { warn("Erro parseando #courses-json:", e); }
 
-  // Auth externo (opcional)
-  const hasAuth = () => typeof window.authManager === "object" && window.authManager !== null;
+    const samples = [
+      { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"../images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
+      { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:DEFAULT_THUMB, slug:"python-para-dados" },
+      { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"../images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
+      { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:DEFAULT_THUMB, slug:"financas-pessoais-essenciais" },
+      { id:"producao-cultural", title:"Produção Cultural", categoria:"cultura", nivel:"intermediario", tipos:["pago"], cargaHoraria:16, createdAt:"2025-07-10", acessos:78, description:"Do edital à execução: projetos culturais sustentáveis.", thumbnail:"../images/cursos/producao-cultural.jpg", slug:"producao-cultural" },
+      { id:"educacao-inclusiva", title:"Educação Inclusiva na Prática", categoria:"educacao", nivel:"avancado", tipos:["pago","certificado"], cargaHoraria:32, createdAt:"2025-06-30", acessos:142, description:"Estratégias e recursos para acessibilidade efetiva.", thumbnail:DEFAULT_THUMB, slug:"educacao-inclusiva" },
+      { id:"metodologias-ativas", title:"Metodologias Ativas", categoria:"educacao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:6, createdAt:"2025-08-05", acessos:52, description:"PBL, sala invertida e avaliação formativa.", thumbnail:"../images/cursos/metodologias-ativas.jpg", slug:"metodologias-ativas" },
+      { id:"empreendedorismo-social", title:"Empreendedorismo Social", categoria:"outros", nivel:"intermediario", tipos:["pago"], cargaHoraria:14, createdAt:"2025-07-25", acessos:67, description:"Modelos de negócio de impacto e medição de resultados.", thumbnail:DEFAULT_THUMB, slug:"empreendedorismo-social" }
+    ];
+    log("Sem dados externos; usando SAMPLES (", samples.length, ").");
+    return samples;
+  }
 
-  // Init
+  const state = { allCourses: [], filtered: [], els: {} };
+
+  document.addEventListener("DOMContentLoaded", init);
+
   function init() {
+    log("Inicializando biblioteca...");
+    state.allCourses = loadInitialCourses();
     mapElements();
-    checkAuthentication();
-    loadUserEnrollments();
     bindEvents();
     applyFilters();
-    updateAuthHeader();
+    log("Biblioteca pronta.");
   }
 
   function mapElements() {
-    state.els.container = $(SEL.container);
-    state.els.categoria = $(SEL.categoria);
-    state.els.tiposGroup = $(SEL.tiposGroup);
-    state.els.carga = $(SEL.carga);
+    state.els.container   = $(SEL.container);
+    state.els.categoria   = $(SEL.categoria);
+    state.els.tiposGroup  = $(SEL.tiposGroup);
+    state.els.carga       = $(SEL.carga);
     state.els.nivelRadios = $$(SEL.nivelRadios);
-    state.els.ordenar = $(SEL.ordenar);
-    state.els.clear = $(SEL.clear);
-    state.els.authHeader = $(SEL.authHeader);
-    state.els.userFiltersWrap = $(SEL.userFiltersWrap);
-  }
-
-  function checkAuthentication() {
-    if (hasAuth() && window.authManager.isAuthenticated()) {
-      state.currentUser = window.authManager.getUser();
-      showUserFilters();
-    } else {
-      state.currentUser = null;
-      hideUserFilters();
-    }
-  }
-
-  function loadUserEnrollments() {
-    state.userEnrollments = new Set();
-    if (hasAuth() && state.currentUser) {
-      if (typeof window.authManager.getEnrollments === "function") {
-        try {
-          const list = window.authManager.getEnrollments() || [];
-          list.forEach((id) => state.userEnrollments.add(String(id)));
-        } catch (_) {}
-      }
-    }
+    state.els.ordenar     = $(SEL.ordenar);
+    state.els.clear       = $(SEL.clear);
+    if (!state.els.container) warn("Container não encontrado com:", SEL.container);
   }
 
   function bindEvents() {
-    if (state.els.categoria) state.els.categoria.addEventListener("change", applyFilters);
-    if (state.els.carga) state.els.carga.addEventListener("change", applyFilters);
-    if (state.els.ordenar) state.els.ordenar.addEventListener("change", applyFilters);
-    if (state.els.tiposGroup) state.els.tiposGroup.addEventListener("change", applyFilters);
-    if (state.els.nivelRadios && state.els.nivelRadios.length) {
-      state.els.nivelRadios.forEach(r => r.addEventListener("change", applyFilters));
-    }
-    if (state.els.clear) state.els.clear.addEventListener("click", (e) => { e.preventDefault(); clearAllFilters(); });
-    document.addEventListener("auth:changed", () => { checkAuthentication(); loadUserEnrollments(); updateUI(); });
+    state.els.categoria?.addEventListener("change", applyFilters);
+    state.els.carga?.addEventListener("change", applyFilters);
+    state.els.ordenar?.addEventListener("change", applyFilters);
+    state.els.tiposGroup?.addEventListener("change", applyFilters);
+    (state.els.nivelRadios||[]).forEach(r => r.addEventListener("change", applyFilters));
+    state.els.clear?.addEventListener("click", (e)=>{ e.preventDefault(); clearAllFilters(); });
   }
 
   function getFilterValues() {
-    const tipoSelecionados = [];
-    if (state.els.tiposGroup) {
-      $$('input[type="checkbox"]', state.els.tiposGroup).forEach(cb => { if (cb.checked) tipoSelecionados.push(cb.value); });
-    }
-    const nivelSel = (state.els.nivelRadios||[]).find(r=>r.checked);
+    const tipos = [];
+    if (state.els.tiposGroup) $$('.checkbox-group input[type="checkbox"]', state.els.tiposGroup).forEach(cb => cb.checked && tipos.push(cb.value));
+    const nivel = (state.els.nivelRadios||[]).find(r=>r.checked)?.value || "";
     return {
-      categoria: (state.els.categoria && state.els.categoria.value) || "",
-      tipos: tipoSelecionados,     // ["gratuito","pago","certificado"]
-      carga: (state.els.carga && state.els.carga.value) || "", // "curta"|"media"|"longa"|"" 
-      nivel: (nivelSel && nivelSel.value) || "",               // ""|"iniciante"|"intermediario"|"avancado"
-      ordenar: (state.els.ordenar && state.els.ordenar.value) || "recentes",
+      categoria: state.els.categoria?.value || "",
+      tipos,
+      carga: state.els.carga?.value || "",
+      nivel,
+      ordenar: state.els.ordenar?.value || "recentes",
     };
   }
 
-  // FILTRAGEM
   function applyFilters() {
-    const { categoria, tipos, carga, nivel, ordenar } = getFilterValues();
+    const f = getFilterValues();
+    log("Aplicando filtros:", f);
     const list = state.allCourses.slice();
 
-    state.filtered = list.filter((c) => {
-      const matchCategoria = !categoria || normalize(c.categoria||c.area) === normalize(categoria) || String(c.categoria||c.area) === String(categoria);
-      const matchNivel     = !nivel || normalize(c.nivel||c.level) === normalize(nivel) || String(c.nivel||c.level) === String(nivel);
-      const matchTipos     = !tipos.length || tipos.every(t => (c.tipos||c.tags||[]).map(normalize).includes(normalize(t)) || [normalize(c.tipo||c.type)].includes(normalize(t)));
-      const matchCarga     = matchCargaHoraria(c, carga);
+    state.filtered = list.filter((c)=>{
+      const cat = c.categoria || c.area || "";
+      const niv = c.nivel || c.level || "";
+      const tipos = Array.isArray(c.tipos) ? c.tipos : (c.tipo ? [c.tipo] : []);
+      const matchCategoria = !f.categoria || normalize(cat) === normalize(f.categoria);
+      const matchNivel     = !f.nivel || normalize(niv) === normalize(f.nivel);
+      const matchTipos     = !f.tipos.length || f.tipos.every(t => tipos.map(normalize).includes(normalize(t)));
+      const matchCarga     = matchCargaHoraria(c, f.carga);
       return matchCategoria && matchNivel && matchTipos && matchCarga;
     });
 
-    sortCourses(state.filtered, ordenar);
-    updateUI();
-  }
-
-  function updateUI() {
+    sortCourses(state.filtered, f.ordenar);
     renderCourses();
-    updateCourseButtons();
-  }
-
-  // RENDER
-  function renderCourses() {
-    const wrap = state.els.container;
-    if (!wrap) return;
-
-    wrap.innerHTML = "";
-    const list = state.filtered.length ? state.filtered : [];
-
-    if (!list.length) {
-      wrap.innerHTML = `<div class="ib-empty"><div class="ib-empty__icon" aria-hidden="true">📚</div><p class="ib-empty__text">Nenhum curso encontrado.</p></div>`;
-      return;
-    }
-
-    const frag = document.createDocumentFragment();
-    list.forEach((course) => frag.appendChild(renderCourseCard(course)));
-    wrap.appendChild(frag);
-  }
-
-  function renderCourseCard(c) {
-    const card = document.createElement("div");
-    card.className = "ib-card";
-
-    const thumbSrc = c.thumbnail && String(c.thumbnail).trim() ? c.thumbnail : DEFAULT_THUMB;
-    const thumb = `<img class="ib-card__thumb" src="${thumbSrc}" alt="${escapeHtml(c.title)}" loading="lazy">`;
-
-    card.innerHTML = `
-      <div class="ib-card__media">${thumb}</div>
-      <div class="ib-card__body">
-        <h3 class="ib-card__title">${escapeHtml(c.title)}</h3>
-        <p class="ib-card__meta">
-          <span class="ib-badge">${c.categoria || c.area || ""}</span>
-          <span class="ib-badge">${c.nivel || c.level || ""}</span>
-          <span class="ib-badge">${(Array.isArray(c.tipos) ? c.tipos.join(" / ") : (c.tipo || c.type || ""))}</span>
-        </p>
-        <p class="ib-card__desc">${escapeHtml(c.description || "")}</p>
-      </div>
-      <div class="ib-card__actions">
-        ${renderPrimaryButton(c)}
-        <button class="ib-btn ib-btn--ghost" data-action="details" data-id="${c.id}">Ver detalhes</button>
-      </div>`;
-
-    card.addEventListener("click", (ev) => {
-      const btn = ev.target.closest("[data-action]");
-      if (!btn) return;
-      handleCourseAction(btn.getAttribute("data-action"), btn.getAttribute("data-id"));
-    });
-
-    return card;
-  }
-
-  function renderPrimaryButton(c) {
-    return isEnrolled(c.id)
-      ? `<button class="ib-btn ib-btn--primary" data-action="access" data-id="${c.id}">Acessar curso</button>`
-      : `<button class="ib-btn ib-btn--primary" data-action="enroll" data-id="${c.id}">Inscrever-se</button>`;
-  }
-
-  function updateCourseButtons() {
-    if (!state.els.container) return;
-    $$('[data-action="enroll"], [data-action="access"]', state.els.container).forEach((btn) => {
-      const id = btn.getAttribute("data-id");
-      if (isEnrolled(id)) {
-        btn.textContent = "Acessar curso";
-        btn.setAttribute("data-action", "access");
-      } else {
-        btn.textContent = "Inscrever-se";
-        btn.setAttribute("data-action", "enroll");
-      }
-    });
-  }
-
-  // Ações
-  function handleCourseAction(action, courseId) {
-    const course = state.allCourses.find((c) => String(c.id) === String(courseId));
-    if (!course) return;
-
-    switch (action) {
-      case "details": navigateToCourseDetails(course); break;
-      case "enroll":  enrollCourse(course); break;
-      case "access":  accessCourse(course); break;
-    }
-  }
-
-  function navigateToCourseDetails(course) {
-    const base = document.body.getAttribute("data-course-base") || "/curso/";
-    const slug = course.slug || course.id;
-    window.location.href = `${base}${encodeURIComponent(slug)}`;
-  }
-
-  function enrollCourse(course) {
-    if (!hasAuth() || !window.authManager.isAuthenticated()) {
-      document.dispatchEvent(new CustomEvent("auth:request-login", { detail: { reason: "enroll" } }));
-      return;
-    }
-    if (typeof window.authManager.enroll === "function") {
-      try { window.authManager.enroll(course.id); state.userEnrollments.add(String(course.id)); } catch (_) {}
-    } else {
-      state.userEnrollments.add(String(course.id));
-    }
-    updateCourseButtons();
-  }
-
-  function accessCourse(course) {
-    const base = document.body.getAttribute("data-access-base") || "/aluno/curso/";
-    const slug = course.slug || course.id;
-    window.location.href = `${base}${encodeURIComponent(slug)}`;
-  }
-
-  function isEnrolled(courseId) {
-    if (hasAuth() && typeof window.authManager.isEnrolled === "function") {
-      try { return !!window.authManager.isEnrolled(courseId); } catch (_) {}
-    }
-    return state.userEnrollments.has(String(courseId));
-  }
-
-  // Filtros auxiliares
-  function clearAllFilters() {
-    if (state.els.categoria) state.els.categoria.value = "";
-    if (state.els.carga) state.els.carga.value = "";
-    if (state.els.ordenar) state.els.ordenar.value = "recentes";
-    if (state.els.tiposGroup) $$('input[type="checkbox"]', state.els.tiposGroup).forEach(cb => cb.checked = false);
-    if (state.els.nivelRadios && state.els.nivelRadios.length) state.els.nivelRadios[0].checked = true; // “Todos”
-    applyFilters();
-  }
-
-  function showUserFilters() { if (state.els.userFiltersWrap) state.els.userFiltersWrap.hidden = false; }
-  function hideUserFilters() { if (state.els.userFiltersWrap) state.els.userFiltersWrap.hidden = true; }
-
-  function updateAuthHeader() {
-    const el = state.els.authHeader; if (!el) return;
-    const logged = !!state.currentUser;
-    el.classList.toggle("is-auth", logged);
-    const name = logged && (state.currentUser.name || state.currentUser.firstName || state.currentUser.email);
-    el.querySelectorAll("[data-user-name]").forEach((n) => n.textContent = name || "");
-  }
-
-  // Util
-  function escapeHtml(str) {
-    return String(str || "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
+    log("Cursos visíveis:", state.filtered.length);
   }
 
   function matchCargaHoraria(c, filtro) {
     if (!filtro) return true;
-    // aceita c.cargaHoraria (número) ou c.duracao tipo "12h"/"8h30"
     const horas = parseFloat(String(c.cargaHoraria || c.duracao || "").replace(/[^0-9.,]/g,"").replace(",", ".")) || 0;
     if (filtro === "curta") return horas > 0 && horas < 10;
     if (filtro === "media") return horas >= 10 && horas <= 30;
@@ -301,10 +143,54 @@
     }
   }
 
-  // Exposição controlada (compatibilidade)
-  const api = { init, applyFilters, clearAllFilters, navigateToCourseDetails };
-  window.bibliotecaManager = api;
+  function clearAllFilters() {
+    if (state.els.categoria) state.els.categoria.value = "";
+    if (state.els.carga) state.els.carga.value = "";
+    if (state.els.ordenar) state.els.ordenar.value = "recentes";
+    if (state.els.tiposGroup) $$('.checkbox-group input[type="checkbox"]', state.els.tiposGroup).forEach(cb => cb.checked = false);
+    if (state.els.nivelRadios && state.els.nivelRadios.length) state.els.nivelRadios[0].checked = true;
+    applyFilters();
+  }
 
-  // Bootstrap
-  document.addEventListener("DOMContentLoaded", init);
+  function renderCourses() {
+    const wrap = state.els.container;
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    if (!state.filtered.length) {
+      wrap.innerHTML = `<div class="ib-empty"><div class="ib-empty__icon" aria-hidden="true">📚</div><p class="ib-empty__text">Nenhum curso encontrado.</p></div>`;
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    state.filtered.forEach(c => frag.appendChild(renderCard(c)));
+    wrap.appendChild(frag);
+  }
+
+  function renderCard(c) {
+    const el = document.createElement("article");
+    el.className = "ib-card";
+    const thumb = (c.thumbnail && String(c.thumbnail).trim()) ? c.thumbnail : DEFAULT_THUMB;
+    el.innerHTML = `
+      <div class="ib-card__media">
+        <img class="ib-card__thumb" src="${thumb}" alt="${escapeHtml(c.title)}" loading="lazy"/>
+      </div>
+      <div class="ib-card__body">
+        <h3 class="ib-card__title">${escapeHtml(c.title)}</h3>
+        <p class="ib-card__meta">
+          <span class="ib-badge">${c.categoria || c.area || ""}</span>
+          <span class="ib-badge">${c.nivel || c.level || ""}</span>
+          <span class="ib-badge">${Array.isArray(c.tipos) ? c.tipos.join(" / ") : (c.tipo || c.type || "")}</span>
+        </p>
+        <p class="ib-card__desc">${escapeHtml(c.description || "")}</p>
+      </div>
+      <div class="ib-card__actions">
+        <a class="ib-btn ib-btn--primary" href="${getDetailsUrl(c)}">Ver detalhes</a>
+      </div>`;
+    return el;
+  }
+
+  function getDetailsUrl(c) {
+    const base = document.body.getAttribute("data-course-base") || "/curso/";
+    const slug = c.slug || c.id;
+    return `${base}${encodeURIComponent(slug)}`;
+  }
 })();
