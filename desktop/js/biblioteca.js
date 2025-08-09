@@ -63,3 +63,4 @@ const bibliotecaManager = {
 };
 
 document.addEventListener('DOMContentLoaded', () => bibliotecaManager.init());
+// Forcing Netlify deploy for JS.
