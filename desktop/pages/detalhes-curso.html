@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Detalhes do Curso - Instituto Buriti</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cursos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Estilos específicos para a página de detalhes do curso */
+        .course-hero {
+            background: linear-gradient(135deg, #2D1B69 0%, #973CBF 100%);
+            padding: 80px 0 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        
+        .course-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .course-info h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .course-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .course-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .meta-item i {
+            color: #6B8C79;
+            font-size: 1.1rem;
+        }
+        
+        .course-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .course-thumbnail {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        
+        .course-price {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .price-current {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2D1B69;
+            margin-bottom: 5px;
+        }
+        
+        .price-original {
+            font-size: 1.1rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 10px;
+        }
+        
+        .price-discount {
+            background: #FF6B6B;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .enroll-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #973CBF 0%, #6B8C79 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        
+        .enroll-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(151, 60, 191, 0.3);
+        }
+        
+        .wishlist-btn {
+            width: 100%;
+            background: transparent;
+            color: #2D1B69;
+            border: 2px solid #2D1B69;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .wishlist-btn:hover {
+            background: #2D1B69;
+            color: white;
+        }
+        
+        .course-includes {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .includes-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2D1B69;
+        }
+        
+        .includes-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .includes-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .includes-list i {
+            color: #6B8C79;
+            font-size: 1rem;
+        }
+        
+        .course-content {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        
+        .content-tabs {
+            display: flex;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 40px;
+            gap: 40px;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            color: #2D1B69;
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #973CBF 0%, #6B8C79 100%);
+            border-radius: 2px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .description-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+        
+        .curriculum-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2D1B69;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .lesson-list {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .lesson-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .lesson-item:last-child {
+            border-bottom: none;
+        }
+        
+        .lesson-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .lesson-icon {
+            color: #6B8C79;
+            font-size: 1.1rem;
+        }
+        
+        .lesson-duration {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .instructor-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .instructor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .instructor-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2D1B69;
+            margin-bottom: 5px;
+        }
+        
+        .instructor-title {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .instructor-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .reviews-section {
+            margin-top: 40px;
+        }
+        
+        .review-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .reviewer-info h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .review-rating {
+            color: #FFB800;
+        }
+        
+        .review-text {
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        @media (max-width: 768px) {
+            .course-hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .course-info h1 {
+                font-size: 2.2rem;
+            }
+            
+            .course-meta {
+                gap: 20px;
+            }
+            
+            .content-tabs {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .instructor-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item">
+                <a href="../index.html">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item active">
+                <a href="cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown">
+                <button class="login-btn">Login</button>
+                <div class="dropdown-menu">
+                    <a href="login-aluno.html" class="dropdown-item">Aluno</a>
+                    <a href="login-instrutor.html" class="dropdown-item">Instrutor</a>
+                    <a href="login-admin.html" class="dropdown-item">Administrador</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Course Hero Section -->
+    <section class="course-hero">
+        <div class="course-hero-content">
+            <div class="course-info">
+                <h1 id="courseTitle">Carregando curso...</h1>
+                <p class="course-subtitle" id="courseSubtitle">Carregando descrição...</p>
+                
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="courseDuration">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-signal"></i>
+                        <span id="courseLevel">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-users"></i>
+                        <span id="courseStudents">- alunos</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-star"></i>
+                        <span id="courseRating">- (- avaliações)</span>
+                    </div>
+                </div>
+                
+                <div class="course-tags" id="courseTags">
+                    <!-- Tags serão inseridas dinamicamente -->
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <img id="courseThumbnail" src="" alt="Thumbnail do curso" class="course-thumbnail">
+                
+                <div class="course-price">
+                    <div class="price-current" id="currentPrice">R$ 0,00</div>
+                    <div class="price-original" id="originalPrice" style="display: none;">R$ 0,00</div>
+                    <div class="price-discount" id="discountBadge" style="display: none;">50% OFF</div>
+                </div>
+                
+                <button class="enroll-btn" id="enrollBtn">
+                    <i class="fas fa-shopping-cart"></i>
+                    Inscrever-se agora
+                </button>
+                
+                <button class="wishlist-btn" id="wishlistBtn">
+                    <i class="far fa-heart"></i>
+                    Adicionar à lista de desejos
+                </button>
+                
+                <div class="course-includes">
+                    <h4 class="includes-title">Este curso inclui:</h4>
+                    <ul class="includes-list">
+                        <li><i class="fas fa-play-circle"></i> <span id="videoHours">- horas</span> de vídeo sob demanda</li>
+                        <li><i class="fas fa-file-alt"></i> <span id="articles">-</span> artigos</li>
+                        <li><i class="fas fa-download"></i> <span id="resources">-</span> recursos para download</li>
+                        <li><i class="fas fa-mobile-alt"></i> Acesso no celular e TV</li>
+                        <li><i class="fas fa-certificate"></i> Certificado de conclusão</li>
+                        <li><i class="fas fa-infinity"></i> Acesso vitalício</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Content -->
+    <section class="course-content">
+        <div class="content-tabs">
+            <button class="tab-btn active" data-tab="description">Descrição</button>
+            <button class="tab-btn" data-tab="curriculum">Conteúdo do curso</button>
+            <button class="tab-btn" data-tab="instructor">Instrutor</button>
+            <button class="tab-btn" data-tab="reviews">Avaliações</button>
+        </div>
+
+        <!-- Description Tab -->
+        <div class="tab-content active" id="description">
+            <div class="description-content" id="courseDescription">
+                <p>Carregando descrição detalhada do curso...</p>
+            </div>
+        </div>
+
+        <!-- Curriculum Tab -->
+        <div class="tab-content" id="curriculum">
+            <div class="curriculum-section">
+                <h3 class="section-title">
+                    <i class="fas fa-play-circle"></i>
+                    Módulo 1: Introdução
+                </h3>
+                <div class="lesson-list" id="curriculumList">
+                    <!-- Lições serão inseridas dinamicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructor Tab -->
+        <div class="tab-content" id="instructor">
+            <div class="instructor-card" id="instructorCard">
+                <!-- Informações do instrutor serão inseridas dinamicamente -->
+            </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div class="tab-content" id="reviews">
+            <div class="reviews-section" id="reviewsList">
+                <!-- Avaliações serão inseridas dinamicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-section">
+        <div class="cta-background">
+            <svg class="cta-shape cta-shape-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#973CBF" fill-opacity="0.1" d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,89.8,-0.2C89.6,15.9,86.6,31.8,78.9,45.1C71.2,58.4,58.8,69.1,44.7,76.4C30.6,83.7,15.3,87.6,-0.2,87.9C-15.7,88.2,-31.4,84.9,-45.1,77.6C-58.8,70.3,-70.5,59,-76.4,-44.7C-82.3,-30.4,-82.4,-15.2,-82.1,0.2C-81.8,15.6,-81.1,31.2,-75.1,44.7C-69.1,58.2,-57.8,69.6,-44.7,76.4C-31.6,83.2,-15.8,85.4,-0.2,85.7C15.4,86,30.8,84.4,44.7,76.4Z" transform="translate(100 100)" />
+            </svg>
+            <svg class="cta-shape cta-shape-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#6B8C79" fill-opacity="0.08" d="M39.1,-67.8C50.7,-60.2,59.8,-48.4,65.4,-35.1C71,-21.8,73.1,-7,72.8,7.9C72.5,22.8,69.8,37.8,62.4,50.1C55,62.4,42.9,72,28.9,77.1C14.9,82.2,-1,82.8,-16.8,79.9C-32.6,77,-48.3,70.6,-59.8,59.8C-71.3,49,-78.6,33.8,-81.2,17.8C-83.8,1.8,-81.7,-15,-75.1,-29.4C-68.5,-43.8,-57.4,-55.8,-44.7,-62.8C-32,-69.8,-17.7,-71.8,-2.8,-67.5C12.1,-63.2,27.5,-75.4,39.1,-67.8Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Pronto para transformar sua carreira?</h2>
+                <p class="cta-subtitle">Explore nossos cursos e encontre o caminho certo para o seu desenvolvimento profissional.</p>
+                <div class="cta-buttons">
+                    <a href="cursos.html" class="cta-btn primary">Ver Todos os Cursos</a>
+                    <a href="seja-instrutor-novo.html" class="cta-btn secondary">Seja um Instrutor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="cursos.html">Cursos</a></li>
+                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // JavaScript para carregamento dinâmico dos dados do curso
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseSlug = urlParams.get('slug');
+
+            // Dados dos cursos (posteriormente virão de uma API ou banco de dados)
+            const coursesData = {
+                'metodologias-ativas': {
+                    title: 'Metodologias Ativas',
+                    subtitle: 'Transforme sua prática educacional com metodologias inovadoras',
+                    description: 'Este curso explora as metodologias ativas de ensino, como a Aprendizagem Baseada em Problemas (PBL), a sala de aula invertida e a avaliação formativa. Aprenda a engajar seus alunos de forma mais eficaz e a promover um aprendizado significativo através de técnicas comprovadas e práticas inovadoras.',
+                    longDescription: `
+                        <h3>O que você vai aprender</h3>
+                        <p>Neste curso abrangente sobre Metodologias Ativas, você descobrirá como revolucionar sua prática educacional através de abordagens pedagógicas inovadoras e centradas no aluno.</p>
+                        
+                        <h4>Principais tópicos:</h4>
+                        <ul>
+                            <li>Fundamentos das metodologias ativas</li>
+                            <li>Aprendizagem Baseada em Problemas (PBL)</li>
+                            <li>Sala de aula invertida (Flipped Classroom)</li>
+                            <li>Avaliação formativa e feedback efetivo</li>
+                            <li>Gamificação no ensino</li>
+                            <li>Tecnologias educacionais</li>
+                        </ul>
+                        
+                        <h4>Para quem é este curso:</h4>
+                        <p>Este curso é ideal para educadores, professores, coordenadores pedagógicos e profissionais da educação que desejam inovar em suas práticas de ensino e criar experiências de aprendizagem mais engajadoras e efetivas.</p>
+                    `,
+                    duration: '8 horas',
+                    level: 'Iniciante',
+                    students: 150,
+                    rating: 4.8,
+                    reviews: 45,
+                    currentPrice: 'Gratuito',
+                    originalPrice: null,
+                    discount: null,
+                    thumbnail: 'https://via.placeholder.com/400x250/FF5733/FFFFFF?text=Metodologias+Ativas',
+                    tags: ['Educação', 'Metodologias', 'Inovação', 'Gratuito'],
+                    includes: {
+                        videoHours: '6',
+                        articles: '12',
+                        resources: '8'
+                    },
+                    instructor: {
+                        name: 'Dra. Maria Silva',
+                        title: 'Especialista em Metodologias Ativas',
+                        avatar: 'https://via.placeholder.com/80x80/6B8C79/FFFFFF?text=MS',
+                        students: 1200,
+                        courses: 5,
+                        rating: 4.9
+                    },
+                    curriculum: [
+                        { title: 'Introdução às Metodologias Ativas', duration: '15 min', type: 'video' },
+                        { title: 'Fundamentos Teóricos', duration: '25 min', type: 'video' },
+                        { title: 'PBL na Prática', duration: '30 min', type: 'video' },
+                        { title: 'Sala de Aula Invertida', duration: '20 min', type: 'video' },
+                        { title: 'Avaliação Formativa', duration: '18 min', type: 'video' }
+                    ]
+                },
+                'gestao-projetos-ageis': {
+                    title: 'Gestão de Projetos Ágeis',
+                    subtitle: 'Domine Scrum e Kanban para liderar projetos de sucesso',
+                    description: 'Aprenda as metodologias ágeis mais utilizadas no mercado, Scrum e Kanban, através de estudos de caso práticos. Ideal para quem busca otimizar a gestão de projetos e equipes.',
+                    longDescription: `
+                        <h3>Transforme sua carreira em gestão de projetos</h3>
+                        <p>Este curso completo sobre Gestão de Projetos Ágeis oferece uma imersão profunda nas metodologias mais demandadas pelo mercado atual.</p>
+                        
+                        <h4>O que você dominará:</h4>
+                        <ul>
+                            <li>Framework Scrum completo</li>
+                            <li>Metodologia Kanban</li>
+                            <li>Ferramentas de gestão ágil</li>
+                            <li>Liderança de equipes ágeis</li>
+                            <li>Métricas e indicadores</li>
+                            <li>Casos reais de implementação</li>
+                        </ul>
+                    `,
+                    duration: '20 horas',
+                    level: 'Intermediário',
+                    students: 200,
+                    rating: 4.9,
+                    reviews: 67,
+                    currentPrice: 'R$ 299,90',
+                    originalPrice: 'R$ 599,90',
+                    discount: '50% OFF',
+                    thumbnail: 'https://via.placeholder.com/400x250/33FF57/FFFFFF?text=Gestao+Ageis',
+                    tags: ['Gestão', 'Scrum', 'Kanban', 'Certificado'],
+                    includes: {
+                        videoHours: '15',
+                        articles: '20',
+                        resources: '15'
+                    },
+                    instructor: {
+                        name: 'Carlos Santos',
+                        title: 'Scrum Master Certificado',
+                        avatar: 'https://via.placeholder.com/80x80/973CBF/FFFFFF?text=CS',
+                        students: 2500,
+                        courses: 8,
+                        rating: 4.8
+                    },
+                    curriculum: [
+                        { title: 'Introdução à Agilidade', duration: '20 min', type: 'video' },
+                        { title: 'Framework Scrum', duration: '45 min', type: 'video' },
+                        { title: 'Papéis no Scrum', duration: '35 min', type: 'video' },
+                        { title: 'Eventos Scrum', duration: '40 min', type: 'video' },
+                        { title: 'Kanban Fundamentals', duration: '30 min', type: 'video' }
+                    ]
+                }
+                // Adicionar mais cursos conforme necessário
+            };
+
+            if (courseSlug && coursesData[courseSlug]) {
+                loadCourseData(coursesData[courseSlug]);
+            } else {
+                showCourseNotFound();
+            }
+
+            // Função para carregar os dados do curso
+            function loadCourseData(course) {
+                // Atualizar título da página
+                document.getElementById('pageTitle').textContent = `${course.title} - Instituto Buriti`;
+                
+                // Atualizar informações principais
+                document.getElementById('courseTitle').textContent = course.title;
+                document.getElementById('courseSubtitle').textContent = course.subtitle;
+                document.getElementById('courseDuration').textContent = course.duration;
+                document.getElementById('courseLevel').textContent = course.level;
+                document.getElementById('courseStudents').textContent = `${course.students} alunos`;
+                document.getElementById('courseRating').textContent = `${course.rating} (${course.reviews} avaliações)`;
+                
+                // Atualizar thumbnail
+                document.getElementById('courseThumbnail').src = course.thumbnail;
+                document.getElementById('courseThumbnail').alt = `Thumbnail do curso ${course.title}`;
+                
+                // Atualizar preço
+                document.getElementById('currentPrice').textContent = course.currentPrice;
+                if (course.originalPrice) {
+                    document.getElementById('originalPrice').textContent = course.originalPrice;
+                    document.getElementById('originalPrice').style.display = 'block';
+                }
+                if (course.discount) {
+                    document.getElementById('discountBadge').textContent = course.discount;
+                    document.getElementById('discountBadge').style.display = 'inline-block';
+                }
+                
+                // Atualizar tags
+                const tagsContainer = document.getElementById('courseTags');
+                tagsContainer.innerHTML = '';
+                course.tags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag';
+                    tagElement.textContent = tag;
+                    tagsContainer.appendChild(tagElement);
+                });
+                
+                // Atualizar informações incluídas
+                document.getElementById('videoHours').textContent = course.includes.videoHours + ' horas';
+                document.getElementById('articles').textContent = course.includes.articles + ' artigos';
+                document.getElementById('resources').textContent = course.includes.resources + ' recursos';
+                
+                // Atualizar descrição
+                document.getElementById('courseDescription').innerHTML = course.longDescription;
+                
+                // Atualizar currículo
+                const curriculumList = document.getElementById('curriculumList');
+                curriculumList.innerHTML = '';
+                course.curriculum.forEach(lesson => {
+                    const lessonElement = document.createElement('div');
+                    lessonElement.className = 'lesson-item';
+                    lessonElement.innerHTML = `
+                        <div class="lesson-info">
+                            <i class="lesson-icon fas fa-play-circle"></i>
+                            <span>${lesson.title}</span>
+                        </div>
+                        <span class="lesson-duration">${lesson.duration}</span>
+                    `;
+                    curriculumList.appendChild(lessonElement);
+                });
+                
+                // Atualizar instrutor
+                const instructorCard = document.getElementById('instructorCard');
+                instructorCard.innerHTML = `
+                    <img src="${course.instructor.avatar}" alt="${course.instructor.name}" class="instructor-avatar">
+                    <div class="instructor-info">
+                        <h3>${course.instructor.name}</h3>
+                        <p class="instructor-title">${course.instructor.title}</p>
+                        <div class="instructor-stats">
+                            <span><i class="fas fa-users"></i> ${course.instructor.students} alunos</span>
+                            <span><i class="fas fa-book"></i> ${course.instructor.courses} cursos</span>
+                            <span><i class="fas fa-star"></i> ${course.instructor.rating}</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Adicionar avaliações de exemplo
+                const reviewsList = document.getElementById('reviewsList');
+                reviewsList.innerHTML = `
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="https://via.placeholder.com/50x50/2D1B69/FFFFFF?text=JD" alt="João" class="reviewer-avatar">
+                            <div class="reviewer-info">
+                                <h4>João Dias</h4>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">Excelente curso! As metodologias apresentadas são muito práticas e aplicáveis no dia a dia. Recomendo para todos os educadores.</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="https://via.placeholder.com/50x50/6B8C79/FFFFFF?text=MS" alt="Maria" class="reviewer-avatar">
+                            <div class="reviewer-info">
+                                <h4>Maria Santos</h4>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">Muito bom conteúdo e bem estruturado. Os exemplos práticos ajudaram muito na compreensão dos conceitos.</p>
+                    </div>
+                `;
+            }
+
+            function showCourseNotFound() {
+                document.getElementById('courseTitle').textContent = 'Curso não encontrado';
+                document.getElementById('courseSubtitle').textContent = 'O curso que você está procurando não foi encontrado.';
+            }
+
+            // Funcionalidade das abas
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+                    
+                    // Remover classe active de todas as abas
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Adicionar classe active na aba clicada
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+
+            // Funcionalidade dos botões
+            document.getElementById('enrollBtn').addEventListener('click', () => {
+                alert('Funcionalidade de inscrição será implementada em breve!');
+            });
+
+            document.getElementById('wishlistBtn').addEventListener('click', () => {
+                alert('Funcionalidade de lista de desejos será implementada em breve!');
+            });
+        });
+    </script>
+</body>
+</html>
+
