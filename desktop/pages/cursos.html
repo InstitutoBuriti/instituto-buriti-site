@@ -125,7 +125,7 @@
         </div>
     </section>
 
-    <!-- Catálogo de Cursos (será preenchido dinamicamente ) -->
+    <!-- Catálogo de Cursos -->
     <section class="courses-catalog">
         <div class="container">
             <div class="courses-grid" id="coursesContainer">
@@ -192,7 +192,120 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="../js/main.js"></script>
+
+    <!-- Fonte de cursos para a página -->
+    <script>
+      // Recomendo criar ../images/default-course.png como cópia da sua imagem padrão
+      window.COURSES = [
+        {
+          id: "ia-fundamentos",
+          title: "Fundamentos de IA",
+          categoria: "tecnologia",
+          nivel: "iniciante",
+          tipos: ["pago", "certificado"],
+          cargaHoraria: 20,
+          createdAt: "2025-07-20",
+          acessos: 124,
+          description: "Conceitos básicos de IA e ML com exercícios práticos.",
+          thumbnail: "../images/cursos/ia-fundamentos.jpg",
+          slug: "ia-fundamentos"
+        },
+        {
+          id: "python-dados",
+          title: "Python para Dados",
+          categoria: "tecnologia",
+          nivel: "intermediario",
+          tipos: ["pago"],
+          cargaHoraria: 28,
+          createdAt: "2025-07-28",
+          acessos: 96,
+          description: "Do pandas ao gráfico: análise de dados aplicada.",
+          thumbnail: "../images/default-course.png",
+          slug: "python-para-dados"
+        },
+        {
+          id: "gestao-projetos",
+          title: "Gestão de Projetos Ágeis",
+          categoria: "gestao",
+          nivel: "intermediario",
+          tipos: ["pago", "certificado"],
+          cargaHoraria: 18,
+          createdAt: "2025-08-02",
+          acessos: 210,
+          description: "Scrum e Kanban na prática com estudos de caso.",
+          thumbnail: "../images/cursos/gestao-agil.jpg",
+          slug: "gestao-de-projetos-ageis"
+        },
+        {
+          id: "financas-basicas",
+          title: "Finanças Pessoais Essenciais",
+          categoria: "gestao",
+          nivel: "iniciante",
+          tipos: ["gratuito"],
+          cargaHoraria: 8,
+          createdAt: "2025-07-15",
+          acessos: 330,
+          description: "Controle de gastos, reserva de emergência e metas.",
+          thumbnail: "../images/default-course.png",
+          slug: "financas-pessoais-essenciais"
+        },
+        {
+          id: "producao-cultural",
+          title: "Produção Cultural",
+          categoria: "cultura",
+          nivel: "intermediario",
+          tipos: ["pago"],
+          cargaHoraria: 16,
+          createdAt: "2025-07-10",
+          acessos: 78,
+          description: "Do edital à execução: projetos culturais sustentáveis.",
+          thumbnail: "../images/cursos/producao-cultural.jpg",
+          slug: "producao-cultural"
+        },
+        {
+          id: "educacao-inclusiva",
+          title: "Educação Inclusiva na Prática",
+          categoria: "educacao",
+          nivel: "avancado",
+          tipos: ["pago", "certificado"],
+          cargaHoraria: 32,
+          createdAt: "2025-06-30",
+          acessos: 142,
+          description: "Estratégias e recursos para acessibilidade efetiva.",
+          thumbnail: "../images/default-course.png",
+          slug: "educacao-inclusiva"
+        },
+        {
+          id: "metodologias-ativas",
+          title: "Metodologias Ativas",
+          categoria: "educacao",
+          nivel: "iniciante",
+          tipos: ["gratuito"],
+          cargaHoraria: 6,
+          createdAt: "2025-08-05",
+          acessos: 52,
+          description: "PBL, sala invertida e avaliação formativa.",
+          thumbnail: "../images/cursos/metodologias-ativas.jpg",
+          slug: "metodologias-ativas"
+        },
+        {
+          id: "empreendedorismo-social",
+          title: "Empreendedorismo Social",
+          categoria: "outros",
+          nivel: "intermediario",
+          tipos: ["pago"],
+          cargaHoraria: 14,
+          createdAt: "2025-07-25",
+          acessos: 67,
+          description: "Modelos de negócio de impacto e medição de resultados.",
+          thumbnail: "../images/default-course.png",
+          slug: "empreendedorismo-social"
+        }
+      ];
+    </script>
+
     <script src="../js/biblioteca.js"></script>
 </body>
 </html>
