@@ -23,7 +23,7 @@
   const normalize = s => (s||"").normalize("NFD").replace(/\p{Diacritic}/gu,"").toLowerCase().trim();
   const escapeHtml = s => String(s||"")
     .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
-    .replaceAll("\"","&quot;").replaceAll("\\\'","&#39;");
+    .replaceAll("\"","&quot;").replaceAll("\\\'";
 
   // Fallback de imagem (1º sua imagem longa; 2º um alias simples, caso você crie)
   const DEFAULT_THUMBS = [
@@ -216,7 +216,7 @@
              src="${primaryThumb}"
              alt="${escapeHtml(c.title)}"
              loading="lazy"
-             onerror="if (this.dataset.fbk!==\'1\'){ this.dataset.fbk=\'1\'; this.src=\'${altThumb}\'; }"/>
+             onerror="if (this.dataset.fbk!==\\'1\\'){ this.dataset.fbk=\\'1\\'; this.src=\\'${altThumb}\\'; }"/>
       </div>
       <div class="ib-card__body">
         <h3 class="ib-card__title">${escapeHtml(c.title)}</h3>
