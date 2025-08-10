@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Curso - Instituto Buriti</title>
+    <title id="courseTitle">Detalhes do Curso - Instituto Buriti</title>
     <link rel="stylesheet" href="/desktop/css/style.css">
     <link rel="stylesheet" href="/desktop/css/curso.css">
+    <link rel="stylesheet" href="/desktop/css/footer-oficial.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -35,31 +36,34 @@
             <div class="container">
                 <div class="course-hero-content">
                     <div class="course-hero-text">
-                        <h1 id="course-title" class="course-hero-title">Carregando...</h1>
-                        <p id="course-description" class="course-hero-subtitle">Carregando descrição...</p>
+                        <h1 class="course-hero-title" id="courseHeroTitle"></h1>
+                        <p class="course-hero-subtitle" id="courseHeroSubtitle"></p>
                         <div class="course-meta-info">
-                            <span id="course-category" class="course-badge"></span>
-                            <span id="course-level" class="course-badge"></span>
-                            <span id="course-duration" class="course-badge"></span>
+                            <span id="courseCategory" class="course-meta-badge"></span>
+                            <span id="courseLevel" class="course-meta-badge"></span>
+                            <span id="courseDuration" class="course-meta-badge"></span>
                         </div>
                         <div class="course-instructor-info">
-                            <img id="instructor-avatar" src="/desktop/images/default-avatar.png" alt="Instrutor" class="instructor-avatar">
-                            <span id="instructor-name" class="instructor-name"></span>
+                            <img src="/desktop/images/instructor-placeholder.jpg" alt="Instrutor" class="instructor-avatar" id="instructorAvatar">
+                            <span id="instructorName"></span>
                         </div>
                     </div>
-                    <div class="course-hero-sidebar">
-                        <div class="course-sidebar-card">
-                            <img id="course-thumbnail" src="/desktop/images/default-course.png" alt="Thumbnail do Curso" class="course-thumbnail">
-                            <div class="price-info">
-                                <span id="course-price" class="course-price"></span>
+                    <div class="course-sidebar">
+                        <img src="/desktop/images/course-placeholder.jpg" alt="Capa do Curso" class="course-sidebar-image" id="courseSidebarImage">
+                        <div class="course-sidebar-details">
+                            <div class="course-price" id="coursePrice"></div>
+                            <button class="buy-button">Inscrever-se Agora</button>
+                            <button class="wishlist-button"><i class="far fa-heart"></i> Adicionar à Lista de Desejos</button>
+                            <div class="included-features">
+                                <h4>O que está incluído:</h4>
+                                <ul>
+                                    <li><i class="fas fa-video"></i> Aulas em vídeo sob demanda</li>
+                                    <li><i class="fas fa-file-alt"></i> Recursos para download</li>
+                                    <li><i class="fas fa-infinity"></i> Acesso vitalício</li>
+                                    <li><i class="fas fa-mobile-alt"></i> Acesso no celular e TV</li>
+                                    <li><i class="fas fa-certificate"></i> Certificado de conclusão</li>
+                                </ul>
                             </div>
-                            <button class="btn-primary full-width">Inscrever-se agora</button>
-                            <button class="btn-secondary full-width">Adicionar à lista de desejos</button>
-                            <ul class="includes-list">
-                                <li><i class="fas fa-play-circle"></i> Acesso vitalício</li>
-                                <li><i class="fas fa-certificate"></i> Certificado de conclusão</li>
-                                <li><i class="fas fa-mobile-alt"></i> Acesso no celular e TV</li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -68,34 +72,32 @@
 
         <section class="course-details-section">
             <div class="container">
-                <div class="tabs">
+                <div class="course-tabs">
                     <button class="tab-button active" data-tab="description">Descrição</button>
                     <button class="tab-button" data-tab="content">Conteúdo</button>
                     <button class="tab-button" data-tab="instructor">Instrutor</button>
                     <button class="tab-button" data-tab="reviews">Avaliações</button>
                 </div>
-                <div id="tab-description" class="tab-content active">
-                    <h2 class="section-title">Sobre o Curso</h2>
-                    <p id="full-description"></p>
-                </div>
-                <div id="tab-content" class="tab-content">
-                    <h2 class="section-title">Conteúdo do Curso</h2>
-                    <ul id="course-modules" class="course-modules-list">
-                        <!-- Conteúdo dos módulos será carregado aqui -->
-                    </ul>
-                </div>
-                <div id="tab-instructor" class="tab-content">
-                    <h2 class="section-title">Sobre o Instrutor</h2>
-                    <div class="instructor-profile">
-                        <img id="instructor-profile-avatar" src="/desktop/images/default-avatar.png" alt="Instrutor" class="instructor-profile-avatar">
-                        <h3 id="instructor-profile-name"></h3>
-                        <p id="instructor-profile-bio"></p>
+                <div class="tab-content-wrapper">
+                    <div id="tab-description" class="tab-content active">
+                        <h3>Sobre este curso</h3>
+                        <p id="courseDescriptionFull"></p>
                     </div>
-                </div>
-                <div id="tab-reviews" class="tab-content">
-                    <h2 class="section-title">Avaliações dos Alunos</h2>
-                    <div id="course-reviews" class="course-reviews-list">
-                        <!-- Avaliações serão carregadas aqui -->
+                    <div id="tab-content" class="tab-content">
+                        <h3>Conteúdo do Curso</h3>
+                        <ul id="courseContentList"></ul>
+                    </div>
+                    <div id="tab-instructor" class="tab-content">
+                        <h3>Sobre o Instrutor</h3>
+                        <div class="instructor-profile">
+                            <img src="/desktop/images/instructor-placeholder.jpg" alt="Instrutor" class="instructor-profile-avatar" id="instructorProfileAvatar">
+                            <h4 id="instructorProfileName"></h4>
+                            <p id="instructorProfileBio"></p>
+                        </div>
+                    </div>
+                    <div id="tab-reviews" class="tab-content">
+                        <h3>Avaliações dos Alunos</h3>
+                        <div id="courseReviews">Nenhuma avaliação ainda.</div>
                     </div>
                 </div>
             </div>
@@ -107,7 +109,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
+                    <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
                     <h3>Educação que transforma. Cultura que conecta.</h3>
                     <p>Instituto Buriti, uma empresa 100% digital.</p>
                 </div>
@@ -126,7 +128,7 @@
                         <h4>Contato</h4>
                         <ul>
                             <li>📧 contato@institutoburiti.com.br</li>
-                            <li>📞 (86) 98170-8388</li>
+                            <li>📞 (86 ) 98170-8388</li>
                             <li>📍 Teresina, Piauí</li>
                         </ul>
                     </div>
@@ -139,88 +141,74 @@
     </footer>
 
     <script src="/desktop/js/main.js"></script>
-    <script src="/desktop/js/biblioteca.js?v=detalhes-2025-08-09-1"></script>
+    <script src="/desktop/js/biblioteca.js?v=detalhes-2025-08-10-1"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
             const courseSlug = urlParams.get("slug");
 
             if (courseSlug) {
-                // Usar a função loadInitialCourses do biblioteca.js para obter os cursos
-                // Certifique-se que bibliotecaManager está disponível globalmente ou carregue os cursos aqui
-                // Por simplicidade, vamos usar o fallback de cursos diretamente aqui para demonstração
-                // Em um ambiente real, você pode querer uma API ou um método mais robusto para buscar um curso específico
-                const allCourses = window.bibliotecaManager ? window.bibliotecaManager.loadInitialCourses() : [
-                    { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/desktop/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos", price: 299, instructorName: "Dr. Ana Paula", instructorBio: "Especialista em Inteligência Artificial com 10 anos de experiência.", fullDescription: "Este curso abrange os fundamentos da Inteligência Artificial e Machine Learning, desde os conceitos básicos até a implementação de modelos simples. Ideal para iniciantes que desejam entrar no mundo da IA.", modules: [{title: "Introdução à IA", duration: "2h"}, {title: "Machine Learning Básico", duration: "5h"}], reviews: [{text: "Excelente curso, muito didático!", author: "João S."}] },
-                    { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:"/desktop/images/default-course.png", slug:"python-para-dados", price: 399, instructorName: "Prof. Carlos Lima", instructorBio: "Cientista de dados com vasta experiência em Python e análise de dados.", fullDescription: "Aprenda a manipular, analisar e visualizar dados usando Python e suas principais bibliotecas como Pandas, NumPy e Matplotlib. Ideal para quem busca se aprofundar em Data Science.", modules: [{title: "Introdução ao Pandas", duration: "6h"}, {title: "Visualização de Dados", duration: "8h"}], reviews: [{text: "Conteúdo muito relevante e prático.", author: "Maria F."}] },
-                    { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/desktop/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis", price: 249, instructorName: "Eng. Pedro Costa", instructorBio: "Consultor em metodologias ágeis com mais de 15 anos de experiência.", fullDescription: "Domine as metodologias Scrum e Kanban e aprenda a aplicá-las em projetos reais. Este curso oferece uma visão prática da gestão ágil, com foco em eficiência e resultados.", modules: [{title: "Fundamentos do Scrum", duration: "4h"}, {title: "Kanban na Prática", duration: "4h"}], reviews: [{text: "Mudou minha forma de gerenciar projetos!", author: "Ana L."}] },
-                    { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:"/desktop/images/default-course.png", slug:"financas-pessoais-essenciais", price: 0, instructorName: "Dra. Sofia Mendes", instructorBio: "Educadora financeira com paixão por ajudar pessoas a alcançarem a liberdade financeira.", fullDescription: "Aprenda a organizar suas finanças pessoais, criar um orçamento eficaz, economizar e investir para o futuro. Um guia completo para sua saúde financeira.", modules: [{title: "Orçamento e Controle", duration: "3h"}, {title: "Investimentos para Iniciantes", duration: "5h"}], reviews: [{text: "Curso essencial para todos!", author: "Ricardo P."}] },
-                    { id:"producao-cultural", title:"Produção Cultural", categoria:"cultura", nivel:"intermediario", tipos:["pago"], cargaHoraria:16, createdAt:"2025-07-10", acessos:78, description:"Do edital à execução: projetos culturais sustentáveis.", thumbnail:"/desktop/images/cursos/producao-cultural.jpg", slug:"producao-cultural", price: 199, instructorName: "Marta Oliveira", instructorBio: "Produtora cultural com vasta experiência em projetos artísticos e sociais.", fullDescription: "Este curso aborda todas as etapas da produção cultural, desde a concepção e captação de recursos até a execução e prestação de contas. Ideal para quem deseja atuar na área.", modules: [{title: "Planejamento de Projetos Culturais", duration: "8h"}, {title: "Captação de Recursos", duration: "8h"}], reviews: [{text: "Muito completo e inspirador.", author: "Fernanda G."}] },
-                    { id:"educacao-inclusiva", title:"Educação Inclusiva na Prática", categoria:"educacao", nivel:"avancado", tipos:["pago","certificado"], cargaHoraria:32, createdAt:"2025-06-30", acessos:142, description:"Estratégias e recursos para acessibilidade efetiva.", thumbnail:"/desktop/images/default-course.png", slug:"educacao-inclusiva", price: 349, instructorName: "Prof. Helena Santos", instructorBio: "Pedagoga e especialista em educação inclusiva, com foco em práticas inovadoras.", fullDescription: "Explore estratégias e recursos para promover a educação inclusiva em diferentes contextos. O curso aborda desde a legislação até as melhores práticas pedagógicas para garantir a acessibilidade.", modules: [{title: "Fundamentos da Inclusão", duration: "10h"}, {title: "Recursos e Adaptações", duration: "12h"}], reviews: [{text: "Abriu meus olhos para novas possibilidades.", author: "Lucas R."}] },
-                    { id:"metodologias-ativas", title:"Metodologias Ativas", categoria:"educacao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:6, createdAt:"2025-08-05", acessos:52, description:"PBL, sala invertida e avaliação formativa.", thumbnail:"/desktop/images/cursos/metodologias-ativas.jpg", slug:"metodologias-ativas", price: 0, instructorName: "Prof. Juliana Almeida", instructorBio: "Educadora apaixonada por metodologias ativas e inovação na educação.", fullDescription: "Descubra como aplicar metodologias ativas como PBL (Project Based Learning), sala de aula invertida e avaliação formativa para engajar seus alunos e promover um aprendizado mais significativo.", modules: [{title: "Introdução às Metodologias Ativas", duration: "3h"}, {title: "Práticas e Avaliação", duration: "3h"}], reviews: [{text: "Muito prático e inspirador!", author: "Carla M."}] },
-                    { id:"empreendedorismo-social", title:"Empreendedorismo Social", categoria:"outros", nivel:"intermediario", tipos:["pago"], cargaHoraria:14, createdAt:"2025-07-25", acessos:67, description:"Modelos de negócio de impacto e medição de resultados.", thumbnail:"/desktop/images/default-course.png", slug:"empreendedorismo-social", price: 179, instructorName: "Fernando Dantas", instructorBio: "Empreendedor social com experiência na criação e gestão de negócios de impacto.", fullDescription: "Aprenda a desenvolver modelos de negócio que geram impacto social e ambiental positivo. O curso aborda desde a identificação de problemas até a medição de resultados e captação de investimentos.", modules: [{title: "Conceitos de Empreendedorismo Social", duration: "7h"}, {title: "Modelos de Negócio de Impacto", duration: "7h"}], reviews: [{text: "Essencial para quem quer fazer a diferença.", author: "Beatriz S."}] }
-                ];
-
-                const course = allCourses.find(c => c.slug === courseSlug);
+                // Usar os cursos de teste do biblioteca.js para simular dados
+                const courses = window.bibliotecaManager.getCoursesData();
+                const course = courses.find(c => c.slug === courseSlug);
 
                 if (course) {
-                    document.getElementById("course-title").textContent = course.title;
-                    document.getElementById("course-description").textContent = course.description;
-                    document.getElementById("course-category").textContent = course.categoria || course.area;
-                    document.getElementById("course-level").textContent = course.nivel || course.level;
-                    document.getElementById("course-duration").textContent = course.cargaHoraria ? `${course.cargaHoraria}h` : "";
-                    document.getElementById("course-thumbnail").src = course.thumbnail || "/desktop/images/default-course.png";
-                    document.getElementById("course-price").textContent = course.tipos && course.tipos.includes("gratuito") ? "Gratuito" : `R$ ${course.price || "N/A"}`;
+                    document.getElementById("courseTitle").textContent = course.title;
+                    document.getElementById("courseHeroTitle").textContent = course.title;
+                    document.getElementById("courseHeroSubtitle").textContent = course.description;
+                    document.getElementById("courseCategory").textContent = course.categoria;
+                    document.getElementById("courseLevel").textContent = course.nivel;
+                    document.getElementById("courseDuration").textContent = course.cargaHoraria;
+                    document.getElementById("instructorName").textContent = course.instructor;
+                    document.getElementById("coursePrice").textContent = course.price;
+                    document.getElementById("courseDescriptionFull").textContent = course.descriptionFull || course.description;
 
-                    // Preencher detalhes do instrutor (assumindo que o curso tem um instrutor)
-                    document.getElementById("instructor-avatar").src = course.instructorAvatar || "/desktop/images/default-avatar.png";
-                    document.getElementById("instructor-name").textContent = course.instructorName || "Instrutor Desconhecido";
-                    document.getElementById("instructor-profile-avatar").src = course.instructorAvatar || "/desktop/images/default-avatar.png";
-                    document.getElementById("instructor-profile-name").textContent = course.instructorName || "Instrutor Desconhecido";
-                    document.getElementById("instructor-profile-bio").textContent = course.instructorBio || "Biografia do instrutor não disponível.";
+                    // Imagens
+                    document.getElementById("courseSidebarImage").src = course.thumbnail || "/desktop/images/course-placeholder.jpg";
+                    document.getElementById("instructorAvatar").src = course.instructorAvatar || "/desktop/images/instructor-placeholder.jpg";
+                    document.getElementById("instructorProfileAvatar").src = course.instructorAvatar || "/desktop/images/instructor-placeholder.jpg";
 
-                    // Preencher descrição completa
-                    document.getElementById("full-description").textContent = course.fullDescription || course.description;
-
-                    // Preencher módulos do curso (exemplo simples)
-                    const modulesList = document.getElementById("course-modules");
-                    if (course.modules && course.modules.length > 0) {
-                        modulesList.innerHTML = course.modules.map(module => `<li>${module.title} (${module.duration})</li>`).join("");
+                    // Conteúdo do curso (exemplo simples)
+                    const contentList = document.getElementById("courseContentList");
+                    if (course.content && course.content.length > 0) {
+                        course.content.forEach(item => {
+                            const li = document.createElement("li");
+                            li.textContent = item;
+                            contentList.appendChild(li);
+                        });
                     } else {
-                        modulesList.innerHTML = "<li>Conteúdo do curso não disponível.</li>";
+                        contentList.innerHTML = "<li>Conteúdo programático em breve.</li>";
                     }
 
-                    // Preencher avaliações (exemplo simples)
-                    const reviewsList = document.getElementById("course-reviews");
+                    // Instrutor (exemplo simples)
+                    document.getElementById("instructorProfileName").textContent = course.instructor;
+                    document.getElementById("instructorProfileBio").textContent = course.instructorBio || "Informações detalhadas sobre o instrutor em breve.";
+
+                    // Avaliações (exemplo simples)
+                    const reviewsDiv = document.getElementById("courseReviews");
                     if (course.reviews && course.reviews.length > 0) {
-                        reviewsList.innerHTML = course.reviews.map(review => `
-                            <div class="review-item">
-                                <p class="review-text">"${review.text}"</p>
-                                <p class="review-author">- ${review.author}</p>
-                            </div>
-                        `).join("");
+                        reviewsDiv.innerHTML = course.reviews.map(review => `<p><strong>${review.user}:</strong> ${review.text}</p>`).join("");
                     } else {
-                        reviewsList.innerHTML = "<p>Nenhuma avaliação disponível ainda.</p>";
+                        reviewsDiv.innerHTML = "Nenhuma avaliação ainda.";
                     }
 
                 } else {
-                    document.getElementById("course-title").textContent = "Curso não encontrado";
-                    document.getElementById("course-description").textContent = "O curso que você está procurando não foi encontrado.";
+                    document.getElementById("courseTitle").textContent = "Curso não encontrado";
+                    document.getElementById("courseHeroTitle").textContent = "Curso não encontrado";
+                    document.getElementById("courseHeroSubtitle").textContent = "O curso que você está procurando não foi encontrado.";
                 }
             } else {
-                document.getElementById("course-title").textContent = "Nenhum curso especificado";
-                document.getElementById("course-description").textContent = "Por favor, selecione um curso para ver os detalhes.";
+                document.getElementById("courseTitle").textContent = "Nenhum curso especificado";
+                document.getElementById("courseHeroTitle").textContent = "Nenhum curso especificado";
+                document.getElementById("courseHeroSubtitle").textContent = "Por favor, selecione um curso para ver os detalhes.";
             }
 
             // Lógica das abas
             const tabButtons = document.querySelectorAll(".tab-button");
-            const tabContents = document.querySelectorAll(".tab-content");
-
             tabButtons.forEach(button => {
                 button.addEventListener("click", () => {
                     tabButtons.forEach(btn => btn.classList.remove("active"));
-                    tabContents.forEach(content => content.classList.remove("active"));
-
+                    document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
                     button.classList.add("active");
                     document.getElementById(`tab-${button.dataset.tab}`).classList.add("active");
                 });
@@ -229,5 +217,3 @@
     </script>
 </body>
 </html>
-
-
