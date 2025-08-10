@@ -73,7 +73,7 @@
 }
 
 .footer-column a:hover {
-    color: var(--primary-color);
+    color: var(--primary-purple);
     transform: translateX(4px);
 }
 

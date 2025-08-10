@@ -6,6 +6,11 @@
 }
 
 :root {
+  --primary-color: var(--primary-purple);
+  --gray-700: #3f4752;
+  --gray-400: #cbd5e1;
+  --font-primary: 'Playfair Display', serif;
+  --transition-fast: 0.2s ease;
     --primary-purple: #A020F0;
     --primary-orange: #FF6F00;
     --secondary-purple: #8B5A96;
@@ -708,7 +713,6 @@ body {
     height: auto;
     margin-bottom: 20px;
     filter: brightness(0) invert(1);
-}
 }
 
 .footer-brand h3 {
