@@ -1,219 +1,235 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="courseTitle">Detalhes do Curso - Instituto Buriti</title>
-    <link rel="stylesheet" href="/desktop/css/style.css">
-    <link rel="stylesheet" href="/desktop/css/curso.css">
-    <link rel="stylesheet" href="/desktop/css/footer-oficial.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title id="courseTitle">Detalhes do Curso - Instituto Buriti</title>
+
+  <!-- CSS base do site -->
+  <link rel="stylesheet" href="/desktop/css/style.css"/>
+  <!-- CSS específico da página de curso -->
+  <link rel="stylesheet" href="/desktop/css/curso.css"/>
+  <link rel="stylesheet" href="/desktop/css/footer-oficial.css"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
-            <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
-            <div class="nav-item active"><a href="/desktop/pages/cursos.html">Cursos</a></div>
-            <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-            <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
-            <div class="nav-item login-dropdown">
-                <button class="login-btn">Login</button>
-                <div class="dropdown-menu">
-                    <a href="/desktop/pages/login-aluno.html" class="dropdown-item">Aluno</a>
-                    <a href="/desktop/pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
-                    <a href="/desktop/pages/login-admin.html" class="dropdown-item">Administrador</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <section class="course-hero-section">
-            <div class="container">
-                <div class="course-hero-content">
-                    <div class="course-hero-text">
-                        <h1 class="course-hero-title" id="courseHeroTitle"></h1>
-                        <p class="course-hero-subtitle" id="courseHeroSubtitle"></p>
-                        <div class="course-meta-info">
-                            <span id="courseCategory" class="course-meta-badge"></span>
-                            <span id="courseLevel" class="course-meta-badge"></span>
-                            <span id="courseDuration" class="course-meta-badge"></span>
-                        </div>
-                        <div class="course-instructor-info">
-                            <img src="/desktop/images/instructor-placeholder.jpg" alt="Instrutor" class="instructor-avatar" id="instructorAvatar">
-                            <span id="instructorName"></span>
-                        </div>
-                    </div>
-                    <div class="course-sidebar">
-                        <img src="/desktop/images/course-placeholder.jpg" alt="Capa do Curso" class="course-sidebar-image" id="courseSidebarImage">
-                        <div class="course-sidebar-details">
-                            <div class="course-price" id="coursePrice"></div>
-                            <button class="buy-button">Inscrever-se Agora</button>
-                            <button class="wishlist-button"><i class="far fa-heart"></i> Adicionar à Lista de Desejos</button>
-                            <div class="included-features">
-                                <h4>O que está incluído:</h4>
-                                <ul>
-                                    <li><i class="fas fa-video"></i> Aulas em vídeo sob demanda</li>
-                                    <li><i class="fas fa-file-alt"></i> Recursos para download</li>
-                                    <li><i class="fas fa-infinity"></i> Acesso vitalício</li>
-                                    <li><i class="fas fa-mobile-alt"></i> Acesso no celular e TV</li>
-                                    <li><i class="fas fa-certificate"></i> Certificado de conclusão</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="course-details-section">
-            <div class="container">
-                <div class="course-tabs">
-                    <button class="tab-button active" data-tab="description">Descrição</button>
-                    <button class="tab-button" data-tab="content">Conteúdo</button>
-                    <button class="tab-button" data-tab="instructor">Instrutor</button>
-                    <button class="tab-button" data-tab="reviews">Avaliações</button>
-                </div>
-                <div class="tab-content-wrapper">
-                    <div id="tab-description" class="tab-content active">
-                        <h3>Sobre este curso</h3>
-                        <p id="courseDescriptionFull"></p>
-                    </div>
-                    <div id="tab-content" class="tab-content">
-                        <h3>Conteúdo do Curso</h3>
-                        <ul id="courseContentList"></ul>
-                    </div>
-                    <div id="tab-instructor" class="tab-content">
-                        <h3>Sobre o Instrutor</h3>
-                        <div class="instructor-profile">
-                            <img src="/desktop/images/instructor-placeholder.jpg" alt="Instrutor" class="instructor-profile-avatar" id="instructorProfileAvatar">
-                            <h4 id="instructorProfileName"></h4>
-                            <p id="instructorProfileBio"></p>
-                        </div>
-                    </div>
-                    <div id="tab-reviews" class="tab-content">
-                        <h3>Avaliações dos Alunos</h3>
-                        <div id="courseReviews">Nenhuma avaliação ainda.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
-                    <h3>Educação que transforma. Cultura que conecta.</h3>
-                    <p>Instituto Buriti, uma empresa 100% digital.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Links Rápidos</h4>
-                        <ul>
-                            <li><a href="/desktop/index.html">Home</a></li>
-                            <li><a href="/desktop/pages/quem-somos.html">Quem Somos</a></li>
-                            <li><a href="/desktop/pages/cursos.html">Cursos</a></li>
-                            <li><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                            <li><a href="/desktop/pages/contato.html">Contato</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contato</h4>
-                        <ul>
-                            <li>📧 contato@institutoburiti.com.br</li>
-                            <li>📞 (86 ) 98170-8388</li>
-                            <li>📍 Teresina, Piauí</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-            </div>
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
+      <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item active"><a href="/desktop/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+      <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
+      <div class="nav-item login-dropdown">
+        <button class="login-btn">Login</button>
+        <div class="dropdown-menu">
+          <a href="/desktop/pages/login-aluno.html" class="dropdown-item">Aluno</a>
+          <a href="/desktop/pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
+          <a href="/desktop/pages/login-admin.html" class="dropdown-item">Administrador</a>
         </div>
-    </footer>
+      </div>
+    </nav>
+  </header>
 
-    <script src="/desktop/js/main.js"></script>
-    <script src="/desktop/js/biblioteca.js?v=detalhes-2025-08-10-1"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const courseSlug = urlParams.get("slug");
+  <main>
+    <!-- Hero -->
+    <section class="course-hero-section">
+      <div class="container">
+        <div class="course-hero-content">
+          <div class="course-hero-text">
+            <h1 class="course-hero-title" id="courseHeroTitle"></h1>
+            <p class="course-hero-subtitle" id="courseHeroSubtitle"></p>
+            <div class="course-meta-info">
+              <span id="courseCategory" class="course-meta-badge"></span>
+              <span id="courseLevel" class="course-meta-badge"></span>
+              <span id="courseDuration" class="course-meta-badge"></span>
+            </div>
+            <div class="course-instructor-info">
+              <img id="instructorAvatar" class="instructor-avatar" alt="Instrutor"
+                   src="/desktop/images/instructor-placeholder.jpg"
+                   onerror="this.onerror=null;this.src='/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png';">
+              <span id="instructorName"></span>
+            </div>
+          </div>
 
-            if (courseSlug) {
-                // Usar os cursos de teste do biblioteca.js para simular dados
-                const courses = window.bibliotecaManager.getCoursesData();
-                const course = courses.find(c => c.slug === courseSlug);
+          <aside class="course-sidebar">
+            <img id="courseSidebarImage" class="course-sidebar-image" alt="Capa do Curso"
+                 src="/desktop/images/course-placeholder.jpg"
+                 onerror="this.onerror=null;this.src='/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png';">
+            <div class="course-sidebar-details">
+              <div class="course-price" id="coursePrice"></div>
+              <button class="buy-button">Inscrever-se Agora</button>
+              <button class="wishlist-button"><i class="far fa-heart"></i> Adicionar à Lista de Desejos</button>
+              <div class="included-features">
+                <h4>O que está incluído:</h4>
+                <ul>
+                  <li><i class="fas fa-video"></i> Aulas em vídeo sob demanda</li>
+                  <li><i class="fas fa-file-alt"></i> Recursos para download</li>
+                  <li><i class="fas fa-infinity"></i> Acesso vitalício</li>
+                  <li><i class="fas fa-mobile-alt"></i> Acesso no celular e TV</li>
+                  <li><i class="fas fa-certificate"></i> Certificado de conclusão</li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-                if (course) {
-                    document.getElementById("courseTitle").textContent = course.title;
-                    document.getElementById("courseHeroTitle").textContent = course.title;
-                    document.getElementById("courseHeroSubtitle").textContent = course.description;
-                    document.getElementById("courseCategory").textContent = course.categoria;
-                    document.getElementById("courseLevel").textContent = course.nivel;
-                    document.getElementById("courseDuration").textContent = course.cargaHoraria;
-                    document.getElementById("instructorName").textContent = course.instructor;
-                    document.getElementById("coursePrice").textContent = course.price;
-                    document.getElementById("courseDescriptionFull").textContent = course.descriptionFull || course.description;
+    <!-- Detalhes / abas -->
+    <section class="course-details-section">
+      <div class="container">
+        <div class="course-tabs">
+          <button class="tab-button active" data-tab="description">Descrição</button>
+          <button class="tab-button" data-tab="content">Conteúdo</button>
+          <button class="tab-button" data-tab="instructor">Instrutor</button>
+          <button class="tab-button" data-tab="reviews">Avaliações</button>
+        </div>
 
-                    // Imagens
-                    document.getElementById("courseSidebarImage").src = course.thumbnail || "/desktop/images/course-placeholder.jpg";
-                    document.getElementById("instructorAvatar").src = course.instructorAvatar || "/desktop/images/instructor-placeholder.jpg";
-                    document.getElementById("instructorProfileAvatar").src = course.instructorAvatar || "/desktop/images/instructor-placeholder.jpg";
+        <div class="tab-content-wrapper">
+          <div id="tab-description" class="tab-content active">
+            <h3>Sobre este curso</h3>
+            <p id="courseDescriptionFull"></p>
+          </div>
 
-                    // Conteúdo do curso (exemplo simples)
-                    const contentList = document.getElementById("courseContentList");
-                    if (course.content && course.content.length > 0) {
-                        course.content.forEach(item => {
-                            const li = document.createElement("li");
-                            li.textContent = item;
-                            contentList.appendChild(li);
-                        });
-                    } else {
-                        contentList.innerHTML = "<li>Conteúdo programático em breve.</li>";
-                    }
+          <div id="tab-content" class="tab-content">
+            <h3>Conteúdo do Curso</h3>
+            <ul id="courseContentList"></ul>
+          </div>
 
-                    // Instrutor (exemplo simples)
-                    document.getElementById("instructorProfileName").textContent = course.instructor;
-                    document.getElementById("instructorProfileBio").textContent = course.instructorBio || "Informações detalhadas sobre o instrutor em breve.";
+          <div id="tab-instructor" class="tab-content">
+            <h3>Sobre o Instrutor</h3>
+            <div class="instructor-profile">
+              <img id="instructorProfileAvatar" class="instructor-profile-avatar" alt="Instrutor"
+                   src="/desktop/images/instructor-placeholder.jpg"
+                   onerror="this.onerror=null;this.src='/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png';">
+              <h4 id="instructorProfileName"></h4>
+              <p id="instructorProfileBio"></p>
+            </div>
+          </div>
 
-                    // Avaliações (exemplo simples)
-                    const reviewsDiv = document.getElementById("courseReviews");
-                    if (course.reviews && course.reviews.length > 0) {
-                        reviewsDiv.innerHTML = course.reviews.map(review => `<p><strong>${review.user}:</strong> ${review.text}</p>`).join("");
-                    } else {
-                        reviewsDiv.innerHTML = "Nenhuma avaliação ainda.";
-                    }
+          <div id="tab-reviews" class="tab-content">
+            <h3>Avaliações dos Alunos</h3>
+            <div id="courseReviews">Nenhuma avaliação ainda.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-                } else {
-                    document.getElementById("courseTitle").textContent = "Curso não encontrado";
-                    document.getElementById("courseHeroTitle").textContent = "Curso não encontrado";
-                    document.getElementById("courseHeroSubtitle").textContent = "O curso que você está procurando não foi encontrado.";
-                }
-            } else {
-                document.getElementById("courseTitle").textContent = "Nenhum curso especificado";
-                document.getElementById("courseHeroTitle").textContent = "Nenhum curso especificado";
-                document.getElementById("courseHeroSubtitle").textContent = "Por favor, selecione um curso para ver os detalhes.";
-            }
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+          <h3>Educação que transforma. Cultura que conecta.</h3>
+          <p>Instituto Buriti, uma empresa 100% digital.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Links Rápidos</h4>
+            <ul>
+              <li><a href="/desktop/index.html">Home</a></li>
+              <li><a href="/desktop/pages/quem-somos.html">Quem Somos</a></li>
+              <li><a href="/desktop/pages/cursos.html">Cursos</a></li>
+              <li><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+              <li><a href="/desktop/pages/contato.html">Contato</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Contato</h4>
+            <ul>
+              <li>📧 contato@institutoburiti.com.br</li>
+              <li>📞 (86) 98170-8388</li>
+              <li>📍 Teresina, Piauí</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
 
-            // Lógica das abas
-            const tabButtons = document.querySelectorAll(".tab-button");
-            tabButtons.forEach(button => {
-                button.addEventListener("click", () => {
-                    tabButtons.forEach(btn => btn.classList.remove("active"));
-                    document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
-                    button.classList.add("active");
-                    document.getElementById(`tab-${button.dataset.tab}`).classList.add("active");
-                });
-            });
+  <!-- Scripts -->
+  <script src="/desktop/js/main.js"></script>
+  <script src="/desktop/js/biblioteca.js?v=detalhes-2025-08-10-2"></script>
+  <script>
+    (function () {
+      const DEFAULT_IMG = "/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png";
+
+      function text(el, v){ const e=document.getElementById(el); if(e) e.textContent=v||""; }
+      function img(el, src){
+        const e=document.getElementById(el);
+        if(!e) return;
+        e.src = src && String(src).trim() ? src : DEFAULT_IMG;
+        e.onerror = () => { e.onerror=null; e.src = DEFAULT_IMG; };
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get("slug");
+
+        const courses = (window.bibliotecaManager && window.bibliotecaManager.getCoursesData())
+          ? window.bibliotecaManager.getCoursesData()
+          : [];
+
+        const c = (slug && courses.find(x => x.slug === slug)) || null;
+
+        if (!c) {
+          text("courseTitle", "Curso não encontrado");
+          text("courseHeroTitle", "Curso não encontrado");
+          text("courseHeroSubtitle", "O curso solicitado não foi localizado.");
+          return;
+        }
+
+        // Título / subtítulo
+        text("courseTitle", c.title);
+        text("courseHeroTitle", c.title);
+        text("courseHeroSubtitle", c.description || "");
+
+        // Metas
+        text("courseCategory", c.categoria || c.area || "");
+        text("courseLevel", c.nivel || c.level || "");
+        text("courseDuration", (c.cargaHoraria ? `${c.cargaHoraria}h` : (c.duracao || "")));
+
+        // Sidebar / preço
+        text("coursePrice", c.price != null ? (Number(c.price) > 0 ? `R$ ${Number(c.price).toFixed(2)}` : "Gratuito") : "");
+        img("courseSidebarImage", c.thumbnail);
+
+        // Instrutor
+        text("instructorName", c.instructor || "Instrutor(a)");
+        text("instructorProfileName", c.instructor || "Instrutor(a)");
+        text("instructorProfileBio", c.instructorBio || "Informações em breve.");
+        img("instructorAvatar", c.instructorAvatar);
+        img("instructorProfileAvatar", c.instructorAvatar);
+
+        // Conteúdo
+        const ul = document.getElementById("courseContentList");
+        if (ul) {
+          const items = Array.isArray(c.content) && c.content.length ? c.content : ["Conteúdo programático em breve."];
+          ul.innerHTML = items.map(i => `<li>${String(i)}</li>`).join("");
+        }
+
+        // Abas
+        document.querySelectorAll(".tab-button").forEach(btn => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(tc => tc.classList.remove("active"));
+            btn.classList.add("active");
+            const id = `tab-${btn.dataset.tab}`;
+            const panel = document.getElementById(id);
+            if (panel) panel.classList.add("active");
+          });
         });
-    </script>
+      });
+    })();
+  </script>
 </body>
 </html>

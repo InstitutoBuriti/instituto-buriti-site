@@ -1,11 +1,11 @@
 /* Instituto Buriti — biblioteca.js (SUBSTITUIÇÃO TOTAL)
- * Build: detalhes-2025-08-09-1
+ * Build: detalhes-2025-08-09-1-ajustada
  *
  * Mudanças-chave desta build:
  * - getDetailsUrl() agora redireciona SEMPRE para /pages/detalhes-curso.html?slug=...
  * - Fallback robusto de dados: window.COURSES -> #courses-json -> 8 cursos de teste
  * - Suporte a múltiplos seletores de container (.courses-grid, #coursesContainer, [data-courses-container])
- * - Imagem padrão com onerror: "../images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png" -> "../images/default-course.png"
+ * - Imagem padrão com onerror: "/desktop/images/default-course.png"
  * - Logs de diagnóstico (DEBUG=true) para confirmar a fonte dos dados e a URL de detalhes
  */
 
@@ -13,7 +13,7 @@
   "use strict";
 
   const DEBUG = true;
-  const IB_VERSION = "IB-biblioteca.js build detalhes-2025-08-09-1";
+  const IB_VERSION = "IB-biblioteca.js build detalhes-2025-08-09-1-ajustada";
   const log  = (...a) => DEBUG && console.log("IB::", ...a);
   const warn = (...a) => DEBUG && console.warn("IB::", ...a);
 
@@ -26,8 +26,8 @@
     .replaceAll('"',"&quot;").replaceAll("'","&#39;");
 
   const DEFAULT_THUMBS = [
-    "../images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png",
-    "../images/default-course.png"
+    "/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png",
+    "/desktop/images/default-course.png"
   ];
 
   const SEL = {
@@ -99,13 +99,13 @@
 
     // 3) Fallback de teste
     const samples = [
-      { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"../images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
+      { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/desktop/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
       { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:DEFAULT_THUMBS[0], slug:"python-para-dados" },
-      { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"../images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
+      { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/desktop/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
       { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:DEFAULT_THUMBS[0], slug:"financas-pessoais-essenciais" },
-      { id:"producao-cultural", title:"Produção Cultural", categoria:"cultura", nivel:"intermediario", tipos:["pago"], cargaHoraria:16, createdAt:"2025-07-10", acessos:78, description:"Do edital à execução: projetos culturais sustentáveis.", thumbnail:"../images/cursos/producao-cultural.jpg", slug:"producao-cultural" },
+      { id:"producao-cultural", title:"Produção Cultural", categoria:"cultura", nivel:"intermediario", tipos:["pago"], cargaHoraria:16, createdAt:"2025-07-10", acessos:78, description:"Do edital à execução: projetos culturais sustentáveis.", thumbnail:"/desktop/images/cursos/producao-cultural.jpg", slug:"producao-cultural" },
       { id:"educacao-inclusiva", title:"Educação Inclusiva na Prática", categoria:"educacao", nivel:"avancado", tipos:["pago","certificado"], cargaHoraria:32, createdAt:"2025-06-30", acessos:142, description:"Estratégias e recursos para acessibilidade efetiva.", thumbnail:DEFAULT_THUMBS[0], slug:"educacao-inclusiva" },
-      { id:"metodologias-ativas", title:"Metodologias Ativas", categoria:"educacao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:6, createdAt:"2025-08-05", acessos:52, description:"PBL, sala invertida e avaliação formativa.", thumbnail:"../images/cursos/metodologias-ativas.jpg", slug:"metodologias-ativas" },
+      { id:"metodologias-ativas", title:"Metodologias Ativas", categoria:"educacao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:6, createdAt:"2025-08-05", acessos:52, description:"PBL, sala invertida e avaliação formativa.", thumbnail:"/desktop/images/cursos/metodologias-ativas.jpg", slug:"metodologias-ativas" },
       { id:"empreendedorismo-social", title:"Empreendedorismo Social", categoria:"outros", nivel:"intermediario", tipos:["pago"], cargaHoraria:14, createdAt:"2025-07-25", acessos:67, description:"Modelos de negócio de impacto e medição de resultados.", thumbnail:DEFAULT_THUMBS[0], slug:"empreendedorismo-social" }
     ];
     log("Fonte: SAMPLES (", samples.length, ")");
