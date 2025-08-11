@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cursos - Instituto Buriti</title>
 
-  <!-- CSS absolutos + cache-bust -->
-  <link rel="stylesheet" href="/desktop/css/style.css?v=2025-08-10-4"/>
-  <link rel="stylesheet" href="/desktop/css/footer-oficial.css?v=2025-08-10-4"/>
-  <link rel="stylesheet" href="/desktop/css/cursos.css?v=2025-08-10-4"/>
+  <!-- CSS na raiz do site publicado (publish = desktop) -->
+  <link rel="stylesheet" href="/css/style.css?v=2025-08-10-6"/>
+  <link rel="stylesheet" href="/css/footer-oficial.css?v=2025-08-10-6"/>
+  <link rel="stylesheet" href="/css/cursos.css?v=2025-08-10-6"/>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -18,17 +18,17 @@
   <!-- Header (igual ao da Home) -->
   <header class="header">
     <nav class="nav">
-      <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
-      <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item active"><a href="/desktop/pages/cursos.html">Cursos</a></div>
-      <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-      <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
+      <div class="nav-item"><a href="/index.html">Home</a></div>
+      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item active"><a href="/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
       <div class="nav-item login-dropdown">
         <button class="login-btn">Login</button>
         <div class="dropdown-menu">
-          <a href="/desktop/pages/login-aluno.html" class="dropdown-item">Aluno</a>
-          <a href="/desktop/pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
-          <a href="/desktop/pages/login-admin.html" class="dropdown-item">Administrador</a>
+          <a href="/pages/login-aluno.html" class="dropdown-item">Aluno</a>
+          <a href="/pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
+          <a href="/pages/login-admin.html" class="dropdown-item">Administrador</a>
         </div>
       </div>
     </nav>
@@ -44,7 +44,7 @@
         </div>
         <div class="hero-visual">
           <div class="hero-image-container">
-            <img src="/desktop/images/hero-student.png" alt="Estudante aprendendo online" class="hero-image"/>
+            <img src="/images/hero-student.png" alt="Estudante aprendendo online" class="hero-image"/>
             <div class="floating-elements">
               <svg class="floating-dot dot-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="#973CBF" fill-opacity="0.3"/></svg>
               <svg class="floating-dot dot-2" viewBox="0 0 15 15"><circle cx="7.5" cy="7.5" r="6" fill="#6B8C79" fill-opacity="0.4"/></svg>
@@ -124,26 +124,26 @@
   <section class="cta-section">
     <div class="cta-background">
       <svg class="cta-shape cta-shape-1" viewBox="0 0 200 200"><path fill="#973CBF" fill-opacity="0.1" d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,89.8,-0.2C89.6,15.9,86.6,31.8,78.9,45.1C71.2,58.4,58.8,69.1,44.7,76.4C30.6,83.7,15.3,87.6,-0.2,87.9C-15.7,88.2,-31.4,84.9,-45.1,77.6C-58.8,70.3,-70.5,59,-76.4,-44.7C-82.3,-30.4,-82.4,-15.2,-82.1,0.2C-81.8,15.6,-81.1,31.2,-75.1,44.7C-69.1,58.2,-57.8,69.6,-44.7,76.4C-31.6,83.2,-15.8,85.4,-0.2,85.7C15.4,86,30.8,84.4,44.7,76.4Z" transform="translate(100 100 )"/></svg>
-      <svg class="cta-shape cta-shape-2" viewBox="0 0 200  200"><path fill="#6B8C79" fill-opacity="0.08" d="M39.1,-67.8C50.7,-60.2,59.8,-48.4,65.4,-35.1C71,-21.8,73.1,-7,72.8,7.9C72.5,22.8,69.8,37.8,62.4,50.1C55,62.4,42.9,72,28.9,77.1C14.9,82.2,-1,82.8,-16.8,79.9C-32.6,77,-48.3,70.6,-59.8,59.8C-71.3,49,-78.6,33.8,-81.2,17.8C-83.8,1.8,-81.7,-15,-75.1,-29.4C-68.5,-43.8,-57.4,-55.8,-44.7,-62.8C-32,-69.8,-17.7,-71.8,-2.8,-67.5C12.1,-63.2,27.5,-75.4,39.1,-67.8Z" transform="translate(100 100 )"/></svg>
+      <svg class="cta-shape cta-shape-2" viewBox="0 0 200 200"><path fill="#6B8C79" fill-opacity="0.08" d="M39.1,-67.8C50.7,-60.2,59.8,-48.4,65.4,-35.1C71,-21.8,73.1,-7,72.8,7.9C72.5,22.8,69.8,37.8,62.4,50.1C55,62.4,42.9,72,28.9,77.1C14.9,82.2,-1,82.8,-16.8,79.9C-32.6,77,-48.3,70.6,-59.8,59.8C-71.3,49,-78.6,33.8,-81.2,17.8C-83.8,1.8,-81.7,-15,-75.1,-29.4C-68.5,-43.8,-57.4,-55.8,-44.7,-62.8C-32,-69.8,-17.7,-71.8,-2.8,-67.5C12.1,-63.2,27.5,-75.4,39.1,-67.8Z" transform="translate(100 100 )"/></svg>
     </div>
     <div class="container">
       <div class="cta-content">
         <h2 class="cta-title">Pronto para transformar sua carreira?</h2>
         <p class="cta-subtitle">Explore nossos cursos e encontre o caminho certo para o seu desenvolvimento profissional.</p>
         <div class="cta-buttons">
-          <a href="/desktop/pages/cursos.html" class="cta-btn primary">Ver Todos os Cursos</a>
-          <a href="/desktop/pages/seja-instrutor-novo.html" class="cta-btn secondary">Seja um Instrutor</a>
+          <a href="/pages/cursos.html" class="cta-btn primary">Ver Todos os Cursos</a>
+          <a href="/pages/seja-instrutor-novo.html" class="cta-btn secondary">Seja um Instrutor</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer (igual ao da Home) -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
+          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
           <h3>Educação que transforma. Cultura que conecta.</h3>
           <p>Instituto Buriti, uma empresa 100% digital.</p>
         </div>
@@ -151,11 +151,11 @@
           <div class="footer-column">
             <h4>Links Rápidos</h4>
             <ul>
-              <li><a href="/desktop/index.html">Home</a></li>
-              <li><a href="/desktop/pages/quem-somos.html">Quem Somos</a></li>
-              <li><a href="/desktop/pages/cursos.html">Cursos</a></li>
-              <li><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-              <li><a href="/desktop/pages/contato.html">Contato</a></li>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
+              <li><a href="/pages/cursos.html">Cursos</a></li>
+              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+              <li><a href="/pages/contato.html">Contato</a></li>
             </ul>
           </div>
           <div class="footer-column">
@@ -174,8 +174,22 @@
     </div>
   </footer>
 
-  <!-- Scripts absolutos + cache-bust -->
-  <script src="/desktop/js/main.js?v=2025-08-10-4"></script>
-  <script src="/desktop/js/biblioteca.js?v=detalhes-2025-08-10-4"></script>
+  <!-- Dados de cursos (garante cards imediatamente) -->
+  <script>
+    window.COURSES = [
+      { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
+      { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:"/images/default-course.png", slug:"python-para-dados" },
+      { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
+      { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:"/images/default-course.png", slug:"financas-pessoais-essenciais" },
+      { id:"producao-cultural", title:"Produção Cultural", categoria:"cultura", nivel:"intermediario", tipos:["pago"], cargaHoraria:16, createdAt:"2025-07-10", acessos:78, description:"Do edital à execução: projetos culturais sustentáveis.", thumbnail:"/images/cursos/producao-cultural.jpg", slug:"producao-cultural" },
+      { id:"educacao-inclusiva", title:"Educação Inclusiva na Prática", categoria:"educacao", nivel:"avancado", tipos:["pago","certificado"], cargaHoraria:32, createdAt:"2025-06-30", acessos:142, description:"Estratégias e recursos para acessibilidade efetiva.", thumbnail:"/images/default-course.png", slug:"educacao-inclusiva" },
+      { id:"metodologias-ativas", title:"Metodologias Ativas", categoria:"educacao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:6, createdAt:"2025-08-05", acessos:52, description:"PBL, sala invertida e avaliação formativa.", thumbnail:"/images/cursos/metodologias-ativas.jpg", slug:"metodologias-ativas" },
+      { id:"empreendedorismo-social", title:"Empreendedorismo Social", categoria:"outros", nivel:"intermediario", tipos:["pago"], cargaHoraria:14, createdAt:"2025-07-25", acessos:67, description:"Modelos de negócio de impacto e medição de resultados.", thumbnail:"/images/default-course.png", slug:"empreendedorismo-social" }
+    ];
+  </script>
+
+  <!-- JS na raiz do site publicado -->
+  <script src="/js/main.js?v=2025-08-10-6"></script>
+  <script src="/js/biblioteca.js?v=detalhes-2025-08-10-6"></script>
 </body>
 </html>
