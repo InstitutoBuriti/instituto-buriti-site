@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title id="courseTitle">Detalhes do Curso - Instituto Buriti</title>
 
-  <!-- CSS base do site -->
+  <!-- CSS base e específicos -->
   <link rel="stylesheet" href="/desktop/css/style.css"/>
-  <!-- CSS específico da página de curso -->
   <link rel="stylesheet" href="/desktop/css/curso.css"/>
   <link rel="stylesheet" href="/desktop/css/footer-oficial.css"/>
 
@@ -159,10 +158,22 @@
 
   <!-- Scripts -->
   <script src="/desktop/js/main.js"></script>
-  <script src="/desktop/js/biblioteca.js?v=detalhes-2025-08-10-2"></script>
+  <script src="/desktop/js/biblioteca.js?v=detalhes-2025-08-11-1"></script>
   <script>
     (function () {
       const DEFAULT_IMG = "/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png";
+
+      // Mesmo conjunto da página de cursos (garante funcionamento isolado)
+      const SAMPLES = [
+        { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/desktop/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
+        { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:DEFAULT_IMG, slug:"python-para-dados" },
+        { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/desktop/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
+        { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:DEFAULT_IMG, slug:"financas-pessoais-essenciais" },
+        { id:"producao-cultural", title:"Produção Cultural", categoria:"cultura", nivel:"intermediario", tipos:["pago"], cargaHoraria:16, createdAt:"2025-07-10", acessos:78, description:"Do edital à execução: projetos culturais sustentáveis.", thumbnail:"/desktop/images/cursos/producao-cultural.jpg", slug:"producao-cultural" },
+        { id:"educacao-inclusiva", title:"Educação Inclusiva na Prática", categoria:"educacao", nivel:"avancado", tipos:["pago","certificado"], cargaHoraria:32, createdAt:"2025-06-30", acessos:142, description:"Estratégias e recursos para acessibilidade efetiva.", thumbnail:DEFAULT_IMG, slug:"educacao-inclusiva" },
+        { id:"metodologias-ativas", title:"Metodologias Ativas", categoria:"educacao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:6, createdAt:"2025-08-05", acessos:52, description:"PBL, sala invertida e avaliação formativa.", thumbnail:"/desktop/images/cursos/metodologias-ativas.jpg", slug:"metodologias-ativas" },
+        { id:"empreendedorismo-social", title:"Empreendedorismo Social", categoria:"outros", nivel:"intermediario", tipos:["pago"], cargaHoraria:14, createdAt:"2025-07-25", acessos:67, description:"Modelos de negócio de impacto e medição de resultados.", thumbnail:DEFAULT_IMG, slug:"empreendedorismo-social" }
+      ];
 
       function text(el, v){ const e=document.getElementById(el); if(e) e.textContent=v||""; }
       function img(el, src){
@@ -176,11 +187,27 @@
         const urlParams = new URLSearchParams(window.location.search);
         const slug = urlParams.get("slug");
 
-        const courses = (window.bibliotecaManager && window.bibliotecaManager.getCoursesData())
-          ? window.bibliotecaManager.getCoursesData()
-          : [];
+        // Ordem de busca dos dados
+        let courses = [];
+        try {
+          if (window.bibliotecaManager && typeof window.bibliotecaManager.getCoursesData === "function") {
+            courses = window.bibliotecaManager.getCoursesData() || [];
+          }
+        } catch(e){/* ignore */}
 
-        const c = (slug && courses.find(x => x.slug === slug)) || null;
+        if (!Array.isArray(courses) || courses.length === 0) {
+          try {
+            if (Array.isArray(window.COURSES) && window.COURSES.length) {
+              courses = window.COURSES;
+            }
+          } catch(e){/* ignore */}
+        }
+
+        if (!Array.isArray(courses) || courses.length === 0) {
+          courses = SAMPLES;
+        }
+
+        const c = (slug && courses.find(x => (x.slug || x.id) === slug)) || null;
 
         if (!c) {
           text("courseTitle", "Curso não encontrado");
@@ -200,7 +227,8 @@
         text("courseDuration", (c.cargaHoraria ? `${c.cargaHoraria}h` : (c.duracao || "")));
 
         // Sidebar / preço
-        text("coursePrice", c.price != null ? (Number(c.price) > 0 ? `R$ ${Number(c.price).toFixed(2)}` : "Gratuito") : "");
+        const priceNumber = (c.price != null && !Number.isNaN(Number(c.price))) ? Number(c.price) : null;
+        text("coursePrice", priceNumber != null ? (priceNumber > 0 ? `R$ ${priceNumber.toFixed(2)}` : "Gratuito") : "");
         img("courseSidebarImage", c.thumbnail);
 
         // Instrutor
