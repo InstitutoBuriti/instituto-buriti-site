@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title id="courseTitle">Detalhes do Curso - Instituto Buriti</title>
 
-  <!-- CSS base e específicos -->
-  <link rel="stylesheet" href="/desktop/css/style.css"/>
-  <link rel="stylesheet" href="/desktop/css/curso.css"/>
-  <link rel="stylesheet" href="/desktop/css/footer-oficial.css"/>
+  <!-- CSS base e específicos (raiz do publish) -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/curso.css"/>
+  <link rel="stylesheet" href="/css/footer-oficial.css"/>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -18,17 +18,17 @@
   <!-- Header -->
   <header class="header">
     <nav class="nav">
-      <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
-      <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item active"><a href="/desktop/pages/cursos.html">Cursos</a></div>
-      <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-      <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
+      <div class="nav-item"><a href="/index.html">Home</a></div>
+      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item active"><a href="/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
       <div class="nav-item login-dropdown">
         <button class="login-btn">Login</button>
         <div class="dropdown-menu">
-          <a href="/desktop/pages/login-aluno.html" class="dropdown-item">Aluno</a>
-          <a href="/desktop/pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
-          <a href="/desktop/pages/login-admin.html" class="dropdown-item">Administrador</a>
+          <a href="/pages/login-aluno.html" class="dropdown-item">Aluno</a>
+          <a href="/pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
+          <a href="/pages/login-admin.html" class="dropdown-item">Administrador</a>
         </div>
       </div>
     </nav>
@@ -49,16 +49,16 @@
             </div>
             <div class="course-instructor-info">
               <img id="instructorAvatar" class="instructor-avatar" alt="Instrutor"
-                   src="/desktop/images/instructor-placeholder.jpg"
-                   onerror="this.onerror=null;this.src='/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png';">
+                   src="/images/instructor-placeholder.jpg"
+                   onerror="this.onerror=null;this.src='/images/default-course.png';">
               <span id="instructorName"></span>
             </div>
           </div>
 
           <aside class="course-sidebar">
             <img id="courseSidebarImage" class="course-sidebar-image" alt="Capa do Curso"
-                 src="/desktop/images/course-placeholder.jpg"
-                 onerror="this.onerror=null;this.src='/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png';">
+                 src="/images/course-placeholder.jpg"
+                 onerror="this.onerror=null;this.src='/images/default-course.png';">
             <div class="course-sidebar-details">
               <div class="course-price" id="coursePrice"></div>
               <button class="buy-button">Inscrever-se Agora</button>
@@ -79,7 +79,7 @@
       </div>
     </section>
 
-    <!-- Detalhes / abas -->
+    <!-- Abas -->
     <section class="course-details-section">
       <div class="container">
         <div class="course-tabs">
@@ -104,8 +104,8 @@
             <h3>Sobre o Instrutor</h3>
             <div class="instructor-profile">
               <img id="instructorProfileAvatar" class="instructor-profile-avatar" alt="Instrutor"
-                   src="/desktop/images/instructor-placeholder.jpg"
-                   onerror="this.onerror=null;this.src='/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png';">
+                   src="/images/instructor-placeholder.jpg"
+                   onerror="this.onerror=null;this.src='/images/default-course.png';">
               <h4 id="instructorProfileName"></h4>
               <p id="instructorProfileBio"></p>
             </div>
@@ -125,7 +125,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
           <h3>Educação que transforma. Cultura que conecta.</h3>
           <p>Instituto Buriti, uma empresa 100% digital.</p>
         </div>
@@ -133,11 +133,11 @@
           <div class="footer-column">
             <h4>Links Rápidos</h4>
             <ul>
-              <li><a href="/desktop/index.html">Home</a></li>
-              <li><a href="/desktop/pages/quem-somos.html">Quem Somos</a></li>
-              <li><a href="/desktop/pages/cursos.html">Cursos</a></li>
-              <li><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-              <li><a href="/desktop/pages/contato.html">Contato</a></li>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
+              <li><a href="/pages/cursos.html">Cursos</a></li>
+              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+              <li><a href="/pages/contato.html">Contato</a></li>
             </ul>
           </div>
           <div class="footer-column">
@@ -156,79 +156,64 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="/desktop/js/main.js"></script>
-  <script src="/desktop/js/biblioteca.js?v=detalhes-2025-08-11-1"></script>
+  <!-- Scripts (raiz) -->
+  <script src="/js/main.js"></script>
+  <script src="/js/biblioteca.js?v=2025-08-12-1"></script>
   <script>
     (function () {
-      const DEFAULT_IMG = "/desktop/images/ChatGPT Image 6 de ago. de 2025, 23_37_06.png";
+      const DEFAULT_IMG = "/images/default-course.png";
 
-      // Mesmo conjunto da página de cursos (garante funcionamento isolado)
-      const SAMPLES = [
-        { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/desktop/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
-        { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:DEFAULT_IMG, slug:"python-para-dados" },
-        { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/desktop/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
-        { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:DEFAULT_IMG, slug:"financas-pessoais-essenciais" },
-        { id:"producao-cultural", title:"Produção Cultural", categoria:"cultura", nivel:"intermediario", tipos:["pago"], cargaHoraria:16, createdAt:"2025-07-10", acessos:78, description:"Do edital à execução: projetos culturais sustentáveis.", thumbnail:"/desktop/images/cursos/producao-cultural.jpg", slug:"producao-cultural" },
-        { id:"educacao-inclusiva", title:"Educação Inclusiva na Prática", categoria:"educacao", nivel:"avancado", tipos:["pago","certificado"], cargaHoraria:32, createdAt:"2025-06-30", acessos:142, description:"Estratégias e recursos para acessibilidade efetiva.", thumbnail:DEFAULT_IMG, slug:"educacao-inclusiva" },
-        { id:"metodologias-ativas", title:"Metodologias Ativas", categoria:"educacao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:6, createdAt:"2025-08-05", acessos:52, description:"PBL, sala invertida e avaliação formativa.", thumbnail:"/desktop/images/cursos/metodologias-ativas.jpg", slug:"metodologias-ativas" },
-        { id:"empreendedorismo-social", title:"Empreendedorismo Social", categoria:"outros", nivel:"intermediario", tipos:["pago"], cargaHoraria:14, createdAt:"2025-07-25", acessos:67, description:"Modelos de negócio de impacto e medição de resultados.", thumbnail:DEFAULT_IMG, slug:"empreendedorismo-social" }
-      ];
+      // Fallback local (caso a página seja aberta isoladamente)
+      const SAMPLES = (window.COURSES && Array.isArray(window.COURSES) && window.COURSES.length)
+        ? window.COURSES
+        : [
+          { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
+          { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:DEFAULT_IMG, slug:"python-para-dados" },
+          { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
+          { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:DEFAULT_IMG, slug:"financas-pessoais-essenciais" }
+        ];
 
-      function text(el, v){ const e=document.getElementById(el); if(e) e.textContent=v||""; }
-      function img(el, src){
-        const e=document.getElementById(el);
+      function text(id, v){ const e=document.getElementById(id); if(e) e.textContent=v||""; }
+      function img(id, src){
+        const e=document.getElementById(id);
         if(!e) return;
-        e.src = src && String(src).trim() ? src : DEFAULT_IMG;
+        e.src = (src && String(src).trim()) ? src : DEFAULT_IMG;
         e.onerror = () => { e.onerror=null; e.src = DEFAULT_IMG; };
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get("slug");
+        const params = new URLSearchParams(location.search);
+        const slug   = params.get("slug");
 
-        // Ordem de busca dos dados
         let courses = [];
         try {
-          if (window.bibliotecaManager && typeof window.bibliotecaManager.getCoursesData === "function") {
-            courses = window.bibliotecaManager.getCoursesData() || [];
-          }
-        } catch(e){/* ignore */}
+          if (window.bibliotecaManager?.getCoursesData) courses = window.bibliotecaManager.getCoursesData() || [];
+        } catch {}
 
-        if (!Array.isArray(courses) || courses.length === 0) {
-          try {
-            if (Array.isArray(window.COURSES) && window.COURSES.length) {
-              courses = window.COURSES;
-            }
-          } catch(e){/* ignore */}
-        }
-
-        if (!Array.isArray(courses) || courses.length === 0) {
+        if (!Array.isArray(courses) || !courses.length) {
           courses = SAMPLES;
         }
 
         const c = (slug && courses.find(x => (x.slug || x.id) === slug)) || null;
 
         if (!c) {
-          text("courseTitle", "Curso não encontrado");
-          text("courseHeroTitle", "Curso não encontrado");
-          text("courseHeroSubtitle", "O curso solicitado não foi localizado.");
+          text("courseTitle","Curso não encontrado");
+          text("courseHeroTitle","Curso não encontrado");
+          text("courseHeroSubtitle","O curso solicitado não foi localizado.");
           return;
         }
 
-        // Título / subtítulo
         text("courseTitle", c.title);
         text("courseHeroTitle", c.title);
         text("courseHeroSubtitle", c.description || "");
 
-        // Metas
         text("courseCategory", c.categoria || c.area || "");
         text("courseLevel", c.nivel || c.level || "");
         text("courseDuration", (c.cargaHoraria ? `${c.cargaHoraria}h` : (c.duracao || "")));
 
-        // Sidebar / preço
-        const priceNumber = (c.price != null && !Number.isNaN(Number(c.price))) ? Number(c.price) : null;
-        text("coursePrice", priceNumber != null ? (priceNumber > 0 ? `R$ ${priceNumber.toFixed(2)}` : "Gratuito") : "");
+        // Sidebar
+        const price = (c.price!=null && !Number.isNaN(Number(c.price))) ? Number(c.price) : null;
+        text("coursePrice", price!=null ? (price>0 ? `R$ ${price.toFixed(2)}` : "Gratuito") : "");
         img("courseSidebarImage", c.thumbnail);
 
         // Instrutor
@@ -241,19 +226,18 @@
         // Conteúdo
         const ul = document.getElementById("courseContentList");
         if (ul) {
-          const items = Array.isArray(c.content) && c.content.length ? c.content : ["Conteúdo programático em breve."];
-          ul.innerHTML = items.map(i => `<li>${String(i)}</li>`).join("");
+          const items = Array.isArray(c.content)&&c.content.length ? c.content : ["Conteúdo programático em breve."];
+          ul.innerHTML = items.map(i=>`<li>${String(i)}</li>`).join("");
         }
 
         // Abas
-        document.querySelectorAll(".tab-button").forEach(btn => {
-          btn.addEventListener("click", () => {
-            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
-            document.querySelectorAll(".tab-content").forEach(tc => tc.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(btn=>{
+          btn.addEventListener("click",()=>{
+            document.querySelectorAll(".tab-button").forEach(b=>b.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(tc=>tc.classList.remove("active"));
             btn.classList.add("active");
-            const id = `tab-${btn.dataset.tab}`;
-            const panel = document.getElementById(id);
-            if (panel) panel.classList.add("active");
+            const panel = document.getElementById(`tab-${btn.dataset.tab}`);
+            panel?.classList.add("active");
           });
         });
       });
