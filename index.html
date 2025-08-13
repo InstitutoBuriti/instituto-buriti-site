@@ -1,148 +1,140 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instituto Buriti - Educação Transformadora</title>
-    <meta name="description" content="Instituto Buriti - Cursos online de qualidade, certificações reconhecidas e educação que transforma vidas.">
-    <meta name="keywords" content="cursos online, educação, certificação, instituto buriti">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="shared/css/device-detection.css" as="style">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="shared/images/favicon.png">
-    
-    <!-- Device Detection CSS -->
-    <link rel="stylesheet" href="shared/css/device-detection.css">
-    
-    <!-- SEO Meta Tags -->
-    <meta property="og:title" content="Instituto Buriti - Educação Transformadora">
-    <meta property="og:description" content="Cursos online de qualidade, certificações reconhecidas e educação que transforma vidas.">
-    <meta property="og:image" content="shared/images/og-image.jpg">
-    <meta property="og:url" content="https://www.institutoburiti.com.br">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Instituto Buriti - Educação Transformadora">
-    <meta name="twitter:description" content="Cursos online de qualidade, certificações reconhecidas e educação que transforma vidas.">
-    <meta name="twitter:image" content="shared/images/og-image.jpg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instituto Buriti - Educação Transformadora</title>
+
+  <meta name="description" content="Instituto Buriti - Cursos online de qualidade, certificações reconhecidas e educação que transforma vidas.">
+  <meta name="keywords" content="cursos online, educação, certificação, instituto buriti">
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/shared/css/device-detection.css" as="style" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/shared/images/favicon.png" />
+
+  <!-- Device Detection CSS -->
+  <link rel="stylesheet" href="/shared/css/device-detection.css" />
+
+  <!-- SEO Meta Tags -->
+  <meta property="og:title" content="Instituto Buriti - Educação Transformadora" />
+  <meta property="og:description" content="Cursos online de qualidade, certificações reconhecidas e educação que transforma vidas." />
+  <meta property="og:image" content="/shared/images/og-image.jpg" />
+  <meta property="og:url" content="https://www.institutoburiti.com.br" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Instituto Buriti - Educação Transformadora" />
+  <meta name="twitter:description" content="Cursos online de qualidade, certificações reconhecidas e educação que transforma vidas." />
+  <meta name="twitter:image" content="/shared/images/og-image.jpg" />
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="logo-loading">
-                <img src="shared/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" width="80" height="80">
-            </div>
-            <div class="loading-text">Carregando...</div>
-            <div class="loading-spinner"></div>
-        </div>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="logo-loading">
+        <img src="/shared/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" width="80" height="80" />
+      </div>
+      <div class="loading-text">Carregando...</div>
+      <div class="loading-spinner"></div>
     </div>
+  </div>
 
-    <!-- Device Detection Script -->
-    <script>
-        (function() {
-            'use strict';
-            
-            // Device detection function
-            function detectDevice() {
-                const userAgent = navigator.userAgent.toLowerCase();
-                const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-                const isTablet = /ipad|android(?!.*mobile)/i.test(userAgent);
-                const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-                
-                // Consider tablets as desktop for better experience
-                return isMobile && !isTablet && screenWidth < 768;
-            }
-            
-            // Get preferred version from localStorage
-            function getPreferredVersion() {
-                return localStorage.getItem('instituto_buriti_version');
-            }
-            
-            // Set preferred version
-            function setPreferredVersion(version) {
-                localStorage.setItem('instituto_buriti_version', version);
-            }
-            
-            // Redirect function
-            function redirectToVersion(version) {
-                const currentPath = window.location.pathname;
-                const currentSearch = window.location.search;
-                const currentHash = window.location.hash;
-                
-                if (version === 'mobile') {
-                    // CORREÇÃO: Usar caminho relativo em vez de absoluto
-                    if (!currentPath.startsWith('/mobile/')) {
-                        window.location.href = 'mobile/index.html' + currentSearch + currentHash;
-                    }
-                } else {
-                    // Redirect to desktop version
-                    if (currentPath.startsWith('/mobile/')) {
-                        const newPath = currentPath.replace('/mobile/', '/desktop/');
-                        window.location.href = newPath + currentSearch + currentHash;
-                    } else if (currentPath === '/' || currentPath === '/index.html') {
-                        window.location.href = 'index.html' + currentSearch + currentHash;
-                    }
-                }
-            }
-            
-            // Main detection logic
-            function initDeviceDetection() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const forceVersion = urlParams.get('version');
-                
-                // Check for forced version in URL
-                if (forceVersion === 'mobile' || forceVersion === 'desktop') {
-                    setPreferredVersion(forceVersion);
-                    redirectToVersion(forceVersion);
-                    return;
-                }
-                
-                // Check for user preference
-                const preferredVersion = getPreferredVersion();
-                if (preferredVersion) {
-                    redirectToVersion(preferredVersion);
-                    return;
-                }
-                
-                // Auto-detect based on device
-                const isMobileDevice = detectDevice();
-                const targetVersion = isMobileDevice ? 'mobile' : 'desktop';
-                
-                setPreferredVersion(targetVersion);
-                redirectToVersion(targetVersion);
-            }
-            
-            // Initialize when DOM is ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initDeviceDetection);
-            } else {
-                initDeviceDetection();
-            }
-            
-            // Add version switcher functionality
-            window.switchVersion = function(version) {
-                setPreferredVersion(version);
-                redirectToVersion(version);
-            };
-            
-        })();
-    </script>
-    
-    <!-- Fallback content for users with JavaScript disabled -->
-    <noscript>
-        <div class="noscript-message">
-            <h1>Instituto Buriti</h1>
-            <p>Para a melhor experiência, por favor habilite o JavaScript em seu navegador.</p>
-            <p>
-                <a href="index.html">Versão Desktop</a> | 
-                <a href="mobile/index.html">Versão Mobile</a>
-            </p>
-        </div>
-    </noscript>
+  <!-- Device / Version Routing -->
+  <script>
+    (function () {
+      "use strict";
+
+      function pathExistsLikely(p) {
+        // Heurística simples: assume que /mobile pode não existir no deploy.
+        // Mantemos a chamada, mas sempre teremos fallback em seguida.
+        return !!p;
+      }
+
+      function detectMobile() {
+        const ua = navigator.userAgent.toLowerCase();
+        const isMobileUA = /android|webos|iphone|ipod|blackberry|iemobile|opera mini/i.test(ua);
+        const isTabletUA = /ipad|android(?!.*mobile)/i.test(ua);
+        const w = window.innerWidth || document.documentElement.clientWidth;
+        return isMobileUA && !isTabletUA && w < 768;
+      }
+
+      function getPref() {
+        try { return localStorage.getItem("instituto_buriti_version"); } catch { return null; }
+      }
+      function setPref(v) {
+        try { localStorage.setItem("instituto_buriti_version", v); } catch {}
+      }
+
+      function go(url) {
+        // Evita loops: só redireciona se for diferente da URL atual.
+        const target = new URL(url, window.location.origin).pathname + window.location.search + window.location.hash;
+        const current = window.location.pathname + window.location.search + window.location.hash;
+        if (target !== current) window.location.replace(url);
+      }
+
+      function redirect(version) {
+        // Política:
+        // - "mobile": tenta /mobile/index.html e cai para /index.html se 404 (provável).
+        // - "desktop": usa /index.html (página raiz do site).
+        if (version === "mobile") {
+          if (pathExistsLikely("/mobile/index.html")) {
+            go("/mobile/index.html");
+          } else {
+            go("/index.html");
+          }
+        } else {
+          go("/index.html");
+        }
+      }
+
+      function init() {
+        const params = new URLSearchParams(window.location.search);
+        const force = params.get("version"); // mobile | desktop
+
+        if (force === "mobile" || force === "desktop") {
+          setPref(force);
+          return redirect(force);
+        }
+
+        const pref = getPref();
+        if (pref === "mobile" || pref === "desktop") {
+          return redirect(pref);
+        }
+
+        const isMobile = detectMobile();
+        const chosen = isMobile ? "mobile" : "desktop";
+        setPref(chosen);
+        redirect(chosen);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+
+      // Expor um trocador manual se quiser usar no futuro:
+      window.switchVersion = function (v) {
+        if (v !== "mobile" && v !== "desktop") return;
+        setPref(v);
+        redirect(v);
+      };
+    })();
+  </script>
+
+  <!-- Fallback para JS desabilitado -->
+  <noscript>
+    <div class="noscript-message">
+      <h1>Instituto Buriti</h1>
+      <p>Para a melhor experiência, por favor habilite o JavaScript em seu navegador.</p>
+      <p>
+        <a href="/index.html">Versão Desktop</a> |
+        <a href="/mobile/index.html">Versão Mobile</a>
+      </p>
+    </div>
+  </noscript>
 </body>
 </html>
-
