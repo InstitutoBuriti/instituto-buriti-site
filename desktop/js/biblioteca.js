@@ -1,20 +1,14 @@
-/* Instituto Buriti — /js/biblioteca.js  (SUBSTITUIÇÃO TOTAL)
- * Build: 2025-08-12-2
- * Notas: JS puro (NÃO usar <script> no arquivo .js)
- */
 (() => {
   "use strict";
 
-  const IMG_FALLBACK_PRIMARY = "/images/default-course.png";
-  const IMG_FALLBACK_SECOND  = "/images/ChatGPT%20Image%206%20de%20ago.%20de%202025%2C%2023_37_06.png";
+  const IMG_FALLBACK = "/images/default-course.png";
 
+  // helpers
   const $  = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
   const norm = s => (s||"").normalize("NFD").replace(/\p{Diacritic}/gu,"").toLowerCase().trim();
-  const escapeHtml = s => String(s||"")
-    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;").replaceAll("'","&#39;");
 
+  // seletores aceitam variações (para funcionar em HTMLs antigos)
   const SEL = {
     cont:   "#coursesContainer, .courses-grid, [data-courses-container]",
     cat:    "#categoria,[data-filter-categoria]",
@@ -34,7 +28,7 @@
     bind();
     apply();
 
-    // expõe lista para detalhes-curso.html
+    // expõe para a página de detalhes reaproveitar a mesma lista
     window.bibliotecaManager = {
       getCoursesData: () => state.all.slice()
     };
@@ -58,8 +52,10 @@
   }
 
   function loadData(){
+    // 1) prioridade: window.COURSES (injetado na página)
     if (Array.isArray(window.COURSES) && window.COURSES.length) return window.COURSES;
 
+    // 2) alternativa: <script id="courses-json" type="application/json">...</script>
     const s = document.getElementById("courses-json");
     if (s) {
       try {
@@ -68,7 +64,7 @@
       } catch {}
     }
 
-    // fallback mínimo (mantém a página viva mesmo sem fonte de dados)
+    // 3) sem dados -> lista vazia (mantém site de pé)
     return [];
   }
 
@@ -96,7 +92,6 @@
   function apply(){
     const f = filters();
     const list = state.all.slice();
-
     state.filt = list.filter(c=>{
       const cat = c.categoria||c.area||"";
       const niv = c.nivel||c.level||"";
@@ -107,7 +102,6 @@
       const okCarga = matchCarga(c.cargaHoraria||c.duracao, f.carga);
       return okCat && okNiv && okTipos && okCarga;
     });
-
     sort(state.filt, f.ord);
     render();
   }
@@ -142,16 +136,12 @@
     const el = document.createElement("article");
     el.className = "course-card";
 
-    // Se não houver thumbnail válida, já começa com fallback primário
-    const initialSrc = (c.thumbnail && String(c.thumbnail).trim()) ? c.thumbnail : IMG_FALLBACK_PRIMARY;
+    const imgSrc = (c.thumbnail && String(c.thumbnail).trim()) ? c.thumbnail : IMG_FALLBACK;
 
     el.innerHTML = `
       <div class="course-image">
-        <img
-          src="${initialSrc}"
-          alt="${escapeHtml(c.title)}"
-          onerror="this.onerror=null; this.src='${IMG_FALLBACK_SECOND}';"
-        >
+        <img src="${imgSrc}" alt="${escapeHtml(c.title)}"
+             onerror="this.onerror=null;this.src='${IMG_FALLBACK}'">
         <span class="course-badge ${badgeKind(c)}">${badgeText(c)}</span>
       </div>
 
@@ -160,11 +150,11 @@
         <p class="course-description">${escapeHtml(c.description||"")}</p>
 
         <div class="course-meta">
-          <span class="course-method">${String(c.nivel||"").toUpperCase()}</span>
+          <span class="course-method">${escapeHtml((c.nivel||"").toUpperCase())}</span>
           <span class="course-price">${priceText(c)}</span>
         </div>
 
-        <a class="course-btn" href="${urlDetalhes(c)}">Ver detalhes</a>
+        <a class="course-btn" href="${urlDetalhes(c)}" aria-label="Ver detalhes de ${escapeHtml(c.title)}">Ver detalhes</a>
       </div>
     `;
     return el;
@@ -185,5 +175,8 @@
     if (Array.isArray(c.tipos) && c.tipos.includes("gratuito")) return "Gratuito";
     if (c.price!=null && !Number.isNaN(Number(c.price))) return "R$ "+Number(c.price).toFixed(2);
     return "";
+  }
+  function escapeHtml(s){
+    return String(s||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
   }
 })();
