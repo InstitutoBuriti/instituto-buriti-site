@@ -6,7 +6,8 @@
   "use strict";
 
   // ---------- Config ----------
-  const IMG_FALLBACK = "/images/default-course.png";
+  // Fallback garantido que já existe no projeto
+  const IMG_FALLBACK = "/images/course-placeholder.jpg";
 
   // ---------- Helpers ----------
   const $  = (s, r = document) => r.querySelector(s);
@@ -52,7 +53,6 @@
       }
     };
 
-    // log útil (não polui)
     try { console.debug("[biblioteca] cursos carregados:", state.all.length); } catch {}
   }
 
@@ -145,7 +145,8 @@
   // ---------- Render ----------
   function urlDetalhes(curso){
     const slug = curso.slug || curso.id || "";
-    return `/pages/detalhes-curso.html?slug=${encodeURIComponent(slug)}`;
+    // Arquivo correto é "detalhes-cursos.html" (plural)
+    return `/pages/detalhes-cursos.html?slug=${encodeURIComponent(slug)}`;
   }
 
   function priceText(c){

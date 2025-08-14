@@ -822,3 +822,240 @@
     }
 }
 
+/* ============================================================
+   COMPATIBILIDADE: mapear as classes usadas no HTML atual
+   para o visual do template, sem quebrar o que já existe.
+   ============================================================ */
+
+.course-hero-section {
+    position: relative;
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 50%, #F97316 100%);
+    padding: 120px 0 60px;
+    overflow: hidden;
+}
+
+.course-hero-section::before {
+    /* leve overlay como o .banner-overlay */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.1);
+}
+
+.course-hero-content {
+    position: relative; /* para ficar acima do overlay */
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+    align-items: start;
+}
+
+.course-hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.course-hero-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.course-meta-info {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.course-meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.course-instructor-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.1);
+    padding: 12px 16px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    max-width: 420px;
+    color: #fff;
+}
+
+.course-sidebar {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+    padding: 0 0 16px 0;
+}
+
+.course-sidebar-image {
+    width: 100%;
+    display: block;
+    border-radius: 16px 16px 0 0;
+}
+
+.course-sidebar-details {
+    padding: 20px 20px 0 20px;
+}
+
+.course-price {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+.buy-button,
+.wishlist-button {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    margin-bottom: 10px;
+}
+
+.buy-button {
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    color: #fff;
+}
+
+.buy-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(124, 58, 237, 0.25);
+}
+
+.wishlist-button {
+    background: #f1f5f9;
+    color: #374151;
+    border: 1px solid #e2e8f0;
+}
+
+.wishlist-button:hover {
+    background: #e2e8f0;
+}
+
+.included-features {
+    margin-top: 16px;
+}
+
+.included-features h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.included-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.included-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #64748b;
+    font-size: 0.95rem;
+    padding: 6px 0;
+}
+
+.included-features i {
+    color: #8B5CF6;
+}
+
+/* Seção de detalhes + abas */
+.course-details-section {
+    padding: 40px 0 60px;
+    background: #f8fafc;
+}
+
+.course-tabs {
+    display: flex;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fff;
+    border-radius: 12px 12px 0 0;
+    overflow-x: auto;
+}
+
+.course-tabs .tab-button {
+    padding: 15px 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+}
+
+.course-tabs .tab-button.active {
+    color: #8B5CF6;
+    border-bottom-color: #8B5CF6;
+    background: #fff;
+}
+
+.tab-content-wrapper {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.tab-content {
+    padding: 30px;
+}
+
+.tab-content h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+/* Responsividade do hero atual */
+@media (max-width: 1024px) {
+    .course-hero-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .course-sidebar {
+        position: static;
+        top: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .course-hero-title {
+        font-size: 1.8rem;
+    }
+    .course-hero-subtitle {
+        font-size: 1rem;
+    }
+}
