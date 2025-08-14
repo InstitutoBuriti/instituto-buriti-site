@@ -1,161 +1,175 @@
 /**
  * Sistema de Autenticação - Instituto Buriti
  * Gerenciamento de login, logout e verificação de tokens
- * 
- * VERSÃO CORRIGIDA CONFORME ORIENTAÇÃO QWEN
- * - Credenciais corretas: ana.silva@email.com / 123456
- * - Logs de debug implementados
- */ 
+ *
+ * MODO DEMO (sem backend)
+ * - Credenciais válidas de demonstração:
+ *      email:    ana.silva@email.com
+ *      senha:    123456
+ */
 
-// Configuração para usar validação local temporariamente
 const USE_SUPABASE = false;
+const DEBUG = false; // <-- altere para true se quiser ver logs
 
-// CORREÇÃO QWEN: Credenciais válidas corretas para demonstração
+// Credenciais demo
 const VALID_CREDENTIALS = {
-        'ana.silva@email.com': '123456'  // ✅ CREDENCIAIS CORRETAS CONFORME QWEN
+  'ana.silva@email.com': '123456'
 };
 
-// Função de validação local com logs de debug
-function validateLocalCredentials(email, password) {
-        console.log("🔍 QWEN DEBUG: Validando credenciais locais...");
-        console.log("📧 Email recebido:", email);
-        console.log("🔑 Senha recebida:", password);
-        console.log("📋 Credenciais válidas disponíveis:", Object.keys(VALID_CREDENTIALS));
-        
-        const isValid = VALID_CREDENTIALS[email] === password;
-        console.log("✅ Resultado da validação:", isValid);
-        
-        return isValid;
+// Utils de log seguro
+function dbg(...args){ if (DEBUG) console.log('[AUTH]', ...args); }
+function warn(...args){ if (DEBUG) console.warn('[AUTH]', ...args); }
+function err(...args){ if (DEBUG) console.error('[AUTH]', ...args); }
+
+// Normalizadores
+function normEmail(s){
+  return String(s || '')
+    .trim()
+    .toLowerCase();
+}
+function normPass(s){
+  // não logamos senha em nenhuma circunstância
+  return String(s || '').trim();
 }
 
-// Sistema de autenticação simplificado
+// Validação local (demo)
+function validateLocalCredentials(email, password) {
+  const e = normEmail(email);
+  const p = normPass(password);
+  const ok = VALID_CREDENTIALS[e] === p;
+  dbg('validando credenciais locais para', e, '=>', ok);
+  return ok;
+}
+
 class AuthManager {
-        constructor() {
-                    console.log("🚀 QWEN DEBUG: Inicializando AuthManager...");
-                    this.token = localStorage.getItem('auth_token');
-                    this.user = JSON.parse(localStorage.getItem('user_data') || 'null');
-                    console.log("💾 Token existente:", this.token);
-                    console.log("👤 Usuário existente:", this.user);
-                    this.init();
+  constructor() {
+    dbg('Inicializando AuthManager...');
+    // Carregar token e usuário do localStorage com segurança
+    this.token = localStorage.getItem('auth_token') || null;
+    this.user = null;
+
+    try {
+      const raw = localStorage.getItem('user_data');
+      this.user = raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      warn('user_data inválido no localStorage — limpando.', e);
+      localStorage.removeItem('user_data');
+      this.user = null;
+    }
+
+    // manter abas sincronizadas (logout em todas)
+    window.addEventListener('storage', (ev) => {
+      if (ev.key === 'auth_token' && !ev.newValue) {
+        dbg('Detectado logout em outra aba; limpando estado local...');
+        this.token = null;
+        this.user = null;
+      }
+    });
+
+    this.init();
+  }
+
+  init() {
+    dbg('init()');
+    // Apenas valida token se existir (não força logout em páginas públicas).
+    if (this.token) {
+      this.verifyToken();
+    }
+  }
+
+  async login(email, password) {
+    dbg('login() chamado');
+
+    try {
+      if (USE_SUPABASE) {
+        // Placeholder para backend real
+        return { success: false, error: 'Supabase temporariamente desabilitado' };
+      } else {
+        const ok = validateLocalCredentials(email, password);
+        if (!ok) {
+          return { success: false, error: 'E-mail ou senha incorretos' };
         }
 
-    init() {
-                console.log("🔧 QWEN DEBUG: Inicializando sistema de autenticação...");
-                // Verificar token ao inicializar
-            if (this.token) {
-                            console.log("🔍 Token encontrado, verificando...");
-                            this.verifyToken();
-            } else {
-                            console.log("❌ Nenhum token encontrado");
-            }
+        // Gera token demo e persiste
+        this.token = 'demo_token_' + Date.now();
+        this.user = {
+          id: 1,
+          email: normEmail(email),
+          name: 'Ana Silva',
+          role: 'aluno'
+        };
+
+        localStorage.setItem('auth_token', this.token);
+        localStorage.setItem('user_data', JSON.stringify(this.user));
+        localStorage.setItem('userLoggedIn', 'true');
+        localStorage.setItem('userEmail', this.user.email);
+
+        dbg('login ok; user:', this.user);
+        return { success: true, user: this.user };
+      }
+    } catch (e) {
+      err('Erro no login:', e);
+      return { success: false, error: 'Erro de conexão' };
     }
+  }
 
-    async login(email, password) {
-                console.log("🚀 QWEN DEBUG: authenticateUser chamada com:", { email, password });
-                
-                try {
-                                if (USE_SUPABASE) {
-                                                    console.log("🌐 Usando autenticação Supabase...");
-                                                    // Código Supabase original (desabilitado)
-                                    return { success: false, error: 'Supabase temporariamente desabilitado' };
-                                } else {
-                                                    console.log("🏠 Usando validação local...");
-                                                    
-                                    // Validação local para demonstração
-                                    const isValid = validateLocalCredentials(email, password);
-                                    
-                                    if (isValid) {
-                                                            console.log("🔑 QWEN DEBUG: Login válido, salvando estado...");
-                                                            
-                                                            this.token = 'demo_token_' + Date.now();
-                                                            this.user = {
-                                                                                        id: 1,
-                                                                                        email: email,
-                                                                                        name: 'Ana Silva',
-                                                                                        role: 'aluno'
-                                                            };
+  logout(redirectToLogin = true) {
+    dbg('logout()');
+    this.token = null;
+    this.user = null;
 
-                                                        console.log("💾 Salvando no localStorage...");
-                                                        localStorage.setItem('auth_token', this.token);
-                                                            localStorage.setItem('user_data', JSON.stringify(this.user));
-                                                            localStorage.setItem('userLoggedIn', 'true');
-                                                            localStorage.setItem('userEmail', email);
-                                                            
-                                                            console.log("💾 QWEN DEBUG: Estado salvo no localStorage:");
-                                                            console.log("  - auth_token:", localStorage.getItem('auth_token'));
-                                                            console.log("  - user_data:", localStorage.getItem('user_data'));
-                                                            console.log("  - userLoggedIn:", localStorage.getItem('userLoggedIn'));
-                                                            console.log("  - userEmail:", localStorage.getItem('userEmail'));
+    // limpar storage
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_data');
+    localStorage.removeItem('userLoggedIn');
+    localStorage.removeItem('userEmail');
 
-                                                        console.log("🧭 QWEN DEBUG: Redirecionando para o dashboard...");
-                                                        return { success: true, user: this.user };
-                                    } else {
-                                                            console.error("❌ QWEN DEBUG: Credenciais inválidas.");
-                                                            return { success: false, error: 'E-mail ou senha incorretos' };
-                                    }
-                                }
-                } catch (error) {
-                                console.error('🚨 QWEN DEBUG: Erro no login:', error);
-                                return { success: false, error: 'Erro de conexão' };
-                }
+    if (redirectToLogin) {
+      window.location.href = '/pages/login-aluno.html';
     }
+  }
 
-    logout() {
-                console.log("🚪 QWEN DEBUG: Executando logout...");
-                
-                this.token = null;
-                this.user = null;
-                
-                console.log("🗑️ Removendo dados do localStorage...");
-                localStorage.removeItem('auth_token');
-                localStorage.removeItem('user_data');
-                localStorage.removeItem('userLoggedIn');
-                localStorage.removeItem('userEmail');
-                
-                console.log("✅ Dados removidos do localStorage");
+  isAuthenticated() {
+    const ok = !!this.token && !!this.user;
+    dbg('isAuthenticated() =>', ok);
+    return ok;
+  }
 
-            // Redirecionar para página de login
-            console.log("🧭 QWEN DEBUG: Redirecionando para login...");
-            window.location.href = '/pages/login-aluno.html';
+  getUser() {
+    return this.user;
+  }
+
+  // compat com outras partes do site
+  getCurrentUser() {
+    return this.getUser();
+  }
+
+  verifyToken() {
+    // Em demo, considerar válido se existir
+    if (!this.token) {
+      warn('Token ausente/ inválido.');
+      // NÃO chamamos logout automático aqui para evitar redirecionar páginas públicas.
+      // Páginas protegidas devem chamar authGuard().
+      return false;
     }
+    return true;
+  }
 
-    isAuthenticated() {
-                const authenticated = !!this.token && !!this.user;
-                console.log("🔍 QWEN DEBUG: Verificando autenticação:", authenticated);
-                return authenticated;
+  /**
+   * Protege páginas privadas.
+   * Use nas páginas que exigirem login:
+   *   if (!authManager.authGuard()) return;
+   */
+  authGuard({ redirect = '/pages/login-aluno.html' } = {}) {
+    if (!this.isAuthenticated()) {
+      window.location.href = redirect;
+      return false;
     }
-
-    getUser() {
-                console.log("👤 QWEN DEBUG: Retornando usuário:", this.user);
-                return this.user;
-    }
-
-    // FASE 2 SEÇÃO 4 QWEN: Função de compatibilidade para biblioteca.js
-    getCurrentUser() {
-                console.log("👤 QWEN DEBUG: getCurrentUser chamada - redirecionando para getUser()");
-                return this.getUser();
-    }
-
-    verifyToken() {
-                console.log("🔍 QWEN DEBUG: Verificando token...");
-                // Para demonstração, sempre considerar token válido se existir
-            if (!this.token) {
-                            console.log("❌ Token inválido, fazendo logout...");
-                            this.logout();
-            } else {
-                            console.log("✅ Token válido");
-            }
-    }
+    return true;
+  }
 }
 
-// Instância global do AuthManager
-console.log("🌟 QWEN DEBUG: Criando instância global do AuthManager...");
+// Instância global
 const authManager = new AuthManager();
-
-// Exportar para uso global
 window.authManager = authManager;
-console.log("✅ QWEN DEBUG: AuthManager disponível globalmente");
-
-// QWEN DEBUG: Timestamp da correção
-console.log("🕒 QWEN CORREÇÃO IMPLEMENTADA EM:", new Date().toISOString());
-
+dbg('AuthManager pronto');

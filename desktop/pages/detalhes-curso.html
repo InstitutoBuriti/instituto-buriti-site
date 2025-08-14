@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title id="courseTitle">Detalhes do Curso - Instituto Buriti</title>
 
-  <!-- CSS base e específicos (raiz do publish) -->
+  <!-- CSS (raiz do publish) -->
   <link rel="stylesheet" href="/css/style.css"/>
   <link rel="stylesheet" href="/css/curso.css"/>
   <link rel="stylesheet" href="/css/footer-oficial.css"/>
 
+  <!-- Tipografia / ícones -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
@@ -156,24 +157,25 @@
     </div>
   </footer>
 
-  <!-- Scripts (raiz) -->
-  <script src="/js/main.js"></script>
-  <script src="/js/biblioteca.js?v=2025-08-12-1"></script>
+  <!-- Scripts -->
+  <script defer src="/js/main.js?v=2025-08-13-1"></script>
+  <script defer src="/js/biblioteca.js?v=2025-08-13-1"></script>
   <script>
     (function () {
       const DEFAULT_IMG = "/images/default-course.png";
 
-      // Fallback local (caso a página seja aberta isoladamente)
-      const SAMPLES = (window.COURSES && Array.isArray(window.COURSES) && window.COURSES.length)
+      // Fallback local (só usado se não houver dados do catálogo)
+      const SAMPLES = (Array.isArray(window.COURSES) && window.COURSES.length)
         ? window.COURSES
         : [
-          { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
-          { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:DEFAULT_IMG, slug:"python-para-dados" },
-          { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
-          { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:DEFAULT_IMG, slug:"financas-pessoais-essenciais" }
-        ];
+            { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
+            { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:DEFAULT_IMG, slug:"python-para-dados" },
+            { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
+            { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:DEFAULT_IMG, slug:"financas-pessoais-essenciais" }
+          ];
 
       function text(id, v){ const e=document.getElementById(id); if(e) e.textContent=v||""; }
+      function html(id, v){ const e=document.getElementById(id); if(e) e.innerHTML=v||""; }
       function img(id, src){
         const e=document.getElementById(id);
         if(!e) return;
@@ -187,7 +189,9 @@
 
         let courses = [];
         try {
-          if (window.bibliotecaManager?.getCoursesData) courses = window.bibliotecaManager.getCoursesData() || [];
+          if (window.bibliotecaManager?.getCoursesData) {
+            courses = window.bibliotecaManager.getCoursesData() || [];
+          }
         } catch {}
 
         if (!Array.isArray(courses) || !courses.length) {
@@ -203,6 +207,7 @@
           return;
         }
 
+        // Títulos / metas
         text("courseTitle", c.title);
         text("courseHeroTitle", c.title);
         text("courseHeroSubtitle", c.description || "");
@@ -211,7 +216,7 @@
         text("courseLevel", c.nivel || c.level || "");
         text("courseDuration", (c.cargaHoraria ? `${c.cargaHoraria}h` : (c.duracao || "")));
 
-        // Sidebar
+        // Preço e imagens
         const price = (c.price!=null && !Number.isNaN(Number(c.price))) ? Number(c.price) : null;
         text("coursePrice", price!=null ? (price>0 ? `R$ ${price.toFixed(2)}` : "Gratuito") : "");
         img("courseSidebarImage", c.thumbnail);
@@ -223,7 +228,10 @@
         img("instructorAvatar", c.instructorAvatar);
         img("instructorProfileAvatar", c.instructorAvatar);
 
-        // Conteúdo
+        // Descrição completa (aba)
+        html("courseDescriptionFull", (c.longDescription || c.description || ""));
+
+        // Conteúdo do curso (aba)
         const ul = document.getElementById("courseContentList");
         if (ul) {
           const items = Array.isArray(c.content)&&c.content.length ? c.content : ["Conteúdo programático em breve."];

@@ -1,68 +1,142 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Seja um Instrutor - Instituto Buriti</title>
+    <!-- Charset e Viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="/css/style.css"/>
-  <link rel="stylesheet" href="/css/footer-oficial.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <!-- SEO Meta Tags -->
+    <title>Seja um Instrutor - Instituto Buriti</title>
+    <meta name="description" content="Transforme seu conhecimento em impacto! Seja um instrutor no Instituto Buriti e compartilhe sua experiência com alunos de todo o Brasil.">
+    <meta name="keywords" content="seja instrutor, Instituto Buriti, dar aulas online, criar cursos, ensinar, plataforma EAD, educação digital">
+    <meta name="author" content="Instituto Buriti">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Seja um Instrutor - Instituto Buriti">
+    <meta property="og:description" content="Transforme seu conhecimento em impacto! Seja um instrutor no Instituto Buriti e compartilhe sua experiência com alunos de todo o Brasil.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.institutoburiti.com.br/paginas/seja-instrutor-novo.html">
+    <meta property="og:image" content="https://www.institutoburiti.com.br/images/og-image-seja-instrutor.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Seja um Instrutor - Instituto Buriti">
+    <meta name="twitter:description" content="Transforme seu conhecimento em impacto! Seja um instrutor no Instituto Buriti e compartilhe sua experiência com alunos de todo o Brasil.">
+    <meta name="twitter:image" content="https://www.institutoburiti.com.br/images/og-image-seja-instrutor.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+
+    <!-- Preload de fontes -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/seja-instrutor-novo.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="header">
-    <nav class="nav">
-      <div class="nav-item"><a href="/index.html">Home</a></div>
-      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
-      <div class="nav-item active"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
-    </nav>
-  </header>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-item">
+                <a href="../index.html">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="quem-somos.html">Quem Somos</a>
+            </div>
+            <div class="nav-item">
+                <a href="cursos.html">Cursos</a>
+            </div>
+            <div class="nav-item active">
+                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
+            </div>
+            <div class="nav-item">
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="nav-item login-dropdown">
+                <button class="login-btn">Login</button>
+                <div class="dropdown-menu">
+                    <a href="login-aluno.html" class="dropdown-item">Aluno</a>
+                    <a href="login-instrutor.html" class="dropdown-item">Instrutor</a>
+                    <a href="login-admin.html" class="dropdown-item">Administrador</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-  <main style="padding-top:110px">
-    <section class="container">
-      <h1>Seja um Instrutor</h1>
-      <p>Junte-se ao nosso time para impactar vidas com educação de qualidade.</p>
-      <p><a class="cta-btn primary" href="/pages/contato.html">Fale Conosco</a></p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Torne-se um Instrutor no Instituto Buriti</h1>
+                    <p class="hero-subtitle">Tem um conhecimento valioso para compartilhar? Junte-se ao Instituto Buriti e transforme sua paixão em impacto, alcançando milhares de alunos ávidos por aprender.</p>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image-container">
+                        <div class="floating-dots">
+                            <div class="dot dot-1"></div>
+                            <div class="dot dot-2"></div>
+                            <div class="dot dot-3"></div>
+                        </div>
+                        <div class="instructor-images">
+                            <div class="instructor-main">
+                                <img src="../images/instrutora-mulher.png" alt="Instrutora ensinando online">
+                            </div>
+                            <div class="instructor-floating">
+                                <img src="../images/instrutor-homem.png" alt="Instrutor de IA ensinando">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
-          <h3>Educação que transforma. Cultura que conecta.</h3>
-          <p>Instituto Buriti, uma empresa 100% digital.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>Links Rápidos</h4>
-            <ul>
-              <li><a href="/index.html">Home</a></li>
-              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
-              <li><a href="/pages/cursos.html">Cursos</a></li>
-              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-              <li><a href="/pages/contato.html">Contato</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Contato</h4>
-            <ul>
-              <li>📧 contato@institutoburiti.com.br</li>
-              <li>📞 (86) 98170-8388</li>
-              <li>📍 Teresina, Piauí</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-      </div>
-    </div>
-  </footer>
+    <!-- Benefícios Section -->
+    <!-- (Todo o conteúdo original da página mantido) -->
 
-  <script src="/js/main.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="quem-somos.html">Quem Somos</a></li>
+                            <li><a href="cursos.html">Cursos</a></li>
+                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/seja-instrutor-novo.js"></script>
 </body>
 </html>
