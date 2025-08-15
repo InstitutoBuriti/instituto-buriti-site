@@ -6,13 +6,23 @@
   "use strict";
 
   // ---------- Config ----------
-  // Fallback garantido que já existe no projeto
   const IMG_FALLBACK = "/images/course-placeholder.jpg";
 
   // ---------- Helpers ----------
   const $  = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const norm = (s) => (s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
+
+  // Aceitamos apenas caminhos servíveis do publish (/images/...). Espaços são codificados.
+  function normalizeImgSrc(src) {
+    if (!src) return IMG_FALLBACK;
+    let s = String(src).trim();
+    // Se vier algo local (ex.: "desktop/...") ou com protocolo externo, força fallback
+    if (!s.startsWith("/images/")) return IMG_FALLBACK;
+    // Codifica somente espaços e caracteres problemáticos simples
+    try { s = s.replace(/ /g, "%20"); } catch {}
+    return s || IMG_FALLBACK;
+  }
 
   const SEL = {
     cont:   "#coursesContainer, .courses-grid, [data-courses-container]",
@@ -42,7 +52,7 @@
     bind();
     apply();
 
-    // expõe para a página de detalhes reaproveitar a mesma lista
+    // expõe para a página de detalhes
     window.bibliotecaManager = {
       getCoursesData: () => state.all.slice(),
       hydrateCourses: (list) => {
@@ -75,10 +85,8 @@
 
   // ---------- Data ----------
   function loadData(){
-    // 1) Se a página injetar window.COURSES, usa imediatamente
     if (Array.isArray(window.COURSES) && window.COURSES.length) return window.COURSES;
 
-    // 2) Opcional: <script id="courses-json" type="application/json">[...]</script>
     const s = document.getElementById("courses-json");
     if (s) {
       try {
@@ -86,8 +94,6 @@
         if (Array.isArray(data) && data.length) return data;
       } catch {/* noop */}
     }
-
-    // 3) Sem dados? retorna array vazio (mantém a página de pé)
     return [];
   }
 
@@ -138,14 +144,12 @@
   function sort(arr, by){
     if (by === "acessados")  return arr.sort((a,b) => (b.acessos||0) - (a.acessos||0));
     if (by === "alfabetico") return arr.sort((a,b) => String(a.title||"").localeCompare(String(b.title||"")));
-    // default: mais recentes
     return arr.sort((a,b) => new Date(b.createdAt||b.data||0) - new Date(a.createdAt||a.data||0));
   }
 
   // ---------- Render ----------
   function urlDetalhes(curso){
     const slug = curso.slug || curso.id || "";
-    // Arquivo correto é "detalhes-cursos.html" (plural)
     return `/pages/detalhes-cursos.html?slug=${encodeURIComponent(slug)}`;
   }
 
@@ -201,12 +205,11 @@
     const el = document.createElement("article");
     el.className = "course-card";
 
-    const imgSrc = (c.thumbnail && String(c.thumbnail).trim()) ? c.thumbnail : IMG_FALLBACK;
+    const imgSrc = normalizeImgSrc(c.thumbnail);
 
     el.innerHTML = `
       <div class="course-image">
-        <img src="${imgSrc}" alt="${escapeHtml(c.title)}"
-             onerror="this.onerror=null;this.src='${IMG_FALLBACK}'">
+        <img data-role="thumb" src="${imgSrc}" alt="${escapeHtml(c.title)}">
         <span class="course-badge ${badgeKind(c)}">${badgeText(c)}</span>
       </div>
 
@@ -222,6 +225,17 @@
         <a class="course-btn" href="${urlDetalhes(c)}">Ver detalhes</a>
       </div>
     `;
+
+    // Fallback robusto: se falhar o carregamento, troca para IMG_FALLBACK
+    const img = el.querySelector('img[data-role="thumb"]');
+    if (img) {
+      img.addEventListener('error', () => {
+        if (img.src !== location.origin + IMG_FALLBACK && !img.src.endsWith(IMG_FALLBACK)) {
+          img.src = IMG_FALLBACK;
+        }
+      }, { once: true });
+    }
+
     return el;
   }
 })();
