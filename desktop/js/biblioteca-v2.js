@@ -1,4 +1,4 @@
-/* /js/biblioteca.js  — SUBSTITUIÇÃO TOTAL
+/* /js/biblioteca-v2.js  — SUBSTITUIÇÃO TOTAL
    Catálogo de cursos (listagem + filtros) + utilitários para detalhes
    Public root (publish): /css, /js, /images, /pages
 */
@@ -7,6 +7,7 @@
 
   // ---------- Config ----------
   const IMG_FALLBACK = "/images/course-placeholder.jpg";
+  const CANON = "/pages/detalhes-curso.html"; // caminho canônico (SINGULAR)
 
   // ---------- Helpers ----------
   const $  = (s, r = document) => r.querySelector(s);
@@ -63,7 +64,7 @@
       }
     };
 
-    try { console.debug("[biblioteca] cursos carregados:", state.all.length); } catch {}
+    try { console.debug("[biblioteca-v2] cursos carregados:", state.all.length); } catch {}
   }
 
   function mapEls(){
@@ -149,8 +150,9 @@
 
   // ---------- Render ----------
   function urlDetalhes(curso){
-    const slug = curso.slug || curso.id || "";
-    return `/pages/detalhes-cursos.html?slug=${encodeURIComponent(slug)}`;
+    const slug = (curso.slug || curso.id || "").trim();
+    const safeSlug = encodeURIComponent(slug);
+    return `${CANON}?slug=${safeSlug}`;
   }
 
   function priceText(c){
@@ -206,6 +208,7 @@
     el.className = "course-card";
 
     const imgSrc = normalizeImgSrc(c.thumbnail);
+    const detailsUrl = urlDetalhes(c);
 
     el.innerHTML = `
       <div class="course-image">
@@ -222,7 +225,7 @@
           <span class="course-price">${escapeHtml(priceText(c))}</span>
         </div>
 
-        <a class="course-btn" href="${urlDetalhes(c)}">Ver detalhes</a>
+        <a class="course-btn" href="${detailsUrl}" data-href="${detailsUrl}">Ver detalhes</a>
       </div>
     `;
 
