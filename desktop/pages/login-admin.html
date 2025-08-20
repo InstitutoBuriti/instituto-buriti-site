@@ -1,138 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Administrador - Instituto Buriti</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login do Administrador - Instituto Buriti</title>
+
+  <meta name="description" content="Acesso do administrador do Instituto Buriti.">
+  <link rel="canonical" href="https://institutoburiti.com.br/pages/login-admin.html">
+
+  <!-- CSS (use os mesmos do projeto) -->
+  <link rel="stylesheet" href="/css/style.css?v=2025-08-17-1"/>
+  <link rel="stylesheet" href="/css/footer-oficial.css?v=2025-08-17-1"/>
+
+  <style>
+    .login-box{max-width:420px;margin:120px auto 60px;padding:28px;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.08);background:#fff}
+    .login-box h1{font-size:1.5rem;margin:0 0 8px}
+    .login-box p{margin:0 0 16px;color:#555}
+    .form-row{display:flex;flex-direction:column;gap:6px;margin:12px 0}
+    .form-row input{padding:12px 14px;border:1px solid #ddd;border-radius:10px;font-size:16px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;border:0;background:#7b5dd6;color:#fff;font-weight:600;cursor:pointer}
+    .msg{margin-top:10px;font-size:.95rem}
+    .msg.error{color:#c0392b}
+    .msg.success{color:#1e7e34}
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-item">
-                <a href="../index.html">Home</a>
-            </div>
-            <div class="nav-item">
-                <a href="quem-somos.html">Quem Somos</a>
-            </div>
-            <div class="nav-item">
-                <a href="cursos.html">Cursos</a>
-            </div>
-            <div class="nav-item">
-                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
-            </div>
-            <div class="nav-item">
-                <a href="contato.html">Contato</a>
-            </div>
-            <div class="nav-item login-dropdown active">
-                <button class="login-btn">Login</button>
-                <div class="dropdown-menu">
-                    <a href="login-aluno.html" class="dropdown-item">Aluno</a>
-                    <a href="login-instrutor.html" class="dropdown-item">Instrutor</a>
-                    <a href="login-admin.html" class="dropdown-item active">Administrador</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-item"><a href="/index.html">Home</a></div>
+      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
+    </nav>
+  </header>
 
-    <!-- Login Section -->
-    <section class="login-section">
-        <div class="login-background">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
-            </div>
-        </div>
-        
-        <div class="container">
-            <div class="login-content">
-                <!-- Hero Text -->
-                <div class="hero-text">
-                    <h1 class="hero-title">Painel Administrativo</h1>
-                    <p class="hero-subtitle">Entre com suas credenciais para acessar o painel administrativo.</p>
-                </div>
+  <main>
+    <section class="login-box">
+      <h1>Login — Administrador</h1>
+      <p>Entre com suas credenciais de administrador.</p>
 
-                <!-- Login Box -->
-                <div class="login-box">
-                    <div class="login-header">
-                        <h2 class="login-title">Login do Administrador</h2>
-                        <p class="login-description">Acesse o painel para gerenciar cursos, usuários, conteúdo e relatórios da plataforma.</p>
-                    </div>
-                    
-                    <form class="login-form" id="loginForm" method="POST">
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input type="password" id="password" name="password" required placeholder="Digite sua senha">
-                        </div>
-                        
-                        <button type="submit" class="login-submit">
-                            <span class="btn-text">Entrar</span>
-                            <div class="btn-ripple"></div>
-                        </button>
-                    </form>
-                    
-                    <div class="login-links">
-                        <a href="#" class="forgot-password">Esqueci minha senha</a>
-                    </div>
-                    
-                    <div class="test-credentials">
-                        <h4>Credenciais de Teste:</h4>
-                        <p><strong>E-mail:</strong> admin@institutoburiti.com</p>
-                        <p><strong>Senha:</strong> senhaAdmin</p>
-                        <button type="button" class="fill-credentials" onclick="fillTestCredentials( )">Preencher Automaticamente</button>
-                    </div>
-                </div>
-            </div>
+      <form id="login-form" autocomplete="on">
+        <input type="hidden" name="profile" value="admin">
+        <div class="form-row">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" required placeholder="seuemail@exemplo.com">
         </div>
+        <div class="form-row">
+          <label for="password">Senha</label>
+          <input id="password" name="password" type="password" required placeholder="••••••••">
+        </div>
+        <div class="form-row" style="display:flex;align-items:center;gap:8px">
+          <input id="remember" type="checkbox" checked>
+          <label for="remember">Lembrar-me neste dispositivo</label>
+        </div>
+        <div class="form-row">
+          <button class="btn" type="submit">Entrar</button>
+        </div>
+        <div class="msg" id="msg"></div>
+      </form>
     </section>
+  </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
-                    <h3>Educação que transforma. Cultura que conecta.</h3>
-                    <p>Instituto Buriti, uma empresa 100% digital.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Links Rápidos</h4>
-                        <ul>
-                            <li><a href="../index.html">Home</a></li>
-                            <li><a href="quem-somos.html">Quem Somos</a></li>
-                            <li><a href="cursos.html">Cursos</a></li>
-                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                            <li><a href="contato.html">Contato</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contato</h4>
-                        <ul>
-                            <li>📧 contato@institutoburiti.com.br</li>
-                            <li>📞 (86) 98170-8388</li>
-                            <li>📍 Teresina, Piauí</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
 
-    <script src="../js/main.js"></script>
-    <script type="module" src="../js/login.js" defer></script>
+  <!-- Scripts com caminho ABSOLUTO + cache-bust -->
+  <script defer src="/js/main.js?v=2025-08-17-1"></script>
+  <script type="module" defer src="/js/login.js?v=2025-08-17-1"></script>
+  <script src="/js/anti-cache.js"></script>
 </body>
 </html>

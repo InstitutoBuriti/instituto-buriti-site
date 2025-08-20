@@ -1,749 +1,452 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Instrutor - Analytics | Instituto Buriti</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="../css/analytics-global.css">
-    <link rel="stylesheet" href="../css/dashboard-instrutor.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Instrutor — Analytics | Instituto Buriti</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- CSS (paths absolutos padronizados) -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/analytics-global.css"/>
+  <link rel="stylesheet" href="/css/dashboard-instrutor.css"/>
+  <!-- opcional, caso exista no seu projeto -->
+  <link rel="stylesheet" href="/css/fix-logo.css"/>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Auth base (guarda local mínima) -->
+  <script src="/js/auth.js" defer></script>
+
+  <style>
+    /* Ajustes finos locais (se precisar remover, mova para analytics-global.css) */
+    .hero .hero-actions .btn { gap: .5rem; display:inline-flex; align-items:center; }
+    .charts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    .chart-card.full-width { grid-column: 1 / -1; }
+    .breadcrumb { padding: 12px 0; font-size: 14px; color: #6c757d; }
+    .breadcrumb a { color: inherit; text-decoration: none; }
+    .status-online{background:#22c55e;border-radius:999px;width:10px;height:10px;position:absolute;right:4px;bottom:4px;border:2px solid #fff;}
+    .avatar-img{width:72px;height:72px;border-radius:999px;object-fit:cover}
+    .profile-avatar{position:relative}
+    .filter-select,.filter-input{width:100%}
+    .filter-group{min-width:180px}
+    .filters-grid,.filters-panel{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;align-items:end}
+    @media (max-width: 980px){
+      .charts-grid{grid-template-columns:1fr}
+      .filters-grid,.filters-panel{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+  </style>
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <div class="nav-left">
-                <a href="../index.html" class="nav-home">
-                    <div class="home-bg"></div>
-                    <span>Início</span>
-                </a>
-            </div>
-            <div class="nav-right">
-                <a href="../pages/biblioteca-cursos.html" class="nav-link">Cursos</a>
-                <a href="../pages/quem-somos.html" class="nav-link">Quem Somos</a>
-                <a href="../pages/seja-instrutor-novo.html" class="nav-link">Seja um Instrutor</a>
-                <a href="../pages/contato.html" class="nav-link">Contato</a>
-                <div class="nav-dropdown">
-                    <button class="nav-link dropdown-trigger">Login</button>
-                    <div class="dropdown-menu">
-                        <a href="../pages/login-aluno.html" class="dropdown-item">Aluno</a>
-                        <a href="../pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
-                        <a href="../pages/login-admin.html" class="dropdown-item">Admin</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg">
-            <svg class="floating-element" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="2" fill="none"/>
-                <path d="M30 50 L45 65 L70 35" stroke="currentColor" stroke-width="3" fill="none"/>
-            </svg>
-            <svg class="floating-element" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="20" y="20" width="60" height="60" stroke="currentColor" stroke-width="2" fill="none" rx="8"/>
-                <path d="M35 45 L50 55 L65 40" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
-            <svg class="floating-element" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="50,15 85,75 15,75" stroke="currentColor" stroke-width="2" fill="none"/>
-                <circle cx="50" cy="50" r="8" fill="currentColor"/>
-            </svg>
+<body class="dashboard-body">
+  <!-- Header padronizado -->
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-item"><a href="/index.html">Home</a></div>
+      <div class="nav-item"><a href="/pages/biblioteca-cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
+
+      <div class="nav-item login-dropdown">
+        <button class="login-btn user-name" type="button" aria-haspopup="true" aria-expanded="false" data-static="false">Minha conta</button>
+        <div class="dropdown-menu">
+          <a href="/pages/dashboard-instrutor.html" class="dropdown-item">Dashboard</a>
+          <a href="#logout" class="dropdown-item" id="logoutLink">Sair</a>
         </div>
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="../index.html">Início</a>
-                <span>→</span>
-                <a href="../pages/dashboard-instrutor.html">Dashboard</a>
-                <span>→</span>
-                <span>Analytics</span>
-            </div>
-            <h1>Dashboard do Instrutor</h1>
-            <p>Acompanhe o desempenho dos seus cursos, engajamento dos alunos e métricas de ensino em tempo real.</p>
-            <div class="hero-actions">
-                <a href="#metrics" class="btn btn-primary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 3v18h18"/>
-                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-                    </svg>
-                    Ver Métricas
-                </a>
-                <a href="#courses" class="btn btn-secondary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                    </svg>
-                    Meus Cursos
-                </a>
-                <a href="#reports" class="btn btn-outline">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14,2 14,8 20,8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <polyline points="10,9 9,9 8,9"/>
-                    </svg>
-                    Relatórios
-                </a>
-            </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/index.html">Início</a> <span class="separator">→</span>
+      <a href="/pages/dashboard-instrutor.html">Dashboard</a> <span class="separator">→</span>
+      <span class="current">Analytics</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Dashboard do Instrutor — Analytics</h1>
+        <p>Acompanhe o desempenho dos seus cursos, engajamento dos alunos e métricas de ensino em tempo real.</p>
+        <div class="hero-actions">
+          <a href="#metrics" class="btn btn-primary"><i class="fas fa-chart-line"></i> Ver Métricas</a>
+          <a href="#courses" class="btn btn-outline"><i class="fas fa-book"></i> Meus Cursos</a>
+          <a href="#reports" class="btn btn-outline"><i class="fas fa-file-alt"></i> Relatórios</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Instructor Profile -->
-    <section class="instructor-profile">
-        <div class="container">
-            <div class="profile-card">
-                <div class="profile-avatar">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Prof. João Silva" class="avatar-img">
-                    <div class="status-indicator status-online"></div>
-                </div>
-                <div class="profile-info">
-                    <h2>Prof. João Silva</h2>
-                    <p class="profile-title">Especialista em Marketing Digital</p>
-                    <div class="profile-stats">
-                        <div class="stat-item">
-                            <span class="stat-value">3</span>
-                            <span class="stat-label">Cursos Ativos</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">127</span>
-                            <span class="stat-label">Alunos</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">4.8</span>
-                            <span class="stat-label">Avaliação</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">R$ 15.400</span>
-                            <span class="stat-label">Receita Mensal</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="profile-actions">
-                    <button class="btn btn-primary" id="editProfile">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                        </svg>
-                        Editar Perfil
-                    </button>
-                    <button class="btn btn-outline" id="viewPublicProfile">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                        Ver Perfil Público
-                    </button>
-                </div>
-            </div>
+  <!-- Perfil do instrutor -->
+  <section class="instructor-profile">
+    <div class="container">
+      <div class="profile-card">
+        <div class="profile-avatar">
+          <img class="avatar-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Instrutor(a)">
+          <div class="status-indicator status-online"></div>
         </div>
-    </section>
-
-    <!-- Filters Section -->
-    <section class="filters-section">
-        <div class="container">
-            <div class="filters-panel">
-                <div class="filter-group">
-                    <label for="periodFilter">Período</label>
-                    <select id="periodFilter" class="filter-select">
-                        <option value="7">Últimos 7 dias</option>
-                        <option value="30" selected>Últimos 30 dias</option>
-                        <option value="90">Últimos 3 meses</option>
-                        <option value="365">Último ano</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="courseFilter">Curso</label>
-                    <select id="courseFilter" class="filter-select">
-                        <option value="all">Todos os Cursos</option>
-                        <option value="1">Marketing Digital para Educadores</option>
-                        <option value="2">Estratégias de Conteúdo</option>
-                        <option value="3">Redes Sociais para Professores</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="metricFilter">Métrica</label>
-                    <select id="metricFilter" class="filter-select">
-                        <option value="all">Todas as Métricas</option>
-                        <option value="engagement">Engajamento</option>
-                        <option value="completion">Conclusão</option>
-                        <option value="revenue">Receita</option>
-                        <option value="ratings">Avaliações</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="searchFilter">Buscar</label>
-                    <input type="text" id="searchFilter" class="filter-input" placeholder="Buscar alunos, atividades...">
-                </div>
-                <button id="resetFilters" class="btn filter-reset">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="1 4 1 10 7 10"/>
-                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
-                    </svg>
-                    Limpar
-                </button>
-            </div>
+        <div class="profile-info">
+          <h2 data-user-name>Instrutor(a)</h2>
+          <p class="profile-title">Especialista em Ensino</p>
+          <div class="profile-stats">
+            <div class="stat-item"><span class="stat-value">3</span><span class="stat-label">Cursos Ativos</span></div>
+            <div class="stat-item"><span class="stat-value">127</span><span class="stat-label">Alunos</span></div>
+            <div class="stat-item"><span class="stat-value">4.8</span><span class="stat-label">Avaliação</span></div>
+            <div class="stat-item"><span class="stat-value">R$ 15.400</span><span class="stat-label">Receita Mensal</span></div>
+          </div>
         </div>
-    </section>
-
-    <!-- Metrics Overview -->
-    <section class="metrics-overview" id="metrics">
-        <div class="container">
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <div class="metric-value">127</div>
-                        <div class="metric-label">Alunos Ativos</div>
-                        <div class="metric-change positive">+8 esta semana</div>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <div class="metric-value">3</div>
-                        <div class="metric-label">Cursos Publicados</div>
-                        <div class="metric-change positive">+1 este mês</div>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9 8.91 8.26 12 2"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <div class="metric-value">4.8</div>
-                        <div class="metric-label">Avaliação Média</div>
-                        <div class="metric-change positive">+0.2 este mês</div>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2v20m8-10H4"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <div class="metric-value">78%</div>
-                        <div class="metric-label">Taxa de Conclusão</div>
-                        <div class="metric-change positive">+5% este mês</div>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="1" x2="12" y2="23"/>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <div class="metric-value">R$ 15.400</div>
-                        <div class="metric-label">Receita Mensal</div>
-                        <div class="metric-change positive">+12% este mês</div>
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <div class="metric-value">2h 34min</div>
-                        <div class="metric-label">Tempo Médio de Estudo</div>
-                        <div class="metric-change positive">+15min esta semana</div>
-                    </div>
-                </div>
-            </div>
+        <div class="profile-actions">
+          <button class="btn btn-primary"><i class="fas fa-edit"></i> Editar Perfil</button>
+          <button class="btn btn-outline"><i class="fas fa-eye"></i> Ver Perfil Público</button>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Charts Section -->
-    <section class="charts-section">
-        <div class="container">
-            <div class="charts-grid">
-                <!-- Student Engagement Chart -->
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <h3>Engajamento dos Alunos</h3>
-                        <div class="chart-controls">
-                            <button class="chart-tab active" data-chart="daily">Diário</button>
-                            <button class="chart-tab" data-chart="weekly">Semanal</button>
-                            <button class="chart-tab" data-chart="monthly">Mensal</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="engagementChart"></canvas>
-                    </div>
-                    <div class="engagement-stats">
-                        <div class="stat-item">
-                            <span class="stat-value">89%</span>
-                            <span class="stat-label">Participação em Aulas</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">76%</span>
-                            <span class="stat-label">Entrega de Atividades</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value">92%</span>
-                            <span class="stat-label">Interação em Fóruns</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Course Performance Chart -->
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <h3>Performance dos Cursos</h3>
-                        <div class="chart-controls">
-                            <button class="chart-tab active" data-chart="students">Alunos</button>
-                            <button class="chart-tab" data-chart="completion">Conclusão</button>
-                            <button class="chart-tab" data-chart="revenue">Receita</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="coursePerformanceChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Revenue Trend Chart -->
-                <div class="chart-card full-width">
-                    <div class="chart-header">
-                        <h3>Tendência de Receita</h3>
-                        <div class="chart-controls">
-                            <button class="chart-tab active" data-chart="revenue">Receita</button>
-                            <button class="chart-tab" data-chart="enrollments">Matrículas</button>
-                            <button class="chart-tab" data-chart="certificates">Certificados</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="revenueTrendChart"></canvas>
-                    </div>
-                    <div class="revenue-breakdown">
-                        <div class="breakdown-item">
-                            <div class="breakdown-label">Curso Principal</div>
-                            <div class="breakdown-value">R$ 8.900</div>
-                            <div class="breakdown-percent">58%</div>
-                        </div>
-                        <div class="breakdown-item">
-                            <div class="breakdown-label">Curso Secundário</div>
-                            <div class="breakdown-value">R$ 4.200</div>
-                            <div class="breakdown-percent">27%</div>
-                        </div>
-                        <div class="breakdown-item">
-                            <div class="breakdown-label">Curso Novo</div>
-                            <div class="breakdown-value">R$ 2.300</div>
-                            <div class="breakdown-percent">15%</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Student Ratings Chart -->
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <h3>Avaliações dos Alunos</h3>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="ratingsChart"></canvas>
-                    </div>
-                    <div class="ratings-summary">
-                        <div class="rating-item">
-                            <span class="rating-stars">★★★★★</span>
-                            <span class="rating-count">89 avaliações</span>
-                        </div>
-                        <div class="rating-item">
-                            <span class="rating-stars">★★★★☆</span>
-                            <span class="rating-count">23 avaliações</span>
-                        </div>
-                        <div class="rating-item">
-                            <span class="rating-stars">★★★☆☆</span>
-                            <span class="rating-count">8 avaliações</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Filtros -->
+  <section class="filters-section">
+    <div class="container">
+      <div class="filters-card">
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label for="period-filter">Período</label>
+            <select id="period-filter" class="filter-select">
+              <option value="7">Últimos 7 dias</option>
+              <option value="30" selected>Últimos 30 dias</option>
+              <option value="90">Últimos 3 meses</option>
+              <option value="365">Último ano</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="course-filter">Curso</label>
+            <select id="course-filter" class="filter-select">
+              <option value="">Todos os Cursos</option>
+              <option value="marketing">Marketing Digital para Educadores</option>
+              <option value="content">Estratégias de Conteúdo</option>
+              <option value="social">Redes Sociais para Professores</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="metric-filter">Métrica</label>
+            <select id="metric-filter" class="filter-select">
+              <option value="">Todas as Métricas</option>
+              <option value="engagement">Engajamento</option>
+              <option value="completion">Conclusão</option>
+              <option value="revenue">Receita</option>
+              <option value="ratings">Avaliações</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="search-filter">Buscar</label>
+            <input id="search-filter" type="text" class="filter-input" placeholder="Buscar alunos, atividades..."/>
+          </div>
+          <div class="filter-actions">
+            <button class="btn btn-outline btn-sm" id="resetFilters"><i class="fas fa-times"></i> Limpar</button>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- My Courses Section -->
-    <section class="my-courses-section" id="courses">
-        <div class="container">
-            <div class="section-header">
-                <h2>Meus Cursos</h2>
-                <div class="section-actions">
-                    <button class="btn btn-primary" id="createCourse">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                        Criar Novo Curso
-                    </button>
-                    <button class="btn btn-outline" id="exportCourseData">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-15"/>
-                            <polyline points="7,10 12,15 17,10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
-                        </svg>
-                        Exportar Dados
-                    </button>
-                </div>
+  <!-- Métricas em cards -->
+  <section class="metrics-section" id="metrics">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-icon"><i class="fas fa-users"></i></div><div class="metric-content"><div class="metric-value">127</div><div class="metric-label">Alunos Ativos</div><div class="metric-change positive">+8 esta semana</div></div></div>
+        <div class="metric-card"><div class="metric-icon"><i class="fas fa-book"></i></div><div class="metric-content"><div class="metric-value">3</div><div class="metric-label">Cursos Publicados</div><div class="metric-change positive">+1 este mês</div></div></div>
+        <div class="metric-card"><div class="metric-icon"><i class="fas fa-star"></i></div><div class="metric-content"><div class="metric-value">4.8</div><div class="metric-label">Avaliação Média</div><div class="metric-change positive">+0.2 este mês</div></div></div>
+        <div class="metric-card"><div class="metric-icon"><i class="fas fa-percentage"></i></div><div class="metric-content"><div class="metric-value">78%</div><div class="metric-label">Taxa de Conclusão</div><div class="metric-change positive">+5% este mês</div></div></div>
+        <div class="metric-card"><div class="metric-icon"><i class="fas fa-dollar-sign"></i></div><div class="metric-content"><div class="metric-value">R$ 15.400</div><div class="metric-label">Receita Mensal</div><div class="metric-change positive">+12% este mês</div></div></div>
+        <div class="metric-card"><div class="metric-icon"><i class="fas fa-clock"></i></div><div class="metric-content"><div class="metric-value">2h 34min</div><div class="metric-label">Tempo Médio de Estudo</div><div class="metric-change positive">+15min esta semana</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gráficos -->
+  <section class="charts-section">
+    <div class="container">
+      <div class="charts-grid">
+        <!-- Engajamento -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Engajamento dos Alunos</h3>
+            <div class="chart-tabs">
+              <button class="tab-btn active" data-period="daily">Diário</button>
+              <button class="tab-btn" data-period="weekly">Semanal</button>
+              <button class="tab-btn" data-period="monthly">Mensal</button>
             </div>
-            
-            <div class="courses-grid">
-                <div class="course-card">
-                    <div class="course-header">
-                        <div class="course-status status-active">Ativo</div>
-                        <div class="course-actions">
-                            <button class="btn-icon" title="Editar">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                                </svg>
-                            </button>
-                            <button class="btn-icon" title="Estatísticas">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M3 3v18h18"/>
-                                    <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="course-content">
-                        <h4>Marketing Digital para Educadores</h4>
-                        <p>Aprenda estratégias modernas de marketing digital aplicadas ao contexto educacional.</p>
-                        <div class="course-stats">
-                            <div class="stat">
-                                <span class="stat-value">64</span>
-                                <span class="stat-label">Alunos</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">71%</span>
-                                <span class="stat-label">Conclusão</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">4.4</span>
-                                <span class="stat-label">Avaliação</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">R$ 7.680</span>
-                                <span class="stat-label">Receita</span>
-                            </div>
-                        </div>
-                        <div class="course-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 71%;"></div>
-                            </div>
-                            <span class="progress-text">71% de conclusão média</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="course-card">
-                    <div class="course-header">
-                        <div class="course-status status-active">Ativo</div>
-                        <div class="course-actions">
-                            <button class="btn-icon" title="Editar">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                                </svg>
-                            </button>
-                            <button class="btn-icon" title="Estatísticas">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M3 3v18h18"/>
-                                    <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="course-content">
-                        <h4>Estratégias de Conteúdo Digital</h4>
-                        <p>Domine a criação de conteúdo envolvente para plataformas digitais educacionais.</p>
-                        <div class="course-stats">
-                            <div class="stat">
-                                <span class="stat-value">38</span>
-                                <span class="stat-label">Alunos</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">84%</span>
-                                <span class="stat-label">Conclusão</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">4.7</span>
-                                <span class="stat-label">Avaliação</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">R$ 4.560</span>
-                                <span class="stat-label">Receita</span>
-                            </div>
-                        </div>
-                        <div class="course-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 84%;"></div>
-                            </div>
-                            <span class="progress-text">84% de conclusão média</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="course-card">
-                    <div class="course-header">
-                        <div class="course-status status-draft">Rascunho</div>
-                        <div class="course-actions">
-                            <button class="btn-icon" title="Editar">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                                </svg>
-                            </button>
-                            <button class="btn-icon" title="Publicar">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 19l7-7 3 3-7 7-3-3z"/>
-                                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
-                                    <path d="M2 2l7.586 7.586"/>
-                                    <circle cx="11" cy="11" r="2"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="course-content">
-                        <h4>Redes Sociais para Professores</h4>
-                        <p>Como usar redes sociais de forma estratégica para ampliar seu alcance educacional.</p>
-                        <div class="course-stats">
-                            <div class="stat">
-                                <span class="stat-value">-</span>
-                                <span class="stat-label">Alunos</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">-</span>
-                                <span class="stat-label">Conclusão</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">-</span>
-                                <span class="stat-label">Avaliação</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">R$ 0</span>
-                                <span class="stat-label">Receita</span>
-                            </div>
-                        </div>
-                        <div class="course-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 65%;"></div>
-                            </div>
-                            <span class="progress-text">65% do conteúdo criado</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+          <div class="chart-container"><canvas id="engagementChart"></canvas></div>
+          <div class="engagement-stats">
+            <div class="stat-item"><span class="stat-value">89%</span><span class="stat-label">Participação em Aulas</span></div>
+            <div class="stat-item"><span class="stat-value">76%</span><span class="stat-label">Entrega de Atividades</span></div>
+            <div class="stat-item"><span class="stat-value">92%</span><span class="stat-label">Interação em Fóruns</span></div>
+          </div>
         </div>
-    </section>
 
-    <!-- Student Activity Section -->
-    <section class="student-activity-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Atividade dos Alunos</h2>
-                <div class="activity-filters">
-                    <button class="filter-btn active" data-filter="all">Todas</button>
-                    <button class="filter-btn" data-filter="submissions">Submissões</button>
-                    <button class="filter-btn" data-filter="questions">Perguntas</button>
-                    <button class="filter-btn" data-filter="achievements">Conquistas</button>
-                </div>
+        <!-- Performance dos cursos -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Performance dos Cursos</h3>
+            <div class="chart-tabs">
+              <button class="tab-btn active" data-metric="students">Alunos</button>
+              <button class="tab-btn" data-metric="completion">Conclusão</button>
+              <button class="tab-btn" data-metric="revenue">Receita</button>
             </div>
-            
-            <div class="activity-feed">
-                <div class="activity-item" data-type="submission">
-                    <div class="activity-avatar">
-                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face" alt="Ana Silva">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-header">
-                            <span class="activity-user">Ana Silva</span>
-                            <span class="activity-action">entregou a atividade</span>
-                            <span class="activity-target">"Criação de Persona"</span>
-                        </div>
-                        <div class="activity-details">
-                            <span class="activity-course">Marketing Digital para Educadores</span>
-                            <span class="activity-time">há 2 horas</span>
-                        </div>
-                    </div>
-                    <div class="activity-actions">
-                        <button class="btn-icon" title="Avaliar">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="12 2 15.09 8.26 22 9 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9 8.91 8.26 12 2"/>
-                            </svg>
-                        </button>
-                        <button class="btn-icon" title="Comentar">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="activity-item" data-type="question">
-                    <div class="activity-avatar">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" alt="Carlos Santos">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-header">
-                            <span class="activity-user">Carlos Santos</span>
-                            <span class="activity-action">fez uma pergunta em</span>
-                            <span class="activity-target">"Fórum de Dúvidas"</span>
-                        </div>
-                        <div class="activity-details">
-                            <span class="activity-course">Estratégias de Conteúdo Digital</span>
-                            <span class="activity-time">há 4 horas</span>
-                        </div>
-                        <div class="activity-preview">
-                            "Como posso adaptar o conteúdo para diferentes faixas etárias?"
-                        </div>
-                    </div>
-                    <div class="activity-actions">
-                        <button class="btn-icon" title="Responder">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="activity-item" data-type="achievement">
-                    <div class="activity-avatar">
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="Maria Oliveira">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-header">
-                            <span class="activity-user">Maria Oliveira</span>
-                            <span class="activity-action">conquistou o badge</span>
-                            <span class="activity-target">"Primeira Campanha"</span>
-                        </div>
-                        <div class="activity-details">
-                            <span class="activity-course">Marketing Digital para Educadores</span>
-                            <span class="activity-time">há 6 horas</span>
-                        </div>
-                    </div>
-                    <div class="activity-badge">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9 8.91 8.26 12 2"/>
-                        </svg>
-                    </div>
-                </div>
-
-                <div class="activity-item" data-type="submission">
-                    <div class="activity-avatar">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" alt="João Costa">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-header">
-                            <span class="activity-user">João Costa</span>
-                            <span class="activity-action">completou o módulo</span>
-                            <span class="activity-target">"Fundamentos do Marketing"</span>
-                        </div>
-                        <div class="activity-details">
-                            <span class="activity-course">Marketing Digital para Educadores</span>
-                            <span class="activity-time">há 1 dia</span>
-                        </div>
-                    </div>
-                    <div class="activity-progress">
-                        <div class="progress-circle">
-                            <svg width="32" height="32" viewBox="0 0 32 32">
-                                <circle cx="16" cy="16" r="14" fill="none" stroke="#e0e0e0" stroke-width="2"/>
-                                <circle cx="16" cy="16" r="14" fill="none" stroke="#A020F0" stroke-width="2" 
-                                        stroke-dasharray="87.96" stroke-dashoffset="26.39" transform="rotate(-90 16 16)"/>
-                            </svg>
-                            <span class="progress-text">70%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="activity-pagination">
-                <button class="btn btn-outline">Carregar Mais Atividades</button>
-            </div>
+          </div>
+          <div class="chart-container"><canvas id="performanceChart"></canvas></div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <img src="../upload/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo-img">
-                    <p class="footer-description">Educação que transforma. Cultura que conecta.</p>
-                    <p class="footer-tagline">Instituto Buriti, uma empresa 100% digital.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Links Rápidos</h4>
-                    <ul class="footer-links">
-                        <li><a href="../pages/biblioteca-cursos.html">Cursos</a></li>
-                        <li><a href="../pages/quem-somos.html">Quem Somos</a></li>
-                        <li><a href="../pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                        <li><a href="../pages/contato.html">Contato</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Suporte</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Central de Ajuda</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Termos de Uso</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contato</h4>
-                    <ul class="footer-contact">
-                        <li>contato@institutoburiti.com.br</li>
-                        <li>(11) 99999-9999</li>
-                        <li>São Paulo, SP</li>
-                    </ul>
-                    <div class="footer-social">
-                        <a href="#" class="social-link">Facebook</a>
-                        <a href="#" class="social-link">Instagram</a>
-                        <a href="#" class="social-link">LinkedIn</a>
-                        <a href="#" class="social-link">YouTube</a>
-                    </div>
-                </div>
+        <!-- Receita (full width) -->
+        <div class="chart-card full-width">
+          <div class="chart-header">
+            <h3>Tendência de Receita</h3>
+            <div class="chart-tabs">
+              <button class="tab-btn active" data-view="revenue">Receita</button>
+              <button class="tab-btn" data-view="enrollments">Matrículas</button>
+              <button class="tab-btn" data-view="certificates">Certificados</button>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Instituto Buriti. Todos os direitos reservados.</p>
-            </div>
+          </div>
+          <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+          <div class="revenue-breakdown">
+            <div class="breakdown-item"><div><div class="breakdown-label">Curso Principal</div><div class="breakdown-value">R$ 8.900</div></div><div class="breakdown-percent">58%</div></div>
+            <div class="breakdown-item"><div><div class="breakdown-label">Curso Secundário</div><div class="breakdown-value">R$ 4.200</div></div><div class="breakdown-percent">27%</div></div>
+            <div class="breakdown-item"><div><div class="breakdown-label">Curso Novo</div><div class="breakdown-value">R$ 2.300</div></div><div class="breakdown-percent">15%</div></div>
+          </div>
         </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="../js/analytics-core.js"></script>
-    <script src="../js/dashboard-instrutor.js"></script>
+        <!-- Avaliações -->
+        <div class="chart-card">
+          <div class="chart-header"><h3>Avaliações dos Alunos</h3></div>
+          <div class="chart-container"><canvas id="ratingsChart"></canvas></div>
+          <div class="ratings-summary">
+            <div class="rating-item"><div class="rating-stars">★★★★★</div><div class="rating-count">89 avaliações</div></div>
+            <div class="rating-item"><div class="rating-stars">★★★★☆</div><div class="rating-count">23 avaliações</div></div>
+            <div class="rating-item"><div class="rating-stars">★★★☆☆</div><div class="rating-count">8 avaliações</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meus cursos -->
+  <section class="my-courses-section" id="courses">
+    <div class="container">
+      <div class="section-header">
+        <h2>Meus Cursos</h2>
+        <div class="section-actions">
+          <button class="btn btn-primary"><i class="fas fa-plus"></i> Criar Novo Curso</button>
+          <button class="btn btn-outline"><i class="fas fa-download"></i> Exportar Dados</button>
+        </div>
+      </div>
+
+      <div class="courses-grid">
+        <!-- Card 1 -->
+        <div class="course-card">
+          <div class="course-header">
+            <span class="course-status status-active">Ativo</span>
+            <div class="course-actions">
+              <button class="btn btn-sm btn-outline" title="Editar"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm btn-outline" title="Estatísticas"><i class="fas fa-chart-line"></i></button>
+              <button class="btn btn-sm btn-outline" title="Mais"><i class="fas fa-ellipsis-v"></i></button>
+            </div>
+          </div>
+          <div class="course-content">
+            <h4>Marketing Digital para Educadores</h4>
+            <p>Estratégias de marketing digital aplicadas ao contexto educacional.</p>
+            <div class="course-stats">
+              <div class="stat"><span class="stat-value">64</span><span class="stat-label">Alunos</span></div>
+              <div class="stat"><span class="stat-value">71%</span><span class="stat-label">Conclusão</span></div>
+              <div class="stat"><span class="stat-value">4.4</span><span class="stat-label">Avaliação</span></div>
+              <div class="stat"><span class="stat-value">R$ 7.680</span><span class="stat-label">Receita</span></div>
+            </div>
+            <div class="course-progress">
+              <div class="progress-bar"><div class="progress-fill" style="width:71%"></div></div>
+              <span class="progress-text">71% de conclusão média</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="course-card">
+          <div class="course-header">
+            <span class="course-status status-active">Ativo</span>
+            <div class="course-actions">
+              <button class="btn btn-sm btn-outline" title="Editar"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm btn-outline" title="Estatísticas"><i class="fas fa-chart-line"></i></button>
+              <button class="btn btn-sm btn-outline" title="Mais"><i class="fas fa-ellipsis-v"></i></button>
+            </div>
+          </div>
+          <div class="course-content">
+            <h4>Estratégias de Conteúdo Digital</h4>
+            <p>Criação de conteúdo envolvente para plataformas digitais educacionais.</p>
+            <div class="course-stats">
+              <div class="stat"><span class="stat-value">38</span><span class="stat-label">Alunos</span></div>
+              <div class="stat"><span class="stat-value">84%</span><span class="stat-label">Conclusão</span></div>
+              <div class="stat"><span class="stat-value">4.7</span><span class="stat-label">Avaliação</span></div>
+              <div class="stat"><span class="stat-value">R$ 4.560</span><span class="stat-label">Receita</span></div>
+            </div>
+            <div class="course-progress">
+              <div class="progress-bar"><div class="progress-fill" style="width:84%"></div></div>
+              <span class="progress-text">84% de conclusão média</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 (rascunho) -->
+        <div class="course-card">
+          <div class="course-header">
+            <span class="course-status status-draft">Rascunho</span>
+            <div class="course-actions">
+              <button class="btn btn-sm btn-outline" title="Editar"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm btn-outline" title="Prévia"><i class="fas fa-eye"></i></button>
+              <button class="btn btn-sm btn-outline" title="Mais"><i class="fas fa-ellipsis-v"></i></button>
+            </div>
+          </div>
+          <div class="course-content">
+            <h4>Redes Sociais para Professores</h4>
+            <p>Uso estratégico de redes sociais para ampliar o alcance educacional.</p>
+            <div class="course-stats">
+              <div class="stat"><span class="stat-value">-</span><span class="stat-label">Alunos</span></div>
+              <div class="stat"><span class="stat-value">-</span><span class="stat-label">Conclusão</span></div>
+              <div class="stat"><span class="stat-value">-</span><span class="stat-label">Avaliação</span></div>
+              <div class="stat"><span class="stat-value">R$ 0</span><span class="stat-label">Receita</span></div>
+            </div>
+            <div class="course-progress">
+              <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
+              <span class="progress-text">65% do conteúdo criado</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer padronizado -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
+          <h3>Educação que transforma. Cultura que conecta.</h3>
+          <p>Instituto Buriti, uma empresa 100% digital.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Links Rápidos</h4>
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
+              <li><a href="/pages/cursos.html">Cursos</a></li>
+              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+              <li><a href="/pages/contato.html">Contato</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Contato</h4>
+            <ul>
+              <li>📧 contato@institutoburiti.com.br</li>
+              <li>📞 (86) 98170-8388</li>
+              <li>📍 Teresina, Piauí</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p></div>
+    </div>
+  </footer>
+
+  <!-- Scripts locais -->
+  <script>
+    // ===== Guarda mínima por papel ('instrutor') usando authManager =====
+    document.addEventListener('DOMContentLoaded', () => {
+      const mgr = window.authManager;
+      if (!mgr || !mgr.isAuthenticated() || String((mgr.getUser()?.role || mgr.getUser()?.type || '')).toLowerCase() !== 'instrutor') {
+        window.location.replace('/pages/login-instrutor.html');
+        return;
+      }
+
+      // Hidratar nome no header/perfil
+      const displayName = mgr.getUser().name || mgr.getUser().email || 'Instrutor(a)';
+      document.querySelectorAll('[data-user-name], .login-dropdown .login-btn').forEach(el => {
+        if (!el.hasAttribute('data-static')) el.textContent = displayName;
+      });
+
+      // Logout
+      document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        mgr.logout({ redirect: '/pages/login-instrutor.html' });
+      });
+    });
+
+    // ===== Gráficos (dados estáticos para layout; ligue com API depois) =====
+    function makeLineChart(ctx, labels, data, label){
+      return new Chart(ctx, {
+        type: 'line',
+        data: { labels, datasets: [{ label, data, tension: .35, fill: false }]},
+        options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}} }
+      });
+    }
+    function makeBarChart(ctx, labels, data, label){
+      return new Chart(ctx, {
+        type: 'bar',
+        data: { labels, datasets: [{ label, data }]},
+        options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}} }
+      });
+    }
+    function makeDoughnutChart(ctx, labels, data){
+      return new Chart(ctx, {
+        type: 'doughnut',
+        data: { labels, datasets: [{ data }]},
+        options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Engajamento
+      const engCtx = document.getElementById('engagementChart');
+      if (engCtx) makeLineChart(engCtx, ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'], [82,86,88,91,90,87,89], 'Engajamento');
+
+      // Performance
+      const perfCtx = document.getElementById('performanceChart');
+      if (perfCtx) makeBarChart(perfCtx, ['Curso A','Curso B','Curso C'], [64,38,12], 'Alunos');
+
+      // Receita
+      const revCtx = document.getElementById('revenueChart');
+      if (revCtx) makeLineChart(revCtx, ['Jan','Fev','Mar','Abr','Mai','Jun'], [2100,2800,2600,3100,3600,4300], 'Receita');
+
+      // Avaliações
+      const ratCtx = document.getElementById('ratingsChart');
+      if (ratCtx) makeDoughnutChart(ratCtx, ['5★','4★','3★','2★','1★'], [89,23,8,3,1]);
+
+      // Tabs de exemplo (não recarregam os dados neste stub)
+      document.querySelectorAll('.tab-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const group = btn.parentElement.querySelectorAll('.tab-btn');
+          group.forEach(b=>b.classList.toggle('active', b===btn));
+        });
+      });
+
+      // Limpar filtros
+      document.getElementById('resetFilters')?.addEventListener('click', ()=>{
+        document.getElementById('period-filter').value = '30';
+        document.getElementById('course-filter').value = '';
+        document.getElementById('metric-filter').value = '';
+        document.getElementById('search-filter').value = '';
+      });
+    });
+  </script>
 </body>
 </html>
-

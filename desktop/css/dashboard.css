@@ -1,5 +1,10 @@
 /* Dashboard Styles - Seguindo padrão das páginas aprovadas */
 
+/* Anti-flash enquanto a autenticação checa (também usado nos HTMLs) */
+html[data-auth="checking"] body {
+    visibility: hidden;
+}
+
 /* Dashboard Body */
 .dashboard-body {
     background: #f8f9ff;
@@ -100,6 +105,7 @@
     text-decoration: none;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
+    outline: none;
 }
 
 .nav-link:hover {
@@ -115,6 +121,21 @@
     font-weight: 600;
 }
 
+/* Acessibilidade: foco visível */
+.nav-link:focus-visible,
+.sidebar-toggle:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-outline:focus-visible,
+.btn-live:focus-visible,
+.btn-alert:focus-visible,
+.btn-icon:focus-visible,
+.quick-action-btn:focus-visible {
+    outline: 2px solid #973CBF;
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
 .nav-link i {
     width: 20px;
     text-align: center;
@@ -127,6 +148,13 @@
 
 .sidebar.collapsed .user-details {
     display: none;
+}
+
+/* Melhor alinhamento quando colapsado */
+.sidebar.collapsed .nav-link {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 /* Main Content */
@@ -695,7 +723,20 @@
     animation-delay: 0.3s;
 }
 
-
+/* Reduz animações quando o usuário prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-card,
+    .stat-card,
+    .course-card {
+        animation: none !important;
+    }
+    .btn-primary,
+    .btn-secondary,
+    .btn-live,
+    .btn-outline {
+        transition: none !important;
+    }
+}
 
 /* Instructor Dashboard Specific Styles */
 .user-avatar.instructor {
@@ -988,7 +1029,6 @@
         grid-template-columns: 1fr;
     }
 }
-
 
 /* Admin Dashboard Specific Styles */
 .user-avatar.admin {
@@ -1461,4 +1501,3 @@
         min-width: 200px;
     }
 }
-

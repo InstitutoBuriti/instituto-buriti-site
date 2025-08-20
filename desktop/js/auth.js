@@ -1,175 +1,312 @@
 /**
- * Sistema de Autenticação - Instituto Buriti
- * Gerenciamento de login, logout e verificação de tokens
+ * /js/auth.js — SUBSTITUIÇÃO TOTAL
+ * Sistema de Autenticação — Instituto Buriti
+ * - Guarda de rotas, login/logout programático e verificação de sessão
+ * - Compatível com dois modos:
+ *      1) DEMO (sem backend) — credenciais fake
+ *      2) SUPABASE (produção) — REST Auth v1
  *
- * MODO DEMO (sem backend)
- * - Credenciais válidas de demonstração:
- *      email:    ana.silva@email.com
- *      senha:    123456
+ * Observações:
+ * - O fluxo de login nas páginas é tratado por /js/login.js.
+ *   Este arquivo foca em: estado de sessão, logout, authGuard e utilidades.
+ * - Ative o Supabase definindo USE_SUPABASE=true **ou**
+ *   expondo window.SUPABASE_URL e window.SUPABASE_ANON_KEY (auto-detect).
  */
 
-const USE_SUPABASE = false;
-const DEBUG = false; // <-- altere para true se quiser ver logs
-
-// Credenciais demo
-const VALID_CREDENTIALS = {
-  'ana.silva@email.com': '123456'
-};
-
-// Utils de log seguro
-function dbg(...args){ if (DEBUG) console.log('[AUTH]', ...args); }
-function warn(...args){ if (DEBUG) console.warn('[AUTH]', ...args); }
-function err(...args){ if (DEBUG) console.error('[AUTH]', ...args); }
-
-// Normalizadores
-function normEmail(s){
-  return String(s || '')
-    .trim()
-    .toLowerCase();
-}
-function normPass(s){
-  // não logamos senha em nenhuma circunstância
-  return String(s || '').trim();
-}
-
-// Validação local (demo)
-function validateLocalCredentials(email, password) {
-  const e = normEmail(email);
-  const p = normPass(password);
-  const ok = VALID_CREDENTIALS[e] === p;
-  dbg('validando credenciais locais para', e, '=>', ok);
-  return ok;
-}
-
-class AuthManager {
-  constructor() {
-    dbg('Inicializando AuthManager...');
-    // Carregar token e usuário do localStorage com segurança
-    this.token = localStorage.getItem('auth_token') || null;
-    this.user = null;
-
-    try {
-      const raw = localStorage.getItem('user_data');
-      this.user = raw ? JSON.parse(raw) : null;
-    } catch (e) {
-      warn('user_data inválido no localStorage — limpando.', e);
-      localStorage.removeItem('user_data');
-      this.user = null;
-    }
-
-    // manter abas sincronizadas (logout em todas)
-    window.addEventListener('storage', (ev) => {
-      if (ev.key === 'auth_token' && !ev.newValue) {
-        dbg('Detectado logout em outra aba; limpando estado local...');
-        this.token = null;
-        this.user = null;
-      }
-    });
-
-    this.init();
-  }
-
-  init() {
-    dbg('init()');
-    // Apenas valida token se existir (não força logout em páginas públicas).
-    if (this.token) {
-      this.verifyToken();
-    }
-  }
-
-  async login(email, password) {
-    dbg('login() chamado');
-
-    try {
-      if (USE_SUPABASE) {
-        // Placeholder para backend real
-        return { success: false, error: 'Supabase temporariamente desabilitado' };
-      } else {
-        const ok = validateLocalCredentials(email, password);
-        if (!ok) {
-          return { success: false, error: 'E-mail ou senha incorretos' };
-        }
-
-        // Gera token demo e persiste
-        this.token = 'demo_token_' + Date.now();
-        this.user = {
-          id: 1,
-          email: normEmail(email),
-          name: 'Ana Silva',
-          role: 'aluno'
-        };
-
-        localStorage.setItem('auth_token', this.token);
-        localStorage.setItem('user_data', JSON.stringify(this.user));
-        localStorage.setItem('userLoggedIn', 'true');
-        localStorage.setItem('userEmail', this.user.email);
-
-        dbg('login ok; user:', this.user);
-        return { success: true, user: this.user };
-      }
-    } catch (e) {
-      err('Erro no login:', e);
-      return { success: false, error: 'Erro de conexão' };
-    }
-  }
-
-  logout(redirectToLogin = true) {
-    dbg('logout()');
-    this.token = null;
-    this.user = null;
-
-    // limpar storage
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user_data');
-    localStorage.removeItem('userLoggedIn');
-    localStorage.removeItem('userEmail');
-
-    if (redirectToLogin) {
-      window.location.href = '/pages/login-aluno.html';
-    }
-  }
-
-  isAuthenticated() {
-    const ok = !!this.token && !!this.user;
-    dbg('isAuthenticated() =>', ok);
-    return ok;
-  }
-
-  getUser() {
-    return this.user;
-  }
-
-  // compat com outras partes do site
-  getCurrentUser() {
-    return this.getUser();
-  }
-
-  verifyToken() {
-    // Em demo, considerar válido se existir
-    if (!this.token) {
-      warn('Token ausente/ inválido.');
-      // NÃO chamamos logout automático aqui para evitar redirecionar páginas públicas.
-      // Páginas protegidas devem chamar authGuard().
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * Protege páginas privadas.
-   * Use nas páginas que exigirem login:
-   *   if (!authManager.authGuard()) return;
-   */
-  authGuard({ redirect = '/pages/login-aluno.html' } = {}) {
-    if (!this.isAuthenticated()) {
-      window.location.href = redirect;
-      return false;
-    }
-    return true;
-  }
-}
-
-// Instância global
-const authManager = new AuthManager();
-window.authManager = authManager;
-dbg('AuthManager pronto');
+/* ==============================
+   Configuração
+   ============================== */
+   let USE_SUPABASE = false;           // mude para true em produção
+   const DEBUG = false;                // mude para true para ver logs
+   
+   // Auto-detect: se variáveis globais do Supabase estiverem disponíveis, ativa Supabase
+   try {
+     if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
+       USE_SUPABASE = true;
+     }
+   } catch { /* noop */ }
+   
+   // Se quiser forçar via constantes, defina aqui (opcional)
+   const SUPABASE_URL      = window.SUPABASE_URL      || "https://ngvljtxkinvygynwcckp.supabase.co";
+   const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndmxqdHhraW52eWd5bndjY2twIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzIxNzksImV4cCI6MjA2NzkwODE3OX0.vwJgc2E_erC3giIofKiVY5ipYM2uRP8m9Yxy0fqE2yY";
+   
+   // Credenciais DEMO (modo sem backend)
+   const VALID_CREDENTIALS = {
+     "ana.silva@email.com": "123456"
+   };
+   
+   /* ==============================
+      Utils de log
+      ============================== */
+   function dbg(...a){ if (DEBUG) console.log("[AUTH]", ...a); }
+   function warn(...a){ if (DEBUG) console.warn("[AUTH]", ...a); }
+   function err(...a){ if (DEBUG) console.error("[AUTH]", ...a); }
+   
+   /* ==============================
+      Helpers
+      ============================== */
+   const normEmail = (s) => String(s||"").trim().toLowerCase();
+   const now = () => Date.now();
+   
+   function storageGetJSON(key, fallback=null){
+     try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+     catch { return fallback; }
+   }
+   function storageSetJSON(key, obj){
+     try { localStorage.setItem(key, JSON.stringify(obj)); } catch {}
+   }
+   
+   /** Normaliza o objeto de usuário para sempre conter `role` e `type` */
+   function normalizeUser(user){
+     if (!user) return null;
+     const role = (user.role || user.type || "aluno").toString().toLowerCase();
+     return { ...user, role, type: role };
+   }
+   
+   /* ==============================
+      AuthManager
+      ============================== */
+   class AuthManager {
+     constructor() {
+       dbg("Inicializando AuthManager…");
+   
+       // Estado
+       this.session = storageGetJSON("auth_session", null);
+       // { access_token, refresh_token, expires_at(ms), user:{id,email,name,role,type} }
+   
+       // Sync entre abas
+       window.addEventListener("storage", (ev) => {
+         if (ev.key === "auth_session") {
+           this.session = storageGetJSON("auth_session", null);
+           dbg("Sessão sincronizada entre abas:", !!this.session);
+           // garante que espelhos estejam coerentes ao sincronizar
+           if (this.session) {
+             try {
+               if (this.session.access_token) localStorage.setItem("auth_token", this.session.access_token);
+               if (this.session.user)        storageSetJSON("user_data", this.session.user);
+             } catch {}
+           }
+         }
+       });
+   
+       // Verificação inicial
+       this.verifySession();
+     }
+   
+     /* --------- Persistência --------- */
+     saveSession(sess){
+       this.session = sess ? { ...sess, user: normalizeUser(sess.user) } : null;
+   
+       if (this.session) {
+         // grava sessão principal
+         storageSetJSON("auth_session", this.session);
+         // espelhos para compat com dashboard.js e dashboard-auth.js
+         try {
+           if (this.session.access_token) localStorage.setItem("auth_token", this.session.access_token);
+           if (this.session.user)        storageSetJSON("user_data", this.session.user);
+         } catch {}
+       } else {
+         localStorage.removeItem("auth_session");
+         localStorage.removeItem("auth_token");
+         localStorage.removeItem("user_data");
+       }
+     }
+   
+     clearSession(){
+       this.saveSession(null);
+     }
+   
+     /* --------- Estado --------- */
+     isAuthenticated(){
+       if (!this.session || !this.session.access_token) return false;
+       if (typeof this.session.expires_at === "number" && now() >= this.session.expires_at) {
+         dbg("Token expirado.");
+         return false;
+       }
+       return true;
+     }
+     getUser(){ return this.session?.user || null; }
+   
+     /* --------- Guarda de rota ---------
+        allowed: [] → sem restrição de papel (apenas exige login)
+        allowed: ["admin"] → exige papel específico
+     ------------------------------------ */
+     authGuard({ redirect = this.getDefaultLoginPath(), allowed = [] } = {}){
+       if (!this.isAuthenticated()){
+         window.location.href = redirect;
+         return false;
+       }
+       if (Array.isArray(allowed) && allowed.length > 0){
+         const role = (this.getUser()?.role || "").toLowerCase();
+         if (!allowed.includes(role)){
+           // autenticado, porém não autorizado
+           window.location.href = redirect;
+           return false;
+         }
+       }
+       return true;
+     }
+   
+     getDefaultLoginPath(){
+       // login padrão para público geral (aluno)
+       return "/pages/login-aluno.html";
+     }
+   
+     /* --------- Verificação inicial --------- */
+     verifySession(){
+       if (!this.session) { dbg("Sem sessão."); return false; }
+       // normaliza caso versões antigas tenham salvo sem role/type
+       if (this.session.user && (!this.session.user.role || !this.session.user.type)) {
+         this.session.user = normalizeUser(this.session.user);
+         storageSetJSON("auth_session", this.session);
+       }
+       if (!this.isAuthenticated()){
+         warn("Sessão inválida/expirada — limpando.");
+         this.clearSession();
+         return false;
+       }
+       // garante espelhos mesmo após reload (se vieram de versões antigas)
+       try {
+         if (this.session.access_token) localStorage.setItem("auth_token", this.session.access_token);
+         if (this.session.user)        storageSetJSON("user_data", this.session.user);
+       } catch {}
+       dbg("Sessão válida, expira em:", new Date(this.session.expires_at||0).toISOString());
+       return true;
+     }
+   
+     /* --------- Login programático (opcional) ---------
+        OBS: As páginas de login usarão /js/login.js.
+        Este método existe caso algum fluxo precise autenticar por aqui. */
+     async login(email, password){
+       const e = normEmail(email || "");
+       const p = String(password || "");
+   
+       if (!e || !p) return { success:false, error:"Credenciais ausentes." };
+   
+       try {
+         if (USE_SUPABASE){
+           // Supabase: password grant
+           const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+             method: "POST",
+             headers: {
+               "Content-Type": "application/json",
+               "apikey": SUPABASE_ANON_KEY,
+               "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+             },
+             body: JSON.stringify({ email: e, password: p })
+           });
+   
+           const data = await res.json().catch(()=> ({}));
+           if (!res.ok){
+             const msg = data?.error_description || data?.msg || "Falha no login.";
+             return { success:false, error: msg };
+           }
+   
+           const access_token  = data.access_token;
+           const refresh_token = data.refresh_token;
+           const expires_in    = Number(data.expires_in || 3600); // segundos
+           const expires_at    = now() + expires_in*1000;
+   
+           // Buscar usuário (metadados)
+           let user = { email: e };
+           try {
+             const uRes = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+               method: "GET",
+               headers: {
+                 "apikey": SUPABASE_ANON_KEY,
+                 "Authorization": `Bearer ${access_token}`
+               }
+             });
+             if (uRes.ok){
+               const u = await uRes.json();
+               user = {
+                 id: u?.id,
+                 email: u?.email || e,
+                 name: u?.user_metadata?.name || u?.email || "Usuário",
+                 role: (u?.user_metadata?.role || "aluno")
+               };
+             }
+           } catch { /* noop */ }
+   
+           user = normalizeUser(user);
+           this.saveSession({ access_token, refresh_token, expires_at, user });
+           dbg("Login OK via Supabase para:", user.email, "role:", user.role);
+           return { success:true, user };
+         }
+   
+         // DEMO
+         if (VALID_CREDENTIALS[e] === p){
+           const expires_at = now() + 3600*1000;
+           const user = normalizeUser({ id: 1, email: e, name: "Ana Silva", role: "aluno" });
+           this.saveSession({ access_token: "demo_"+Date.now(), refresh_token: null, expires_at, user });
+           dbg("Login DEMO OK:", user.email, "role:", user.role);
+           return { success:true, user };
+         }
+         return { success:false, error:"E-mail ou senha incorretos." };
+   
+       } catch (ex){
+         err("Erro no login:", ex);
+         return { success:false, error:"Erro de conexão." };
+       }
+     }
+   
+     /* --------- Logout --------- */
+     async logout(opts = {}){
+       // Aceita:
+       //  - logout()                              → redireciona para getDefaultLoginPath()
+       //  - logout(false)                         → NÃO redireciona
+       //  - logout("/pages/login-admin.html")     → redireciona para a string fornecida
+       //  - logout({ redirect:false })            → NÃO redireciona
+       //  - logout({ redirect:"/pages/login..."}) → redireciona para a string fornecida
+       let redirectTo;
+       if (typeof opts === 'boolean') {
+         redirectTo = opts ? this.getDefaultLoginPath() : false;
+       } else if (typeof opts === 'string') {
+         redirectTo = opts;
+       } else if (opts && typeof opts === 'object' && 'redirect' in opts) {
+         redirectTo = opts.redirect;
+       } else {
+         redirectTo = this.getDefaultLoginPath();
+       }
+   
+       try {
+         if (USE_SUPABASE && this.session?.access_token){
+           // Invalida a sessão no Supabase (best-effort)
+           try {
+             await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
+               method: "POST",
+               headers: {
+                 "apikey": SUPABASE_ANON_KEY,
+                 "Authorization": `Bearer ${this.session.access_token}`
+               }
+             });
+           } catch { /* noop */ }
+         }
+       } finally {
+         this.clearSession();
+         if (redirectTo !== false) {
+           window.location.href = (typeof redirectTo === 'string' && redirectTo) ? redirectTo : this.getDefaultLoginPath();
+         }
+       }
+     }
+   }
+   
+   /* ==============================
+      Instância global
+      ============================== */
+   const authManager = new AuthManager();
+   window.authManager = authManager;
+   dbg("AuthManager pronto — modo:", USE_SUPABASE ? "SUPABASE" : "DEMO");
+   
+   /* ==============================
+      Dica de uso nos dashboards
+      ------------------------------
+      // Aluno:
+      // window.authManager.authGuard({ redirect: "/pages/login-aluno.html", allowed: ["aluno"] });
+   
+      // Instrutor:
+      // window.authManager.authGuard({ redirect: "/pages/login-instrutor.html", allowed: ["instrutor","instructor","professor"] });
+   
+      // Admin:
+      // window.authManager.authGuard({ redirect: "/pages/login-admin.html", allowed: ["admin"] });
+      ============================== */
