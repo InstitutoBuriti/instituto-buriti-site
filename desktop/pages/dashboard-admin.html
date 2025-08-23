@@ -1,474 +1,460 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard Admin - Instituto Buriti</title>
-
-  <!-- CSS (caminhos absolutos) -->
-  <link rel="stylesheet" href="/css/style.css"/>
-  <link rel="stylesheet" href="/css/dashboard.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-  <!-- Previne flash enquanto checa autenticação -->
-  <style>
-    html[data-auth="checking"] body { visibility: hidden; }
-  </style>
-
-  <!-- Núcleo de autenticação + guard compartilhado para dashboards -->
-  <script src="/js/auth.js"></script>
-  <script src="/js/dashboard-auth.js"></script>
-  <script>
-    // Sinaliza que vamos checar auth imediatamente
-    document.documentElement.setAttribute('data-auth','checking');
-    // dashboard-auth.js lerá data-dashboard-role="admin" e fará o guard adequado
-  </script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard Admin - Instituto Buriti</title>
+    <!-- CSS (caminhos absolutos) -->
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link rel="stylesheet" href="/css/dashboard-admin.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <!-- Previne flash enquanto checa autenticação -->
+    <style>html[data-auth="checking"] body.dashboard-body{visibility:hidden;}</style>
+    <!-- Núcleo de autenticação + guard compartilhado para dashboards -->
+    <script src="/js/auth.js" defer></script>
+    <script src="/js/dashboard-auth.js" defer></script>
+    <script>
+        // Sinaliza que vamos checar auth imediatamente (anti-flash)
+        document.documentElement.setAttribute('data-auth', 'checking');
+        // dashboard-auth.js lerá data-dashboard-role="admin" e fará o guard adequado
+    </script>
 </head>
-
 <!-- Papel esperado: admin -->
-<body class="dashboard-body" data-dashboard-role="admin">
-  <!-- Header -->
-  <header class="header">
-    <nav class="nav">
-      <div class="nav-item"><a href="/index.html">Home</a></div>
-      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
-      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
-
-      <div class="nav-item login-dropdown">
-        <!-- Preenchido dinamicamente por dashboard-auth.js / dashboard.js -->
-        <button class="login-btn user-name" type="button" aria-haspopup="true" aria-expanded="false"
-                data-user-name data-static="false">Admin</button>
-        <div class="dropdown-menu">
-          <a href="/pages/dashboard-admin.html" class="dropdown-item active">Dashboard</a>
-          <a href="#logout" class="dropdown-item" data-action="logout">Sair</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Dashboard Container -->
-  <div class="dashboard-container">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="user-info">
-          <div class="user-avatar admin"><i class="fas fa-shield-alt"></i></div>
-          <div class="user-details">
-            <h3 class="user-name" data-user-name data-static="false">Administrador</h3>
-            <p class="user-role" data-user-role data-static="false">Admin</p>
-          </div>
-        </div>
-        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Alternar menu">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-      
-      <nav class="sidebar-nav">
-        <a href="#overview" class="nav-link active" data-section="overview">
-          <i class="fas fa-tachometer-alt"></i><span>Visão Geral</span>
-        </a>
-        <a href="#courses" class="nav-link" data-section="courses">
-          <i class="fas fa-graduation-cap"></i><span>Gerenciar Cursos</span>
-        </a>
-        <a href="#users" class="nav-link" data-section="users">
-          <i class="fas fa-users-cog"></i><span>Gerenciar Usuários</span>
-        </a>
-        <a href="#content" class="nav-link" data-section="content">
-          <i class="fas fa-edit"></i><span>Gestão de Conteúdo</span>
-        </a>
-        <a href="#communications" class="nav-link" data-section="communications">
-          <i class="fas fa-bullhorn"></i><span>Comunicações</span>
-        </a>
-        <a href="#analytics" class="nav-link" data-section="analytics">
-          <i class="fas fa-chart-bar"></i><span>Analytics</span>
-        </a>
-        <a href="#settings" class="nav-link" data-section="settings">
-          <i class="fas fa-cogs"></i><span>Configurações</span>
-        </a>
-        <a href="#moderation" class="nav-link" data-section="moderation">
-          <i class="fas fa-gavel"></i><span>Moderação</span>
-        </a>
-        <a href="#support" class="nav-link" data-section="support">
-          <i class="fas fa-life-ring"></i><span>Suporte</span>
-        </a>
-      </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- Overview Section -->
-      <section id="overview" class="dashboard-section active">
-        <div class="section-header">
-          <h1>Painel Administrativo</h1>
-          <p>Controle completo da plataforma Instituto Buriti. Monitore, gerencie e otimize todos os aspectos do sistema.</p>
-        </div>
-
-        <div class="stats-grid admin">
-          <div class="stat-card admin">
-            <div class="stat-icon"><i class="fas fa-users"></i></div>
-            <div class="stat-info">
-              <h3>1,247</h3>
-              <p>Usuários Totais</p>
-              <span class="stat-trend positive">+12% este mês</span>
+<body class="dashboard-body admin-page" data-dashboard-role="admin">
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav" aria-label="principal">
+            <div class="nav-item"><a href="/index.html">Home</a></div>
+            <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
+            <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
+            <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+            <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
+            <div class="nav-item login-dropdown">
+                <!-- Preenchido dinamicamente por dashboard-auth.js / dashboard.js -->
+                <button class="login-btn user-name" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu" data-user-name data-static="false">Admin</button>
+                <div class="dropdown-menu" role="menu" id="user-menu">
+                    <a href="/pages/dashboard-admin.html" class="dropdown-item active" aria-current="page">Dashboard</a>
+                    <a href="#logout" class="dropdown-item" data-action="logout">Sair</a>
+                </div>
             </div>
-          </div>
-          <div class="stat-card admin">
-            <div class="stat-icon"><i class="fas fa-book"></i></div>
-            <div class="stat-info">
-              <h3>28</h3>
-              <p>Cursos Ativos</p>
-              <span class="stat-trend positive">+3 novos</span>
-            </div>
-          </div>
-          <div class="stat-card admin">
-            <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
-            <div class="stat-info">
-              <h3>R$ 47.2K</h3>
-              <p>Receita Mensal</p>
-              <span class="stat-trend positive">+18% este mês</span>
-            </div>
-          </div>
-          <div class="stat-card admin">
-            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="stat-info">
-              <h3>94.2%</h3>
-              <p>Uptime Sistema</p>
-              <span class="stat-trend positive">Excelente</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="dashboard-grid admin">
-          <div class="dashboard-card admin-primary">
-            <div class="card-header">
-              <h3><i class="fas fa-exclamation-triangle"></i> Alertas do Sistema</h3>
-              <span class="alert-count">3</span>
-            </div>
-            <div class="card-content">
-              <div class="alert-item critical">
-                <div class="alert-icon"><i class="fas fa-server"></i></div>
-                <div class="alert-info">
-                  <h4>Uso de Servidor Alto</h4>
-                  <p>CPU em 87% - considere upgrade</p>
-                  <span class="alert-time">há 15 minutos</span>
-                </div>
-                <div class="alert-actions">
-                  <button class="btn-alert">Resolver</button>
-                </div>
-              </div>
-              <div class="alert-item warning">
-                <div class="alert-icon"><i class="fas fa-database"></i></div>
-                <div class="alert-info">
-                  <h4>Backup Pendente</h4>
-                  <p>Último backup há 25 horas</p>
-                  <span class="alert-time">há 1 hora</span>
-                </div>
-                <div class="alert-actions">
-                  <button class="btn-alert">Executar</button>
-                </div>
-              </div>
-              <div class="alert-item info">
-                <div class="alert-icon"><i class="fas fa-users"></i></div>
-                <div class="alert-info">
-                  <h4>Pico de Usuários</h4>
-                  <p>347 usuários online simultaneamente</p>
-                  <span class="alert-time">há 2 horas</span>
-                </div>
-                <div class="alert-actions">
-                  <button class="btn-alert">Ver Detalhes</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="dashboard-card">
-            <div class="card-header"><h3><i class="fas fa-chart-pie"></i> Resumo de Atividade</h3></div>
-            <div class="card-content">
-              <div class="activity-summary">
-                <div class="activity-item">
-                  <div class="activity-metric">
-                    <span class="metric-number">1,247</span>
-                    <span class="metric-label">Usuários Ativos</span>
-                  </div>
-                  <div class="activity-chart">
-                    <div class="progress-ring"><div class="progress-fill" style="width: 78%"></div></div>
-                    <span class="progress-percent">78%</span>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-metric">
-                    <span class="metric-number">28</span>
-                    <span class="metric-label">Cursos Publicados</span>
-                  </div>
-                  <div class="activity-chart">
-                    <div class="progress-ring"><div class="progress-fill" style="width: 93%"></div></div>
-                    <span class="progress-percent">93%</span>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-metric">
-                    <span class="metric-number">156</span>
-                    <span class="metric-label">Certificados Emitidos</span>
-                  </div>
-                  <div class="activity-chart">
-                    <div class="progress-ring"><div class="progress-fill" style="width: 65%"></div></div>
-                    <span class="progress-percent">65%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="dashboard-card">
-            <div class="card-header"><h3><i class="fas fa-clock"></i> Atividades Recentes</h3></div>
-            <div class="card-content">
-              <div class="recent-activities">
-                <div class="activity-log">
-                  <div class="log-icon user"><i class="fas fa-user-plus"></i></div>
-                  <div class="log-content">
-                    <p><strong>Ana Silva</strong> se inscreveu no curso "Desenvolvimento Web"</p>
-                    <span class="log-time">há 5 minutos</span>
-                  </div>
-                </div>
-                <div class="activity-log">
-                  <div class="log-icon course"><i class="fas fa-book"></i></div>
-                  <div class="log-content">
-                    <p><strong>Prof. João Silva</strong> publicou novo curso "Psicologia Educacional"</p>
-                    <span class="log-time">há 1 hora</span>
-                  </div>
-                </div>
-                <div class="activity-log">
-                  <div class="log-icon payment"><i class="fas fa-credit-card"></i></div>
-                  <div class="log-content">
-                    <p>Pagamento de <strong>R$ 197,00</strong> processado com sucesso</p>
-                    <span class="log-time">há 2 horas</span>
-                  </div>
-                </div>
-                <div class="activity-log">
-                  <div class="log-icon system"><i class="fas fa-cog"></i></div>
-                  <div class="log-content">
-                    <p>Sistema atualizado para versão <strong>2.1.4</strong></p>
-                    <span class="log-time">há 6 horas</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="dashboard-card">
-            <div class="card-header"><h3><i class="fas fa-tools"></i> Ações Rápidas</h3></div>
-            <div class="card-content">
-              <div class="quick-actions">
-                <button class="quick-action-btn"><i class="fas fa-plus"></i><span>Criar Usuário</span></button>
-                <button class="quick-action-btn"><i class="fas fa-graduation-cap"></i><span>Novo Curso</span></button>
-                <button class="quick-action-btn"><i class="fas fa-bullhorn"></i><span>Enviar Comunicado</span></button>
-                <button class="quick-action-btn"><i class="fas fa-download"></i><span>Backup Sistema</span></button>
-                <button class="quick-action-btn"><i class="fas fa-chart-bar"></i><span>Relatório Geral</span></button>
-                <button class="quick-action-btn"><i class="fas fa-shield-alt"></i><span>Logs de Segurança</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Courses Management Section -->
-      <section id="courses" class="dashboard-section">
-        <div class="section-header">
-          <h1>Gerenciamento de Cursos</h1>
-          <p>Controle total sobre todos os cursos da plataforma</p>
-          <div class="header-actions">
-            <button class="btn-secondary"><i class="fas fa-filter"></i> Filtros</button>
-            <button class="btn-primary"><i class="fas fa-plus"></i> Novo Curso</button>
-          </div>
-        </div>
-
-        <div class="admin-table-container">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Curso</th>
-                <th>Instrutor</th>
-                <th>Alunos</th>
-                <th>Status</th>
-                <th>Receita</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="course-info-table">
-                    <img src="/images/8-perguntas-e-respostas-sobre-educacao-especial-e-inclusiva.jpg.webp" alt="Curso" class="course-thumb"/>
-                    <div>
-                      <h4>Fundamentos de Educação Inclusiva</h4>
-                      <p>Criado em 15/06/2024</p>
+        </nav>
+    </header>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar" aria-label="menu lateral">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div class="user-avatar admin" aria-hidden="true"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
+                    <div class="user-details">
+                        <h3 class="user-name" data-user-name data-static="false">Administrador</h3>
+                        <p class="user-role" data-user-role data-static="false">Admin</p>
                     </div>
-                  </div>
-                </td>
-                <td>Prof. João Silva</td>
-                <td>28</td>
-                <td><span class="status-badge published">Publicado</span></td>
-                <td>R$ 2.450</td>
-                <td>
-                  <div class="table-actions">
-                    <button class="btn-icon" title="Editar"><i class="fas fa-edit"></i></button>
-                    <button class="btn-icon" title="Visualizar"><i class="fas fa-eye"></i></button>
-                    <button class="btn-icon danger" title="Excluir"><i class="fas fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="course-info-table">
-                    <img src="/images/WhatsApp-Image-2023-07-03-at-17.31.11.jpeg" alt="Curso" class="course-thumb"/>
-                    <div>
-                      <h4>Metodologias Ativas de Ensino</h4>
-                      <p>Criado em 10/06/2024</p>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-controls="sidebar" aria-expanded="true">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-link active" data-section="overview" aria-current="page">
+                    <i class="fas fa-tachometer-alt" aria-hidden="true"></i><span>Visão Geral</span>
+                </a>
+                <a href="#courses" class="nav-link" data-section="courses">
+                    <i class="fas fa-graduation-cap" aria-hidden="true"></i><span>Gerenciar Cursos</span>
+                </a>
+                <a href="#users" class="nav-link" data-section="users">
+                    <i class="fas fa-users-cog" aria-hidden="true"></i><span>Gerenciar Usuários</span>
+                </a>
+                <a href="#content" class="nav-link" data-section="content">
+                    <i class="fas fa-edit" aria-hidden="true"></i><span>Gestão de Conteúdo</span>
+                </a>
+                <a href="#communications" class="nav-link" data-section="communications">
+                    <i class="fas fa-bullhorn" aria-hidden="true"></i><span>Comunicações</span>
+                </a>
+                <a href="#analytics" class="nav-link" data-section="analytics">
+                    <i class="fas fa-chart-bar" aria-hidden="true"></i><span>Analytics</span>
+                </a>
+                <a href="#settings" class="nav-link" data-section="settings">
+                    <i class="fas fa-cogs" aria-hidden="true"></i><span>Configurações</span>
+                </a>
+                <a href="#moderation" class="nav-link" data-section="moderation">
+                    <i class="fas fa-gavel" aria-hidden="true"></i><span>Moderação</span>
+                </a>
+                <a href="#support" class="nav-link" data-section="support">
+                    <i class="fas fa-life-ring" aria-hidden="true"></i><span>Suporte</span>
+                </a>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section active" aria-labelledby="overview-title">
+                <div class="section-header">
+                    <h1 id="overview-title">Painel Administrativo</h1>
+                    <p>Controle completo da plataforma Instituto Buriti. Monitore, gerencie e otimize todos os aspectos do sistema.</p>
+                </div>
+                <div class="stats-grid admin">
+                    <div class="stat-card admin" role="status">
+                        <div class="stat-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
+                        <div class="stat-info">
+                            <h3>1,247</h3>
+                            <p>Usuários Totais</p>
+                            <span class="stat-trend positive">+12% este mês</span>
+                        </div>
                     </div>
-                  </div>
-                </td>
-                <td>Prof. João Silva</td>
-                <td>45</td>
-                <td><span class="status-badge published">Publicado</span></td>
-                <td>R$ 3.850</td>
-                <td>
-                  <div class="table-actions">
-                    <button class="btn-icon" title="Editar"><i class="fas fa-edit"></i></button>
-                    <button class="btn-icon" title="Visualizar"><i class="fas fa-eye"></i></button>
-                    <button class="btn-icon danger" title="Excluir"><i class="fas fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="course-info-table">
-                    <img src="/images/desenvolvimento-web.jpg" alt="Curso" class="course-thumb"/>
-                    <div>
-                      <h4>Desenvolvimento Web para Iniciantes</h4>
-                      <p>Criado em 05/06/2024</p>
+                    <div class="stat-card admin" role="status">
+                        <div class="stat-icon"><i class="fas fa-book" aria-hidden="true"></i></div>
+                        <div class="stat-info">
+                            <h3>28</h3>
+                            <p>Cursos Ativos</p>
+                            <span class="stat-trend positive">+3 novos</span>
+                        </div>
                     </div>
-                  </div>
-                </td>
-                <td>Prof. Carlos Mendes</td>
-                <td>73</td>
-                <td><span class="status-badge published">Publicado</span></td>
-                <td>R$ 6.240</td>
-                <td>
-                  <div class="table-actions">
-                    <button class="btn-icon" title="Editar"><i class="fas fa-edit"></i></button>
-                    <button class="btn-icon" title="Visualizar"><i class="fas fa-eye"></i></button>
-                    <button class="btn-icon danger" title="Excluir"><i class="fas fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Outras seções (estrutura base) -->
-      <section id="users" class="dashboard-section">
-        <div class="section-header">
-          <h1>Gerenciamento de Usuários</h1>
-          <p>Controle de alunos, instrutores e administradores</p>
-        </div>
-      </section>
-
-      <section id="content" class="dashboard-section">
-        <div class="section-header">
-          <h1>Gestão de Conteúdo</h1>
-          <p>Edite páginas, banners e conteúdo do site</p>
-        </div>
-      </section>
-
-      <section id="communications" class="dashboard-section">
-        <div class="section-header">
-          <h1>Comunicações Globais</h1>
-          <p>Envie comunicados e gerencie notificações</p>
-        </div>
-      </section>
-
-      <section id="analytics" class="dashboard-section">
-        <div class="section-header">
-          <h1>Analytics e Relatórios</h1>
-          <p>Métricas detalhadas e insights da plataforma</p>
-        </div>
-      </section>
-
-      <section id="settings" class="dashboard-section">
-        <div class="section-header">
-          <h1>Configurações do Sistema</h1>
-          <p>Configurações gerais da plataforma</p>
-        </div>
-      </section>
-
-      <section id="moderation" class="dashboard-section">
-        <div class="section-header">
-          <h1>Ferramentas de Moderação</h1>
-          <p>Modere conteúdo e gerencie denúncias</p>
-        </div>
-      </section>
-
-      <section id="support" class="dashboard-section">
-        <div class="section-header">
-          <h1>Helpdesk e Suporte</h1>
-          <p>Gerencie tickets e suporte aos usuários</p>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
-          <h3>Educação que transforma. Cultura que conecta.</h3>
-          <p>Instituto Buriti, uma empresa 100% digital.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>Links Rápidos</h4>
-            <ul>
-              <li><a href="/index.html">Home</a></li>
-              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
-              <li><a href="/pages/cursos.html">Cursos</a></li>
-              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-              <li><a href="/pages/contato.html">Contato</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Contato</h4>
-            <ul>
-              <li>📧 contato@institutoburiti.com.br</li>
-              <li>📞 (86) 98170-8388</li>
-              <li>📍 Teresina, Piauí</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-      </div>
+                    <div class="stat-card admin" role="status">
+                        <div class="stat-icon"><i class="fas fa-dollar-sign" aria-hidden="true"></i></div>
+                        <div class="stat-info">
+                            <h3>R$ 47.2K</h3>
+                            <p>Receita Mensal</p>
+                            <span class="stat-trend positive">+18% este mês</span>
+                        </div>
+                    </div>
+                    <div class="stat-card admin" role="status">
+                        <div class="stat-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
+                        <div class="stat-info">
+                            <h3>94.2%</h3>
+                            <p>Uptime Sistema</p>
+                            <span class="stat-trend positive">Excelente</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-grid admin">
+                    <div class="dashboard-card admin-primary">
+                        <div class="card-header">
+                            <h3><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Alertas do Sistema</h3>
+                            <span class="alert-count" aria-label="Total de alertas">3</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="alert-item critical">
+                                <div class="alert-icon"><i class="fas fa-server" aria-hidden="true"></i></div>
+                                <div class="alert-info">
+                                    <h4>Uso de Servidor Alto</h4>
+                                    <p>CPU em 87% - considere upgrade</p>
+                                    <span class="alert-time">há 15 minutos</span>
+                                </div>
+                                <div class="alert-actions">
+                                    <button class="btn-alert" type="button">Resolver</button>
+                                </div>
+                            </div>
+                            <div class="alert-item warning">
+                                <div class="alert-icon"><i class="fas fa-database" aria-hidden="true"></i></div>
+                                <div class="alert-info">
+                                    <h4>Backup Pendente</h4>
+                                    <p>Último backup há 25 horas</p>
+                                    <span class="alert-time">há 1 hora</span>
+                                </div>
+                                <div class="alert-actions">
+                                    <button class="btn-alert" type="button">Executar</button>
+                                </div>
+                            </div>
+                            <div class="alert-item info">
+                                <div class="alert-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
+                                <div class="alert-info">
+                                    <h4>Pico de Usuários</h4>
+                                    <p>347 usuários online simultaneamente</p>
+                                    <span class="alert-time">há 2 horas</span>
+                                </div>
+                                <div class="alert-actions">
+                                    <button class="btn-alert" type="button">Ver Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-header"><h3><i class="fas fa-chart-pie" aria-hidden="true"></i> Resumo de Atividade</h3></div>
+                        <div class="card-content">
+                            <div class="activity-summary">
+                                <div class="activity-item">
+                                    <div class="activity-metric">
+                                        <span class="metric-number">1,247</span>
+                                        <span class="metric-label">Usuários Ativos</span>
+                                    </div>
+                                    <div class="activity-chart">
+                                        <div class="progress-ring"><div class="progress-fill" style="width: 78%"></div></div>
+                                        <span class="progress-percent">78%</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-metric">
+                                        <span class="metric-number">28</span>
+                                        <span class="metric-label">Cursos Publicados</span>
+                                    </div>
+                                    <div class="activity-chart">
+                                        <div class="progress-ring"><div class="progress-fill" style="width: 93%"></div></div>
+                                        <span class="progress-percent">93%</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-metric">
+                                        <span class="metric-number">156</span>
+                                        <span class="metric-label">Certificados Emitidos</span>
+                                    </div>
+                                    <div class="activity-chart">
+                                        <div class="progress-ring"><div class="progress-fill" style="width: 65%"></div></div>
+                                        <span class="progress-percent">65%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-header"><h3><i class="fas fa-clock" aria-hidden="true"></i> Atividades Recentes</h3></div>
+                        <div class="card-content">
+                            <div class="recent-activities">
+                                <div class="activity-log">
+                                    <div class="log-icon user"><i class="fas fa-user-plus" aria-hidden="true"></i></div>
+                                    <div class="log-content">
+                                        <p><strong>Ana Silva</strong> se inscreveu no curso "Desenvolvimento Web"</p>
+                                        <span class="log-time">há 5 minutos</span>
+                                    </div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="log-icon course"><i class="fas fa-book" aria-hidden="true"></i></div>
+                                    <div class="log-content">
+                                        <p><strong>Prof. João Silva</strong> publicou novo curso "Psicologia Educacional"</p>
+                                        <span class="log-time">há 1 hora</span>
+                                    </div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="log-icon payment"><i class="fas fa-credit-card" aria-hidden="true"></i></div>
+                                    <div class="log-content">
+                                        <p>Pagamento de <strong>R$ 197,00</strong> processado com sucesso</p>
+                                        <span class="log-time">há 2 horas</span>
+                                    </div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="log-icon system"><i class="fas fa-cog" aria-hidden="true"></i></div>
+                                    <div class="log-content">
+                                        <p>Sistema atualizado para versão <strong>2.1.4</strong></p>
+                                        <span class="log-time">há 6 horas</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-header"><h3><i class="fas fa-tools" aria-hidden="true"></i> Ações Rápidas</h3></div>
+                        <div class="card-content">
+                            <div class="quick-actions">
+                                <button class="quick-action-btn" type="button"><i class="fas fa-plus" aria-hidden="true"></i><span>Criar Usuário</span></button>
+                                <button class="quick-action-btn" type="button"><i class="fas fa-graduation-cap" aria-hidden="true"></i><span>Novo Curso</span></button>
+                                <button class="quick-action-btn" type="button"><i class="fas fa-bullhorn" aria-hidden="true"></i><span>Enviar Comunicado</span></button>
+                                <button class="quick-action-btn" type="button"><i class="fas fa-download" aria-hidden="true"></i><span>Backup Sistema</span></button>
+                                <button class="quick-action-btn" type="button"><i class="fas fa-chart-bar" aria-hidden="true"></i><span>Relatório Geral</span></button>
+                                <button class="quick-action-btn" type="button"><i class="fas fa-shield-alt" aria-hidden="true"></i><span>Logs de Segurança</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Courses Management Section -->
+            <section id="courses" class="dashboard-section" aria-labelledby="courses-title">
+                <div class="section-header">
+                    <h1 id="courses-title">Gerenciamento de Cursos</h1>
+                    <p>Controle total sobre todos os cursos da plataforma</p>
+                    <div class="header-actions">
+                        <button class="btn-secondary" type="button"><i class="fas fa-filter" aria-hidden="true"></i> Filtros</button>
+                        <button class="btn-primary" type="button"><i class="fas fa-plus" aria-hidden="true"></i> Novo Curso</button>
+                    </div>
+                </div>
+                <div class="admin-table-container" role="region" aria-label="Tabela de cursos">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Curso</th>
+                                <th>Instrutor</th>
+                                <th>Alunos</th>
+                                <th>Status</th>
+                                <th>Receita</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="course-info-table">
+                                        <img src="/images/8-perguntas-e-respostas-sobre-educacao-especial-e-inclusiva.jpg.webp" alt="Capa do curso Fundamentos de Educação Inclusiva" class="course-thumb" loading="lazy" decoding="async"/>
+                                        <div>
+                                            <h4>Fundamentos de Educação Inclusiva</h4>
+                                            <p>Criado em 15/06/2024</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Prof. João Silva</td>
+                                <td>28</td>
+                                <td><span class="status-badge published">Publicado</span></td>
+                                <td>R$ 2.450</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="btn-icon" type="button" title="Editar"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                                        <button class="btn-icon" type="button" title="Visualizar"><i class="fas fa-eye" aria-hidden="true"></i></button>
+                                        <button class="btn-icon danger" type="button" title="Excluir"><i class="fas fa-trash" aria-hidden="true"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="course-info-table">
+                                        <img src="/images/WhatsApp-Image-2023-07-03-at-17.31.11.jpeg" alt="Capa do curso Metodologias Ativas de Ensino" class="course-thumb" loading="lazy" decoding="async"/>
+                                        <div>
+                                            <h4>Metodologias Ativas de Ensino</h4>
+                                            <p>Criado em 10/06/2024</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Prof. João Silva</td>
+                                <td>45</td>
+                                <td><span class="status-badge published">Publicado</span></td>
+                                <td>R$ 3.850</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="btn-icon" type="button" title="Editar"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                                        <button class="btn-icon" type="button" title="Visualizar"><i class="fas fa-eye" aria-hidden="true"></i></button>
+                                        <button class="btn-icon danger" type="button" title="Excluir"><i class="fas fa-trash" aria-hidden="true"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="course-info-table">
+                                        <img src="/images/desenvolvimento-web.jpg" alt="Capa do curso Desenvolvimento Web para Iniciantes" class="course-thumb" loading="lazy" decoding="async"/>
+                                        <div>
+                                            <h4>Desenvolvimento Web para Iniciantes</h4>
+                                            <p>Criado em 05/06/2024</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Prof. Carlos Mendes</td>
+                                <td>73</td>
+                                <td><span class="status-badge published">Publicado</span></td>
+                                <td>R$ 6.240</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="btn-icon" type="button" title="Editar"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                                        <button class="btn-icon" type="button" title="Visualizar"><i class="fas fa-eye" aria-hidden="true"></i></button>
+                                        <button class="btn-icon danger" type="button" title="Excluir"><i class="fas fa-trash" aria-hidden="true"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Outras seções (estrutura base) -->
+            <section id="users" class="dashboard-section" aria-labelledby="users-title">
+                <div class="section-header">
+                    <h1 id="users-title">Gerenciamento de Usuários</h1>
+                    <p>Controle de alunos, instrutores e administradores</p>
+                </div>
+            </section>
+            <section id="content" class="dashboard-section" aria-labelledby="content-title">
+                <div class="section-header">
+                    <h1 id="content-title">Gestão de Conteúdo</h1>
+                    <p>Edite páginas, banners e conteúdo do site</p>
+                </div>
+            </section>
+            <section id="communications" class="dashboard-section" aria-labelledby="communications-title">
+                <div class="section-header">
+                    <h1 id="communications-title">Comunicações Globais</h1>
+                    <p>Envie comunicados e gerencie notificações</p>
+                </div>
+            </section>
+            <section id="analytics" class="dashboard-section" aria-labelledby="analytics-title">
+                <div class="section-header">
+                    <h1 id="analytics-title">Analytics e Relatórios</h1>
+                    <p>Métricas detalhadas e insights da plataforma</p>
+                </div>
+            </section>
+            <section id="settings" class="dashboard-section" aria-labelledby="settings-title">
+                <div class="section-header">
+                    <h1 id="settings-title">Configurações do Sistema</h1>
+                    <p>Configurações gerais da plataforma</p>
+                </div>
+            </section>
+            <section id="moderation" class="dashboard-section" aria-labelledby="moderation-title">
+                <div class="section-header">
+                    <h1 id="moderation-title">Ferramentas de Moderação</h1>
+                    <p>Modere conteúdo e gerencie denúncias</p>
+                </div>
+            </section>
+            <section id="support" class="dashboard-section" aria-labelledby="support-title">
+                <div class="section-header">
+                    <h1 id="support-title">Helpdesk e Suporte</h1>
+                    <p>Gerencie tickets e suporte aos usuários</p>
+                </div>
+            </section>
+        </main>
     </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="/js/dashboard.js" defer></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Toggle do sidebar
-      document.getElementById('sidebarToggle')?.addEventListener('click', () => {
-        document.getElementById('sidebar')?.classList.toggle('collapsed');
-      });
-
-      // Revela o body após a checagem de auth
-      document.documentElement.removeAttribute('data-auth');
-    });
-  </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo" loading="lazy" decoding="async"/>
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
+                            <li><a href="/pages/cursos.html">Cursos</a></li>
+                            <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                            <li><a href="/pages/contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="/js/dashboard.js" defer></script>
+    <script>
+        // Revela o body ao término do guard (evento emitido por dashboard-auth.js)
+        window.addEventListener('dashboard-auth:ready', () => {
+            document.documentElement.removeAttribute('data-auth');
+        }, { once: true });
+        // Fallback em caso de ausência do evento
+        setTimeout(() => {
+            if (document.documentElement.getAttribute('data-auth') === 'checking') {
+                document.documentElement.removeAttribute('data-auth');
+            }
+        }, 2000);
+        // Toggle do sidebar (mantido simples; dashboard.js também cobre SPA e dropdowns)
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            sidebarToggle?.addEventListener('click', () => {
+                sidebar?.classList.toggle('collapsed');
+                const isCollapsed = sidebar?.classList.contains('collapsed');
+                sidebarToggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+                sidebarToggle.setAttribute('aria-label', isCollapsed ? 'Expandir menu' : 'Recolher menu');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,434 +1,347 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard Instrutor - Instituto Buriti</title>
-
-  <!-- CSS (caminhos absolutos) -->
-  <link rel="stylesheet" href="/css/style.css"/>
-  <link rel="stylesheet" href="/css/dashboard.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-  <!-- Previne flash enquanto checa autenticação -->
-  <style>
-    html[data-auth="checking"] body { visibility: hidden; }
-  </style>
-
-  <!-- Núcleo de autenticação e guarda compartilhada dos dashboards -->
-  <script src="/js/auth.js"></script>
-  <script src="/js/dashboard-auth.js"></script>
-  <script>
-    // Sinaliza que vamos checar auth imediatamente
-    document.documentElement.setAttribute('data-auth','checking');
-    // O guard do dashboard-auth atua pelo caminho "dashboard-instrutor.html"
-  </script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard Instrutor - Instituto Buriti</title>
+    <!-- CSS (caminhos absolutos) -->
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <!-- Previne flash enquanto checa autenticação -->
+    <style>html[data-auth="checking"] body.dashboard-body { visibility: hidden; }</style>
+    <!-- Núcleo de autenticação + guard compartilhado para dashboards -->
+    <script src="/js/auth.js" defer></script>
+    <script src="/js/dashboard-auth.js" defer></script>
+    <script>
+        // Sinaliza que vamos checar auth imediatamente (anti-flash)
+        document.documentElement.setAttribute('data-auth', 'checking');
+    </script>
 </head>
-
 <!-- Papel esperado: instrutor -->
 <body class="dashboard-body" data-dashboard-role="instrutor">
-  <!-- Header -->
-  <header class="header">
-    <nav class="nav">
-      <div class="nav-item"><a href="/index.html">Home</a></div>
-      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
-      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
-
-      <div class="nav-item login-dropdown">
-        <!-- Preenchido pelo dashboard-auth.js -->
-        <button class="login-btn user-name" type="button" aria-haspopup="true" aria-expanded="false"
-                data-user-name data-static="false">Minha conta</button>
-        <div class="dropdown-menu">
-          <a href="/pages/dashboard-instrutor.html" class="dropdown-item active">Dashboard</a>
-          <a href="#logout" class="dropdown-item" data-action="logout">Sair</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Dashboard Container -->
-  <div class="dashboard-container">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="user-info">
-          <div class="user-avatar instructor"><i class="fas fa-chalkboard-teacher"></i></div>
-          <div class="user-details">
-            <!-- Preenchidos dinamicamente -->
-            <h3 class="user-name" data-user-name data-static="false">Instrutor(a)</h3>
-            <p class="user-role" data-user-role data-static="false">Instrutor</p>
-          </div>
-        </div>
-        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Alternar menu">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-      
-      <nav class="sidebar-nav">
-        <a href="#overview" class="nav-link active" data-section="overview">
-          <i class="fas fa-home"></i><span>Visão Geral</span>
-        </a>
-        <a href="#courses" class="nav-link" data-section="courses">
-          <i class="fas fa-book"></i><span>Meus Cursos</span>
-        </a>
-        <a href="#students" class="nav-link" data-section="students">
-          <i class="fas fa-users"></i><span>Alunos</span>
-        </a>
-        <a href="#materials" class="nav-link" data-section="materials">
-          <i class="fas fa-folder"></i><span>Materiais</span>
-        </a>
-        <a href="#schedule" class="nav-link" data-section="schedule">
-          <i class="fas fa-calendar"></i><span>Cronograma</span>
-        </a>
-        <a href="#assessments" class="nav-link" data-section="assessments">
-          <i class="fas fa-clipboard-check"></i><span>Avaliações</span>
-        </a>
-        <a href="#announcements" class="nav-link" data-section="announcements">
-          <i class="fas fa-bullhorn"></i><span>Anúncios</span>
-        </a>
-        <a href="#performance" class="nav-link" data-section="performance">
-          <i class="fas fa-chart-line"></i><span>Performance</span>
-        </a>
-        <a href="#settings" class="nav-link" data-section="settings">
-          <i class="fas fa-cog"></i><span>Configurações</span>
-        </a>
-      </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- Overview Section -->
-      <section id="overview" class="dashboard-section active">
-        <div class="section-header">
-          <h1>Bem-vindo, <span class="user-name" data-user-name data-static="false">Instrutor</span>!</h1>
-          <p>Gerencie seus cursos, acompanhe o desempenho dos alunos e compartilhe conhecimento de forma eficaz.</p>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card instructor">
-            <div class="stat-icon"><i class="fas fa-book-open"></i></div>
-            <div class="stat-info"><h3>3</h3><p>Cursos Ativos</p></div>
-          </div>
-          <div class="stat-card instructor">
-            <div class="stat-icon"><i class="fas fa-users"></i></div>
-            <div class="stat-info"><h3>127</h3><p>Alunos Totais</p></div>
-          </div>
-          <div class="stat-card instructor">
-            <div class="stat-icon"><i class="fas fa-star"></i></div>
-            <div class="stat-info"><h3>4.8</h3><p>Avaliação Média</p></div>
-          </div>
-          <div class="stat-card instructor">
-            <div class="stat-icon"><i class="fas fa-video"></i></div>
-            <div class="stat-info"><h3>24</h3><p>Aulas Ministradas</p></div>
-          </div>
-        </div>
-
-        <div class="dashboard-grid">
-          <div class="dashboard-card">
-            <div class="card-header"><h3><i class="fas fa-book"></i> Cursos em Destaque</h3></div>
-            <div class="card-content">
-              <div class="course-item instructor">
-                <div class="course-info">
-                  <h4>Fundamentos de Educação Inclusiva</h4>
-                  <p>28 alunos matriculados</p>
-                  <div class="course-stats">
-                    <span><i class="fas fa-users"></i> 28 alunos</span>
-                    <span><i class="fas fa-star"></i> 4.9/5.0</span>
-                    <span><i class="fas fa-clock"></i> 85% progresso médio</span>
-                  </div>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav" aria-label="principal">
+            <div class="nav-item"><a href="/index.html">Home</a></div>
+            <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
+            <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
+            <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+            <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
+            <div class="nav-item login-dropdown">
+                <!-- Preenchido dinamicamente por dashboard-auth.js / dashboard.js -->
+                <button class="login-btn user-name" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu" data-user-name data-static="false">Instrutor</button>
+                <div class="dropdown-menu" role="menu" id="user-menu">
+                    <a href="/pages/dashboard-instrutor.html" class="dropdown-item active" aria-current="page">Dashboard</a>
+                    <a href="#logout" class="dropdown-item" data-action="logout">Sair</a>
                 </div>
-                <div class="course-actions">
-                  <button class="btn-primary">Gerenciar</button>
-                  <button class="btn-secondary">Relatório</button>
-                </div>
-              </div>
-
-              <div class="course-item instructor">
-                <div class="course-info">
-                  <h4>Metodologias Ativas de Ensino</h4>
-                  <p>45 alunos matriculados</p>
-                  <div class="course-stats">
-                    <span><i class="fas fa-users"></i> 45 alunos</span>
-                    <span><i class="fas fa-star"></i> 4.7/5.0</span>
-                    <span><i class="fas fa-clock"></i> 72% progresso médio</span>
-                  </div>
-                </div>
-                <div class="course-actions">
-                  <button class="btn-primary">Gerenciar</button>
-                  <button class="btn-secondary">Relatório</button>
-                </div>
-              </div>
             </div>
-          </div>
-
-          <div class="dashboard-card">
-            <div class="card-header"><h3><i class="fas fa-exclamation-circle"></i> Ações Pendentes</h3></div>
-            <div class="card-content">
-              <div class="pending-item urgent">
-                <div class="pending-info">
-                  <h4>Correção de Atividades</h4>
-                  <p>12 atividades aguardando correção</p>
-                  <span class="pending-course">Fundamentos de Educação Inclusiva</span>
+        </nav>
+    </header>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar" aria-label="menu lateral">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div class="user-avatar instructor" aria-hidden="true"><i class="fas fa-chalkboard-teacher" aria-hidden="true"></i></div>
+                    <div class="user-details">
+                        <h3 class="user-name" data-user-name data-static="false">Instrutor(a)</h3>
+                        <p class="user-role" data-user-role data-static="false">Instrutor</p>
+                    </div>
                 </div>
-                <span class="pending-status urgent">Urgente</span>
-              </div>
-              <div class="pending-item">
-                <div class="pending-info">
-                  <h4>Preparar Aula ao Vivo</h4>
-                  <p>Aula agendada para 23/07 às 19h</p>
-                  <span class="pending-course">Metodologias Ativas de Ensino</span>
-                </div>
-                <span class="pending-status">Pendente</span>
-              </div>
-              <div class="pending-item">
-                <div class="pending-info">
-                  <h4>Atualizar Material</h4>
-                  <p>Módulo 4 - Novas referências</p>
-                  <span class="pending-course">Psicologia Educacional</span>
-                </div>
-                <span class="pending-status">Pendente</span>
-              </div>
+                <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-controls="sidebar" aria-expanded="true">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
             </div>
-          </div>
-
-          <div class="dashboard-card">
-            <div class="card-header"><h3><i class="fas fa-calendar-alt"></i> Próximas Aulas ao Vivo</h3></div>
-            <div class="card-content">
-              <div class="live-class-item instructor">
-                <div class="class-info">
-                  <h4>Estratégias de Inclusão na Sala de Aula</h4>
-                  <p>Fundamentos de Educação Inclusiva</p>
-                  <div class="class-schedule">
-                    <span><i class="fas fa-calendar"></i> 23/07/2024</span>
-                    <span><i class="fas fa-clock"></i> 19:00 - 20:30</span>
-                    <span><i class="fas fa-users"></i> 28 inscritos</span>
-                  </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-link active" data-section="overview" aria-current="page">
+                    <i class="fas fa-tachometer-alt" aria-hidden="true"></i><span>Visão Geral</span>
+                </a>
+                <a href="#courses" class="nav-link" data-section="courses">
+                    <i class="fas fa-graduation-cap" aria-hidden="true"></i><span>Meus Cursos</span>
+                </a>
+                <a href="#pending" class="nav-link" data-section="pending">
+                    <i class="fas fa-tasks" aria-hidden="true"></i><span>Pendências</span>
+                </a>
+                <a href="#live-classes" class="nav-link" data-section="live-classes">
+                    <i class="fas fa-video" aria-hidden="true"></i><span>Aulas ao Vivo</span>
+                </a>
+                <a href="#performance" class="nav-link" data-section="performance">
+                    <i class="fas fa-chart-bar" aria-hidden="true"></i><span>Performance</span>
+                </a>
+                <a href="#settings" class="nav-link" data-section="settings">
+                    <i class="fas fa-cogs" aria-hidden="true"></i><span>Configurações</span>
+                </a>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section active" aria-labelledby="overview-title">
+                <div class="section-header">
+                    <h1 id="overview-title">Bem-vindo, <span class="user-name" data-user-name data-static="false">Instrutor(a)</span>!</h1>
+                    <p>Continue inspirando seus alunos com conteúdo de qualidade.</p>
                 </div>
-                <div class="class-actions">
-                  <button class="btn-live"><i class="fas fa-video"></i> Iniciar (em 2d)</button>
-                  <button class="btn-secondary">Editar</button>
+                <div class="stats-grid">
+                    <div class="stat-card instructor" role="status">
+                        <div class="stat-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
+                        <div class="stat-info"><h3>145</h3><p>Alunos Totais</p></div>
+                    </div>
+                    <div class="stat-card instructor" role="status">
+                        <div class="stat-icon"><i class="fas fa-book" aria-hidden="true"></i></div>
+                        <div class="stat-info"><h3>3</h3><p>Cursos Ativos</p></div>
+                    </div>
+                    <div class="stat-card instructor" role="status">
+                        <div class="stat-icon"><i class="fas fa-star" aria-hidden="true"></i></div>
+                        <div class="stat-info"><h3>4.8</h3><p>Avaliação Média</p></div>
+                    </div>
+                    <div class="stat-card instructor" role="status">
+                        <div class="stat-icon"><i class="fas fa-dollar-sign" aria-hidden="true"></i></div>
+                        <div class="stat-info"><h3>R$ 5.2K</h3><p>Receita Mensal</p></div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="dashboard-card">
-            <div class="card-header"><h3><i class="fas fa-chart-bar"></i> Performance Recente</h3></div>
-            <div class="card-content">
-              <div class="performance-metrics">
-                <div class="metric-item">
-                  <div class="metric-label">Taxa de Conclusão</div>
-                  <div class="metric-value">87%</div>
-                  <div class="metric-trend positive"><i class="fas fa-arrow-up"></i> +5% este mês</div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header"><h3><i class="fas fa-book" aria-hidden="true"></i> Cursos em Andamento</h3></div>
+                        <div class="card-content">
+                            <div class="course-item instructor">
+                                <div class="course-info">
+                                    <h4>Educação Inclusiva</h4>
+                                    <p>28 alunos matriculados</p>
+                                    <div class="course-stats">
+                                        <span><i class="fas fa-user-check" aria-hidden="true"></i> 18 ativos</span>
+                                        <span><i class="fas fa-star" aria-hidden="true"></i> 4.7</span>
+                                    </div>
+                                </div>
+                                <div class="course-actions">
+                                    <button class="btn-primary" type="button">Gerenciar</button>
+                                    <button class="btn-secondary" type="button">Relatório</button>
+                                </div>
+                            </div>
+                            <div class="course-item instructor">
+                                <div class="course-info">
+                                    <h4>Metodologias Ativas</h4>
+                                    <p>45 alunos matriculados</p>
+                                    <div class="course-stats">
+                                        <span><i class="fas fa-user-check" aria-hidden="true"></i> 32 ativos</span>
+                                        <span><i class="fas fa-star" aria-hidden="true"></i> 4.9</span>
+                                    </div>
+                                </div>
+                                <div class="course-actions">
+                                    <button class="btn-primary" type="button">Gerenciar</button>
+                                    <button class="btn-secondary" type="button">Relatório</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-header"><h3><i class="fas fa-tasks" aria-hidden="true"></i> Pendências</h3></div>
+                        <div class="card-content">
+                            <div class="pending-item">
+                                <div class="pending-info">
+                                    <h4>Avaliar Trabalhos</h4>
+                                    <p>12 submissões pendentes</p>
+                                    <span class="pending-course">Educação Inclusiva</span>
+                                </div>
+                                <span class="pending-status">Pendente</span>
+                            </div>
+                            <div class="pending-item urgent">
+                                <div class="pending-info">
+                                    <h4>Responder Dúvidas</h4>
+                                    <p>5 mensagens não lidas</p>
+                                    <span class="pending-course">Metodologias Ativas</span>
+                                </div>
+                                <span class="pending-status urgent">Urgente</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-header"><h3><i class="fas fa-video" aria-hidden="true"></i> Próxima Aula ao Vivo</h3></div>
+                        <div class="card-content">
+                            <div class="live-class-item instructor">
+                                <div class="class-info">
+                                    <h4>Inclusão na Prática</h4>
+                                    <p>Educação Inclusiva</p>
+                                    <div class="class-schedule">
+                                        <span><i class="fas fa-calendar" aria-hidden="true"></i> 23/07/2024</span>
+                                        <span><i class="fas fa-clock" aria-hidden="true"></i> 20:00 - 21:30</span>
+                                    </div>
+                                </div>
+                                <div class="class-actions">
+                                    <button class="btn-live" type="button">Iniciar</button>
+                                    <button class="btn-outline" type="button">Editar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-header"><h3><i class="fas fa-chart-line" aria-hidden="true"></i> Métricas de Performance</h3></div>
+                        <div class="card-content">
+                            <div class="performance-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-label">Engajamento Médio</span>
+                                    <span class="metric-value">87%</span>
+                                    <span class="metric-trend positive">+5% <i class="fas fa-arrow-up" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Taxa de Conclusão</span>
+                                    <span class="metric-value">68%</span>
+                                    <span class="metric-trend positive">+3% <i class="fas fa-arrow-up" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Avaliação Média</span>
+                                    <span class="metric-value">4.8</span>
+                                    <span class="metric-trend">Estável</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="metric-item">
-                  <div class="metric-label">Satisfação dos Alunos</div>
-                  <div class="metric-value">4.8/5</div>
-                  <div class="metric-trend positive"><i class="fas fa-arrow-up"></i> +0.2 este mês</div>
+            </section>
+            <!-- Courses Section -->
+            <section id="courses" class="dashboard-section" aria-labelledby="courses-title">
+                <div class="section-header">
+                    <h1 id="courses-title">Meus Cursos</h1>
+                    <p>Gerencie seus cursos e acompanhe o desempenho</p>
+                    <div class="header-actions">
+                        <button class="btn-primary" type="button"><i class="fas fa-plus" aria-hidden="true"></i> Novo Curso</button>
+                    </div>
                 </div>
-                <div class="metric-item">
-                  <div class="metric-label">Engajamento</div>
-                  <div class="metric-value">92%</div>
-                  <div class="metric-trend positive"><i class="fas fa-arrow-up"></i> +3% este mês</div>
+                <div class="courses-grid instructor">
+                    <div class="course-card instructor">
+                        <div class="course-header">
+                            <img src="/images/8-perguntas-e-respostas-sobre-educacao-especial-e-inclusiva.jpg.webp" alt="Educação Inclusiva" class="course-image" loading="lazy" decoding="async"/>
+                            <span class="course-badge published">Publicado</span>
+                        </div>
+                        <div class="course-content">
+                            <h3>Educação Inclusiva</h3>
+                            <p>28 alunos</p>
+                            <div class="course-stats-detailed">
+                                <div class="stat-row"><span>Conclusões: 18</span><span>Engajamento: 85%</span></div>
+                                <div class="stat-row"><span>Avaliação: 4.7</span><span>Receita: R$ 2.450</span></div>
+                            </div>
+                        </div>
+                        <div class="course-actions">
+                            <button class="btn-primary" type="button">Gerenciar</button>
+                            <button class="btn-secondary" type="button">Relatório</button>
+                            <button class="btn-outline" type="button">Editar</button>
+                        </div>
+                    </div>
+                    <div class="course-card instructor">
+                        <div class="course-header">
+                            <img src="/images/WhatsApp-Image-2023-07-03-at-17.31.11.jpeg" alt="Metodologias Ativas" class="course-image" loading="lazy" decoding="async"/>
+                            <span class="course-badge published">Publicado</span>
+                        </div>
+                        <div class="course-content">
+                            <h3>Metodologias Ativas</h3>
+                            <p>45 alunos</p>
+                            <div class="course-stats-detailed">
+                                <div class="stat-row"><span>Conclusões: 32</span><span>Engajamento: 92%</span></div>
+                                <div class="stat-row"><span>Avaliação: 4.9</span><span>Receita: R$ 3.850</span></div>
+                            </div>
+                        </div>
+                        <div class="course-actions">
+                            <button class="btn-primary" type="button">Gerenciar</button>
+                            <button class="btn-secondary" type="button">Relatório</button>
+                            <button class="btn-outline" type="button">Editar</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Courses Section -->
-      <section id="courses" class="dashboard-section">
-        <div class="section-header">
-          <h1>Meus Cursos</h1>
-          <p>Gerencie seus cursos, conteúdo e configurações</p>
-          <button class="btn-primary"><i class="fas fa-plus"></i> Criar Novo Curso</button>
-        </div>
-
-        <div class="courses-grid instructor">
-          <div class="course-card instructor">
-            <div class="course-header">
-              <img src="/images/8-perguntas-e-respostas-sobre-educacao-especial-e-inclusiva.jpg.webp" alt="Educação Inclusiva" class="course-image"/>
-              <div class="course-badge published">Publicado</div>
-            </div>
-            <div class="course-content">
-              <h3>Fundamentos de Educação Inclusiva</h3>
-              <p>Curso completo sobre práticas inclusivas na educação</p>
-              <div class="course-stats-detailed">
-                <div class="stat-row">
-                  <span><i class="fas fa-users"></i> 28 alunos</span>
-                  <span><i class="fas fa-star"></i> 4.9 (24 avaliações)</span>
+            </section>
+            <!-- Pending Section -->
+            <section id="pending" class="dashboard-section" aria-labelledby="pending-title">
+                <div class="section-header">
+                    <h1 id="pending-title">Pendências</h1>
+                    <p>Gerencie avaliações e respostas pendentes</p>
                 </div>
-                <div class="stat-row">
-                  <span><i class="fas fa-clock"></i> 85% progresso médio</span>
-                  <span><i class="fas fa-dollar-sign"></i> R$ 2.450 receita</span>
+                <!-- Conteúdo de pendências aqui -->
+            </section>
+            <!-- Live Classes Section -->
+            <section id="live-classes" class="dashboard-section" aria-labelledby="live-classes-title">
+                <div class="section-header">
+                    <h1 id="live-classes-title">Aulas ao Vivo</h1>
+                    <p>Programe e gerencie suas transmissões</p>
                 </div>
-              </div>
-            </div>
-            <div class="course-actions">
-              <button class="btn-primary">Gerenciar Curso</button>
-              <button class="btn-secondary">Ver Alunos</button>
-              <button class="btn-secondary">Relatórios</button>
-            </div>
-          </div>
-
-          <div class="course-card instructor">
-            <div class="course-header">
-              <img src="/images/WhatsApp-Image-2023-07-03-at-17.31.11.jpeg" alt="Metodologias Ativas" class="course-image"/>
-              <div class="course-badge published">Publicado</div>
-            </div>
-            <div class="course-content">
-              <h3>Metodologias Ativas de Ensino</h3>
-              <p>Estratégias inovadoras para engajar estudantes</p>
-              <div class="course-stats-detailed">
-                <div class="stat-row">
-                  <span><i class="fas fa-users"></i> 45 alunos</span>
-                  <span><i class="fas fa-star"></i> 4.7 (38 avaliações)</span>
+                <!-- Conteúdo de aulas ao vivo aqui -->
+            </section>
+            <!-- Performance Section -->
+            <section id="performance" class="dashboard-section" aria-labelledby="performance-title">
+                <div class="section-header">
+                    <h1 id="performance-title">Performance</h1>
+                    <p>Análise detalhada do desempenho dos cursos</p>
                 </div>
-                <div class="stat-row">
-                  <span><i class="fas fa-clock"></i> 72% progresso médio</span>
-                  <span><i class="fas fa-dollar-sign"></i> R$ 3.850 receita</span>
+                <!-- Conteúdo de performance aqui -->
+            </section>
+            <!-- Settings Section -->
+            <section id="settings" class="dashboard-section" aria-labelledby="settings-title">
+                <div class="section-header">
+                    <h1 id="settings-title">Configurações</h1>
+                    <p>Ajuste suas preferências e configurações</p>
                 </div>
-              </div>
-            </div>
-            <div class="course-actions">
-              <button class="btn-primary">Gerenciar Curso</button>
-              <button class="btn-secondary">Ver Alunos</button>
-              <button class="btn-secondary">Relatórios</button>
-            </div>
-          </div>
-
-          <div class="course-card instructor">
-            <div class="course-header">
-              <img src="/images/studyabroad-photo-ibero.jpg" alt="Psicologia Educacional" class="course-image"/>
-              <div class="course-badge draft">Rascunho</div>
-            </div>
-            <div class="course-content">
-              <h3>Psicologia Educacional</h3>
-              <p>Fundamentos psicológicos do processo de aprendizagem</p>
-              <div class="course-stats-detailed">
-                <div class="stat-row">
-                  <span><i class="fas fa-users"></i> 0 alunos</span>
-                  <span><i class="fas fa-star"></i> - (sem avaliações)</span>
-                </div>
-                <div class="stat-row">
-                  <span><i class="fas fa-clock"></i> 60% conteúdo criado</span>
-                  <span><i class="fas fa-dollar-sign"></i> R$ 0 receita</span>
-                </div>
-              </div>
-            </div>
-            <div class="course-actions">
-              <button class="btn-primary">Continuar Criação</button>
-              <button class="btn-secondary">Prévia</button>
-              <button class="btn-outline">Publicar</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Seções restantes (estrutura base) -->
-      <section id="students" class="dashboard-section">
-        <div class="section-header">
-          <h1>Alunos Matriculados</h1>
-          <p>Acompanhe o progresso e desempenho dos seus alunos</p>
-        </div>
-      </section>
-
-      <section id="materials" class="dashboard-section">
-        <div class="section-header">
-          <h1>Materiais Complementares</h1>
-          <p>Gerencie PDFs, vídeos e recursos dos seus cursos</p>
-        </div>
-      </section>
-
-      <section id="schedule" class="dashboard-section">
-        <div class="section-header">
-          <h1>Cronograma de Aulas</h1>
-          <p>Organize e gerencie suas aulas ao vivo</p>
-        </div>
-      </section>
-
-      <section id="assessments" class="dashboard-section">
-        <div class="section-header">
-          <h1>Avaliações e Notas</h1>
-          <p>Crie avaliações e acompanhe o desempenho dos alunos</p>
-        </div>
-      </section>
-
-      <section id="announcements" class="dashboard-section">
-        <div class="section-header">
-          <h1>Anúncios e Fórum</h1>
-          <p>Comunique-se com seus alunos e modere discussões</p>
-        </div>
-      </section>
-
-      <section id="performance" class="dashboard-section">
-        <div class="section-header">
-          <h1>Painel de Performance</h1>
-          <p>Analise métricas e feedback dos seus cursos</p>
-        </div>
-      </section>
-
-      <section id="settings" class="dashboard-section">
-        <div class="section-header">
-          <h1>Configurações do Perfil</h1>
-          <p>Gerencie suas informações profissionais e preferências</p>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
-          <h3>Educação que transforma. Cultura que conecta.</h3>
-          <p>Instituto Buriti, uma empresa 100% digital.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>Links Rápidos</h4>
-            <ul>
-              <li><a href="/index.html">Home</a></li>
-              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
-              <li><a href="/pages/cursos.html">Cursos</a></li>
-              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-              <li><a href="/pages/contato.html">Contato</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Contato</h4>
-            <ul>
-              <li>📧 contato@institutoburiti.com.br</li>
-              <li>📞 (86) 98170-8388</li>
-              <li>📍 Teresina, Piauí</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-      </div>
+                <!-- Conteúdo de configurações aqui -->
+            </section>
+        </main>
     </div>
-  </footer>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo" loading="lazy" decoding="async"/>
+                    <h3>Educação que transforma. Cultura que conecta.</h3>
+                    <p>Instituto Buriti, uma empresa 100% digital.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Links Rápidos</h4>
+                        <ul>
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
+                            <li><a href="/pages/cursos.html">Cursos</a></li>
+                            <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                            <li><a href="/pages/contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li>📧 contato@institutoburiti.com.br</li>
+                            <li>📞 (86) 98170-8388</li>
+                            <li>📍 Teresina, Piauí</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="/js/dashboard.js" defer></script>
+    <script>
+        window.addEventListener('dashboard-auth:ready', () => {
+            document.documentElement.removeAttribute('data-auth');
+        }, { once: true });
 
-  <!-- Scripts do dashboard -->
-  <script src="/js/dashboard.js" defer></script>
-  <script>
-    // Toggle do sidebar (pode coexistir com lógica adicional em /js/dashboard.js)
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('sidebarToggle')?.addEventListener('click', () => {
-        document.getElementById('sidebar')?.classList.toggle('collapsed');
-      });
+        setTimeout(() => {
+            if (document.documentElement.getAttribute('data-auth') === 'checking') {
+                document.documentElement.removeAttribute('data-auth');
+            }
+        }, 2000);
 
-      // Revela o body após a checagem de auth
-      document.documentElement.removeAttribute('data-auth');
-    });
-  </script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            sidebarToggle?.addEventListener('click', () => {
+                sidebar?.classList.toggle('collapsed');
+                const isCollapsed = sidebar?.classList.contains('collapsed');
+                sidebarToggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+                sidebarToggle.setAttribute('aria-label', isCollapsed ? 'Expandir menu' : 'Recolher menu');
+            });
+        });
+    </script>
 </body>
 </html>

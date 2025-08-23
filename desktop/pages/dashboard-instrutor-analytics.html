@@ -21,8 +21,13 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Auth base (guarda local mínima) -->
+  <!-- Anti-flash enquanto o guard checa autenticação -->
+  <style>html[data-auth="checking"] body { visibility: hidden; }</style>
+  <script>document.documentElement.setAttribute('data-auth','checking');</script>
+
+  <!-- Auth + Guard compartilhado de dashboards -->
   <script src="/js/auth.js" defer></script>
+  <script src="/js/dashboard-auth.js" defer></script>
 
   <style>
     /* Ajustes finos locais (se precisar remover, mova para analytics-global.css) */
@@ -44,7 +49,7 @@
   </style>
 </head>
 
-<body class="dashboard-body">
+<body class="dashboard-body" data-dashboard-role="instrutor">
   <!-- Header padronizado -->
   <header class="header">
     <nav class="nav">
@@ -384,7 +389,7 @@
         if (!el.hasAttribute('data-static')) el.textContent = displayName;
       });
 
-      // Logout
+      // Logout (funciona também pelo dashboard-auth via delegação)
       document.getElementById('logoutLink')?.addEventListener('click', (e) => {
         e.preventDefault();
         mgr.logout({ redirect: '/pages/login-instrutor.html' });
@@ -431,7 +436,7 @@
       const ratCtx = document.getElementById('ratingsChart');
       if (ratCtx) makeDoughnutChart(ratCtx, ['5★','4★','3★','2★','1★'], [89,23,8,3,1]);
 
-      // Tabs de exemplo (não recarregam os dados neste stub)
+      // Tabs (comportamento visual)
       document.querySelectorAll('.tab-btn').forEach(btn=>{
         btn.addEventListener('click',()=>{
           const group = btn.parentElement.querySelectorAll('.tab-btn');

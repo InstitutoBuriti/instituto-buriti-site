@@ -1,322 +1,317 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fórum - Instituto Buriti</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/forum.css">
-    <link rel="stylesheet" href="../css/footer-oficial.css">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fórum - Instituto Buriti</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- CSS (caminhos absolutos) -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/forum.css"/>
+  <link rel="stylesheet" href="/css/footer-oficial.css"/>
+
+  <!-- Ícones -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-left">
-                <a href="../index.html" class="nav-brand">
-                    <span class="brand-text">Início</span>
-                    <div class="brand-shape"></div>
-                </a>
-            </div>
-            <div class="nav-right">
-                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
-                <a href="#" class="nav-link">Quem Somos</a>
-                <a href="#" class="nav-link">Seja um Instrutor</a>
-                <a href="#" class="nav-link">Contato</a>
-                <div class="nav-dropdown">
-                    <a href="#" class="nav-link">Login</a>
-                    <div class="dropdown-content">
-                        <a href="login-aluno.html">Aluno</a>
-                        <a href="login-instrutor.html">Instrutor</a>
-                        <a href="login-admin.html">Admin</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background">
-            <div class="floating-element element-1">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="40" fill="rgba(160, 32, 240, 0.1)" />
-                </svg>
-            </div>
-            <div class="floating-element element-2">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <polygon points="50,10 90,90 10,90" fill="rgba(169, 80, 40, 0.1)" />
-                </svg>
-            </div>
-            <div class="floating-element element-3">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="20" y="20" width="60" height="60" rx="10" fill="rgba(107, 140, 121, 0.1)" />
-                </svg>
-            </div>
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-title">Fórum da Comunidade</h1>
-            <p class="hero-subtitle">Conecte-se, compartilhe conhecimento e tire suas dúvidas com nossa comunidade de aprendizado</p>
-            <div class="hero-actions">
-                <button class="btn btn-primary" onclick="showNewTopicModal()">
-                    <i data-lucide="plus"></i>
-                    Novo Tópico
-                </button>
-                <button class="btn btn-secondary" onclick="refreshForum()">
-                    <i data-lucide="refresh-cw"></i>
-                    Atualizar
-                </button>
-                <button class="btn btn-secondary" onclick="toggleFilters()">
-                    <i data-lucide="filter"></i>
-                    Filtros
-                </button>
-            </div>
-        </div>
-    </section>
+<body class="page-forum">
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-left">
+        <a href="/index.html" class="nav-brand">
+          <span class="brand-text">Início</span>
+          <div class="brand-shape"></div>
+        </a>
+      </div>
+      <div class="nav-right">
+        <a href="/pages/cursos.html" class="nav-link">Cursos</a>
+        <a href="/pages/quem-somos.html" class="nav-link">Quem Somos</a>
+        <a href="/pages/seja-instrutor-novo.html" class="nav-link">Seja um Instrutor</a>
+        <a href="/pages/contato.html" class="nav-link">Contato</a>
 
-    <!-- Filters Section -->
-    <section class="filters-section" id="filtersSection" style="display: none;">
-        <div class="container">
-            <div class="filters-grid">
-                <div class="filter-group">
-                    <label>Categoria:</label>
-                    <select id="categoryFilter" onchange="applyFilters()">
-                        <option value="">Todas as categorias</option>
-                        <option value="geral">Discussões Gerais</option>
-                        <option value="curso">Dúvidas de Curso</option>
-                        <option value="tecnico">Suporte Técnico</option>
-                        <option value="carreira">Carreira e Mercado</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Ordenar por:</label>
-                    <select id="sortFilter" onchange="applyFilters()">
-                        <option value="recent">Mais Recentes</option>
-                        <option value="popular">Mais Populares</option>
-                        <option value="answered">Respondidos</option>
-                        <option value="unanswered">Não Respondidos</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Buscar:</label>
-                    <input type="text" id="searchFilter" placeholder="Buscar tópicos..." onkeyup="applyFilters()">
-                </div>
-            </div>
+        <!-- Dropdown simples de login (página pública) -->
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link">Login</a>
+          <div class="dropdown-content">
+            <a href="/pages/login-aluno.html">Aluno</a>
+            <a href="/pages/login-instrutor.html">Instrutor</a>
+            <a href="/pages/login-admin.html">Admin</a>
+          </div>
         </div>
-    </section>
+      </div>
+    </nav>
+  </header>
 
-    <!-- Forum Stats -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i data-lucide="message-circle"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number">1,247</div>
-                        <div class="stat-label">Tópicos</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i data-lucide="message-square"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number">8,932</div>
-                        <div class="stat-label">Respostas</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i data-lucide="users"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number">3,456</div>
-                        <div class="stat-label">Membros</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i data-lucide="activity"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number">127</div>
-                        <div class="stat-label">Online Agora</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Forum Categories -->
-    <section class="categories-section">
-        <div class="container">
-            <h2 class="section-title">Categorias do Fórum</h2>
-            <div class="categories-grid">
-                <div class="category-card" onclick="filterByCategory('geral')">
-                    <div class="category-icon">
-                        <i data-lucide="message-circle"></i>
-                    </div>
-                    <div class="category-content">
-                        <h3>Discussões Gerais</h3>
-                        <p>Conversas sobre educação, cultura e temas diversos</p>
-                        <div class="category-stats">
-                            <span>342 tópicos</span>
-                            <span>1,829 respostas</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-card" onclick="filterByCategory('curso')">
-                    <div class="category-icon">
-                        <i data-lucide="book-open"></i>
-                    </div>
-                    <div class="category-content">
-                        <h3>Dúvidas de Curso</h3>
-                        <p>Tire suas dúvidas sobre conteúdos e atividades</p>
-                        <div class="category-stats">
-                            <span>567 tópicos</span>
-                            <span>3,241 respostas</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-card" onclick="filterByCategory('tecnico')">
-                    <div class="category-icon">
-                        <i data-lucide="settings"></i>
-                    </div>
-                    <div class="category-content">
-                        <h3>Suporte Técnico</h3>
-                        <p>Problemas técnicos e ajuda com a plataforma</p>
-                        <div class="category-stats">
-                            <span>128 tópicos</span>
-                            <span>456 respostas</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-card" onclick="filterByCategory('carreira')">
-                    <div class="category-icon">
-                        <i data-lucide="trending-up"></i>
-                    </div>
-                    <div class="category-content">
-                        <h3>Carreira e Mercado</h3>
-                        <p>Dicas de carreira, networking e oportunidades</p>
-                        <div class="category-stats">
-                            <span>210 tópicos</span>
-                            <span>1,406 respostas</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Recent Topics -->
-    <section class="topics-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Tópicos Recentes</h2>
-                <div class="section-actions">
-                    <button class="btn btn-outline" onclick="loadMoreTopics()">
-                        <i data-lucide="plus"></i>
-                        Carregar Mais
-                    </button>
-                </div>
-            </div>
-            <div class="topics-list" id="topicsList">
-                <!-- Topics will be loaded here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- New Topic Modal -->
-    <div class="modal" id="newTopicModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Criar Novo Tópico</h3>
-                <button class="modal-close" onclick="hideNewTopicModal()">
-                    <i data-lucide="x"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="newTopicForm" onsubmit="createNewTopic(event)">
-                    <div class="form-group">
-                        <label for="topicTitle">Título do Tópico</label>
-                        <input type="text" id="topicTitle" required placeholder="Digite o título do seu tópico...">
-                    </div>
-                    <div class="form-group">
-                        <label for="topicCategory">Categoria</label>
-                        <select id="topicCategory" required>
-                            <option value="">Selecione uma categoria</option>
-                            <option value="geral">Discussões Gerais</option>
-                            <option value="curso">Dúvidas de Curso</option>
-                            <option value="tecnico">Suporte Técnico</option>
-                            <option value="carreira">Carreira e Mercado</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="topicContent">Conteúdo</label>
-                        <textarea id="topicContent" required placeholder="Descreva sua dúvida ou inicie a discussão..." rows="6"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="topicNotifications">
-                            Receber notificações de respostas por email
-                        </label>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="hideNewTopicModal()">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Criar Tópico</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-background">
+      <div class="floating-element element-1">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="40" fill="rgba(160, 32, 240, 0.1)"/>
+        </svg>
+      </div>
+      <div class="floating-element element-2">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,10 90,90 10,90" fill="rgba(169, 80, 40, 0.1)"/>
+        </svg>
+      </div>
+      <div class="floating-element element-3">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="60" height="60" rx="10" fill="rgba(107, 140, 121, 0.1)"/>
+        </svg>
+      </div>
     </div>
 
+    <div class="hero-content">
+      <h1 class="hero-title">Fórum da Comunidade</h1>
+      <p class="hero-subtitle">Conecte-se, compartilhe conhecimento e tire suas dúvidas com nossa comunidade de aprendizado</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="showNewTopicModal()">
+          <i data-lucide="plus"></i>
+          Novo Tópico
+        </button>
+        <button class="btn btn-secondary" onclick="refreshForum()">
+          <i data-lucide="refresh-cw"></i>
+          Atualizar
+        </button>
+        <button class="btn btn-secondary" onclick="toggleFilters()">
+          <i data-lucide="filter"></i>
+          Filtros
+        </button>
+      </div>
+    </div>
+  </section>
 
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
-                    <h3>Educação que transforma. Cultura que conecta.</h3>
-                    <p>Instituto Buriti, uma empresa 100% digital.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Links Rápidos</h4>
-                        <ul>
-                            <li><a href="../index.html">Home</a></li>
-                            <li><a href="quem-somos.html">Quem Somos</a></li>
-                            <li><a href="biblioteca-cursos.html">Cursos</a></li>
-                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                            <li><a href="contato.html">Contato</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contato</h4>
-                        <ul>
-                            <li>📧 contato@institutoburiti.com.br</li>
-                            <li>📞 (86) 98170-8388</li>
-                            <li>📍 Teresina, Piauí</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-            </div>
+  <!-- Filters Section -->
+  <section class="filters-section" id="filtersSection" style="display: none;">
+    <div class="container">
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label>Categoria:</label>
+          <select id="categoryFilter" onchange="applyFilters()">
+            <option value="">Todas as categorias</option>
+            <option value="geral">Discussões Gerais</option>
+            <option value="curso">Dúvidas de Curso</option>
+            <option value="tecnico">Suporte Técnico</option>
+            <option value="carreira">Carreira e Mercado</option>
+          </select>
         </div>
-    </footer>
+        <div class="filter-group">
+          <label>Ordenar por:</label>
+          <select id="sortFilter" onchange="applyFilters()">
+            <option value="recent">Mais Recentes</option>
+            <option value="popular">Mais Populares</option>
+            <option value="answered">Respondidos</option>
+            <option value="unanswered">Não Respondidos</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Buscar:</label>
+          <input type="text" id="searchFilter" placeholder="Buscar tópicos..." onkeyup="applyFilters()"/>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="../js/forum.js"></script>
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-    </script>
+  <!-- Forum Stats -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i data-lucide="message-circle"></i></div>
+          <div class="stat-content">
+            <div class="stat-number">1,247</div>
+            <div class="stat-label">Tópicos</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i data-lucide="message-square"></i></div>
+          <div class="stat-content">
+            <div class="stat-number">8,932</div>
+            <div class="stat-label">Respostas</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i data-lucide="users"></i></div>
+          <div class="stat-content">
+            <div class="stat-number">3,456</div>
+            <div class="stat-label">Membros</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i data-lucide="activity"></i></div>
+          <div class="stat-content">
+            <div class="stat-number">127</div>
+            <div class="stat-label">Online Agora</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forum Categories -->
+  <section class="categories-section">
+    <div class="container">
+      <h2 class="section-title">Categorias do Fórum</h2>
+      <div class="categories-grid">
+        <div class="category-card" onclick="filterByCategory('geral')">
+          <div class="category-icon"><i data-lucide="message-circle"></i></div>
+          <div class="category-content">
+            <h3>Discussões Gerais</h3>
+            <p>Conversas sobre educação, cultura e temas diversos</p>
+            <div class="category-stats">
+              <span>342 tópicos</span>
+              <span>1,829 respostas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card" onclick="filterByCategory('curso')">
+          <div class="category-icon"><i data-lucide="book-open"></i></div>
+          <div class="category-content">
+            <h3>Dúvidas de Curso</h3>
+            <p>Tire suas dúvidas sobre conteúdos e atividades</p>
+            <div class="category-stats">
+              <span>567 tópicos</span>
+              <span>3,241 respostas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card" onclick="filterByCategory('tecnico')">
+          <div class="category-icon"><i data-lucide="settings"></i></div>
+          <div class="category-content">
+            <h3>Suporte Técnico</h3>
+            <p>Problemas técnicos e ajuda com a plataforma</p>
+            <div class="category-stats">
+              <span>128 tópicos</span>
+              <span>456 respostas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card" onclick="filterByCategory('carreira')">
+          <div class="category-icon"><i data-lucide="trending-up"></i></div>
+          <div class="category-content">
+            <h3>Carreira e Mercado</h3>
+            <p>Dicas de carreira, networking e oportunidades</p>
+            <div class="category-stats">
+              <span>210 tópicos</span>
+              <span>1,406 respostas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Topics -->
+  <section class="topics-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Tópicos Recentes</h2>
+        <div class="section-actions">
+          <button class="btn btn-outline" onclick="loadMoreTopics()">
+            <i data-lucide="plus"></i>
+            Carregar Mais
+          </button>
+        </div>
+      </div>
+      <div class="topics-list" id="topicsList">
+        <!-- Tópicos carregados dinamicamente por /js/forum.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- New Topic Modal -->
+  <div class="modal" id="newTopicModal" aria-hidden="true" role="dialog" aria-labelledby="newTopicTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="newTopicTitle">Criar Novo Tópico</h3>
+        <button class="modal-close" onclick="hideNewTopicModal()" aria-label="Fechar">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="newTopicForm" onsubmit="createNewTopic(event)">
+          <div class="form-group">
+            <label for="topicTitle">Título do Tópico</label>
+            <input type="text" id="topicTitle" required placeholder="Digite o título do seu tópico..."/>
+          </div>
+          <div class="form-group">
+            <label for="topicCategory">Categoria</label>
+            <select id="topicCategory" required>
+              <option value="">Selecione uma categoria</option>
+              <option value="geral">Discussões Gerais</option>
+              <option value="curso">Dúvidas de Curso</option>
+              <option value="tecnico">Suporte Técnico</option>
+              <option value="carreira">Carreira e Mercado</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="topicContent">Conteúdo</label>
+            <textarea id="topicContent" required placeholder="Descreva sua dúvida ou inicie a discussão..." rows="6"></textarea>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="topicNotifications"/>
+              Receber notificações de respostas por email
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="hideNewTopicModal()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Criar Tópico</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
+          <h3>Educação que transforma. Cultura que conecta.</h3>
+          <p>Instituto Buriti, uma empresa 100% digital.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Links Rápidos</h4>
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
+              <li><a href="/pages/cursos.html">Cursos</a></li>
+              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+              <li><a href="/pages/contato.html">Contato</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Contato</h4>
+            <ul>
+              <li>📧 contato@institutoburiti.com.br</li>
+              <li>📞 (86) 98170-8388</li>
+              <li>📍 Teresina, Piauí</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/forum.js"></script>
+  <script>
+    // Inicializa ícones Lucide
+    lucide.createIcons();
+  </script>
 </body>
 </html>
-

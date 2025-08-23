@@ -1,7 +1,9 @@
 /* Dashboard Instrutor Styles - Instituto Buriti */
 
-/* Instructor Profile Section */
-.instructor-profile {
+/* ===============================
+   Instructor Profile Section
+   =============================== */
+   .instructor-profile {
     background: var(--white);
     border-bottom: 1px solid var(--gray-200);
     padding: var(--spacing-2xl) 0;
@@ -132,7 +134,9 @@
     gap: var(--spacing-md);
 }
 
-/* Charts Section Specific for Instructor */
+/* ===============================
+   Charts Section Specific for Instructor
+   =============================== */
 .charts-section {
     padding: var(--spacing-2xl) 0;
     background: var(--gray-50);
@@ -149,7 +153,8 @@
     border-top: 1px solid var(--gray-200);
 }
 
-.stat-item {
+/* Renomeado: stat-item -> chart-stat-item */
+.chart-stat-item {
     text-align: center;
     padding: var(--spacing-md);
     border-radius: var(--border-radius-lg);
@@ -157,7 +162,7 @@
     transition: var(--transition-normal);
 }
 
-.stat-item:hover {
+.chart-stat-item:hover {
     background: var(--white);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
@@ -226,7 +231,9 @@
     font-weight: 500;
 }
 
-/* My Courses Section */
+/* ===============================
+   My Courses Section
+   =============================== */
 .my-courses-section {
     padding: var(--spacing-2xl) 0;
     background: var(--white);
@@ -336,7 +343,8 @@
     margin-bottom: var(--spacing-lg);
 }
 
-.stat {
+/* Renomeado: .stat -> .course-stat */
+.course-stat {
     text-align: center;
     padding: var(--spacing-sm);
     border-radius: var(--border-radius-md);
@@ -344,11 +352,11 @@
     transition: var(--transition-fast);
 }
 
-.stat:hover {
+.course-stat:hover {
     background: var(--gray-100);
 }
 
-.stat-value {
+.course-stat-value {
     display: block;
     font-size: 1.125rem;
     font-weight: 700;
@@ -357,7 +365,7 @@
     margin-bottom: var(--spacing-xs);
 }
 
-.stat-label {
+.course-stat-label {
     font-size: 0.75rem;
     color: var(--gray-600);
     font-weight: 500;
@@ -394,7 +402,9 @@
     white-space: nowrap;
 }
 
-/* Student Activity Section */
+/* ===============================
+   Student Activity Section
+   =============================== */
 .student-activity-section {
     padding: var(--spacing-2xl) 0;
     background: var(--gray-50);
@@ -559,7 +569,9 @@
     text-align: center;
 }
 
-/* Responsive Design */
+/* ===============================
+   Responsive Design
+   =============================== */
 @media (max-width: 1024px) {
     .profile-card {
         grid-template-columns: 1fr;
@@ -659,4 +671,3 @@
         height: 40px;
     }
 }
-

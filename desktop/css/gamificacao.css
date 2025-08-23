@@ -1,11 +1,11 @@
 /* Gamification Styles */
-* {
+body.page-gamificacao * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+body.page-gamificacao {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: #333;
@@ -13,14 +13,14 @@ body {
     min-height: 100vh;
 }
 
-.container {
+body.page-gamificacao .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
 /* Header Styles */
-.header {
+body.page-gamificacao .header {
     position: fixed;
     top: 0;
     left: 0;
@@ -32,7 +32,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.nav {
+body.page-gamificacao .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,12 +41,12 @@ body {
     margin: 0 auto;
 }
 
-.nav-left {
+body.page-gamificacao .nav-left {
     display: flex;
     align-items: center;
 }
 
-.nav-brand {
+body.page-gamificacao .nav-brand {
     position: relative;
     text-decoration: none;
     color: white;
@@ -56,7 +56,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.brand-text {
+body.page-gamificacao .brand-text {
     position: relative;
     z-index: 2;
     background: linear-gradient(135deg, #FFD700, #FF69B4);
@@ -65,7 +65,7 @@ body {
     background-clip: text;
 }
 
-.brand-shape {
+body.page-gamificacao .brand-shape {
     position: absolute;
     top: -5px;
     left: -10px;
@@ -77,22 +77,22 @@ body {
     transition: all 0.3s ease;
 }
 
-.nav-brand:hover {
+body.page-gamificacao .nav-brand:hover {
     transform: translateY(-2px);
 }
 
-.nav-brand:hover .brand-shape {
+body.page-gamificacao .nav-brand:hover .brand-shape {
     background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 105, 180, 0.3));
     box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
 }
 
-.nav-right {
+body.page-gamificacao .nav-right {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
-.nav-link {
+body.page-gamificacao .nav-link {
     color: white;
     text-decoration: none;
     font-weight: 500;
@@ -100,16 +100,16 @@ body {
     position: relative;
 }
 
-.nav-link:hover {
+body.page-gamificacao .nav-link:hover {
     color: #FFD700;
     transform: translateY(-1px);
 }
 
-.nav-dropdown {
+body.page-gamificacao .nav-dropdown {
     position: relative;
 }
 
-.dropdown-content {
+body.page-gamificacao .dropdown-content {
     position: absolute;
     top: 100%;
     right: 0;
@@ -125,13 +125,13 @@ body {
     transition: all 0.3s ease;
 }
 
-.nav-dropdown:hover .dropdown-content {
+body.page-gamificacao .nav-dropdown:hover .dropdown-content {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-.dropdown-content a {
+body.page-gamificacao .dropdown-content a {
     display: block;
     padding: 0.5rem 1rem;
     color: #333;
@@ -139,13 +139,23 @@ body {
     transition: all 0.3s ease;
 }
 
-.dropdown-content a:hover {
+body.page-gamificacao .dropdown-content a:hover {
     background: rgba(255, 215, 0, 0.1);
     color: #FFD700;
 }
 
+/* Focus States for Accessibility */
+body.page-gamificacao .btn:focus-visible,
+body.page-gamificacao .nav-link:focus-visible,
+body.page-gamificacao .filter-btn:focus-visible,
+body.page-gamificacao .modal-close:focus-visible {
+    outline: 2px solid #FFD700;
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
 /* Hero Section */
-.hero {
+body.page-gamificacao .hero {
     position: relative;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     padding: 120px 0 80px;
@@ -153,7 +163,7 @@ body {
     overflow: hidden;
 }
 
-.hero-background {
+body.page-gamificacao .hero-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -162,12 +172,12 @@ body {
     overflow: hidden;
 }
 
-.floating-element {
+body.page-gamificacao .floating-element {
     position: absolute;
-    animation: float 8s ease-in-out infinite;
+    animation: gami-float 8s ease-in-out infinite;
 }
 
-.floating-element.element-1 {
+body.page-gamificacao .floating-element.element-1 {
     top: 15%;
     left: 10%;
     width: 100px;
@@ -175,7 +185,7 @@ body {
     animation-delay: 0s;
 }
 
-.floating-element.element-2 {
+body.page-gamificacao .floating-element.element-2 {
     top: 25%;
     right: 15%;
     width: 80px;
@@ -183,7 +193,7 @@ body {
     animation-delay: 2s;
 }
 
-.floating-element.element-3 {
+body.page-gamificacao .floating-element.element-3 {
     bottom: 30%;
     left: 20%;
     width: 90px;
@@ -191,7 +201,7 @@ body {
     animation-delay: 4s;
 }
 
-.floating-element.element-4 {
+body.page-gamificacao .floating-element.element-4 {
     bottom: 15%;
     right: 25%;
     width: 70px;
@@ -199,14 +209,14 @@ body {
     animation-delay: 6s;
 }
 
-@keyframes float {
+@keyframes gami-float {
     0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
     25% { transform: translateY(-15px) rotate(90deg) scale(1.1); }
     50% { transform: translateY(-30px) rotate(180deg) scale(1); }
     75% { transform: translateY(-15px) rotate(270deg) scale(0.9); }
 }
 
-.hero-content {
+body.page-gamificacao .hero-content {
     position: relative;
     z-index: 2;
     text-align: center;
@@ -215,7 +225,7 @@ body {
     padding: 0 20px;
 }
 
-.hero-badge {
+body.page-gamificacao .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -229,7 +239,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.hero-title {
+body.page-gamificacao .hero-title {
     font-family: 'Playfair Display', serif;
     font-size: 4rem;
     font-weight: 700;
@@ -241,21 +251,21 @@ body {
     background-clip: text;
 }
 
-.hero-subtitle {
+body.page-gamificacao .hero-subtitle {
     font-size: 1.3rem;
     margin-bottom: 3rem;
     opacity: 0.9;
     line-height: 1.6;
 }
 
-.hero-stats {
+body.page-gamificacao .hero-stats {
     display: flex;
     justify-content: center;
     gap: 3rem;
     flex-wrap: wrap;
 }
 
-.hero-stat {
+body.page-gamificacao .hero-stat {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -267,12 +277,12 @@ body {
     transition: all 0.3s ease;
 }
 
-.hero-stat:hover {
+body.page-gamificacao .hero-stat:hover {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.2);
 }
 
-.stat-icon {
+body.page-gamificacao .stat-icon {
     width: 50px;
     height: 50px;
     border-radius: 15px;
@@ -282,40 +292,40 @@ body {
     font-size: 1.5rem;
 }
 
-.stat-icon.gold {
+body.page-gamificacao .stat-icon.gold {
     background: linear-gradient(135deg, #FFD700, #FFA500);
     color: white;
 }
 
-.stat-icon.purple {
+body.page-gamificacao .stat-icon.purple {
     background: linear-gradient(135deg, #9C27B0, #673AB7);
     color: white;
 }
 
-.stat-icon.green {
+body.page-gamificacao .stat-icon.green {
     background: linear-gradient(135deg, #4CAF50, #2E7D32);
     color: white;
 }
 
-.stat-number {
+body.page-gamificacao .stat-number {
     font-size: 2rem;
     font-weight: 700;
     font-family: 'Playfair Display', serif;
 }
 
-.stat-label {
+body.page-gamificacao .stat-label {
     font-size: 0.9rem;
     opacity: 0.8;
 }
 
 /* Progress Section */
-.progress-section {
+body.page-gamificacao .progress-section {
     padding: 60px 0;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
 }
 
-.progress-card {
+body.page-gamificacao .progress-card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 25px;
     padding: 40px;
@@ -323,21 +333,21 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.progress-header {
+body.page-gamificacao .progress-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
 }
 
-.progress-header h3 {
+body.page-gamificacao .progress-header h3 {
     font-size: 1.8rem;
     font-weight: 700;
     color: #2d3748;
     font-family: 'Playfair Display', serif;
 }
 
-.level-badge {
+body.page-gamificacao .level-badge {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -349,11 +359,11 @@ body {
     font-size: 1.1rem;
 }
 
-.xp-bar {
+body.page-gamificacao .xp-bar {
     margin-bottom: 25px;
 }
 
-.xp-info {
+body.page-gamificacao .xp-info {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -361,7 +371,7 @@ body {
     color: #4a5568;
 }
 
-.xp-progress {
+body.page-gamificacao .xp-progress {
     height: 12px;
     background: #e2e8f0;
     border-radius: 6px;
@@ -369,7 +379,7 @@ body {
     position: relative;
 }
 
-.xp-fill {
+body.page-gamificacao .xp-fill {
     height: 100%;
     background: linear-gradient(135deg, #FFD700, #FF69B4);
     border-radius: 6px;
@@ -377,7 +387,7 @@ body {
     position: relative;
 }
 
-.xp-fill::after {
+body.page-gamificacao .xp-fill::after {
     content: '';
     position: absolute;
     top: 0;
@@ -385,15 +395,15 @@ body {
     right: 0;
     bottom: 0;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmer 2s infinite;
+    animation: gami-shimmer 2s infinite;
 }
 
-@keyframes shimmer {
+@keyframes gami-shimmer {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
 }
 
-.reward-item {
+body.page-gamificacao .reward-item {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -403,7 +413,7 @@ body {
     color: white;
 }
 
-.reward-icon {
+body.page-gamificacao .reward-icon {
     width: 50px;
     height: 50px;
     background: rgba(255, 255, 255, 0.2);
@@ -414,22 +424,22 @@ body {
     font-size: 1.5rem;
 }
 
-.reward-title {
+body.page-gamificacao .reward-title {
     font-weight: 600;
     font-size: 1.1rem;
 }
 
-.reward-desc {
+body.page-gamificacao .reward-desc {
     opacity: 0.9;
 }
 
 /* Badges Section */
-.badges-section {
+body.page-gamificacao .badges-section {
     padding: 80px 0;
     background: rgba(255, 255, 255, 0.05);
 }
 
-.section-header {
+body.page-gamificacao .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -438,7 +448,7 @@ body {
     gap: 20px;
 }
 
-.section-title {
+body.page-gamificacao .section-title {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
     font-weight: 700;
@@ -446,7 +456,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.section-filters {
+body.page-gamificacao .section-filters {
     display: flex;
     gap: 10px;
     background: rgba(255, 255, 255, 0.1);
@@ -455,7 +465,7 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.filter-btn {
+body.page-gamificacao .filter-btn {
     padding: 10px 20px;
     border: none;
     background: transparent;
@@ -466,22 +476,22 @@ body {
     font-weight: 500;
 }
 
-.filter-btn.active {
+body.page-gamificacao .filter-btn.active {
     background: linear-gradient(135deg, #FFD700, #FF69B4);
     color: white;
 }
 
-.filter-btn:hover:not(.active) {
+body.page-gamificacao .filter-btn:hover:not(.active) {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.badges-grid {
+body.page-gamificacao .badges-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 25px;
 }
 
-.badge-card {
+body.page-gamificacao .badge-card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     padding: 25px;
@@ -491,22 +501,22 @@ body {
     border: 2px solid transparent;
 }
 
-.badge-card:hover {
+body.page-gamificacao .badge-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.badge-card.earned {
+body.page-gamificacao .badge-card.earned {
     border-color: #FFD700;
     box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
 }
 
-.badge-card.locked {
+body.page-gamificacao .badge-card.locked {
     opacity: 0.6;
     filter: grayscale(100%);
 }
 
-.badge-icon {
+body.page-gamificacao .badge-icon {
     width: 80px;
     height: 80px;
     margin: 0 auto 15px;
@@ -519,73 +529,73 @@ body {
     position: relative;
 }
 
-.badge-icon.gold {
+body.page-gamificacao .badge-icon.gold {
     background: linear-gradient(135deg, #FFD700, #FFA500);
 }
 
-.badge-icon.silver {
+body.page-gamificacao .badge-icon.silver {
     background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
 }
 
-.badge-icon.bronze {
+body.page-gamificacao .badge-icon.bronze {
     background: linear-gradient(135deg, #CD7F32, #B8860B);
 }
 
-.badge-icon.purple {
+body.page-gamificacao .badge-icon.purple {
     background: linear-gradient(135deg, #9C27B0, #673AB7);
 }
 
-.badge-icon.blue {
+body.page-gamificacao .badge-icon.blue {
     background: linear-gradient(135deg, #2196F3, #1976D2);
 }
 
-.badge-icon.green {
+body.page-gamificacao .badge-icon.green {
     background: linear-gradient(135deg, #4CAF50, #2E7D32);
 }
 
-.badge-icon.red {
+body.page-gamificacao .badge-icon.red {
     background: linear-gradient(135deg, #F44336, #D32F2F);
 }
 
-.badge-title {
+body.page-gamificacao .badge-title {
     font-size: 1.1rem;
     font-weight: 700;
     color: #2d3748;
     margin-bottom: 8px;
 }
 
-.badge-description {
+body.page-gamificacao .badge-description {
     font-size: 0.9rem;
     color: #718096;
     line-height: 1.4;
     margin-bottom: 15px;
 }
 
-.badge-progress {
+body.page-gamificacao .badge-progress {
     font-size: 0.8rem;
     color: #4a5568;
     font-weight: 600;
 }
 
-.badge-earned {
+body.page-gamificacao .badge-earned {
     color: #FFD700;
     font-weight: 700;
 }
 
 /* Challenges Section */
-.challenges-section {
+body.page-gamificacao .challenges-section {
     padding: 80px 0;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
 }
 
-.challenges-grid {
+body.page-gamificacao .challenges-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 30px;
 }
 
-.challenge-card {
+body.page-gamificacao .challenge-card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     padding: 30px;
@@ -593,31 +603,31 @@ body {
     border-left: 5px solid;
 }
 
-.challenge-card.daily {
+body.page-gamificacao .challenge-card.daily {
     border-left-color: #4CAF50;
 }
 
-.challenge-card.weekly {
+body.page-gamificacao .challenge-card.weekly {
     border-left-color: #FF9800;
 }
 
-.challenge-card.special {
+body.page-gamificacao .challenge-card.special {
     border-left-color: #9C27B0;
 }
 
-.challenge-card:hover {
+body.page-gamificacao .challenge-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-.challenge-header {
+body.page-gamificacao .challenge-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.challenge-type {
+body.page-gamificacao .challenge-type {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -626,7 +636,7 @@ body {
     color: #4a5568;
 }
 
-.challenge-timer {
+body.page-gamificacao .challenge-timer {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -634,24 +644,24 @@ body {
     color: #718096;
 }
 
-.challenge-card h3 {
+body.page-gamificacao .challenge-card h3 {
     font-size: 1.3rem;
     font-weight: 700;
     color: #2d3748;
     margin-bottom: 10px;
 }
 
-.challenge-card p {
+body.page-gamificacao .challenge-card p {
     color: #718096;
     line-height: 1.5;
     margin-bottom: 20px;
 }
 
-.challenge-progress {
+body.page-gamificacao .challenge-progress {
     margin-bottom: 20px;
 }
 
-.progress-bar {
+body.page-gamificacao .progress-bar {
     height: 8px;
     background: #e2e8f0;
     border-radius: 4px;
@@ -659,31 +669,31 @@ body {
     margin-bottom: 8px;
 }
 
-.progress-fill {
+body.page-gamificacao .progress-fill {
     height: 100%;
     border-radius: 4px;
     transition: width 0.3s ease;
 }
 
-.challenge-card.daily .progress-fill {
+body.page-gamificacao .challenge-card.daily .progress-fill {
     background: linear-gradient(135deg, #4CAF50, #2E7D32);
 }
 
-.challenge-card.weekly .progress-fill {
+body.page-gamificacao .challenge-card.weekly .progress-fill {
     background: linear-gradient(135deg, #FF9800, #F57C00);
 }
 
-.challenge-card.special .progress-fill {
+body.page-gamificacao .challenge-card.special .progress-fill {
     background: linear-gradient(135deg, #9C27B0, #673AB7);
 }
 
-.challenge-progress span {
+body.page-gamificacao .challenge-progress span {
     font-size: 0.9rem;
     font-weight: 600;
     color: #4a5568;
 }
 
-.challenge-reward {
+body.page-gamificacao .challenge-reward {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -697,12 +707,12 @@ body {
 }
 
 /* Leaderboard Section */
-.leaderboard-section {
+body.page-gamificacao .leaderboard-section {
     padding: 80px 0;
     background: rgba(255, 255, 255, 0.05);
 }
 
-.leaderboard-header {
+body.page-gamificacao .leaderboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -711,7 +721,7 @@ body {
     gap: 20px;
 }
 
-.leaderboard-filters {
+body.page-gamificacao .leaderboard-filters {
     display: flex;
     gap: 10px;
     background: rgba(255, 255, 255, 0.1);
@@ -720,14 +730,14 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.leaderboard-content {
+body.page-gamificacao .leaderboard-content {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 25px;
     padding: 40px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.podium {
+body.page-gamificacao .podium {
     display: flex;
     justify-content: center;
     align-items: end;
@@ -736,7 +746,7 @@ body {
     flex-wrap: wrap;
 }
 
-.podium-place {
+body.page-gamificacao .podium-place {
     text-align: center;
     padding: 20px;
     border-radius: 20px;
@@ -746,30 +756,30 @@ body {
     min-width: 200px;
 }
 
-.podium-place:hover {
+body.page-gamificacao .podium-place:hover {
     transform: translateY(-5px);
 }
 
-.podium-place.first {
+body.page-gamificacao .podium-place.first {
     order: 2;
     background: linear-gradient(135deg, #FFD700, #FFA500);
     color: white;
     transform: scale(1.1);
 }
 
-.podium-place.second {
+body.page-gamificacao .podium-place.second {
     order: 1;
     background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
     color: white;
 }
 
-.podium-place.third {
+body.page-gamificacao .podium-place.third {
     order: 3;
     background: linear-gradient(135deg, #CD7F32, #B8860B);
     color: white;
 }
 
-.podium-avatar {
+body.page-gamificacao .podium-avatar {
     width: 80px;
     height: 80px;
     margin: 0 auto 15px;
@@ -778,25 +788,25 @@ body {
     border: 4px solid rgba(255, 255, 255, 0.3);
 }
 
-.podium-avatar img {
+body.page-gamificacao .podium-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.podium-name {
+body.page-gamificacao .podium-name {
     font-weight: 700;
     font-size: 1.1rem;
     margin-bottom: 5px;
 }
 
-.podium-points {
+body.page-gamificacao .podium-points {
     font-size: 0.9rem;
     opacity: 0.9;
     margin-bottom: 15px;
 }
 
-.podium-medal {
+body.page-gamificacao .podium-medal {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -805,13 +815,13 @@ body {
     font-size: 1.2rem;
 }
 
-.leaderboard-list {
+body.page-gamificacao .leaderboard-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.leaderboard-item {
+body.page-gamificacao .leaderboard-item {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -821,68 +831,68 @@ body {
     transition: all 0.3s ease;
 }
 
-.leaderboard-item:hover {
+body.page-gamificacao .leaderboard-item:hover {
     background: rgba(255, 255, 255, 0.8);
     transform: translateX(5px);
 }
 
-.rank {
+body.page-gamificacao .rank {
     font-size: 1.5rem;
     font-weight: 700;
     color: #4a5568;
     min-width: 30px;
 }
 
-.user-info {
+body.page-gamificacao .user-info {
     display: flex;
     align-items: center;
     gap: 15px;
     flex: 1;
 }
 
-.user-avatar {
+body.page-gamificacao .user-avatar {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.user-avatar img {
+body.page-gamificacao .user-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.user-name {
+body.page-gamificacao .user-name {
     font-weight: 600;
     color: #2d3748;
 }
 
-.user-level {
+body.page-gamificacao .user-level {
     font-size: 0.8rem;
     color: #718096;
 }
 
-.user-points {
+body.page-gamificacao .user-points {
     font-weight: 700;
     color: #4a5568;
     font-size: 1.1rem;
 }
 
 /* Rewards Section */
-.rewards-section {
+body.page-gamificacao .rewards-section {
     padding: 80px 0;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
 }
 
-.rewards-grid {
+body.page-gamificacao .rewards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
-.reward-card {
+body.page-gamificacao .reward-card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     padding: 30px;
@@ -891,13 +901,13 @@ body {
     border: 2px solid transparent;
 }
 
-.reward-card:hover {
+body.page-gamificacao .reward-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     border-color: #FFD700;
 }
 
-.reward-image {
+body.page-gamificacao .reward-image {
     width: 80px;
     height: 80px;
     margin: 0 auto 20px;
@@ -910,20 +920,20 @@ body {
     color: white;
 }
 
-.reward-content h3 {
+body.page-gamificacao .reward-content h3 {
     font-size: 1.3rem;
     font-weight: 700;
     color: #2d3748;
     margin-bottom: 10px;
 }
 
-.reward-content p {
+body.page-gamificacao .reward-content p {
     color: #718096;
     line-height: 1.5;
     margin-bottom: 20px;
 }
 
-.reward-price {
+body.page-gamificacao .reward-price {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -939,7 +949,7 @@ body {
     margin-right: auto;
 }
 
-.reward-btn {
+body.page-gamificacao .reward-btn {
     background: linear-gradient(135deg, #4CAF50, #2E7D32);
     color: white;
     border: none;
@@ -951,97 +961,104 @@ body {
     width: 100%;
 }
 
-.reward-btn:hover {
+body.page-gamificacao .reward-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
 }
 
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+    body.page-gamificacao * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .hero-title {
+    body.page-gamificacao .hero-title {
         font-size: 2.5rem;
     }
     
-    .hero-stats {
+    body.page-gamificacao .hero-stats {
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
     }
     
-    .section-title {
+    body.page-gamificacao .section-title {
         font-size: 2rem;
     }
     
-    .section-header {
+    body.page-gamificacao .section-header {
         flex-direction: column;
         align-items: stretch;
     }
     
-    .badges-grid {
+    body.page-gamificacao .badges-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
     
-    .challenges-grid {
+    body.page-gamificacao .challenges-grid {
         grid-template-columns: 1fr;
     }
     
-    .podium {
+    body.page-gamificacao .podium {
         flex-direction: column;
         align-items: center;
     }
     
-    .podium-place {
+    body.page-gamificacao .podium-place {
         min-width: auto;
         width: 100%;
         max-width: 300px;
     }
     
-    .podium-place.first {
+    body.page-gamificacao .podium-place.first {
         order: 1;
         transform: none;
     }
     
-    .podium-place.second {
+    body.page-gamificacao .podium-place.second {
         order: 2;
     }
     
-    .podium-place.third {
+    body.page-gamificacao .podium-place.third {
         order: 3;
     }
     
-    .rewards-grid {
+    body.page-gamificacao .rewards-grid {
         grid-template-columns: 1fr;
     }
     
-    .nav {
+    body.page-gamificacao .nav {
         padding: 1rem;
     }
     
-    .nav-right {
+    body.page-gamificacao .nav-right {
         gap: 1rem;
     }
     
-    .progress-card {
+    body.page-gamificacao .progress-card {
         padding: 25px;
     }
     
-    .progress-header {
+    body.page-gamificacao .progress-header {
         flex-direction: column;
         gap: 15px;
         align-items: stretch;
     }
     
-    .leaderboard-content {
+    body.page-gamificacao .leaderboard-content {
         padding: 25px;
     }
     
-    .leaderboard-item {
+    body.page-gamificacao .leaderboard-item {
         flex-wrap: wrap;
         gap: 10px;
     }
     
-    .user-info {
+    body.page-gamificacao .user-info {
         min-width: 200px;
     }
 }
-
