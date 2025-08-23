@@ -4,6 +4,14 @@
 
 console.log('🚀 perfil.js: carregando...');
 
+// Helpers para localStorage seguro
+function safeGet(key, fallback=null) {
+  try { const v = localStorage.getItem(key); return v === null ? fallback : v; } catch { return fallback; }
+}
+function safeSet(key, val) {
+  try { localStorage.setItem(key, val); } catch {}
+}
+
 const profileManager = {
   // Estado
   userData: null,
@@ -17,13 +25,17 @@ const profileManager = {
     this.setupEventListeners();
     this.updateInterface();
     console.log('✅ perfil.js: pronto');
+
+    if (!window.Auth) {
+      console.warn('[perfil] Auth indisponível (modo preview). Funcionalidades críticas desabilitadas.');
+    }
   },
 
   // ---------- Dados ----------
   loadUserData() {
     console.log('📥 perfil.js: carregando dados do usuário...');
     try {
-      const userDataStr = localStorage.getItem('user_data');
+      const userDataStr = safeGet('user_data');
 
       if (userDataStr) {
         this.userData = JSON.parse(userDataStr);
@@ -56,206 +68,168 @@ const profileManager = {
 
   // ---------- Preferências ----------
   applySavedPreferences() {
-    const prefs = JSON.parse(localStorage.getItem('user_preferences') || '{}');
+    try {
+      const prefs = JSON.parse(safeGet('user_preferences', '{}'));
 
-    // Dark mode
-    const dark = !!prefs.darkMode;
-    document.body.classList.toggle('dark-mode', dark);
-    const darkInput = document.getElementById('dark-mode');
-    if (darkInput) darkInput.checked = dark;
+      const dark = !!prefs.darkMode;
+      document.body.classList.toggle('dark-mode', dark);
+      const dm = document.getElementById('dark-mode');
+      if (dm) dm.checked = dark;
 
-    // Email notifications (padrão true se não definido)
-    const email = prefs.emailNotifications !== undefined ? !!prefs.emailNotifications : true;
-    const emailInput = document.getElementById('email-notifications');
-    if (emailInput) emailInput.checked = email;
+      const em = document.getElementById('email-notifications');
+      if (em) em.checked = ('emailNotifications' in prefs) ? !!prefs.emailNotifications : true;
 
-    // Push notifications
-    const push = !!prefs.pushNotifications;
-    const pushInput = document.getElementById('push-notifications');
-    if (pushInput) pushInput.checked = push;
+      const pn = document.getElementById('push-notifications');
+      if (pn) pn.checked = ('pushNotifications' in prefs) ? !!prefs.pushNotifications : false;
+    } catch {}
   },
 
   updatePreference(preference, value) {
     console.log(`⚙️ perfil.js: preferência ${preference} = ${value}`);
-    const prefs = JSON.parse(localStorage.getItem('user_preferences') || '{}');
+    const prefs = JSON.parse(safeGet('user_preferences', '{}'));
     prefs[preference] = value;
-    localStorage.setItem('user_preferences', JSON.stringify(prefs));
+    safeSet('user_preferences', JSON.stringify(prefs));
 
     if (preference === 'darkMode') {
       document.body.classList.toggle('dark-mode', !!value);
     }
-    this.showMessage(`Preferência ${preference} atualizada`, 'success');
+    this.showMessage(`Preferência atualizada: ${preference}`, 'success');
   },
 
-  // ---------- UI ----------
-  setupEventListeners() {
-    console.log('🔗 perfil.js: configurando eventos...');
-    // Editar
-    const editBtn = document.getElementById('edit-profile-btn');
-    if (editBtn) editBtn.addEventListener('click', () => this.toggleEditMode());
-
-    // Salvar
-    const saveBtn = document.getElementById('save-profile-btn');
-    if (saveBtn) saveBtn.addEventListener('click', () => this.saveProfile());
-
-    // Cancelar
-    const cancelBtn = document.getElementById('cancel-edit-btn');
-    if (cancelBtn) cancelBtn.addEventListener('click', () => this.cancelEdit());
-
-    // Avatar
-    const changeAvatarBtn = document.getElementById('change-avatar-btn');
-    if (changeAvatarBtn) changeAvatarBtn.addEventListener('click', () => this.changeAvatar());
-
-    // Senha
-    const changePasswordBtn = document.getElementById('change-password-btn');
-    if (changePasswordBtn) changePasswordBtn.addEventListener('click', () => this.changePassword());
-
-    // Toggles de preferências
-    this.setupPreferenceToggles();
-
-    console.log('✅ perfil.js: eventos prontos');
-  },
-
-  setupPreferenceToggles() {
-    const emailNotifications = document.getElementById('email-notifications');
-    const pushNotifications = document.getElementById('push-notifications');
-    const darkMode = document.getElementById('dark-mode');
-
-    if (emailNotifications) {
-      emailNotifications.addEventListener('change', (e) => {
-        this.updatePreference('emailNotifications', e.target.checked);
-      });
-    }
-    if (pushNotifications) {
-      pushNotifications.addEventListener('change', (e) => {
-        this.updatePreference('pushNotifications', e.target.checked);
-      });
-    }
-    if (darkMode) {
-      darkMode.addEventListener('change', (e) => {
-        this.updatePreference('darkMode', e.target.checked);
-      });
-    }
-  },
-
+  // ---------- Interface ----------
   updateInterface() {
-    console.log('🎨 perfil.js: atualizando UI...');
+    console.log('🖥️ perfil.js: atualizando interface...');
     if (!this.userData) return;
 
-    // Exibição
-    this.updateField('display-name', this.userData.name);
-    this.updateField('display-email', this.userData.email);
-    this.updateField('display-phone', this.userData.phone);
-    this.updateField('display-birthdate', this.formatDate(this.userData.birthdate));
-    this.updateField('display-city', this.userData.city);
-    this.updateField('display-profession', this.userData.profession);
+    // Hidratação do nome (compat com data-user-name e #sidebar-user-name)
+    const name = this.userData?.name || 'Aluno(a)';
+    document.querySelectorAll('[data-user-name]').forEach(el => el.textContent = name);
+    const side = document.getElementById('sidebar-user-name');
+    if (side) side.textContent = name;
 
-    // Inputs
-    this.updateField('input-name', this.userData.name, 'value');
-    this.updateField('input-email', this.userData.email, 'value');
-    this.updateField('input-phone', this.userData.phone, 'value');
-    this.updateField('input-birthdate', this.userData.birthdate, 'value');
-    this.updateField('input-city', this.userData.city, 'value');
-    this.updateField('input-profession', this.userData.profession, 'value');
+    // Atualizar campos de exibição
+    const fields = {
+      'display-name': this.userData.name,
+      'display-email': this.userData.email,
+      'display-phone': this.userData.phone,
+      'display-birthdate': this.formatDate(this.userData.birthdate),
+      'display-city': this.userData.city,
+      'display-profession': this.userData.profession,
+      'member-since': this.userData.memberSince,
+      'total-courses': this.userData.totalCourses,
+      'completed-courses': this.userData.completedCourses,
+      'total-achievements': this.userData.totalAchievements,
+      'last-login': this.userData.lastLogin
+    };
 
-    // Sidebar/Stats
-    this.updateField('sidebar-user-name', this.userData.name);
-    this.updateField('member-since', this.userData.memberSince);
-    this.updateField('total-courses', this.userData.totalCourses);
-    this.updateField('completed-courses', this.userData.completedCourses);
-    this.updateField('total-achievements', this.userData.totalAchievements);
-    this.updateField('last-login', this.userData.lastLogin);
+    Object.entries(fields).forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value || 'Não informado';
+    });
 
-    console.log('✅ perfil.js: UI atualizada');
-  },
+    // Atualizar inputs
+    const inputs = {
+      'input-name': this.userData.name,
+      'input-email': this.userData.email,
+      'input-phone': this.userData.phone,
+      'input-birthdate': this.userData.birthdate,
+      'input-city': this.userData.city,
+      'input-profession': this.userData.profession
+    };
 
-  updateField(elementId, value, property = 'textContent') {
-    const el = document.getElementById(elementId);
-    if (!el || value === undefined) return;
-    el[property] = value;
+    Object.entries(inputs).forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = value || '';
+    });
   },
 
   formatDate(dateString) {
     if (!dateString) return '';
-    const date = new Date(dateString);
-    if (Number.isNaN(date.getTime())) return '';
-    return date.toLocaleDateString('pt-BR');
+    // aceita "YYYY-MM-DD" ou "DD/MM/YYYY"
+    let [y, m, d] = (dateString.includes('-')) ? dateString.split('-') // YYYY-MM-DD
+      : dateString.split('/').reverse(); // DD/MM/YYYY -> YYYY,MM,DD
+    const date = new Date(`${y}-${m}-${d}`);
+    return isNaN(date.getTime()) ? dateString : date.toLocaleDateString('pt-BR');
   },
 
   toggleEditMode() {
+    console.log('✏️ perfil.js: alternando modo de edição...');
     this.isEditMode = !this.isEditMode;
 
-    const displayFields = document.querySelectorAll('.field-value');
-    const inputFields = document.querySelectorAll('.field-input');
-    const profileActions = document.getElementById('profile-actions');
+    document.querySelectorAll('.field-value').forEach(el => el.style.display = this.isEditMode ? 'none' : 'block');
+    document.querySelectorAll('.field-input').forEach(el => el.style.display = this.isEditMode ? 'block' : 'none');
+
     const editBtn = document.getElementById('edit-profile-btn');
-
-    displayFields.forEach(f => { if (f) f.style.display = this.isEditMode ? 'none' : 'block'; });
-    inputFields.forEach(f => { if (f) f.style.display = this.isEditMode ? 'block' : 'none'; });
-
-    if (profileActions) profileActions.style.display = this.isEditMode ? 'flex' : 'none';
+    const actions = document.getElementById('profile-actions');
     if (editBtn) editBtn.style.display = this.isEditMode ? 'none' : 'inline-flex';
+    if (actions) actions.style.display = this.isEditMode ? 'flex' : 'none';
 
-    // limpar marcações de erro ao entrar em edição
-    if (this.isEditMode) ['input-name','input-email','input-phone'].forEach(id => this.markInvalid(id, false));
-
-    console.log(`✏️ perfil.js: modo de edição ${this.isEditMode ? 'ativado' : 'desativado'}`);
+    if (this.isEditMode) {
+      document.getElementById('input-name')?.focus();
+    } else {
+      // Limpa marcas de erro ao sair do modo edição
+      document.querySelectorAll('.field-input').forEach(el => el.classList.remove('input-error'));
+    }
   },
 
-  // ---------- Ações ----------
+  // ---------- Salvamento ----------
   saveProfile() {
     console.log('💾 perfil.js: salvando perfil...');
-    try {
-      const updatedData = {
-        ...this.userData,
-        name: document.getElementById('input-name')?.value ?? this.userData.name,
-        email: document.getElementById('input-email')?.value ?? this.userData.email,
-        phone: document.getElementById('input-phone')?.value ?? this.userData.phone,
-        birthdate: document.getElementById('input-birthdate')?.value ?? this.userData.birthdate,
-        city: document.getElementById('input-city')?.value ?? this.userData.city,
-        profession: document.getElementById('input-profession')?.value ?? this.userData.profession
-      };
+    const data = {
+      name: document.getElementById('input-name')?.value,
+      email: document.getElementById('input-email')?.value,
+      phone: document.getElementById('input-phone')?.value,
+      birthdate: document.getElementById('input-birthdate')?.value,
+      city: document.getElementById('input-city')?.value,
+      profession: document.getElementById('input-profession')?.value
+    };
 
-      if (!this.validateProfileData(updatedData)) return;
+    if (!this.validateProfileData(data)) return;
 
-      this.userData = updatedData;
-      localStorage.setItem('user_data', JSON.stringify(this.userData));
-
-      this.updateInterface();
-      this.toggleEditMode();
-
-      // UX: foca no card pra ver a confirmação
-      document.querySelector('.profile-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      this.showMessage('Perfil atualizado com sucesso!', 'success');
-      console.log('✅ perfil.js: perfil salvo', this.userData);
-    } catch (err) {
-      console.error('❌ perfil.js: erro ao salvar perfil:', err);
-      this.showMessage('Erro ao salvar perfil. Tente novamente.', 'error');
-    }
+    this.userData = { ...this.userData, ...data };
+    safeSet('user_data', JSON.stringify(this.userData));
+    this.toggleEditMode();
+    this.updateInterface();
+    this.showMessage('Perfil atualizado com sucesso!', 'success');
   },
 
   validateProfileData(data) {
-    // reset marcações
-    ['input-name','input-email','input-phone'].forEach(id => this.markInvalid(id, false));
+    console.log('🔍 perfil.js: validando dados...');
+
+    // Função auxiliar para marcar inválido
+    const mark = (id, ok) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.toggle('input-error', !ok);
+    };
 
     if (!data.name || data.name.trim().length < 2) {
-      this.markInvalid('input-name', true);
+      mark('input-name', false);
       this.showMessage('Nome deve ter pelo menos 2 caracteres', 'error');
       return false;
+    } else {
+      mark('input-name', true);
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!data.email || !emailRegex.test(data.email)) {
-      this.markInvalid('input-email', true);
+      mark('input-email', false);
       this.showMessage('E-mail inválido', 'error');
       return false;
+    } else {
+      mark('input-email', true);
     }
+
     const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
     if (data.phone && !phoneRegex.test(data.phone)) {
-      this.markInvalid('input-phone', true);
+      mark('input-phone', false);
       this.showMessage('Telefone deve estar no formato (11) 99999-9999', 'error');
       return false;
+    } else {
+      mark('input-phone', true);
     }
+
+    // Outras validações opcionais aqui (ex.: birthdate, city, profession)
     return true;
   },
 
@@ -263,6 +237,8 @@ const profileManager = {
     console.log('↩️ perfil.js: cancelando edição...');
     this.updateInterface();      // restaura valores originais
     this.toggleEditMode();       // sai do modo de edição
+    // Limpa marcas de erro
+    document.querySelectorAll('.field-input').forEach(el => el.classList.remove('input-error'));
     this.showMessage('Edição cancelada', 'info');
   },
 
@@ -289,6 +265,8 @@ const profileManager = {
       container = document.createElement('div');
       container.id = 'message-container';
       container.className = 'message-container';
+      container.setAttribute('aria-live', 'polite');
+      container.setAttribute('aria-atomic', 'true');
       document.body.appendChild(container);
     }
     return container;
@@ -300,17 +278,23 @@ const profileManager = {
 
     const messageEl = document.createElement('div');
     messageEl.className = `message message-${type}`;
-    messageEl.innerHTML = `
-      <i class="fas fa-${this.getMessageIcon(type)}" aria-hidden="true"></i>
-      <span>${message}</span>
-      <button class="message-close" aria-label="Fechar mensagem">
-        <i class="fas fa-times" aria-hidden="true"></i>
-      </button>
-    `;
+    messageEl.setAttribute('role', 'status');
+    messageEl.setAttribute('aria-live', 'polite');
 
-    // fechar no X
-    messageEl.querySelector('.message-close')?.addEventListener('click', () => messageEl.remove());
+    const icon = document.createElement('i');
+    icon.className = `fas fa-${this.getMessageIcon(type)}`;
+    icon.setAttribute('aria-hidden', 'true');
 
+    const span = document.createElement('span');
+    span.textContent = message; // <-- sem HTML, evita XSS
+
+    const btn = document.createElement('button');
+    btn.className = 'message-close';
+    btn.setAttribute('aria-label', 'Fechar mensagem');
+    btn.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
+    btn.addEventListener('click', () => messageEl.remove());
+
+    messageEl.append(icon, span, btn);
     container.appendChild(messageEl);
     setTimeout(() => messageEl.remove(), 5000);
   },
@@ -328,17 +312,44 @@ const profileManager = {
   // ---------- Acessibilidade ----------
   markInvalid(id, isInvalid) {
     const el = document.getElementById(id);
-    if (el) el.setAttribute('aria-invalid', isInvalid ? 'true' : 'false');
+    if (el) {
+      el.setAttribute('aria-invalid', isInvalid ? 'true' : 'false');
+      el.classList.toggle('input-error', isInvalid);
+    }
+  },
+
+  // ---------- Eventos ----------
+  setupEventListeners() {
+    console.log('🎯 perfil.js: configurando listeners...');
+
+    document.getElementById('edit-profile-btn')?.addEventListener('click', () => this.toggleEditMode());
+    document.getElementById('save-profile-btn')?.addEventListener('click', () => this.saveProfile());
+    document.getElementById('cancel-edit-btn')?.addEventListener('click', () => this.cancelEdit());
+    document.getElementById('change-avatar-btn')?.addEventListener('click', () => this.changeAvatar());
+    document.getElementById('change-password-btn')?.addEventListener('click', () => this.changePassword());
+
+    document.getElementById('dark-mode')?.addEventListener('change', (e) => this.updatePreference('darkMode', e.target.checked));
+    document.getElementById('email-notifications')?.addEventListener('change', (e) => this.updatePreference('emailNotifications', e.target.checked));
+    document.getElementById('push-notifications')?.addEventListener('change', (e) => this.updatePreference('pushNotifications', e.target.checked));
   }
 };
 
-// Bootstrap
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('🧩 perfil.js: DOM pronto, iniciando...');
-  profileManager.init();
-});
+// Inicialização idempotente + espera pelo guard
+if (!window.__perfilInit) {
+  window.__perfilInit = true;
+  const start = () => profileManager.init();
+  if (document.readyState !== 'loading') {
+    if (document.documentElement.getAttribute('data-auth') !== 'checking') start();
+    else window.addEventListener('dashboard-auth:ready', start, { once: true });
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.documentElement.getAttribute('data-auth') !== 'checking') start();
+      else window.addEventListener('dashboard-auth:ready', start, { once: true });
+    }, { once: true });
+  }
+}
 
-// Export global (útil pra debug)
+// Export global para debug
 window.profileManager = profileManager;
 
 console.log('✅ perfil.js: carregado com sucesso');

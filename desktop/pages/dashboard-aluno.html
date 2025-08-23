@@ -1,362 +1,415 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Dashboard Aluno - Instituto Buriti</title>
-    <!-- CSS (caminhos absolutos do publish) -->
-    <link rel="stylesheet" href="/css/style.css"/>
-    <link rel="stylesheet" href="/css/dashboard.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <!-- Previne flash enquanto checa autenticação -->
-    <style>
-        html[data-auth="checking"] body.dashboard-body { visibility: hidden; }
-    </style>
-    <!-- Núcleo de autenticação + guard compartilhado para dashboards -->
-    <script src="/js/auth.js" defer></script>
-    <script src="/js/dashboard-auth.js" defer></script>
-    <script>
-        // Sinaliza que vamos checar auth imediatamente; dashboard-auth.js fará o guard lendo o data-dashboard-role
-        document.documentElement.setAttribute('data-auth', 'checking');
-    </script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Aluno - Instituto Buriti</title>
+
+  <!-- Preconnect para fontes (micro ganho) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
+  <!-- CSS (caminhos absolutos) -->
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Anti-flash enquanto checa autenticação -->
+  <style>html[data-auth="checking"] body.dashboard-body{visibility:hidden;}</style>
+
+  <!-- Núcleo de autenticação + guard compartilhado -->
+  <script src="/js/auth.js" defer></script>
+  <script src="/js/dashboard-auth.js" defer></script>
+  <script>
+    // Sinaliza checagem de auth; dashboard-auth.js vai validar role=aluno
+    document.documentElement.setAttribute('data-auth','checking');
+  </script>
 </head>
+
 <!-- Papel esperado: aluno -->
 <body class="dashboard-body" data-dashboard-role="aluno">
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav" aria-label="principal">
-            <div class="nav-item"><a href="/index.html">Home</a></div>
-            <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
-            <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
-            <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-            <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
-            <div class="nav-item login-dropdown">
-                <!-- Hidratação de nome por dashboard-auth.js / dashboard.js -->
-                <button class="login-btn user-name" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu" data-user-name data-static="false">
-                    Minha conta
-                </button>
-                <div class="dropdown-menu" role="menu" id="user-menu">
-                    <a href="/pages/dashboard-aluno.html" class="dropdown-item active" aria-current="page">Dashboard</a>
-                    <a href="/pages/perfil-aluno.html" class="dropdown-item">Perfil</a>
-                    <a href="#logout" class="dropdown-item" data-action="logout">Sair</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- Dashboard Container -->
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar" aria-label="menu lateral">
-            <div class="sidebar-header">
-                <div class="user-info">
-                    <div class="user-avatar"><i class="fas fa-user-graduate" aria-hidden="true"></i></div>
-                    <div class="user-details">
-                        <h3 class="user-name" data-user-name data-static="false">Aluno(a)</h3>
-                        <p class="user-role" data-user-role data-static="false">Aluno</p>
-                    </div>
-                </div>
-                <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-controls="sidebar" aria-expanded="true">
-                    <i class="fas fa-bars" aria-hidden="true"></i>
-                </button>
-            </div>
-            <nav class="sidebar-nav">
-                <a href="#overview" class="nav-link active" data-section="overview" aria-current="page">
-                    <i class="fas fa-home" aria-hidden="true"></i><span>Visão Geral</span>
-                </a>
-                <a href="/pages/perfil-aluno.html" class="nav-link">
-                    <i class="fas fa-user" aria-hidden="true"></i><span>Meu Perfil</span>
-                </a>
-                <a href="#courses" class="nav-link" data-section="courses">
-                    <i class="fas fa-book" aria-hidden="true"></i><span>Meus Cursos</span>
-                </a>
-                <a href="#deadlines" class="nav-link" data-section="deadlines">
-                    <i class="fas fa-clock" aria-hidden="true"></i><span>Próximos Prazos</span>
-                </a>
-                <a href="#live-classes" class="nav-link" data-section="live-classes">
-                    <i class="fas fa-video" aria-hidden="true"></i><span>Aulas ao Vivo</span>
-                </a>
-                <a href="#assignments" class="nav-link" data-section="assignments">
-                    <i class="fas fa-tasks" aria-hidden="true"></i><span>Atividades</span>
-                </a>
-                <a href="#materials" class="nav-link" data-section="materials">
-                    <i class="fas fa-folder" aria-hidden="true"></i><span>Materiais</span>
-                </a>
-                <a href="#messages" class="nav-link" data-section="messages">
-                    <i class="fas fa-envelope" aria-hidden="true"></i><span>Mensagens</span>
-                </a>
-                <a href="#performance" class="nav-link" data-section="performance">
-                    <i class="fas fa-chart-line" aria-hidden="true"></i><span>Performance</span>
-                </a>
-                <a href="#settings" class="nav-link" data-section="settings">
-                    <i class="fas fa-cog" aria-hidden="true"></i><span>Configurações</span>
-                </a>
-            </nav>
-        </aside>
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Overview Section -->
-            <section id="overview" class="dashboard-section active" aria-labelledby="overview-title">
-                <div class="section-header">
-                    <h1 id="overview-title">Bem-vinda, <span class="user-name" data-user-name data-static="false">Aluno(a)</span>!</h1>
-                    <p>Continue sua jornada de aprendizado. Você está progredindo muito bem!</p>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card" role="status">
-                        <div class="stat-icon"><i class="fas fa-book" aria-hidden="true"></i></div>
-                        <div class="stat-info"><h3>2</h3><p>Cursos Ativos</p></div>
-                    </div>
-                    <div class="stat-card" role="status">
-                        <div class="stat-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div>
-                        <div class="stat-info"><h3>8.3</h3><p>Média Geral</p></div>
-                    </div>
-                    <div class="stat-card" role="status">
-                        <div class="stat-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
-                        <div class="stat-info"><h3>24h</h3><p>Horas Estudadas</p></div>
-                    </div>
-                    <div class="stat-card" role="status">
-                        <div class="stat-icon"><i class="fas fa-medal" aria-hidden="true"></i></div>
-                        <div class="stat-info"><h3>3</h3><p>Conquistas</p></div>
-                    </div>
-                </div>
-                <div class="dashboard-grid">
-                    <div class="dashboard-card">
-                        <div class="card-header"><h3><i class="fas fa-book" aria-hidden="true"></i> Cursos em Andamento</h3></div>
-                        <div class="card-content">
-                            <div class="course-item">
-                                <div class="course-info">
-                                    <h4>Desenvolvimento Web para Iniciantes</h4>
-                                    <p>Prof. Carlos Mendes</p>
-                                    <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
-                                    <span class="progress-text">65% concluído</span>
-                                </div>
-                                <button class="btn-primary" type="button">Continuar</button>
-                            </div>
-                            <div class="course-item">
-                                <div class="course-info">
-                                    <h4>Gestão de Projetos Culturais</h4>
-                                    <p>Prof. Maria Santos</p>
-                                    <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
-                                    <span class="progress-text">40% concluído</span>
-                                </div>
-                                <button class="btn-primary" type="button">Continuar</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="card-header"><h3><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Próximos Prazos</h3></div>
-                        <div class="card-content">
-                            <div class="deadline-item urgent">
-                                <div class="deadline-info">
-                                    <h4>Ensaio sobre Acessibilidade Web</h4>
-                                    <p>Desenvolvimento Web para Iniciantes</p>
-                                    <span class="deadline-date">Vence em 22/07 às 23:59</span>
-                                </div>
-                                <span class="deadline-status urgent">Urgente</span>
-                            </div>
-                            <div class="deadline-item">
-                                <div class="deadline-info">
-                                    <h4>Quiz - Módulo 3</h4>
-                                    <p>Gestão de Projetos Culturais</p>
-                                    <span class="deadline-date">Vence em 25/07 às 18:00</span>
-                                </div>
-                                <span class="deadline-status">Pendente</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="card-header"><h3><i class="fas fa-video" aria-hidden="true"></i> Próxima Aula ao Vivo</h3></div>
-                        <div class="card-content">
-                            <div class="live-class-item">
-                                <div class="class-info">
-                                    <h4>JavaScript Avançado - Promises e Async/Await</h4>
-                                    <p>Desenvolvimento Web para Iniciantes</p>
-                                    <div class="class-schedule">
-                                        <span><i class="fas fa-calendar" aria-hidden="true"></i> 21/07/2024</span>
-                                        <span><i class="fas fa-clock" aria-hidden="true"></i> 19:00 - 20:30</span>
-                                    </div>
-                                </div>
-                                <button class="btn-live" type="button" disabled>
-                                    <i class="fas fa-video" aria-hidden="true"></i> Entrar (em 2h)
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="card-header"><h3><i class="fas fa-trophy" aria-hidden="true"></i> Conquistas Recentes</h3></div>
-                        <div class="card-content">
-                            <div class="achievements-grid">
-                                <div class="achievement-item">
-                                    <div class="achievement-icon"><i class="fas fa-star" aria-hidden="true"></i></div>
-                                    <div class="achievement-info"><h5>Primeira Aula Concluída</h5><p>Parabéns pelo início!</p></div>
-                                </div>
-                                <div class="achievement-item">
-                                    <div class="achievement-icon"><i class="fas fa-book-open" aria-hidden="true"></i></div>
-                                    <div class="achievement-info"><h5>5 Cursos Matriculados</h5><p>Estudante dedicada!</p></div>
-                                </div>
-                                <div class="achievement-item">
-                                    <div class="achievement-icon"><i class="fas fa-medal" aria-hidden="true"></i></div>
-                                    <div class="achievement-info"><h5>Nota Máxima</h5><p>Excelente desempenho!</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Courses Section -->
-            <section id="courses" class="dashboard-section" aria-labelledby="courses-title">
-                <div class="section-header">
-                    <h1 id="courses-title">Meus Cursos</h1>
-                    <p>Gerencie seus cursos e acompanhe seu progresso</p>
-                </div>
-                <div class="courses-grid">
-                    <div class="course-card">
-                        <div class="course-header">
-                            <img src="/images/desenvolvimento-web.jpg" alt="Desenvolvimento Web" class="course-image" loading="lazy" decoding="async"/>
-                            <span class="course-badge active">Ativo</span>
-                        </div>
-                        <div class="course-content">
-                            <h3>Desenvolvimento Web para Iniciantes</h3>
-                            <p>Prof. Carlos Mendes</p>
-                            <div class="course-progress">
-                                <div class="progress-info"><span>Progresso: 65%</span><span>8/12 módulos</span></div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
-                            </div>
-                            <div class="course-stats">
-                                <span><i class="fas fa-clock" aria-hidden="true"></i> 15h estudadas</span>
-                                <span><i class="fas fa-star" aria-hidden="true"></i> Nota: 8.5</span>
-                            </div>
-                        </div>
-                        <div class="course-actions">
-                            <button class="btn-primary" type="button">Continuar Curso</button>
-                            <button class="btn-secondary" type="button">Ver Detalhes</button>
-                        </div>
-                    </div>
-                    <div class="course-card">
-                        <div class="course-header">
-                            <img src="/images/web-size-Gestão-de-Mudanças-e-Gestão-de-Projetos-1-1.png" alt="Gestão de Projetos" class="course-image" loading="lazy" decoding="async"/>
-                            <span class="course-badge active">Ativo</span>
-                        </div>
-                        <div class="course-content">
-                            <h3>Gestão de Projetos Culturais</h3>
-                            <p>Prof. Maria Santos</p>
-                            <div class="course-progress">
-                                <div class="progress-info"><span>Progresso: 40%</span><span>4/10 módulos</span></div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
-                            </div>
-                            <div class="course-stats">
-                                <span><i class="fas fa-clock" aria-hidden="true"></i> 9h estudadas</span>
-                                <span><i class="fas fa-star" aria-hidden="true"></i> Nota: 8.0</span>
-                            </div>
-                        </div>
-                        <div class="course-actions">
-                            <button class="btn-primary" type="button">Continuar Curso</button>
-                            <button class="btn-secondary" type="button">Ver Detalhes</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Outras seções (placeholders prontos para SPA do dashboard.js) -->
-            <section id="deadlines" class="dashboard-section" aria-labelledby="deadlines-title">
-                <div class="section-header">
-                    <h1 id="deadlines-title">Próximos Prazos</h1>
-                    <p>Gerencie entregas e prazos importantes</p>
-                </div>
-            </section>
-            <section id="live-classes" class="dashboard-section" aria-labelledby="live-classes-title">
-                <div class="section-header">
-                    <h1 id="live-classes-title">Aulas ao Vivo</h1>
-                    <p>Participe das transmissões programadas</p>
-                </div>
-            </section>
-            <section id="assignments" class="dashboard-section" aria-labelledby="assignments-title">
-                <div class="section-header">
-                    <h1 id="assignments-title">Atividades</h1>
-                    <p>Envie tarefas e acompanhe feedbacks</p>
-                </div>
-            </section>
-            <section id="materials" class="dashboard-section" aria-labelledby="materials-title">
-                <div class="section-header">
-                    <h1 id="materials-title">Materiais</h1>
-                    <p>Todos os arquivos e leituras do curso</p>
-                </div>
-            </section>
-            <section id="messages" class="dashboard-section" aria-labelledby="messages-title">
-                <div class="section-header">
-                    <h1 id="messages-title">Mensagens</h1>
-                    <p>Converse com instrutores e colegas</p>
-                </div>
-            </section>
-            <section id="performance" class="dashboard-section" aria-labelledby="performance-title">
-                <div class="section-header">
-                    <h1 id="performance-title">Performance</h1>
-                    <p>Visualize seu desempenho ao longo do tempo</p>
-                </div>
-            </section>
-            <section id="settings" class="dashboard-section" aria-labelledby="settings-title">
-                <div class="section-header">
-                    <h1 id="settings-title">Configurações</h1>
-                    <p>Ajuste preferências da sua conta</p>
-                </div>
-            </section>
-        </main>
-    </div>
-    <!-- Footer (padronizado) -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo" loading="lazy" decoding="async"/>
-                    <h3>Educação que transforma. Cultura que conecta.</h3>
-                    <p>Instituto Buriti, uma empresa 100% digital.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Links Rápidos</h4>
-                        <ul>
-                            <li><a href="/index.html">Home</a></li>
-                            <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
-                            <li><a href="/pages/cursos.html">Cursos</a></li>
-                            <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                            <li><a href="/pages/contato.html">Contato</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contato</h4>
-                        <ul>
-                            <li>📧 contato@institutoburiti.com.br</li>
-                            <li>📞 (86) 98170-8388</li>
-                            <li>📍 Teresina, Piauí</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom"><p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p></div>
+  <!-- Skip link para acessibilidade -->
+  <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav" aria-label="principal">
+      <div class="nav-item"><a href="/index.html">Home</a></div>
+      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
+
+      <div class="nav-item login-dropdown">
+        <!-- Hidratação global por dashboard-auth.js -->
+        <button class="login-btn user-name" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu" data-user-name data-static="false">Minha conta</button>
+        <div class="dropdown-menu" role="menu" id="user-menu">
+          <a href="/pages/dashboard-aluno.html" class="dropdown-item active" aria-current="page">Dashboard</a>
+          <a href="/pages/perfil-aluno.html" class="dropdown-item">Perfil</a>
+          <a href="#logout" class="dropdown-item" data-action="logout">Sair</a>
         </div>
-    </footer>
-    <!-- Scripts -->
-    <script src="/js/dashboard.js" defer></script>
-    <script>
-        window.addEventListener('dashboard-auth:ready', () => {
-            document.documentElement.removeAttribute('data-auth');
-        }, { once: true });
+      </div>
+    </nav>
+  </header>
 
-        setTimeout(() => {
-            if (document.documentElement.getAttribute('data-auth') === 'checking') {
-                document.documentElement.removeAttribute('data-auth');
-            }
-        }, 2000);
+  <!-- Dashboard Container -->
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="menu lateral">
+      <div class="sidebar-header">
+        <div class="user-info">
+          <div class="user-avatar"><i class="fas fa-user-graduate" aria-hidden="true"></i></div>
+          <div class="user-details">
+            <h3 class="user-name" data-user-name data-static="false">Aluno(a)</h3>
+            <p class="user-role" data-user-role data-static="false">Aluno</p>
+          </div>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-controls="sidebar" aria-expanded="true">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            sidebarToggle?.addEventListener('click', () => {
-                sidebar?.classList.toggle('collapsed');
-                const isCollapsed = sidebar?.classList.contains('collapsed');
-                sidebarToggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
-                sidebarToggle.setAttribute('aria-label', isCollapsed ? 'Expandir menu' : 'Recolher menu');
-            });
-        });
-    </script>
+      <nav class="sidebar-nav">
+        <a href="#overview" class="nav-link active" data-section="overview" aria-current="page">
+          <i class="fas fa-home" aria-hidden="true"></i><span>Visão Geral</span>
+        </a>
+        <a href="/pages/perfil-aluno.html" class="nav-link">
+          <i class="fas fa-user" aria-hidden="true"></i><span>Meu Perfil</span>
+        </a>
+        <a href="#courses" class="nav-link" data-section="courses">
+          <i class="fas fa-book" aria-hidden="true"></i><span>Meus Cursos</span>
+        </a>
+        <a href="#deadlines" class="nav-link" data-section="deadlines">
+          <i class="fas fa-clock" aria-hidden="true"></i><span>Próximos Prazos</span>
+        </a>
+        <a href="#live-classes" class="nav-link" data-section="live-classes">
+          <i class="fas fa-video" aria-hidden="true"></i><span>Aulas ao Vivo</span>
+        </a>
+        <a href="#assignments" class="nav-link" data-section="assignments">
+          <i class="fas fa-tasks" aria-hidden="true"></i><span>Atividades</span>
+        </a>
+        <a href="#materials" class="nav-link" data-section="materials">
+          <i class="fas fa-folder" aria-hidden="true"></i><span>Materiais</span>
+        </a>
+        <a href="#messages" class="nav-link" data-section="messages">
+          <i class="fas fa-envelope" aria-hidden="true"></i><span>Mensagens</span>
+        </a>
+        <a href="#performance" class="nav-link" data-section="performance">
+          <i class="fas fa-chart-line" aria-hidden="true"></i><span>Performance</span>
+        </a>
+        <a href="#settings" class="nav-link" data-section="settings">
+          <i class="fas fa-cog" aria-hidden="true"></i><span>Configurações</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+      <!-- Overview Section -->
+      <section id="overview" class="dashboard-section active" aria-labelledby="overview-title">
+        <div class="section-header">
+          <h1 id="overview-title">Olá, <span class="user-name" data-user-name data-static="false">Aluno(a)</span>!</h1>
+          <p>Continue sua jornada de aprendizado. Você está progredindo muito bem!</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card" role="status">
+            <div class="stat-icon"><i class="fas fa-book" aria-hidden="true"></i></div>
+            <div class="stat-info"><h3>2</h3><p>Cursos Ativos</p></div>
+          </div>
+          <div class="stat-card" role="status">
+            <div class="stat-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+            <div class="stat-info"><h3>8.3</h3><p>Média Geral</p></div>
+          </div>
+          <div class="stat-card" role="status">
+            <div class="stat-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
+            <div class="stat-info"><h3>24h</h3><p>Horas Estudadas</p></div>
+          </div>
+          <div class="stat-card" role="status">
+            <div class="stat-icon"><i class="fas fa-medal" aria-hidden="true"></i></div>
+            <div class="stat-info"><h3>3</h3><p>Conquistas</p></div>
+          </div>
+        </div>
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <div class="card-header"><h3><i class="fas fa-book" aria-hidden="true"></i> Cursos em Andamento</h3></div>
+            <div class="card-content">
+              <div class="course-item">
+                <div class="course-info">
+                  <h4>Desenvolvimento Web para Iniciantes</h4>
+                  <p>Prof. Carlos Mendes</p>
+                  <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+                  <span class="progress-text">65% concluído</span>
+                </div>
+                <button class="btn-primary" type="button">Continuar</button>
+              </div>
+              <div class="course-item">
+                <div class="course-info">
+                  <h4>Gestão de Projetos Culturais</h4>
+                  <p>Prof. Maria Santos</p>
+                  <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+                  <span class="progress-text">40% concluído</span>
+                </div>
+                <button class="btn-primary" type="button">Continuar</button>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-header"><h3><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Próximos Prazos</h3></div>
+            <div class="card-content">
+              <div class="deadline-item urgent">
+                <div class="deadline-info">
+                  <h4>Ensaio sobre Acessibilidade Web</h4>
+                  <p>Desenvolvimento Web para Iniciantes</p>
+                  <span class="deadline-date">Vence em 22/07 às 23:59</span>
+                </div>
+                <span class="deadline-status urgent">Urgente</span>
+              </div>
+              <div class="deadline-item">
+                <div class="deadline-info">
+                  <h4>Quiz - Módulo 3</h4>
+                  <p>Gestão de Projetos Culturais</p>
+                  <span class="deadline-date">Vence em 25/07 às 18:00</span>
+                </div>
+                <span class="deadline-status">Pendente</span>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-header"><h3><i class="fas fa-video" aria-hidden="true"></i> Próxima Aula ao Vivo</h3></div>
+            <div class="card-content">
+              <div class="live-class-item">
+                <div class="class-info">
+                  <h4>JavaScript Avançado - Promises e Async/Await</h4>
+                  <p>Desenvolvimento Web para Iniciantes</p>
+                  <div class="class-schedule">
+                    <span><i class="fas fa-calendar" aria-hidden="true"></i> 21/07/2024</span>
+                    <span><i class="fas fa-clock" aria-hidden="true"></i> 19:00 - 20:30</span>
+                  </div>
+                </div>
+                <button class="btn-live" type="button" disabled>
+                  <i class="fas fa-video" aria-hidden="true"></i> Entrar (em 2h)
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-header"><h3><i class="fas fa-trophy" aria-hidden="true"></i> Conquistas Recentes</h3></div>
+            <div class="card-content">
+              <div class="achievements-grid">
+                <div class="achievement-item">
+                  <div class="achievement-icon"><i class="fas fa-star" aria-hidden="true"></i></div>
+                  <div class="achievement-info"><h5>Primeira Aula Concluída</h5><p>Parabéns pelo início!</p></div>
+                </div>
+                <div class="achievement-item">
+                  <div class="achievement-icon"><i class="fas fa-book-open" aria-hidden="true"></i></div>
+                  <div class="achievement-info"><h5>5 Cursos Matriculados</h5><p>Estudante dedicada!</p></div>
+                </div>
+                <div class="achievement-item">
+                  <div class="achievement-icon"><i class="fas fa-medal" aria-hidden="true"></i></div>
+                  <div class="achievement-info"><h5>Nota Máxima</h5><p>Excelente desempenho!</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Courses Section -->
+      <section id="courses" class="dashboard-section" aria-labelledby="courses-title">
+        <div class="section-header">
+          <h1 id="courses-title">Meus Cursos</h1>
+          <p>Gerencie seus cursos e acompanhe seu progresso</p>
+        </div>
+        <div class="courses-grid">
+          <div class="course-card">
+            <div class="course-header">
+              <img src="/images/desenvolvimento-web.jpg" alt="Desenvolvimento Web" class="course-image" loading="lazy" decoding="async"/>
+              <span class="course-badge active">Ativo</span>
+            </div>
+            <div class="course-content">
+              <h3>Desenvolvimento Web para Iniciantes</h3>
+              <p>Prof. Carlos Mendes</p>
+              <div class="course-progress">
+                <div class="progress-info"><span>Progresso: 65%</span><span>8/12 módulos</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+              </div>
+              <div class="course-stats">
+                <span><i class="fas fa-clock" aria-hidden="true"></i> 15h estudadas</span>
+                <span><i class="fas fa-star" aria-hidden="true"></i> Nota: 8.5</span>
+              </div>
+            </div>
+            <div class="course-actions">
+              <button class="btn-primary" type="button">Continuar Curso</button>
+              <button class="btn-secondary" type="button">Ver Detalhes</button>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-header">
+              <img src="/images/web-size-Gestão-de-Mudanças-e-Gestão-de-Projetos-1-1.png" alt="Gestão de Projetos" class="course-image" loading="lazy" decoding="async"/>
+              <span class="course-badge active">Ativo</span>
+            </div>
+            <div class="course-content">
+              <h3>Gestão de Projetos Culturais</h3>
+              <p>Prof. Maria Santos</p>
+              <div class="course-progress">
+                <div class="progress-info"><span>Progresso: 40%</span><span>4/10 módulos</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+              </div>
+              <div class="course-stats">
+                <span><i class="fas fa-clock" aria-hidden="true"></i> 9h estudadas</span>
+                <span><i class="fas fa-star" aria-hidden="true"></i> Nota: 8.0</span>
+              </div>
+            </div>
+            <div class="course-actions">
+              <button class="btn-primary" type="button">Continuar Curso</button>
+              <button class="btn-secondary" type="button">Ver Detalhes</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Outras seções (placeholders prontos para SPA do dashboard.js) -->
+      <section id="deadlines" class="dashboard-section" aria-labelledby="deadlines-title">
+        <div class="section-header">
+          <h1 id="deadlines-title">Próximos Prazos</h1>
+          <p>Gerencie entregas e prazos importantes</p>
+        </div>
+      </section>
+      <section id="live-classes" class="dashboard-section" aria-labelledby="live-classes-title">
+        <div class="section-header">
+          <h1 id="live-classes-title">Aulas ao Vivo</h1>
+          <p>Participe das transmissões programadas</p>
+        </div>
+      </section>
+      <section id="assignments" class="dashboard-section" aria-labelledby="assignments-title">
+        <div class="section-header">
+          <h1 id="assignments-title">Atividades</h1>
+          <p>Envie tarefas e acompanhe feedbacks</p>
+        </div>
+      </section>
+      <section id="materials" class="dashboard-section" aria-labelledby="materials-title">
+        <div class="section-header">
+          <h1 id="materials-title">Materiais</h1>
+          <p>Todos os arquivos e leituras do curso</p>
+        </div>
+      </section>
+      <section id="messages" class="dashboard-section" aria-labelledby="messages-title">
+        <div class="section-header">
+          <h1 id="messages-title">Mensagens</h1>
+          <p>Converse com instrutores e colegas</p>
+        </div>
+      </section>
+      <section id="performance" class="dashboard-section" aria-labelledby="performance-title">
+        <div class="section-header">
+          <h1 id="performance-title">Performance</h1>
+          <p>Visualize seu desempenho ao longo do tempo</p>
+        </div>
+      </section>
+      <section id="settings" class="dashboard-section" aria-labelledby="settings-title">
+        <div class="section-header">
+          <h1 id="settings-title">Configurações</h1>
+          <p>Ajuste preferências da sua conta</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Message Container -->
+  <div id="message-container" class="message-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Footer (padronizado) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo" loading="lazy" decoding="async"/>
+          <h3>Educação que transforma. Cultura que conecta.</h3>
+          <p>Instituto Buriti, uma empresa 100% digital.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Links Rápidos</h4>
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
+              <li><a href="/pages/cursos.html">Cursos</a></li>
+              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+              <li><a href="/pages/contato.html">Contato</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Contato</h4>
+            <ul>
+              <li>📧 contato@institutoburiti.com.br</li>
+              <li>📞 (86) 98170-8388</li>
+              <li>📍 Teresina, Piauí</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/dashboard.js" defer></script>
+  <script>
+    window.addEventListener('dashboard-auth:ready', () => {
+      document.documentElement.removeAttribute('data-auth');
+    }, { once: true });
+    setTimeout(() => {
+      if (document.documentElement.getAttribute('data-auth') === 'checking') {
+        document.documentElement.removeAttribute('data-auth');
+      }
+    }, 2000);
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      sidebarToggle?.addEventListener('click', () => {
+        sidebar?.classList.toggle('collapsed');
+        const isCollapsed = sidebar?.classList.contains('collapsed');
+        sidebarToggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+        sidebarToggle.setAttribute('aria-label', isCollapsed ? 'Expandir menu' : 'Recolher menu');
+      });
+    });
+  </script>
 </body>
 </html>
