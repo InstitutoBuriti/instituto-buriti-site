@@ -9,7 +9,7 @@
   <meta name="description" content="Catálogo de cursos do Instituto Buriti: tecnologia, gestão, cultura e educação, com opções gratuitas e certificadas.">
   <link rel="canonical" href="https://institutoburiti.com.br/pages/cursos.html">
 
-  <!-- CSS na raiz do site publicado (publish = desktop) -->
+  <!-- CSS na raiz do site publicado (publish = desktop ) -->
   <link rel="stylesheet" href="/css/style.css?v=2025-08-13-1"/>
   <link rel="stylesheet" href="/css/footer-oficial.css?v=2025-08-13-1"/>
   <link rel="stylesheet" href="/css/cursos.css?v=2025-08-13-1"/>
@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 </head>
 <body>
-  <!-- Header (igual ao da Home) -->
+  <!-- Header (igual ao da Home ) -->
   <header class="header">
     <nav class="nav">
       <div class="nav-item"><a href="/index.html">Home</a></div>
@@ -192,69 +192,7 @@
     ];
   </script>
 
-  <!-- JS (com cache-bust atualizado) -->
-  <script src="/js/main.js?v=2025-08-15-2"></script>
-  <script src="/js/biblioteca-v2.js?v=2025-08-10-4"></script>
-
-  <!-- Passo 3b: Click-Lock para travar o destino do botão "Ver detalhes" -->
-  <script defer src="/js/click-lock.js?v=2025-08-15-1"></script>
-
-  <!-- Passo 5: “Airbag” extra — força sempre o caminho canônico -->
-  <script>
-  (function () {
-    const CANON = "/pages/detalhes-curso.html";
-
-    function fixAnchors(root = document) {
-      const as = root.querySelectorAll('a[href*="/pages/detalhes-curso"], a[href*="/pages/detalhes-cursos"]');
-      as.forEach(a => {
-        try {
-          const url = new URL(a.href, location.origin);
-          const slug = url.searchParams.get("slug");
-          if (slug) {
-            const finalUrl = `${CANON}?slug=${encodeURIComponent(slug)}`;
-            a.href = finalUrl;
-            a.setAttribute("data-href", finalUrl); // coopera com o click-lock.js
-          }
-        } catch {}
-      });
-    }
-
-    function delegateClicks(e) {
-      const a = e.target.closest('a');
-      if (!a) return;
-      const href = a.getAttribute("href") || "";
-      if (!href.includes("/pages/detalhes-curso") && !href.includes("/pages/detalhes-cursos")) return;
-
-      try {
-        const url = new URL(a.href, location.origin);
-        const slug = url.searchParams.get("slug");
-        if (slug) {
-          e.preventDefault();
-          const finalUrl = `${CANON}?slug=${encodeURIComponent(slug)}`;
-          a.href = finalUrl;
-          a.setAttribute("data-href", finalUrl);
-          window.location.assign(finalUrl);
-        }
-      } catch {}
-    }
-
-    const mo = new MutationObserver(muts => {
-      muts.forEach(m => {
-        m.addedNodes.forEach(n => {
-          if (n.nodeType === 1) fixAnchors(n);
-        });
-      });
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      fixAnchors(document);
-      document.addEventListener("click", delegateClicks, true); // captura primeiro
-      mo.observe(document.body, { childList: true, subtree: true });
-    });
-  })();
-  </script>
-
-  <!-- Passo 4: Anti-cache hard (deixe por último) -->
-  <script src="/js/anti-cache.js"></script>
+  <!-- Scripts -->
+  <script type="module" src="/js/module-loader.js"></script>
 </body>
 </html>

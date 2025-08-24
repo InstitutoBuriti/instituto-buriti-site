@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
-  <!-- CSS (paths absolutos padronizados) -->
+  <!-- CSS (paths absolutos padronizados ) -->
   <link rel="stylesheet" href="/css/style.css"/>
   <link rel="stylesheet" href="/css/analytics-global.css"/>
   <link rel="stylesheet" href="/css/dashboard-instrutor.css"/>
@@ -23,14 +23,9 @@
 
   <!-- Anti-flash enquanto o guard checa autenticação -->
   <style>html[data-auth="checking"] body { visibility: hidden; }</style>
-  <script>document.documentElement.setAttribute('data-auth','checking');</script>
-
-  <!-- Auth + Guard compartilhado de dashboards -->
-  <script src="/js/auth.js" defer></script>
-  <script src="/js/dashboard-auth.js" defer></script>
 
   <style>
-    /* Ajustes finos locais (se precisar remover, mova para analytics-global.css) */
+    /* Ajustes finos locais (se precisar remover, mova para analytics-global.css ) */
     .hero .hero-actions .btn { gap: .5rem; display:inline-flex; align-items:center; }
     .charts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
     .chart-card.full-width { grid-column: 1 / -1; }
@@ -98,7 +93,7 @@
     <div class="container">
       <div class="profile-card">
         <div class="profile-avatar">
-          <img class="avatar-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Instrutor(a)">
+          <img class="avatar-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Instrutor(a )">
           <div class="status-indicator status-online"></div>
         </div>
         <div class="profile-info">
@@ -373,85 +368,7 @@
     </div>
   </footer>
 
-  <!-- Scripts locais -->
-  <script>
-    // ===== Guarda mínima por papel ('instrutor') usando authManager =====
-    document.addEventListener('DOMContentLoaded', () => {
-      const mgr = window.authManager;
-      if (!mgr || !mgr.isAuthenticated() || String((mgr.getUser()?.role || mgr.getUser()?.type || '')).toLowerCase() !== 'instrutor') {
-        window.location.replace('/pages/login-instrutor.html');
-        return;
-      }
-
-      // Hidratar nome no header/perfil
-      const displayName = mgr.getUser().name || mgr.getUser().email || 'Instrutor(a)';
-      document.querySelectorAll('[data-user-name], .login-dropdown .login-btn').forEach(el => {
-        if (!el.hasAttribute('data-static')) el.textContent = displayName;
-      });
-
-      // Logout (funciona também pelo dashboard-auth via delegação)
-      document.getElementById('logoutLink')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        mgr.logout({ redirect: '/pages/login-instrutor.html' });
-      });
-    });
-
-    // ===== Gráficos (dados estáticos para layout; ligue com API depois) =====
-    function makeLineChart(ctx, labels, data, label){
-      return new Chart(ctx, {
-        type: 'line',
-        data: { labels, datasets: [{ label, data, tension: .35, fill: false }]},
-        options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}} }
-      });
-    }
-    function makeBarChart(ctx, labels, data, label){
-      return new Chart(ctx, {
-        type: 'bar',
-        data: { labels, datasets: [{ label, data }]},
-        options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}} }
-      });
-    }
-    function makeDoughnutChart(ctx, labels, data){
-      return new Chart(ctx, {
-        type: 'doughnut',
-        data: { labels, datasets: [{ data }]},
-        options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}} }
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // Engajamento
-      const engCtx = document.getElementById('engagementChart');
-      if (engCtx) makeLineChart(engCtx, ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'], [82,86,88,91,90,87,89], 'Engajamento');
-
-      // Performance
-      const perfCtx = document.getElementById('performanceChart');
-      if (perfCtx) makeBarChart(perfCtx, ['Curso A','Curso B','Curso C'], [64,38,12], 'Alunos');
-
-      // Receita
-      const revCtx = document.getElementById('revenueChart');
-      if (revCtx) makeLineChart(revCtx, ['Jan','Fev','Mar','Abr','Mai','Jun'], [2100,2800,2600,3100,3600,4300], 'Receita');
-
-      // Avaliações
-      const ratCtx = document.getElementById('ratingsChart');
-      if (ratCtx) makeDoughnutChart(ratCtx, ['5★','4★','3★','2★','1★'], [89,23,8,3,1]);
-
-      // Tabs (comportamento visual)
-      document.querySelectorAll('.tab-btn').forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          const group = btn.parentElement.querySelectorAll('.tab-btn');
-          group.forEach(b=>b.classList.toggle('active', b===btn));
-        });
-      });
-
-      // Limpar filtros
-      document.getElementById('resetFilters')?.addEventListener('click', ()=>{
-        document.getElementById('period-filter').value = '30';
-        document.getElementById('course-filter').value = '';
-        document.getElementById('metric-filter').value = '';
-        document.getElementById('search-filter').value = '';
-      });
-    });
-  </script>
+  <!-- Scripts -->
+  <script type="module" src="/js/module-loader.js"></script>
 </body>
 </html>

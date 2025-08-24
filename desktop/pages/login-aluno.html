@@ -1,206 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Aluno - Instituto Buriti</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Admin - Instituto Buriti</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/login.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Opcional: não indexar página de login admin -->
+  <meta name="robots" content="noindex,nofollow"/>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-item">
-                <a href="../index.html">Home</a>
-            </div>
-            <div class="nav-item">
-                <a href="quem-somos.html">Quem Somos</a>
-            </div>
-            <div class="nav-item">
-                <a href="cursos.html">Cursos</a>
-            </div>
-            <div class="nav-item">
-                <a href="seja-instrutor-novo.html">Seja um Instrutor</a>
-            </div>
-            <div class="nav-item">
-                <a href="contato.html">Contato</a>
-            </div>
-            <div class="nav-item login-dropdown active">
-                <button class="login-btn">Login</button>
-                <div class="dropdown-menu">
-                    <a href="login-aluno.html" class="dropdown-item active">Aluno</a>
-                    <a href="login-instrutor.html" class="dropdown-item">Instrutor</a>
-                    <a href="login-admin.html" class="dropdown-item">Administrador</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav" aria-label="principal">
+      <div class="nav-item"><a href="/index.html">Home</a></div>
+      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
+    </nav>
+  </header>
 
-    <!-- Login Section -->
-    <section class="login-section">
-        <div class="login-background">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
-            </div>
+  <!-- Login Form -->
+  <section class="login-section">
+    <div class="login-container">
+      <h1 class="login-title">Login — Administrador</h1>
+      <p class="login-subtitle">Entre com suas credenciais de administrador.</p>
+      <form id="loginForm" class="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="username"
+            inputmode="email"
+            required
+          />
         </div>
-        
-        <div class="container">
-            <div class="login-content">
-                <!-- Hero Text -->
-                <div class="hero-text">
-                    <h1 class="hero-title">Bem-vindo de volta!</h1>
-                    <p class="hero-subtitle">Acesse sua área do aluno e continue sua jornada de aprendizado. Seus cursos, certificados e progresso estão esperando por você.</p>
-                </div>
-
-                <!-- Login Box -->
-                <div class="login-box">
-                    <div class="login-header">
-                        <h2 class="login-title">Login do Aluno</h2>
-                    </div>
-                    
-                    <form class="login-form" id="loginForm">
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input type="password" id="password" name="password" required placeholder="Digite sua senha">
-                        </div>
-                        
-                        <button type="submit" class="login-submit">
-                            <span class="btn-text">Entrar</span>
-                            <div class="btn-ripple"></div>
-                        </button>
-                    </form>
-                    
-                    <div class="login-links">
-                        <a href="#" class="forgot-password">Esqueci minha senha</a>
-                        <a href="cursos.html" class="register-link">Ainda não tem uma conta? Ver Cursos</a>
-                    </div>
-                    
-                    <!-- CORREÇÃO QWEN: Credenciais atualizadas -->
-                    <div class="test-credentials">
-                        <h4>Credenciais de Teste:</h4>
-                        <p><strong>E-mail:</strong> ana.silva@email.com</p>
-                        <p><strong>Senha:</strong> 123456</p>
-                        <button type="button" class="fill-credentials" onclick="fillTestCredentials()">Preencher Automaticamente</button>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            required
+            minlength="6"
+          />
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
-                    <h3>Educação que transforma. Cultura que conecta.</h3>
-                    <p>Instituto Buriti, uma empresa 100% digital.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Links Rápidos</h4>
-                        <ul>
-                            <li><a href="../index.html">Home</a></li>
-                            <li><a href="quem-somos.html">Quem Somos</a></li>
-                            <li><a href="cursos.html">Cursos</a></li>
-                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                            <li><a href="contato.html">Contato</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Contato</h4>
-                        <ul>
-                            <li>📧 contato@institutoburiti.com.br</li>
-                            <li>📞 (86) 98170-8388</li>
-                            <li>📍 Teresina, Piauí</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p>
-            </div>
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="remember-login" name="remember-login"/>
+          <label for="remember-login">Lembrar-me neste dispositivo</label>
         </div>
-    </footer>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/auth.js?v=3"></script>
-    
-    <!-- CORREÇÃO QWEN: Script de submissão do formulário de login -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 QWEN DEBUG: Página de login carregada');
-            
-            const loginForm = document.getElementById('loginForm');
-            
-            if (loginForm) {
-                console.log('✅ QWEN DEBUG: Formulário de login encontrado');
-                
-                loginForm.addEventListener('submit', async function(event) {
-                    event.preventDefault(); // Impede submit padrão do HTML
-                    
-                    console.log('📥 QWEN DEBUG: Formulário de login submetido');
-                    
-                    const email = document.getElementById('email').value;
-                    const password = document.getElementById('password').value;
-                    
-                    console.log('📧 QWEN DEBUG: Tentando login com:', email, '/ senha:', password);
-                    
-                    try {
-                        // Verificar se authManager está disponível
-                        if (typeof authManager === 'undefined') {
-                            console.error('❌ QWEN DEBUG: authManager não está disponível');
-                            alert('Erro: Sistema de autenticação não carregado. Recarregue a página.');
-                            return;
-                        }
-                        
-                        console.log('🔧 QWEN DEBUG: Chamando authManager.login()...');
-                        const result = await authManager.login(email, password);
-                        
-                        console.log('📊 QWEN DEBUG: Resultado da autenticação:', result);
-                        
-                        if (result.success) {
-                            console.log('🎉 QWEN DEBUG: Login bem-sucedido! Redirecionando para dashboard...');
-                            console.log('👤 QWEN DEBUG: Dados do usuário:', result.user);
-                            
-                            // Pequeno delay para garantir que o localStorage foi salvo
-                            setTimeout(() => {
-                                window.location.href = 'dashboard-aluno.html';
-                            }, 100);
-                        } else {
-                            console.error('❌ QWEN DEBUG: Erro no login:', result.error);
-                            alert('Erro no login: ' + result.error);
-                        }
-                    } catch (error) {
-                        console.error('🚨 QWEN DEBUG: Erro na autenticação:', error);
-                        alert('Erro de conexão. Tente novamente.');
-                    }
-                });
-            } else {
-                console.error('❌ QWEN DEBUG: Formulário de login não encontrado!');
-            }
-        });
+        <button type="submit" class="btn-primary login-submit">
+          <span class="btn-text">Entrar</span>
+        </button>
 
-        // CORREÇÃO QWEN: Função para preencher credenciais de teste atualizadas
-        function fillTestCredentials() {
-            console.log('🔧 QWEN DEBUG: Preenchendo credenciais de teste corretas');
-            document.getElementById('email').value = 'ana.silva@email.com';
-            document.getElementById('password').value = '123456';
-            console.log('✅ QWEN DEBUG: Credenciais preenchidas: ana.silva@email.com / 123456');
-        }
-        
-        // QWEN DEBUG: Timestamp da correção
-        console.log('🕒 QWEN CORREÇÃO COMPLETA IMPLEMENTADA EM:', new Date().toISOString());
-    </script>
+        <!-- Contêiner para mensagens de erro do formulário -->
+        <p class="form-error" aria-live="assertive" role="alert" style="display:block;"></p>
+
+        <a href="#forgot" class="forgot-password">Esqueci minha senha</a>
+      </form>
+    </div>
+  </section>
+
+  <!-- Modal Esqueci Senha -->
+  <div id="forgot-modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
+    <h2 id="forgot-title">Recuperar Senha</h2>
+    <form id="forgotForm">
+      <label for="forgot-email" class="sr-only">E-mail</label>
+      <input type="email" id="forgot-email" name="forgot-email" placeholder="Seu e-mail" required inputmode="email" autocomplete="email"/>
+      <button type="submit">Enviar</button>
+      <button type="button" data-close="forgot-modal" aria-label="Fechar modal">Fechar</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"><p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="/js/module-loader.js"></script>
 </body>
 </html>

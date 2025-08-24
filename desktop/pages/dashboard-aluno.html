@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 
-  <!-- CSS (caminhos absolutos) -->
+  <!-- CSS (caminhos absolutos ) -->
   <link rel="stylesheet" href="/css/style.css"/>
   <link rel="stylesheet" href="/css/dashboard.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -56,14 +56,6 @@
 
   <!-- Anti-flash enquanto checa autenticação -->
   <style>html[data-auth="checking"] body.dashboard-body{visibility:hidden;}</style>
-
-  <!-- Núcleo de autenticação + guard compartilhado -->
-  <script src="/js/auth.js" defer></script>
-  <script src="/js/dashboard-auth.js" defer></script>
-  <script>
-    // Sinaliza checagem de auth; dashboard-auth.js vai validar role=aluno
-    document.documentElement.setAttribute('data-auth','checking');
-  </script>
 </head>
 
 <!-- Papel esperado: aluno -->
@@ -100,7 +92,7 @@
         <div class="user-info">
           <div class="user-avatar"><i class="fas fa-user-graduate" aria-hidden="true"></i></div>
           <div class="user-details">
-            <h3 class="user-name" data-user-name data-static="false">Aluno(a)</h3>
+            <h3 class="user-name" data-user-name data-static="false">Aluno(a )</h3>
             <p class="user-role" data-user-role data-static="false">Aluno</p>
           </div>
         </div>
@@ -390,26 +382,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="/js/dashboard.js" defer></script>
-  <script>
-    window.addEventListener('dashboard-auth:ready', () => {
-      document.documentElement.removeAttribute('data-auth');
-    }, { once: true });
-    setTimeout(() => {
-      if (document.documentElement.getAttribute('data-auth') === 'checking') {
-        document.documentElement.removeAttribute('data-auth');
-      }
-    }, 2000);
-    document.addEventListener('DOMContentLoaded', () => {
-      const sidebar = document.getElementById('sidebar');
-      const sidebarToggle = document.getElementById('sidebarToggle');
-      sidebarToggle?.addEventListener('click', () => {
-        sidebar?.classList.toggle('collapsed');
-        const isCollapsed = sidebar?.classList.contains('collapsed');
-        sidebarToggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
-        sidebarToggle.setAttribute('aria-label', isCollapsed ? 'Expandir menu' : 'Recolher menu');
-      });
-    });
-  </script>
+  <script type="module" src="/js/module-loader.js"></script>
 </body>
 </html>

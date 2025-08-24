@@ -16,19 +16,9 @@
 /* ==============================
    Configuração
    ============================== */
-   let USE_SUPABASE = false;           // mude para true em produção
+   // Usar configurações do arquivo centralizado config.js
+   const { SUPABASE_URL, SUPABASE_ANON_KEY, USE_SUPABASE } = window.APP_CONFIG || {};
    const DEBUG = false;                // mude para true para ver logs
-   
-   // Auto-detect: se variáveis globais do Supabase estiverem disponíveis, ativa Supabase
-   try {
-     if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
-       USE_SUPABASE = true;
-     }
-   } catch { /* noop */ }
-   
-   // Se quiser forçar via constantes, defina aqui (opcional)
-   const SUPABASE_URL      = window.SUPABASE_URL      || "https://ngvljtxkinvygynwcckp.supabase.co";
-   const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndmxqdHhraW52eWd5bndjY2twIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzIxNzksImV4cCI6MjA2NzkwODE3OX0.vwJgc2E_erC3giIofKiVY5ipYM2uRP8m9Yxy0fqE2yY";
    
    // Credenciais DEMO (modo sem backend)
    const VALID_CREDENTIALS = {
@@ -169,7 +159,7 @@
        try {
          if (this.session.access_token) localStorage.setItem("auth_token", this.session.access_token);
          if (this.session.user)        storageSetJSON("user_data", this.session.user);
-       } catch {}
+       }
        dbg("Sessão válida, expira em:", new Date(this.session.expires_at||0).toISOString());
        return true;
      }
@@ -252,12 +242,6 @@
    
      /* --------- Logout --------- */
      async logout(opts = {}){
-       // Aceita:
-       //  - logout()                              → redireciona para getDefaultLoginPath()
-       //  - logout(false)                         → NÃO redireciona
-       //  - logout("/pages/login-admin.html")     → redireciona para a string fornecida
-       //  - logout({ redirect:false })            → NÃO redireciona
-       //  - logout({ redirect:"/pages/login..."}) → redireciona para a string fornecida
        let redirectTo;
        if (typeof opts === 'boolean') {
          redirectTo = opts ? this.getDefaultLoginPath() : false;
@@ -266,7 +250,24 @@
        } else if (opts && typeof opts === 'object' && 'redirect' in opts) {
          redirectTo = opts.redirect;
        } else {
-         redirectTo = this.getDefaultLoginPath();
+         // Se nenhuma opção de redirecionamento for fornecida, tenta inferir o papel
+         // e redireciona para a página de login correspondente.
+         const userRole = this.getUser()?.role;
+         if (userRole) {
+           switch (userRole) {
+             case 'admin':
+               redirectTo = '/pages/login-admin.html';
+               break;
+             case 'instrutor':
+               redirectTo = '/pages/login-instrutor.html';
+               break;
+             // Adicione outros casos conforme necessário
+             default:
+               redirectTo = this.getDefaultLoginPath(); // Redirecionamento padrão para aluno
+           }
+         } else {
+           redirectTo = this.getDefaultLoginPath(); // Redirecionamento padrão se o papel não puder ser inferido
+         }
        }
    
        try {
@@ -310,3 +311,7 @@
       // Admin:
       // window.authManager.authGuard({ redirect: "/pages/login-admin.html", allowed: ["admin"] });
       ============================== */
+
+
+
+

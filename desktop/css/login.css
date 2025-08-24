@@ -1,7 +1,9 @@
-/* Login Pages - Seguindo padrão das páginas aprovadas */
+/* Login Pages - Versão com Namespacing para evitar conflitos */
 
-/* Login Section */
-.login-section {
+/* Login Section - Namespace específico para páginas de login */
+.page-login-admin .login-section,
+.page-login-instrutor .login-section,
+.page-login-aluno .login-section {
     min-height: 100vh;
     background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
     position: relative;
@@ -11,7 +13,9 @@
     padding: 120px 0 80px;
 }
 
-.login-background {
+.page-login-admin .login-background,
+.page-login-instrutor .login-background,
+.page-login-aluno .login-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -21,7 +25,9 @@
 }
 
 /* Floating Shapes - Similar ao padrão das outras páginas */
-.floating-shapes {
+.page-login-admin .floating-shapes,
+.page-login-instrutor .floating-shapes,
+.page-login-aluno .floating-shapes {
     position: absolute;
     top: 0;
     left: 0;
@@ -29,13 +35,17 @@
     bottom: 0;
 }
 
-.shape {
+.page-login-admin .shape,
+.page-login-instrutor .shape,
+.page-login-aluno .shape {
     position: absolute;
     border-radius: 50%;
     animation: floatShape 6s ease-in-out infinite;
 }
 
-.shape-1 {
+.page-login-admin .shape-1,
+.page-login-instrutor .shape-1,
+.page-login-aluno .shape-1 {
     width: 120px;
     height: 120px;
     background: linear-gradient(135deg, rgba(151, 60, 191, 0.1), rgba(151, 60, 191, 0.05));
@@ -44,7 +54,9 @@
     animation-delay: 0s;
 }
 
-.shape-2 {
+.page-login-admin .shape-2,
+.page-login-instrutor .shape-2,
+.page-login-aluno .shape-2 {
     width: 80px;
     height: 80px;
     background: linear-gradient(135deg, rgba(107, 140, 121, 0.15), rgba(107, 140, 121, 0.08));
@@ -53,7 +65,9 @@
     animation-delay: 2s;
 }
 
-.shape-3 {
+.page-login-admin .shape-3,
+.page-login-instrutor .shape-3,
+.page-login-aluno .shape-3 {
     width: 100px;
     height: 100px;
     background: linear-gradient(135deg, rgba(255, 111, 0, 0.1), rgba(255, 111, 0, 0.05));
@@ -62,7 +76,9 @@
     animation-delay: 4s;
 }
 
-.shape-4 {
+.page-login-admin .shape-4,
+.page-login-instrutor .shape-4,
+.page-login-aluno .shape-4 {
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, rgba(160, 32, 240, 0.12), rgba(160, 32, 240, 0.06));
@@ -72,7 +88,9 @@
 }
 
 /* Login Content */
-.login-content {
+.page-login-admin .login-content,
+.page-login-instrutor .login-content,
+.page-login-aluno .login-content {
     max-width: 500px;
     margin: 0 auto;
     padding: 0 20px;
@@ -81,13 +99,17 @@
 }
 
 /* Hero Text */
-.hero-text {
+.page-login-admin .hero-text,
+.page-login-instrutor .hero-text,
+.page-login-aluno .hero-text {
     text-align: center;
     margin-bottom: 40px;
     animation: slideUp 0.8s ease-out both;
 }
 
-.hero-title {
+.page-login-admin .hero-title,
+.page-login-instrutor .hero-title,
+.page-login-aluno .hero-title {
     font-size: 3rem;
     font-weight: 800;
     color: var(--gray-900);
@@ -95,7 +117,9 @@
     margin-bottom: 16px;
 }
 
-.hero-subtitle {
+.page-login-admin .hero-subtitle,
+.page-login-instrutor .hero-subtitle,
+.page-login-aluno .hero-subtitle {
     font-size: 1.2rem;
     color: var(--gray-600);
     line-height: 1.6;
@@ -104,7 +128,9 @@
 }
 
 /* Login Box */
-.login-box {
+.page-login-admin .login-box,
+.page-login-instrutor .login-box,
+.page-login-aluno .login-box {
     background: white;
     border-radius: 24px;
     padding: 40px;
@@ -116,7 +142,9 @@
     overflow: hidden;
 }
 
-.login-box::before {
+.page-login-admin .login-box::before,
+.page-login-instrutor .login-box::before,
+.page-login-aluno .login-box::before {
     content: '';
     position: absolute;
     top: 0;
@@ -126,19 +154,25 @@
     background: linear-gradient(135deg, #973CBF, #FF6F00);
 }
 
-.login-header {
+.page-login-admin .login-header,
+.page-login-instrutor .login-header,
+.page-login-aluno .login-header {
     text-align: center;
     margin-bottom: 32px;
 }
 
-.login-title {
+.page-login-admin .login-title,
+.page-login-instrutor .login-title,
+.page-login-aluno .login-title {
     font-size: 2rem;
     font-weight: 700;
     color: var(--gray-900);
     margin-bottom: 8px;
 }
 
-.login-description {
+.page-login-admin .login-description,
+.page-login-instrutor .login-description,
+.page-login-aluno .login-description {
     font-size: 1rem;
     color: var(--gray-600);
     line-height: 1.5;
@@ -146,15 +180,21 @@
 }
 
 /* Form Styles */
-.login-form {
+.page-login-admin .login-form,
+.page-login-instrutor .login-form,
+.page-login-aluno .login-form {
     margin-bottom: 24px;
 }
 
-.form-group {
+.page-login-admin .form-group,
+.page-login-instrutor .form-group,
+.page-login-aluno .form-group {
     margin-bottom: 24px;
 }
 
-.form-group label {
+.page-login-admin .form-group label,
+.page-login-instrutor .form-group label,
+.page-login-aluno .form-group label {
     display: block;
     font-size: 1rem;
     font-weight: 600;
@@ -162,7 +202,9 @@
     margin-bottom: 8px;
 }
 
-.form-group input {
+.page-login-admin .form-group input,
+.page-login-instrutor .form-group input,
+.page-login-aluno .form-group input {
     width: 100%;
     padding: 16px;
     border: 2px solid #e5e7eb;
@@ -173,19 +215,25 @@
     box-sizing: border-box;
 }
 
-.form-group input:focus {
+.page-login-admin .form-group input:focus,
+.page-login-instrutor .form-group input:focus,
+.page-login-aluno .form-group input:focus {
     outline: none;
     border-color: #973CBF;
     box-shadow: 0 0 0 3px rgba(151, 60, 191, 0.1);
     transform: translateY(-2px);
 }
 
-.form-group input::placeholder {
+.page-login-admin .form-group input::placeholder,
+.page-login-instrutor .form-group input::placeholder,
+.page-login-aluno .form-group input::placeholder {
     color: #9ca3af;
 }
 
 /* Submit Button */
-.login-submit {
+.page-login-admin .login-submit,
+.page-login-instrutor .login-submit,
+.page-login-aluno .login-submit {
     width: 100%;
     background: linear-gradient(135deg, #973CBF, #FF6F00);
     color: white;
@@ -201,17 +249,23 @@
     margin-bottom: 24px;
 }
 
-.login-submit:hover {
+.page-login-admin .login-submit:hover,
+.page-login-instrutor .login-submit:hover,
+.page-login-aluno .login-submit:hover {
     transform: translateY(-2px);
     box-shadow: 0 15px 40px rgba(151, 60, 191, 0.4);
 }
 
-.btn-text {
+.page-login-admin .btn-text,
+.page-login-instrutor .btn-text,
+.page-login-aluno .btn-text {
     position: relative;
     z-index: 2;
 }
 
-.btn-ripple {
+.page-login-admin .btn-ripple,
+.page-login-instrutor .btn-ripple,
+.page-login-aluno .btn-ripple {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -223,18 +277,24 @@
     transition: width 0.6s, height 0.6s;
 }
 
-.login-submit:active .btn-ripple {
+.page-login-admin .login-submit:active .btn-ripple,
+.page-login-instrutor .login-submit:active .btn-ripple,
+.page-login-aluno .login-submit:active .btn-ripple {
     width: 300px;
     height: 300px;
 }
 
 /* Login Links */
-.login-links {
+.page-login-admin .login-links,
+.page-login-instrutor .login-links,
+.page-login-aluno .login-links {
     text-align: center;
     margin-bottom: 32px;
 }
 
-.login-links a {
+.page-login-admin .login-links a,
+.page-login-instrutor .login-links a,
+.page-login-aluno .login-links a {
     display: block;
     color: #973CBF;
     text-decoration: none;
@@ -243,22 +303,30 @@
     transition: all 0.3s ease;
 }
 
-.login-links a:hover {
+.page-login-admin .login-links a:hover,
+.page-login-instrutor .login-links a:hover,
+.page-login-aluno .login-links a:hover {
     color: #FF6F00;
     transform: translateY(-1px);
 }
 
-.forgot-password {
+.page-login-admin .forgot-password,
+.page-login-instrutor .forgot-password,
+.page-login-aluno .forgot-password {
     font-size: 0.95rem;
 }
 
-.register-link {
+.page-login-admin .register-link,
+.page-login-instrutor .register-link,
+.page-login-aluno .register-link {
     font-size: 1rem;
     font-weight: 600;
 }
 
 /* Test Credentials */
-.test-credentials {
+.page-login-admin .test-credentials,
+.page-login-instrutor .test-credentials,
+.page-login-aluno .test-credentials {
     background: #f8f9ff;
     border: 2px solid #e8f0ff;
     border-radius: 16px;
@@ -266,24 +334,32 @@
     text-align: center;
 }
 
-.test-credentials h4 {
+.page-login-admin .test-credentials h4,
+.page-login-instrutor .test-credentials h4,
+.page-login-aluno .test-credentials h4 {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--gray-800);
     margin-bottom: 12px;
 }
 
-.test-credentials p {
+.page-login-admin .test-credentials p,
+.page-login-instrutor .test-credentials p,
+.page-login-aluno .test-credentials p {
     font-size: 0.95rem;
     color: var(--gray-600);
     margin-bottom: 8px;
 }
 
-.test-credentials p strong {
+.page-login-admin .test-credentials p strong,
+.page-login-instrutor .test-credentials p strong,
+.page-login-aluno .test-credentials p strong {
     color: var(--gray-800);
 }
 
-.fill-credentials {
+.page-login-admin .fill-credentials,
+.page-login-instrutor .fill-credentials,
+.page-login-aluno .fill-credentials {
     background: linear-gradient(135deg, #6B8C79, #4A6B5A);
     color: white;
     border: none;
@@ -296,7 +372,9 @@
     margin-top: 12px;
 }
 
-.fill-credentials:hover {
+.page-login-admin .fill-credentials:hover,
+.page-login-instrutor .fill-credentials:hover,
+.page-login-aluno .fill-credentials:hover {
     transform: translateY(-1px);
     box-shadow: 0 8px 20px rgba(107, 140, 121, 0.3);
 }
@@ -325,11 +403,15 @@
 }
 
 /* Loading states */
-.login-submit.loading {
+.page-login-admin .login-submit.loading,
+.page-login-instrutor .login-submit.loading,
+.page-login-aluno .login-submit.loading {
     pointer-events: none;
 }
 
-.login-submit.loading .btn-text::after {
+.page-login-admin .login-submit.loading .btn-text::after,
+.page-login-instrutor .login-submit.loading .btn-text::after,
+.page-login-aluno .login-submit.loading .btn-text::after {
     content: '';
     display: inline-block;
     width: 16px;
@@ -348,73 +430,109 @@
 }
 
 /* Success/Error states */
-.form-group.success input {
+.page-login-admin .form-group.success input,
+.page-login-instrutor .form-group.success input,
+.page-login-aluno .form-group.success input {
     border-color: #10B981;
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
-.form-group.error input {
+.page-login-admin .form-group.error input,
+.page-login-instrutor .form-group.error input,
+.page-login-aluno .form-group.error input {
     border-color: #EF4444;
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
-.error-message {
+.page-login-admin .error-message,
+.page-login-instrutor .error-message,
+.page-login-aluno .error-message {
     color: #EF4444;
     font-size: 0.875rem;
     margin-top: 6px;
     display: none;
 }
 
-.form-group.error .error-message {
+.page-login-admin .form-group.error .error-message,
+.page-login-instrutor .form-group.error .error-message,
+.page-login-aluno .form-group.error .error-message {
     display: block;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .login-section {
+    .page-login-admin .login-section,
+    .page-login-instrutor .login-section,
+    .page-login-aluno .login-section {
         padding: 100px 0 60px;
     }
     
-    .hero-title {
+    .page-login-admin .hero-title,
+    .page-login-instrutor .hero-title,
+    .page-login-aluno .hero-title {
         font-size: 2.2rem;
     }
     
-    .hero-subtitle {
+    .page-login-admin .hero-subtitle,
+    .page-login-instrutor .hero-subtitle,
+    .page-login-aluno .hero-subtitle {
         font-size: 1.1rem;
     }
     
-    .login-box {
+    .page-login-admin .login-box,
+    .page-login-instrutor .login-box,
+    .page-login-aluno .login-box {
         padding: 30px 24px;
         margin: 0 16px;
     }
     
-    .login-title {
+    .page-login-admin .login-title,
+    .page-login-instrutor .login-title,
+    .page-login-aluno .login-title {
         font-size: 1.6rem;
     }
     
-    .shape-1,
-    .shape-2,
-    .shape-3,
-    .shape-4 {
+    .page-login-admin .shape-1,
+    .page-login-admin .shape-2,
+    .page-login-admin .shape-3,
+    .page-login-admin .shape-4,
+    .page-login-instrutor .shape-1,
+    .page-login-instrutor .shape-2,
+    .page-login-instrutor .shape-3,
+    .page-login-instrutor .shape-4,
+    .page-login-aluno .shape-1,
+    .page-login-aluno .shape-2,
+    .page-login-aluno .shape-3,
+    .page-login-aluno .shape-4 {
         opacity: 0.5;
     }
 }
 
 @media (max-width: 480px) {
-    .hero-title {
+    .page-login-admin .hero-title,
+    .page-login-instrutor .hero-title,
+    .page-login-aluno .hero-title {
         font-size: 1.8rem;
     }
     
-    .login-box {
+    .page-login-admin .login-box,
+    .page-login-instrutor .login-box,
+    .page-login-aluno .login-box {
         padding: 24px 20px;
     }
     
-    .login-title {
+    .page-login-admin .login-title,
+    .page-login-instrutor .login-title,
+    .page-login-aluno .login-title {
         font-size: 1.4rem;
     }
     
-    .form-group input,
-    .login-submit {
+    .page-login-admin .form-group input,
+    .page-login-admin .login-submit,
+    .page-login-instrutor .form-group input,
+    .page-login-instrutor .login-submit,
+    .page-login-aluno .form-group input,
+    .page-login-aluno .login-submit {
         padding: 14px;
     }
 }
