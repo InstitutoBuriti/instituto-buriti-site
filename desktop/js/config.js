@@ -1,18 +1,23 @@
-// config.js - Configurações globais do Supabase
+// js/config.js - Configurações globais do Supabase
 
+// Importa a função para criar o cliente do Supabase
 import { createClient } from '@supabase/supabase-js';
 
-// Credenciais do seu projeto Supabase
+// Credenciais corretas e confirmadas do seu projeto Supabase
 const SUPABASE_URL = 'https://ngvljtxkinvygynwcckp.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndmxqdHhraW52eWd5bndjY2twIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzIxNzksImV4cCI6MjA2NzkwODE3OX0.vwJgc2E_erC3giIofKiVY5ipYM2uRP8m9Yxy0fqE2yY';
 
-// Inicializa o cliente Supabase
+// Inicializa o cliente Supabase, que será usado em toda a aplicação
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY );
 
-// Exporta o cliente Supabase para ser usado em outros módulos
+// Exporta o cliente inicializado para que outros módulos possam importá-lo
 export { supabase };
 
-// Opcional: Adiciona ao objeto window para fácil acesso no console (apenas para desenvolvimento)
-if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
+// --- Bloco Opcional para Depuração ---
+// Adiciona a instância do Supabase ao objeto `window` para que você possa
+// fazer chamadas e testar diretamente no console do navegador.
+// Isso só é ativado em ambiente de desenvolvimento.
+if (typeof window !== 'undefined') {
+    // Exemplo de como usar no console: `await window.supabase.from('usuarios').select('*')`
     window.supabase = supabase;
 }
