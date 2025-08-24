@@ -101,20 +101,20 @@ class ModuleLoader {
     // Retorna o caminho do script
     getScriptPath(moduleName) {
         const scriptPaths = {
-            'config': 'js/config.js',
-            'auth': 'js/auth.js',
-            'custom-auth': 'js/custom-auth.js',
-            'login': 'js/login.js',
-            'dashboard': 'js/dashboard.js',
-            'dashboard-auth': 'js/dashboard-auth.js',
-            'dashboard-admin': 'js/dashboard-admin.js',
-            'main': 'js/main.js',
-            'forum': 'js/forum.js',
-            'gamificacao': 'js/gamificacao.js',
-            'perfil': 'js/perfil.js'
+            'config': '/js/config.js',
+            'auth': '/js/auth.js',
+            'custom-auth': '/js/custom-auth.js',
+            'login': '/js/login.js',
+            'dashboard': '/js/dashboard.js',
+            'dashboard-auth': '/js/dashboard-auth.js',
+            'dashboard-admin': '/js/dashboard-admin.js',
+            'main': '/js/main.js',
+            'forum': '/js/forum.js',
+            'gamificacao': '/js/gamificacao.js',
+            'perfil': '/js/perfil.js'
         };
         
-        return scriptPaths[moduleName] || `js/${moduleName}.js`;
+        return scriptPaths[moduleName] || `/js/${moduleName}.js`;
     }
 
     // Inicializa todos os módulos na ordem correta
@@ -362,4 +362,3 @@ if (document.readyState === 'loading') {
 
 // Exporta para módulos ES6
 export { moduleLoader };
-
