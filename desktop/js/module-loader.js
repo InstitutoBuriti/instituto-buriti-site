@@ -362,3 +362,4 @@ if (document.readyState === 'loading') {
 
 // Exporta para módulos ES6
 export { moduleLoader };
+// Versão atualizada em 24/08/2025
