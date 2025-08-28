@@ -3,8 +3,8 @@
 # VERSÃO CORRIGIDA - Removidos redirects conflitantes
 
 [build]
-  # Build settings - serve from desktop folder
-  publish = "desktop"
+  # Build settings - serve from root folder (CORRIGIDO)
+  publish = "."
   command = "echo 'Static site - no build required'"
 
 # Disable asset optimization to prevent CSS minification issues
