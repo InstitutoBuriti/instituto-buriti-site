@@ -98,7 +98,7 @@ class ModuleLoader {
         return internalModules.includes(moduleName);
     }
 
-    // Retorna o caminho do script
+    // Retorna o caminho do script (CAMINHOS ABSOLUTOS CORRETOS)
     getScriptPath(moduleName) {
         const scriptPaths = {
             'config': '/js/config.js',
@@ -364,5 +364,5 @@ if (document.readyState === 'loading') {
 export { moduleLoader };
 // Versão atualizada em 24/08/2025
 // Atualização forçada em 28/08/2025 - 18:30
-// CACHE BUSTER: 28-08-2025-19-57-FINAL
+// CACHE BUSTER GITHUB: 28-08-2025-22-30-FINAL
 
