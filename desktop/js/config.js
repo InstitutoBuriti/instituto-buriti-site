@@ -17,3 +17,6 @@ export { supabaseClient as supabase };
 if (typeof window !== 'undefined') {
     window.supabase = supabaseClient;
 }
+
+// CACHE BUSTER: 28-08-2025-19-57-FINAL
+
