@@ -363,3 +363,4 @@ if (document.readyState === 'loading') {
 // Exporta para módulos ES6
 export { moduleLoader };
 // Versão atualizada em 24/08/2025
+// Atualização forçada em 28/08/2025 - 18:30
