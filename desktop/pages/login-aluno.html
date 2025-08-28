@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Admin - Instituto Buriti</title>
+  <title>Login Aluno - Instituto Buriti</title>
   <link rel="stylesheet" href="/css/style.css"/>
   <link rel="stylesheet" href="/css/login.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <!-- Opcional: não indexar página de login admin -->
+  <!-- Script do Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Opcional: não indexar página de login -->
   <meta name="robots" content="noindex,nofollow"/>
 </head>
 <body>
@@ -26,8 +28,8 @@
   <!-- Login Form -->
   <section class="login-section">
     <div class="login-container">
-      <h1 class="login-title">Login — Administrador</h1>
-      <p class="login-subtitle">Entre com suas credenciais de administrador.</p>
+      <h1 class="login-title">Login — Aluno</h1>
+      <p class="login-subtitle">Entre com suas credenciais de aluno.</p>
       <form id="loginForm" class="login-form" novalidate>
         <div class="form-group">
           <label for="email">E-mail</label>
