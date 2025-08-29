@@ -98,23 +98,23 @@ class ModuleLoader {
         return internalModules.includes(moduleName);
     }
 
-    // Retorna o caminho do script (CAMINHOS ABSOLUTOS CORRETOS)
+    // Retorna o caminho do script
     getScriptPath(moduleName) {
         const scriptPaths = {
-            'config': '/js/config.js',
-            'auth': '/js/auth.js',
-            'custom-auth': '/js/custom-auth.js',
-            'login': '/js/login.js',
-            'dashboard': '/js/dashboard.js',
-            'dashboard-auth': '/js/dashboard-auth.js',
-            'dashboard-admin': '/js/dashboard-admin.js',
-            'main': '/js/main.js',
-            'forum': '/js/forum.js',
-            'gamificacao': '/js/gamificacao.js',
-            'perfil': '/js/perfil.js'
+            'config': 'js/config.js',
+            'auth': 'js/auth.js',
+            'custom-auth': 'js/custom-auth.js',
+            'login': 'js/login.js',
+            'dashboard': 'js/dashboard.js',
+            'dashboard-auth': 'js/dashboard-auth.js',
+            'dashboard-admin': 'js/dashboard-admin.js',
+            'main': 'js/main.js',
+            'forum': 'js/forum.js',
+            'gamificacao': 'js/gamificacao.js',
+            'perfil': 'js/perfil.js'
         };
         
-        return scriptPaths[moduleName] || `/js/${moduleName}.js`;
+        return scriptPaths[moduleName] || `js/${moduleName}.js`;
     }
 
     // Inicializa todos os módulos na ordem correta
@@ -362,7 +362,5 @@ if (document.readyState === 'loading') {
 
 // Exporta para módulos ES6
 export { moduleLoader };
-// Versão atualizada em 24/08/2025
-// Atualização forçada em 28/08/2025 - 18:30
-// CACHE BUSTER GITHUB: 28-08-2025-22-30-FINAL
+// CACHE BUSTER FINAL: 29-08-2025-02-10-CAMINHOS-RELATIVOS
 
