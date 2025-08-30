@@ -1,19 +1,20 @@
-// desktop/js/config.js - Configurações do Supabase para Instituto Buriti
-// Versão: Desktop
-// Data: 29-08-2025
+// js/config.js - Configurações globais do Supabase para CDN
 
-// Configurações do Supabase
-const SUPABASE_URL = 'https://xyzcompany.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5emNvbXBhbnkiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MjU0ODAwMCwiZXhwIjoxOTU4MTI0MDAwfQ.example_key_here';
+// Credenciais corretas e confirmadas do seu projeto Supabase
+const SUPABASE_URL = 'https://ngvljtxkinvygynwcckp.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndmxqdHhraW52eWd5bndjY2twIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzIxNzksImV4cCI6MjA2NzkwODE3OX0.vwJgc2E_erC3giIofKiVY5ipYM2uRP8m9Yxy0fqE2yY';
 
-// Inicializar cliente Supabase
+// Inicializa o cliente Supabase usando o CDN (window.supabase)
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Exportar para uso global
+// Exporta o cliente para uso global
 window.supabaseClient = supabaseClient;
 
-// Log de inicialização
-console.log('✅ Supabase configurado para desktop - Instituto Buriti');
+// Também mantém compatibilidade com window.supabase
+window.supabase.client = supabaseClient;
 
-// CACHE BUSTER DESKTOP: 29-08-2025-01-21-FINAL
+// Log para confirmar inicialização
+console.log('Supabase client inicializado via CDN');
+
+// CACHE BUSTER CDN: 30-08-2025-17-35-CDN-FIX
 
