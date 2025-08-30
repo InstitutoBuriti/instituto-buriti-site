@@ -98,23 +98,23 @@ class ModuleLoader {
         return internalModules.includes(moduleName);
     }
 
-    // Retorna o caminho do script
+    // Retorna o caminho do script - CORRIGIDO PARA CAMINHOS ABSOLUTOS
     getScriptPath(moduleName) {
         const scriptPaths = {
-            'config': 'desktop/js/config.js',
-            'auth': 'desktop/js/auth.js',
-            'custom-auth': 'desktop/js/custom-auth.js',
-            'login': 'desktop/js/login.js',
-            'dashboard': 'desktop/js/dashboard.js',
-            'dashboard-auth': 'desktop/js/dashboard-auth.js',
-            'dashboard-admin': 'desktop/js/dashboard-admin.js',
-            'main': 'desktop/js/main.js',
-            'forum': 'desktop/js/forum.js',
-            'gamificacao': 'desktop/js/gamificacao.js',
-            'perfil': 'desktop/js/perfil.js'
+            'config': '/js/config.js',                    // CORRIGIDO: Caminho absoluto
+            'auth': '/js/auth.js',                        // CORRIGIDO: Caminho absoluto
+            'custom-auth': '/js/custom-auth.js',          // CORRIGIDO: Caminho absoluto
+            'login': '/js/login.js',                      // CORRIGIDO: Caminho absoluto
+            'dashboard': '/js/dashboard.js',              // CORRIGIDO: Caminho absoluto
+            'dashboard-auth': '/js/dashboard-auth.js',    // CORRIGIDO: Caminho absoluto
+            'dashboard-admin': '/js/dashboard-admin.js',  // CORRIGIDO: Caminho absoluto
+            'main': '/js/main.js',                        // CORRIGIDO: Caminho absoluto
+            'forum': '/js/forum.js',                      // CORRIGIDO: Caminho absoluto
+            'gamificacao': '/js/gamificacao.js',          // CORRIGIDO: Caminho absoluto
+            'perfil': '/js/perfil.js'                     // CORRIGIDO: Caminho absoluto
         };
         
-        return scriptPaths[moduleName] || `desktop/js/${moduleName}.js`;
+        return scriptPaths[moduleName] || `/js/${moduleName}.js`;  // CORRIGIDO: Fallback absoluto
     }
 
     // Inicializa todos os módulos na ordem correta
@@ -362,5 +362,5 @@ if (document.readyState === 'loading') {
 
 // Exporta para módulos ES6
 export { moduleLoader };
-// CACHE BUSTER DESKTOP FINAL: 30-08-2025-15-30-DESKTOP-PATHS
+// CACHE BUSTER ABSOLUTE PATHS: 30-08-2025-21-05-ABSOLUTE-PATHS
 
