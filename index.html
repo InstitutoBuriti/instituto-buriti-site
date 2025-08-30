@@ -76,17 +76,17 @@
       }
 
       function redirect(version) {
-        // Política:
-        // - "mobile": tenta /mobile/index.html e cai para /index.html se 404 (provável).
-        // - "desktop": usa /index.html (página raiz do site).
+        // CORREÇÃO CRÍTICA: Eliminar loop de redirecionamento
+        // - "mobile": tenta /mobile/index.html e cai para /desktop/index.html se não existir
+        // - "desktop": sempre vai para /desktop/index.html (NUNCA para /index.html)
         if (version === "mobile") {
           if (pathExistsLikely("/mobile/index.html")) {
             go("/mobile/index.html");
           } else {
-            go("/index.html");
+            go("/desktop/index.html");  // CORRIGIDO: Fallback para desktop
           }
         } else {
-          go("/index.html");
+          go("/desktop/index.html");    // CORRIGIDO: Desktop sempre vai para /desktop/
         }
       }
 
@@ -131,10 +131,13 @@
       <h1>Instituto Buriti</h1>
       <p>Para a melhor experiência, por favor habilite o JavaScript em seu navegador.</p>
       <p>
-        <a href="/index.html">Versão Desktop</a> |
+        <a href="/desktop/index.html">Versão Desktop</a> |
         <a href="/mobile/index.html">Versão Mobile</a>
       </p>
     </div>
   </noscript>
 </body>
 </html>
+
+<!-- CACHE BUSTER REDIRECT: 30-08-2025-18-00-LOOP-FIX -->
+
