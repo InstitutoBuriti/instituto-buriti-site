@@ -101,20 +101,20 @@ class ModuleLoader {
     // Retorna o caminho do script
     getScriptPath(moduleName) {
         const scriptPaths = {
-            'config': 'js/config.js',
-            'auth': 'js/auth.js',
-            'custom-auth': 'js/custom-auth.js',
-            'login': 'js/login.js',
-            'dashboard': 'js/dashboard.js',
-            'dashboard-auth': 'js/dashboard-auth.js',
-            'dashboard-admin': 'js/dashboard-admin.js',
-            'main': 'js/main.js',
-            'forum': 'js/forum.js',
-            'gamificacao': 'js/gamificacao.js',
-            'perfil': 'js/perfil.js'
+            'config': 'desktop/js/config.js',
+            'auth': 'desktop/js/auth.js',
+            'custom-auth': 'desktop/js/custom-auth.js',
+            'login': 'desktop/js/login.js',
+            'dashboard': 'desktop/js/dashboard.js',
+            'dashboard-auth': 'desktop/js/dashboard-auth.js',
+            'dashboard-admin': 'desktop/js/dashboard-admin.js',
+            'main': 'desktop/js/main.js',
+            'forum': 'desktop/js/forum.js',
+            'gamificacao': 'desktop/js/gamificacao.js',
+            'perfil': 'desktop/js/perfil.js'
         };
         
-        return scriptPaths[moduleName] || `js/${moduleName}.js`;
+        return scriptPaths[moduleName] || `desktop/js/${moduleName}.js`;
     }
 
     // Inicializa todos os módulos na ordem correta
@@ -362,5 +362,5 @@ if (document.readyState === 'loading') {
 
 // Exporta para módulos ES6
 export { moduleLoader };
-// CACHE BUSTER FINAL: 29-08-2025-02-10-CAMINHOS-RELATIVOS
+// CACHE BUSTER DESKTOP FINAL: 30-08-2025-15-30-DESKTOP-PATHS
 
