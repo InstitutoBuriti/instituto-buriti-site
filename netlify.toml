@@ -1,94 +1,20 @@
-# Netlify Configuration for Instituto Buriti
-# This file configures smart device detection and routing
-# VERSÃO CORRIGIDA - Removidos redirects conflitantes
+# =============================================================================
+# Netlify Configuration - Instituto Buriti (ÚNICA FONTE DA VERDADE)
+# =============================================================================
 
 [build]
-  # Build settings - serve from root folder (CORRIGIDO)
   publish = "."
   command = "echo 'Static site - no build required'"
 
-# Disable asset optimization to prevent CSS minification issues
-[build.processing]
-  skip_processing = false
-[build.processing.css]
-  bundle = false
-  minify = false
-[build.processing.js]
-  bundle = false
-  minify = false
-[build.processing.html]
-  pretty_urls = true
-[build.processing.images]
-  compress = false
+[build.environment]
+  # Sincronizar com a versão usada na UI do Netlify ou definir a desejada
+  NODE_VERSION = "22" 
 
-# CORREÇÃO: Simplificar redirects para evitar conflitos
-[[redirects]]
-  # Root redirect to device detection
-  from = "/"
-  to = "/index.html"
-  status = 200
+# =============================================================================
+# Redirecionamentos e Rewrites
+# =============================================================================
 
-# REMOVIDO: Redirect conflitante do mobile que causava problemas
-# [[redirects]]
-#   from = "/mobile/*"
-#   to = "/mobile/:splat"
-#   status = 200
-
-# Headers for better performance and security
-[[headers]]
-  for = "/*"
-  [headers.values]
-    # Security headers
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    
-    # Performance headers
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=3600"
-
-[[headers]]
-  for = "*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=0, no-cache, no-store, must-revalidate"
-
-[[headers]]
-  for = "*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.jpg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.jpeg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.svg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# Error pages
-[[redirects]]
-  from = "/404"
-  to = "/404.html"
-  status = 404
-
-# Force HTTPS
+# Forçar HTTPS
 [[redirects]]
   from = "http://institutoburiti.com.br/*"
   to = "https://institutoburiti.com.br/:splat"
@@ -101,7 +27,86 @@
   status = 301
   force = true
 
-# Environment variables (if needed)
-[build.environment]
-  NODE_VERSION = "18"
+# Redirecionamentos legados
+[[redirects]]
+  from = "/home"
+  to = "/desktop/index.html"
+  status = 301
+
+[[redirects]]
+  from = "/sobre"
+  to = "/desktop/index.html#sobre"
+  status = 301
+
+[[redirects]]
+  from = "/cursos"
+  to = "/desktop/index.html#cursos"
+  status = 301
+
+[[redirects]]
+  from = "/contato"
+  to = "/desktop/index.html#contato"
+  status = 301
+
+# Regra de fallback para 404 (deve vir por último)
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# Regra da raiz para servir o detector de dispositivo (deve vir antes do 404)
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+# =============================================================================
+# Cabeçalhos HTTP (Headers)
+# =============================================================================
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Cabeçalhos de Segurança
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    # Cache curto para HTML para garantir que as atualizações sejam vistas rapidamente
+    Cache-Control = "public, max-age=3600" # 1 hora
+
+[[headers]]
+  # Cache longo e imutável para assets estáticos
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
