@@ -5,31 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ferramentas Colaborativas - Instituto Buriti</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/colaboracao.css">
-    <link rel="stylesheet" href="../css/footer-oficial.css">
+    <link rel="stylesheet" href="/desktop/css/style.css">
+    <link rel="stylesheet" href="/desktop/css/colaboracao.css">
+    <link rel="stylesheet" href="/desktop/css/footer-oficial.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <nav class="nav">
             <div class="nav-left">
-                <a href="../index.html" class="nav-brand">
+                <a href="/desktop/index.html" class="nav-brand">
                     <span class="brand-text">Início</span>
                     <div class="brand-shape"></div>
                 </a>
             </div>
             <div class="nav-right">
-                <a href="biblioteca-cursos.html" class="nav-link">Cursos</a>
-                <a href="#" class="nav-link">Quem Somos</a>
-                <a href="#" class="nav-link">Seja um Instrutor</a>
-                <a href="#" class="nav-link">Contato</a>
+                <a href="/desktop/pages/biblioteca-cursos.html" class="nav-link">Cursos</a>
+                <a href="/desktop/pages/quem-somos.html" class="nav-link">Quem Somos</a>
+                <a href="/desktop/pages/seja-instrutor-novo.html" class="nav-link">Seja um Instrutor</a>
+                <a href="/desktop/pages/contato.html" class="nav-link">Contato</a>
                 <div class="nav-dropdown">
                     <a href="#" class="nav-link">Login</a>
                     <div class="dropdown-content">
-                        <a href="login-aluno.html">Aluno</a>
-                        <a href="login-instrutor.html">Instrutor</a>
-                        <a href="login-admin.html">Admin</a>
+                        <a href="/desktop/pages/login-aluno.html">Aluno</a>
+                        <a href="/desktop/pages/login-instrutor.html">Instrutor</a>
+                        <a href="/desktop/pages/login-admin.html">Admin</a>
                     </div>
                 </div>
             </div>
@@ -160,7 +160,7 @@
                             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Host">
                             <span>João Santos</span>
                         </div>
-                        <button class="btn btn-outline" onclick="joinRoom(1 )">Entrar</button>
+                        <button class="btn btn-outline" onclick="joinRoom(1)">Entrar</button>
                     </div>
                 </div>
 
@@ -187,7 +187,7 @@
                             <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" alt="Host">
                             <span>Maria Silva</span>
                         </div>
-                        <button class="btn btn-outline" onclick="joinRoom(2 )">Entrar</button>
+                        <button class="btn btn-outline" onclick="joinRoom(2)">Entrar</button>
                     </div>
                 </div>
 
@@ -213,7 +213,7 @@
                             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Host">
                             <span>Pedro Costa</span>
                         </div>
-                        <button class="btn btn-outline" onclick="joinRoom(3 )">Entrar</button>
+                        <button class="btn btn-outline" onclick="joinRoom(3)">Entrar</button>
                     </div>
                 </div>
             </div>
@@ -361,7 +361,7 @@
         <div class="modal-content messenger">
             <div class="modal-header">
                 <h3>Mensagens</h3>
-                <button class="modal-close" onclick="closeMessenger( )">
+                <button class="modal-close" onclick="closeMessenger()">
                     <i data-lucide="x"></i>
                 </button>
             </div>
@@ -444,7 +444,7 @@
                     <button class="tool-btn" data-tool="shapes"><i data-lucide="square"></i></button>
                     <input type="color" class="color-picker" value="#000000">
                 </div>
-                <button class="modal-close" onclick="closeWhiteboard( )">
+                <button class="modal-close" onclick="closeWhiteboard()">
                     <i data-lucide="x"></i>
                 </button>
             </div>
@@ -464,13 +464,12 @@
         </div>
     </div>
 
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <img src="../images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+                    <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
                     <h3>Educação que transforma. Cultura que conecta.</h3>
                     <p class="footer-company">Instituto Buriti, uma empresa 100% digital.</p>
                 </div>
@@ -478,18 +477,18 @@
                     <div class="footer-column">
                         <h4>Links Rápidos</h4>
                         <ul>
-                            <li><a href="../index.html">Home</a></li>
-                            <li><a href="quem-somos.html">Quem Somos</a></li>
-                            <li><a href="biblioteca-cursos.html">Cursos</a></li>
-                            <li><a href="seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                            <li><a href="contato.html">Contato</a></li>
+                            <li><a href="/desktop/index.html">Home</a></li>
+                            <li><a href="/desktop/pages/quem-somos.html">Quem Somos</a></li>
+                            <li><a href="/desktop/pages/biblioteca-cursos.html">Cursos</a></li>
+                            <li><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                            <li><a href="/desktop/pages/contato.html">Contato</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4>Contato</h4>
                         <ul>
                             <li>📧 contato@institutoburiti.com.br</li>
-                            <li>📞 (86 ) 98170-8388</li>
+                            <li>📞 (86) 98170-8388</li>
                             <li>📍 Teresina, Piauí</li>
                         </ul>
                     </div>
@@ -501,10 +500,13 @@
         </div>
     </footer>
 
-    <script type="module" src="../js/module-loader.js"></script>
+    <script type="module" src="/desktop/js/module-loader.js"></script>
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
     </script>
 </body>
 </html>
+
+<!-- CACHE BUSTER COLABORACAO OPCAO B: 30-08-2025-22-40-DESKTOP-PATHS -->
+

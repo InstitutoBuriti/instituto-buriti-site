@@ -44,9 +44,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Dashboard Admin - Instituto Buriti</title>
 <!-- CSS (caminhos absolutos) -->
-<link rel="stylesheet" href="/css/style.css"/>
-<link rel="stylesheet" href="/css/dashboard.css"/>
-<link rel="stylesheet" href="/css/dashboard-admin.css"/>
+<link rel="stylesheet" href="/desktop/css/style.css"/>
+<link rel="stylesheet" href="/desktop/css/dashboard.css"/>
+<link rel="stylesheet" href="/desktop/css/dashboard-admin.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <!-- Previne flash enquanto checa autenticação -->
@@ -57,16 +57,16 @@
 <!-- Header -->
 <header class="header">
     <nav class="nav" aria-label="principal">
-        <div class="nav-item"><a href="/index.html">Home</a></div>
-        <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
-        <div class="nav-item"><a href="/pages/cursos.html">Cursos</a></div>
-        <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-        <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
+        <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
+        <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
+        <div class="nav-item"><a href="/desktop/pages/cursos.html">Cursos</a></div>
+        <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+        <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
         <div class="nav-item login-dropdown">
             <!-- Preenchido dinamicamente por dashboard-auth.js / dashboard.js -->
             <button class="login-btn user-name" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu" data-user-name data-static="false">Admin</button>
             <div class="dropdown-menu" role="menu" id="user-menu">
-                <a href="/pages/dashboard-admin.html" class="dropdown-item active" aria-current="page">Dashboard</a>
+                <a href="/desktop/pages/dashboard-admin.html" class="dropdown-item active" aria-current="page">Dashboard</a>
                 <a href="#logout" class="dropdown-item" data-action="logout">Sair</a>
             </div>
         </div>
@@ -315,7 +315,7 @@
                         <tr>
                             <td>
                                 <div class="course-info-table">
-                                    <img src="/images/8-perguntas-e-respostas-sobre-educacao-especial-e-inclusiva.jpg.webp" alt="Capa do curso Fundamentos de Educação Inclusiva" class="course-thumb" loading="lazy" decoding="async"/>
+                                    <img src="/desktop/images/8-perguntas-e-respostas-sobre-educacao-especial-e-inclusiva.jpg.webp" alt="Capa do curso Fundamentos de Educação Inclusiva" class="course-thumb" loading="lazy" decoding="async"/>
                                     <div>
                                         <h4>Fundamentos de Educação Inclusiva</h4>
                                         <p>Criado em 15/06/2024</p>
@@ -337,7 +337,7 @@
                         <tr>
                             <td>
                                 <div class="course-info-table">
-                                    <img src="/images/WhatsApp-Image-2023-07-03-at-17.31.11.jpeg" alt="Capa do curso Metodologias Ativas de Ensino" class="course-thumb" loading="lazy" decoding="async"/>
+                                    <img src="/desktop/images/WhatsApp-Image-2023-07-03-at-17.31.11.jpeg" alt="Capa do curso Metodologias Ativas de Ensino" class="course-thumb" loading="lazy" decoding="async"/>
                                     <div>
                                         <h4>Metodologias Ativas de Ensino</h4>
                                         <p>Criado em 10/06/2024</p>
@@ -359,7 +359,7 @@
                         <tr>
                             <td>
                                 <div class="course-info-table">
-                                    <img src="/images/desenvolvimento-web.jpg" alt="Capa do curso Desenvolvimento Web para Iniciantes" class="course-thumb" loading="lazy" decoding="async"/>
+                                    <img src="/desktop/images/desenvolvimento-web.jpg" alt="Capa do curso Desenvolvimento Web para Iniciantes" class="course-thumb" loading="lazy" decoding="async"/>
                                     <div>
                                         <h4>Desenvolvimento Web para Iniciantes</h4>
                                         <p>Criado em 05/06/2024</p>
@@ -432,7 +432,7 @@
     <div class="container">
         <div class="footer-content">
             <div class="footer-brand">
-                <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo" loading="lazy" decoding="async"/>
+                <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo" loading="lazy" decoding="async"/>
                 <h3>Educação que transforma. Cultura que conecta.</h3>
                 <p>Instituto Buriti, uma empresa 100% digital.</p>
             </div>
@@ -440,11 +440,11 @@
                 <div class="footer-column">
                     <h4>Links Rápidos</h4>
                     <ul>
-                        <li><a href="/index.html">Home</a></li>
-                        <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
-                        <li><a href="/pages/cursos.html">Cursos</a></li>
-                        <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-                        <li><a href="/pages/contato.html">Contato</a></li>
+                        <li><a href="/desktop/index.html">Home</a></li>
+                        <li><a href="/desktop/pages/quem-somos.html">Quem Somos</a></li>
+                        <li><a href="/desktop/pages/cursos.html">Cursos</a></li>
+                        <li><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+                        <li><a href="/desktop/pages/contato.html">Contato</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -464,6 +464,9 @@
 </footer>
 
 <!-- Scripts -->
-<script type="module" src="/js/module-loader.js"></script>
+<script type="module" src="/desktop/js/module-loader.js"></script>
 </body>
 </html>
+
+<!-- CACHE BUSTER DASHBOARD ADMIN OPCAO B: 30-08-2025-23-00-DESKTOP-PATHS -->
+

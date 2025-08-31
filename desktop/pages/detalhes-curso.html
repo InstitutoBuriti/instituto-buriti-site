@@ -6,9 +6,9 @@
   <title id="courseTitle">Detalhes do Curso - Instituto Buriti</title>
 
   <!-- CSS (raiz do publish) -->
-  <link rel="stylesheet" href="/css/style.css"/>
-  <link rel="stylesheet" href="/css/curso.css"/>
-  <link rel="stylesheet" href="/css/footer-oficial.css"/>
+  <link rel="stylesheet" href="/desktop/css/style.css"/>
+  <link rel="stylesheet" href="/desktop/css/curso.css"/>
+  <link rel="stylesheet" href="/desktop/css/footer-oficial.css"/>
 
   <!-- Tipografia / ícones -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -19,17 +19,17 @@
   <!-- Header -->
   <header class="header">
     <nav class="nav">
-      <div class="nav-item"><a href="/index.html">Home</a></div>
-      <div class="nav-item"><a href="/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item active"><a href="/pages/cursos.html">Cursos</a></div>
-      <div class="nav-item"><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-      <div class="nav-item"><a href="/pages/contato.html">Contato</a></div>
+      <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
+      <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item active"><a href="/desktop/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+      <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
       <div class="nav-item login-dropdown">
         <button class="login-btn">Login</button>
         <div class="dropdown-menu">
-          <a href="/pages/login-aluno.html" class="dropdown-item">Aluno</a>
-          <a href="/pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
-          <a href="/pages/login-admin.html" class="dropdown-item">Administrador</a>
+          <a href="/desktop/pages/login-aluno.html" class="dropdown-item">Aluno</a>
+          <a href="/desktop/pages/login-instrutor.html" class="dropdown-item">Instrutor</a>
+          <a href="/desktop/pages/login-admin.html" class="dropdown-item">Administrador</a>
         </div>
       </div>
     </nav>
@@ -50,16 +50,16 @@
             </div>
             <div class="course-instructor-info">
               <img id="instructorAvatar" class="instructor-avatar" alt="Instrutor"
-                   src="/images/instructor-placeholder.jpg"
-                   onerror="this.onerror=null;this.src=\'/images/ChatGPT%20Image%206%20de%20ago.%20de%202025,%2023_37_06.png\';">
+                   src="/desktop/images/instructor-placeholder.jpg"
+                   onerror="this.onerror=null;this.src=\'/desktop/images/ChatGPT%20Image%206%20de%20ago.%20de%202025,%2023_37_06.png\';">
               <span id="instructorName"></span>
             </div>
           </div>
 
           <aside class="course-sidebar">
             <img id="courseSidebarImage" class="course-sidebar-image" alt="Capa do Curso"
-                 src="/images/course-placeholder.jpg"
-                 onerror="this.onerror=null;this.src=\'/images/ChatGPT%20Image%206%20de%20ago.%20de%202025,%2023_37_06.png\';">
+                 src="/desktop/images/course-placeholder.jpg"
+                 onerror="this.onerror=null;this.src=\'/desktop/images/ChatGPT%20Image%206%20de%20ago.%20de%202025,%2023_37_06.png\';">
             <div class="course-sidebar-details">
               <div class="course-price" id="coursePrice"></div>
               <button class="buy-button">Inscrever-se Agora</button>
@@ -105,8 +105,8 @@
             <h3>Sobre o Instrutor</h3>
             <div class="instructor-profile">
               <img id="instructorProfileAvatar" class="instructor-profile-avatar" alt="Instrutor"
-                   src="/images/instructor-placeholder.jpg"
-                   onerror="this.onerror=null;this.src=\'/images/ChatGPT%20Image%206%20de%20ago.%20de%202025,%2023_37_06.png\';">
+                   src="/desktop/images/instructor-placeholder.jpg"
+                   onerror="this.onerror=null;this.src=\'/desktop/images/ChatGPT%20Image%206%20de%20ago.%20de%202025,%2023_37_06.png\';">
               <h4 id="instructorProfileName"></h4>
               <p id="instructorProfileBio"></p>
             </div>
@@ -126,7 +126,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
+          <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
           <h3>Educação que transforma. Cultura que conecta.</h3>
           <p>Instituto Buriti, uma empresa 100% digital.</p>
         </div>
@@ -134,11 +134,11 @@
           <div class="footer-column">
             <h4>Links Rápidos</h4>
             <ul>
-              <li><a href="/index.html">Home</a></li>
-              <li><a href="/pages/quem-somos.html">Quem Somos</a></li>
-              <li><a href="/pages/cursos.html">Cursos</a></li>
-              <li><a href="/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
-              <li><a href="/pages/contato.html">Contato</a></li>
+              <li><a href="/desktop/index.html">Home</a></li>
+              <li><a href="/desktop/pages/quem-somos.html">Quem Somos</a></li>
+              <li><a href="/desktop/pages/cursos.html">Cursos</a></li>
+              <li><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></li>
+              <li><a href="/desktop/pages/contato.html">Contato</a></li>
             </ul>
           </div>
           <div class="footer-column">
@@ -161,15 +161,15 @@
   <script>
     (function () {
       // Fallback único e garantido (mesmo da listagem)
-      const DEFAULT_IMG = "/images/ChatGPT%20Image%206%20de%20ago.%20de%202025,%2023_37_06.png";
+      const DEFAULT_IMG = "/desktop/images/ChatGPT%20Image%206%20de%20ago.%20de%202025,%2023_37_06.png";
 
       // Fallback local (só usado se não houver dados do catálogo)
       const SAMPLES = (Array.isArray(window.COURSES) && window.COURSES.length)
         ? window.COURSES
         : [
-            { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
+            { id:"ia-fundamentos", title:"Fundamentos de IA", categoria:"tecnologia", nivel:"iniciante", tipos:["pago","certificado"], cargaHoraria:20, createdAt:"2025-07-20", acessos:124, description:"Conceitos básicos de IA e ML com exercícios práticos.", thumbnail:"/desktop/images/cursos/ia-fundamentos.jpg", slug:"ia-fundamentos" },
             { id:"python-dados", title:"Python para Dados", categoria:"tecnologia", nivel:"intermediario", tipos:["pago"], cargaHoraria:28, createdAt:"2025-07-28", acessos:96, description:"Do pandas ao gráfico: análise de dados aplicada.", thumbnail:DEFAULT_IMG, slug:"python-para-dados" },
-            { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
+            { id:"gestao-projetos", title:"Gestão de Projetos Ágeis", categoria:"gestao", nivel:"intermediario", tipos:["pago","certificado"], cargaHoraria:18, createdAt:"2025-08-02", acessos:210, description:"Scrum e Kanban na prática com estudos de caso.", thumbnail:"/desktop/images/cursos/gestao-agil.jpg", slug:"gestao-de-projetos-ageis" },
             { id:"financas-basicas", title:"Finanças Pessoais Essenciais", categoria:"gestao", nivel:"iniciante", tipos:["gratuito"], cargaHoraria:8, createdAt:"2025-07-15", acessos:330, description:"Controle de gastos, reserva de emergência e metas.", thumbnail:DEFAULT_IMG, slug:"financas-pessoais-essenciais" }
           ];
 
@@ -250,6 +250,9 @@
       });
     })();
   </script>
-  <script type="module" src="/js/module-loader.js"></script>
+  <script type="module" src="/desktop/js/module-loader.js"></script>
 </body>
 </html>
+
+<!-- CACHE BUSTER DETALHES CURSO OPCAO B: 30-08-2025-23-20-DESKTOP-PATHS -->
+
