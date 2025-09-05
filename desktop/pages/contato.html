@@ -46,7 +46,7 @@
             
             <div class="contact-content">
                 <div class="contact-form-container">
-                    <form class="contact-form">
+                    <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label for="name">Nome Completo</label>
                             <input type="text" id="name" name="name" required>
@@ -63,7 +63,9 @@
                             <label for="message">Mensagem</label>
                             <textarea id="message" name="message" rows="6" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Enviar Mensagem</span>
+                        </button>
                     </form>
                 </div>
 
@@ -130,6 +132,18 @@
 
     <!-- Scripts -->
     <script type="module" src="/desktop/js/module-loader.js"></script>
+    <script>
+        // Funcionalidade do formulário de contato
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aqui você pode adicionar a lógica para enviar o formulário
+            // Por exemplo, usando fetch para enviar para um endpoint
+            
+            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            this.reset();
+        });
+    </script>
 </body>
 </html>
 

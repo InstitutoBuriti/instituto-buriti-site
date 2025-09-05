@@ -12,60 +12,95 @@
   <!-- Opcional: não indexar página de login admin -->
   <meta name="robots" content="noindex,nofollow"/>
 </head>
-<body>
+<body class="page-login-admin">
   <!-- Header -->
   <header class="header">
     <nav class="nav" aria-label="principal">
       <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
       <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item"><a href="/desktop/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/desktop/pages/biblioteca-cursos.html">Cursos</a></div>
       <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
       <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
     </nav>
   </header>
 
-  <!-- Login Form -->
+  <!-- Login Section -->
   <section class="login-section">
-    <div class="login-container">
-      <h1 class="login-title">Login — Administrador</h1>
-      <p class="login-subtitle">Entre com suas credenciais de administrador.</p>
-      <form id="loginForm" class="login-form" novalidate>
-        <div class="form-group">
-          <label for="email">E-mail</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            autocomplete="username"
-            inputmode="email"
-            required
-          />
+    <div class="login-background">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+      </div>
+    </div>
+    
+    <div class="login-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Área Administrativa</h1>
+        <p class="hero-subtitle">Acesse o painel de controle do Instituto Buriti</p>
+      </div>
+      
+      <div class="login-box">
+        <div class="login-header">
+          <h2 class="login-title">Login — Administrador</h2>
+          <p class="login-description">Entre com suas credenciais de administrador.</p>
         </div>
-        <div class="form-group">
-          <label for="password">Senha</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            autocomplete="current-password"
-            required
-            minlength="6"
-          />
+        
+        <form id="loginForm" class="login-form" novalidate>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="username"
+              inputmode="email"
+              required
+            />
+            <div class="error-message">Por favor, insira um e-mail válido.</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Senha</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              required
+              minlength="6"
+            />
+            <div class="error-message">A senha deve ter pelo menos 6 caracteres.</div>
+          </div>
+          
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="remember-login" name="remember-login"/>
+            <label for="remember-login">Lembrar-me neste dispositivo</label>
+          </div>
+
+          <button type="submit" class="btn-primary login-submit">
+            <span class="btn-text">Entrar</span>
+            <div class="btn-ripple"></div>
+          </button>
+
+          <!-- Contêiner para mensagens de erro do formulário -->
+          <p class="form-error" aria-live="assertive" role="alert" style="display:none;"></p>
+        </form>
+        
+        <div class="login-links">
+          <a href="#forgot" class="forgot-password">Esqueci minha senha</a>
         </div>
-        <div class="form-group checkbox-group">
-          <input type="checkbox" id="remember-login" name="remember-login"/>
-          <label for="remember-login">Lembrar-me neste dispositivo</label>
+        
+        <div class="test-credentials">
+          <h4>Credenciais de Teste</h4>
+          <p><strong>E-mail:</strong> admin@institutoburiti.com.br</p>
+          <p><strong>Senha:</strong> admin123</p>
+          <button type="button" class="fill-credentials" onclick="fillTestCredentials()">
+            Preencher Automaticamente
+          </button>
         </div>
-
-        <button type="submit" class="btn-primary login-submit">
-          <span class="btn-text">Entrar</span>
-        </button>
-
-        <!-- Contêiner para mensagens de erro do formulário -->
-        <p class="form-error" aria-live="assertive" role="alert" style="display:block;"></p>
-
-        <a href="#forgot" class="forgot-password">Esqueci minha senha</a>
-      </form>
+      </div>
     </div>
   </section>
 
@@ -89,6 +124,12 @@
 
   <!-- Scripts -->
   <script type="module" src="/desktop/js/module-loader.js"></script>
+  <script>
+    function fillTestCredentials() {
+      document.getElementById('email').value = 'admin@institutoburiti.com.br';
+      document.getElementById('password').value = 'admin123';
+    }
+  </script>
 </body>
 </html>
 
