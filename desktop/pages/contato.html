@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contato — Instituto Buriti</title>
 
-  <!-- CSS base do site (igual ao Quem Somos) -->
+  <!-- CSS base (mesmo do site) -->
   <link rel="stylesheet" href="/desktop/css/style.css" />
   <!-- CSS específico desta página (vou te enviar já já) -->
   <link rel="stylesheet" href="/desktop/css/contato.css" />
@@ -14,26 +14,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <meta name="robots" content="index,follow" />
 </head>
-
 <body>
-  <!-- =================== HEADER (cópia exata do Quem Somos) =================== -->
+  <!-- =================== HEADER (igual ao Quem Somos) =================== -->
   <header class="header">
     <nav class="nav">
-      <div class="nav-item">
-        <a href="/desktop/index.html">Home</a>
-      </div>
-      <div class="nav-item">
-        <a href="/desktop/pages/quem-somos.html">Quem Somos</a>
-      </div>
-      <div class="nav-item">
-        <a href="/desktop/pages/cursos.html">Cursos</a>
-      </div>
-      <div class="nav-item">
-        <a href="/desktop/pages/seja-instrutor.html">Seja um Instrutor</a>
-      </div>
-      <div class="nav-item active">
-        <a href="/desktop/pages/contato.html">Contato</a>
-      </div>
+      <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
+      <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
+      <div class="nav-item"><a href="/desktop/pages/cursos.html">Cursos</a></div>
+      <div class="nav-item"><a href="/desktop/pages/seja-instrutor.html">Seja um Instrutor</a></div>
+      <div class="nav-item active"><a href="/desktop/pages/contato.html">Contato</a></div>
+
       <div class="nav-item login-dropdown">
         <button class="login-btn">Login</button>
         <div class="dropdown-menu">
@@ -46,15 +36,17 @@
   </header>
 
   <main class="contact-page" aria-labelledby="titulo-contato">
-    <!-- =================== HERO (layout e estética espelhando o Quem Somos) =================== -->
+    <!-- =================== HERO =================== -->
     <section class="hero-section hero-contact">
       <div class="hero-container">
         <div class="hero-content">
           <div class="hero-text">
             <h1 id="titulo-contato" class="hero-title">Fale com a gente</h1>
-            <p class="hero-subtitle">Estamos prontos para ajudar com matrículas, cursos, parcerias e suporte institucional.</p>
+            <p class="hero-subtitle">
+              Estamos prontos para ajudar com matrículas, cursos, parcerias e suporte institucional.
+            </p>
 
-            <ul class="hero-bullets">
+            <ul class="hero-bullets" aria-label="Vantagens do atendimento">
               <li><i class="fas fa-check-circle" aria-hidden="true"></i> Resposta rápida pelo WhatsApp</li>
               <li><i class="fas fa-check-circle" aria-hidden="true"></i> Atendimento em horário comercial</li>
               <li><i class="fas fa-check-circle" aria-hidden="true"></i> Retorno por e-mail em até 1 dia útil</li>
@@ -72,9 +64,10 @@
             <div class="hero-image-frame">
               <img
                 src="/desktop/images/ChatGPTImage11dejul.de2025,16_00_19.png"
-                alt="Atendimento do Instituto Buriti"
+                alt="Equipe de atendimento do Instituto Buriti em um call"
                 class="hero-photo"
               />
+              <span class="hero-glow" aria-hidden="true"></span>
             </div>
           </div>
         </div>
@@ -82,16 +75,19 @@
     </section>
 
     <!-- =================== CANAIS OFICIAIS =================== -->
-    <section class="contact-methods">
+    <section class="contact-methods" aria-labelledby="metodos-title">
       <div class="container">
-        <h2 class="section-title">Canais oficiais</h2>
-        <p class="section-subtitle">
-          Escolha a forma de contato que preferir — respondemos com a mesma dedicação em todos os canais.
-        </p>
+        <header class="section-header">
+          <h2 id="metodos-title" class="section-title">Canais oficiais</h2>
+          <p class="section-subtitle">
+            Escolha a forma de contato que preferir — respondemos com a mesma dedicação em todos os canais.
+          </p>
+        </header>
 
-        <div class="methods-grid">
-          <article class="method-card">
-            <div class="method-icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <div class="methods-grid" role="list">
+          <!-- WhatsApp -->
+          <article class="method-card" role="listitem">
+            <div class="method-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></div>
             <h3 class="method-title">WhatsApp</h3>
             <p class="method-text">
               <a href="https://wa.me/5586981708388" target="_blank" rel="noopener">(86) 98170-8388</a>
@@ -99,32 +95,34 @@
             <span class="badge">Horário comercial</span>
           </article>
 
-          <article class="method-card">
-            <div class="method-icon"><i class="fa-regular fa-envelope"></i></div>
+          <!-- E-mail -->
+          <article class="method-card" role="listitem">
+            <div class="method-icon" aria-hidden="true"><i class="fa-regular fa-envelope"></i></div>
             <h3 class="method-title">E-mail</h3>
             <p class="method-text">
               <a href="mailto:contato@institutoburiti.com.br">contato@institutoburiti.com.br</a>
             </p>
-            <span class="badge">Retorno em até 1 dia útil</span>
+            <span class="badge">Retorno até 1 dia útil</span>
           </article>
 
-          <article class="method-card">
-            <div class="method-icon"><i class="fa-solid fa-location-dot"></i></div>
-            <h3 class="method-title">Endereço</h3>
-            <address class="method-text">
-              Teresina — PI
-            </address>
-            <a class="link-underline" href="#mapa" data-scroll>Ver no mapa</a>
+          <!-- Sede Digital -->
+          <article class="method-card" role="listitem">
+            <div class="method-icon" aria-hidden="true"><i class="fa-solid fa-globe"></i></div>
+            <h3 class="method-title">Sede digital</h3>
+            <p class="method-text">Instituto 100% digital — atendimento online.</p>
+            <span class="badge badge-neutral">Teresina — PI</span>
           </article>
         </div>
       </div>
     </section>
 
     <!-- =================== FORMULÁRIO =================== -->
-    <section id="form-contato" class="contact-form">
-      <div class="container">
-        <h2 class="section-title">Envie sua mensagem</h2>
-        <p class="section-subtitle">Preencha o formulário e retornaremos o mais breve possível.</p>
+    <section id="form-contato" class="contact-form-section" aria-labelledby="form-title">
+      <div class="container narrow">
+        <header class="section-header">
+          <h2 id="form-title" class="section-title">Envie sua mensagem</h2>
+          <p class="section-subtitle">Preencha o formulário e retornaremos o mais breve possível.</p>
+        </header>
 
         <form id="contatoForm" class="form-grid" novalidate>
           <div class="field">
@@ -170,27 +168,11 @@
       </div>
     </section>
 
-    <!-- =================== MAPA =================== -->
-    <section id="mapa" class="contact-map" aria-label="Como chegar">
-      <div class="container">
-        <div class="map-frame">
-          <!-- Substitua pelo embed oficial do endereço do Instituto -->
-          <iframe
-            title="Mapa — Instituto Buriti"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d958.0000000000001!2d-42.800000!3d-5.100000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x000000000000000%3A0x000000000000000!2sTeresina%2C%20PI!5e0!3m2!1spt-BR!2sBR!4v0000000000">
-          </iframe>
-        </div>
-      </div>
-    </section>
-
     <!-- =================== CTA FINAL =================== -->
-    <section class="cta-section contact-cta">
+    <section class="cta-section contact-cta" aria-labelledby="cta-title">
       <div class="container">
         <div class="cta-content">
-          <h2 class="cta-title">Quer falar agora?</h2>
+          <h2 id="cta-title" class="cta-title">Quer falar agora?</h2>
           <p class="cta-subtitle">Chame no WhatsApp e fale com nossa equipe.</p>
           <div class="cta-buttons">
             <a class="btn btn-primary" href="https://wa.me/5586981708388" target="_blank" rel="noopener">
@@ -202,7 +184,7 @@
     </section>
   </main>
 
-  <!-- =================== FOOTER (cópia exata do Quem Somos) =================== -->
+  <!-- =================== FOOTER (idêntico ao Quem Somos) =================== -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -240,7 +222,7 @@
 
   <!-- =================== SCRIPTS =================== -->
   <script>
-    // Rolagem suave para âncoras locais
+    // Rolagem suave para âncoras
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[data-scroll]');
       if (!a) return;
@@ -252,23 +234,21 @@
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Feedback do formulário (pode trocar pela sua integração real)
+    // Mock de envio do formulário (troque pela integração real)
     document.getElementById('contatoForm')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.currentTarget;
       const btn = form.querySelector('.btn-submit');
-      const fb = form.querySelector('.form-feedback');
-      btn.classList.add('loading');
-      fb.textContent = '';
+      const fb  = form.querySelector('.form-feedback');
+      btn.classList.add('loading'); fb.textContent = '';
       try {
-        // Integre aqui com Netlify Functions / Supabase / Formspree etc.
         await new Promise(r => setTimeout(r, 900));
         btn.classList.add('success');
         fb.textContent = 'Mensagem enviada com sucesso!';
         form.reset();
         setTimeout(() => btn.classList.remove('loading','success'), 1200);
-      } catch (err) {
-        fb.textContent = 'Não foi possível enviar agora. Tente novamente mais tarde.';
+      } catch {
+        fb.textContent = 'Não foi possível enviar agora. Tente novamente.';
         btn.classList.remove('loading');
       }
     });
