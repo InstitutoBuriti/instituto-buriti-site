@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contato — Instituto Buriti</title>
 
-  <!-- CSS base do site (paths alinhados às demais páginas do desktop) -->
-  <link rel="stylesheet" href="/desktop/css/style.css"/>
-  <!-- CSS específico desta página -->
-  <link rel="stylesheet" href="/desktop/css/contato.css"/>
+  <!-- CSS base do site (igual ao Quem Somos) -->
+  <link rel="stylesheet" href="/desktop/css/style.css" />
+  <!-- CSS específico desta página (vou te enviar já já) -->
+  <link rel="stylesheet" href="/desktop/css/contato.css" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-  <meta name="robots" content="index,follow"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <meta name="robots" content="index,follow" />
 </head>
+
 <body>
-  <!-- ========================= HEADER (idêntico às outras páginas) ========================= -->
+  <!-- =================== HEADER (cópia exata do Quem Somos) =================== -->
   <header class="header">
     <nav class="nav">
-      <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
-      <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item"><a href="/desktop/pages/cursos.html">Cursos</a></div>
-      <div class="nav-item"><a href="/desktop/pages/seja-instrutor.html">Seja um Instrutor</a></div>
-      <div class="nav-item active"><a href="/desktop/pages/contato.html">Contato</a></div>
+      <div class="nav-item">
+        <a href="/desktop/index.html">Home</a>
+      </div>
+      <div class="nav-item">
+        <a href="/desktop/pages/quem-somos.html">Quem Somos</a>
+      </div>
+      <div class="nav-item">
+        <a href="/desktop/pages/cursos.html">Cursos</a>
+      </div>
+      <div class="nav-item">
+        <a href="/desktop/pages/seja-instrutor.html">Seja um Instrutor</a>
+      </div>
+      <div class="nav-item active">
+        <a href="/desktop/pages/contato.html">Contato</a>
+      </div>
       <div class="nav-item login-dropdown">
         <button class="login-btn">Login</button>
         <div class="dropdown-menu">
@@ -34,110 +45,122 @@
     </nav>
   </header>
 
-  <main id="conteudo" class="page-contact" aria-labelledby="titulo-contato">
-    <!-- ========================= HERO ========================= -->
+  <main class="contact-page" aria-labelledby="titulo-contato">
+    <!-- =================== HERO (layout e estética espelhando o Quem Somos) =================== -->
     <section class="hero-section hero-contact">
       <div class="hero-container">
         <div class="hero-content">
           <div class="hero-text">
             <h1 id="titulo-contato" class="hero-title">Fale com a gente</h1>
             <p class="hero-subtitle">Estamos prontos para ajudar com matrículas, cursos, parcerias e suporte institucional.</p>
+
+            <ul class="hero-bullets">
+              <li><i class="fas fa-check-circle" aria-hidden="true"></i> Resposta rápida pelo WhatsApp</li>
+              <li><i class="fas fa-check-circle" aria-hidden="true"></i> Atendimento em horário comercial</li>
+              <li><i class="fas fa-check-circle" aria-hidden="true"></i> Retorno por e-mail em até 1 dia útil</li>
+            </ul>
+
+            <div class="cta-buttons">
+              <a class="btn btn-primary" href="https://wa.me/5586981708388" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i> Iniciar conversa
+              </a>
+              <a class="btn btn-secondary" href="#form-contato" data-scroll>Enviar mensagem</a>
+            </div>
           </div>
+
           <div class="hero-image">
-            <figure class="hero-figure" aria-hidden="true">
-              <!-- Imagem obrigatória desta página (path alinhado ao desktop) -->
-              <img src="/desktop/images/ChatGPTImage11dejul.de2025,16_00_19.png" alt="Equipe de atendimento do Instituto Buriti" class="hero-illustration"/>
-            </figure>
+            <div class="hero-image-frame">
+              <img
+                src="/desktop/images/ChatGPTImage11dejul.de2025,16_00_19.png"
+                alt="Atendimento do Instituto Buriti"
+                class="hero-photo"
+              />
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========================= MÉTODOS DE CONTATO ========================= -->
-    <section class="contact-methods" aria-labelledby="metodos-title">
+    <!-- =================== CANAIS OFICIAIS =================== -->
+    <section class="contact-methods">
       <div class="container">
-        <header class="section-header">
-          <h2 id="metodos-title" class="section-title">Canais oficiais</h2>
-          <p class="section-subtitle">Escolha a forma de contato que preferir — respondemos com a mesma dedicação em todos os canais.</p>
-        </header>
+        <h2 class="section-title">Canais oficiais</h2>
+        <p class="section-subtitle">
+          Escolha a forma de contato que preferir — respondemos com a mesma dedicação em todos os canais.
+        </p>
 
-        <div class="methods-grid" role="list">
-          <!-- WhatsApp -->
-          <article class="method-card whatsapp" role="listitem">
-            <div class="method-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></div>
-            <h3 class="method-name">WhatsApp</h3>
-            <!-- Substitua o número a seguir pelo oficial -->
-            <p class="method-detail"><a class="method-link" href="https://wa.me/5586981708388" target="_blank" rel="noopener">(86) 98170-8388</a></p>
-            <p class="method-note">Atendimento em horário comercial</p>
+        <div class="methods-grid">
+          <article class="method-card">
+            <div class="method-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <h3 class="method-title">WhatsApp</h3>
+            <p class="method-text">
+              <a href="https://wa.me/5586981708388" target="_blank" rel="noopener">(86) 98170-8388</a>
+            </p>
+            <span class="badge">Horário comercial</span>
           </article>
 
-          <!-- E-mail -->
-          <article class="method-card email" role="listitem">
-            <div class="method-icon" aria-hidden="true"><i class="fa-solid fa-envelope"></i></div>
-            <h3 class="method-name">E-mail</h3>
-            <p class="method-detail"><a class="method-link" href="mailto:contato@institutoburiti.com.br">contato@institutoburiti.com.br</a></p>
-            <p class="method-note">Retorno em até 1 dia útil</p>
+          <article class="method-card">
+            <div class="method-icon"><i class="fa-regular fa-envelope"></i></div>
+            <h3 class="method-title">E-mail</h3>
+            <p class="method-text">
+              <a href="mailto:contato@institutoburiti.com.br">contato@institutoburiti.com.br</a>
+            </p>
+            <span class="badge">Retorno em até 1 dia útil</span>
           </article>
 
-          <!-- Endereço -->
-          <article class="method-card address" role="listitem">
-            <div class="method-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
-            <h3 class="method-name">Endereço</h3>
-            <!-- Substitua pelo endereço oficial quando desejar -->
-            <address class="method-detail">Teresina — PI</address>
-            <p class="method-note"><a class="method-link" href="#mapa" data-scroll>Ver no mapa</a></p>
+          <article class="method-card">
+            <div class="method-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <h3 class="method-title">Endereço</h3>
+            <address class="method-text">
+              Teresina — PI
+            </address>
+            <a class="link-underline" href="#mapa" data-scroll>Ver no mapa</a>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ========================= FORMULÁRIO ========================= -->
-    <section class="contact-form-section" aria-labelledby="form-title">
-      <div class="container narrow">
-        <header class="section-header">
-          <h2 id="form-title" class="section-title">Envie sua mensagem</h2>
-          <p class="section-subtitle">Preencha o formulário e retornaremos o mais breve possível.</p>
-        </header>
+    <!-- =================== FORMULÁRIO =================== -->
+    <section id="form-contato" class="contact-form">
+      <div class="container">
+        <h2 class="section-title">Envie sua mensagem</h2>
+        <p class="section-subtitle">Preencha o formulário e retornaremos o mais breve possível.</p>
 
-        <form id="contatoForm" class="form" novalidate>
-          <div class="form-row">
-            <div class="input-group">
-              <label for="nome" class="input-label">Nome completo</label>
-              <input type="text" id="nome" name="nome" class="input" autocomplete="name" required/>
-            </div>
-            <div class="input-group">
-              <label for="email" class="input-label">E-mail</label>
-              <input type="email" id="email" name="email" class="input" autocomplete="email" inputmode="email" required/>
-            </div>
+        <form id="contatoForm" class="form-grid" novalidate>
+          <div class="field">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" autocomplete="name" required />
           </div>
 
-          <div class="form-row">
-            <div class="input-group">
-              <label for="telefone" class="input-label">Telefone (opcional)</label>
-              <input type="tel" id="telefone" name="telefone" class="input" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000"/>
-            </div>
-            <div class="input-group">
-              <label for="assunto" class="input-label">Assunto</label>
-              <select id="assunto" name="assunto" class="select" required>
-                <option value="" disabled selected>Selecione</option>
-                <option value="matricula">Matrícula e cursos</option>
-                <option value="parceria">Parcerias</option>
-                <option value="imprensa">Imprensa</option>
-                <option value="suporte">Suporte</option>
-                <option value="outro">Outro</option>
-              </select>
-            </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required />
           </div>
 
-          <div class="form-row">
-            <div class="input-group full">
-              <label for="mensagem" class="input-label">Mensagem</label>
-              <textarea id="mensagem" name="mensagem" class="textarea" rows="6" required></textarea>
-            </div>
+          <div class="field">
+            <label for="telefone">Telefone (opcional)</label>
+            <input type="tel" id="telefone" name="telefone" autocomplete="tel" inputmode="tel" placeholder="(86) 00000-0000" />
           </div>
 
-          <div class="form-actions">
-            <button type="submit" class="btn btn-submit">
+          <div class="field">
+            <label for="assunto">Assunto</label>
+            <select id="assunto" name="assunto" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="matricula">Matrícula e cursos</option>
+              <option value="parceria">Parcerias</option>
+              <option value="imprensa">Imprensa</option>
+              <option value="suporte">Suporte</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+
+          <div class="field field-full">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" rows="6" required></textarea>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary btn-submit">
               <span class="btn-text">Enviar mensagem</span>
               <span class="btn-spinner" aria-hidden="true"></span>
             </button>
@@ -147,34 +170,44 @@
       </div>
     </section>
 
-    <!-- ========================= MAPA ========================= -->
-    <section id="mapa" class="contact-map" aria-label="Localização e como chegar">
+    <!-- =================== MAPA =================== -->
+    <section id="mapa" class="contact-map" aria-label="Como chegar">
       <div class="container">
-        <div class="map-wrapper">
-          <!-- Substitua o src pelo embed oficial do Google Maps do Instituto quando desejar -->
-          <iframe title="Mapa — Instituto Buriti" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3817.0000000000005!2d-48.00000000000001!3d-16.000000000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x000000000000000%3A0x000000000000000!2sInstituto%20Buriti!5e0!3m2!1spt-BR!2sBR!4v0000000000000"></iframe>
+        <div class="map-frame">
+          <!-- Substitua pelo embed oficial do endereço do Instituto -->
+          <iframe
+            title="Mapa — Instituto Buriti"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d958.0000000000001!2d-42.800000!3d-5.100000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x000000000000000%3A0x000000000000000!2sTeresina%2C%20PI!5e0!3m2!1spt-BR!2sBR!4v0000000000">
+          </iframe>
         </div>
       </div>
     </section>
 
-    <!-- ========================= CTA FINAL ========================= -->
-    <section class="contact-cta" aria-labelledby="cta-title">
+    <!-- =================== CTA FINAL =================== -->
+    <section class="cta-section contact-cta">
       <div class="container">
-        <h2 id="cta-title" class="cta-title">Quer falar agora?</h2>
-        <p class="cta-text">Chame no WhatsApp e fale com nossa equipe.</p>
-        <p><a class="btn btn-whatsapp" href="https://wa.me/5586981708388" target="_blank" rel="noopener">
-          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Iniciar conversa</a></p>
+        <div class="cta-content">
+          <h2 class="cta-title">Quer falar agora?</h2>
+          <p class="cta-subtitle">Chame no WhatsApp e fale com nossa equipe.</p>
+          <div class="cta-buttons">
+            <a class="btn btn-primary" href="https://wa.me/5586981708388" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i> Iniciar conversa
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- ========================= FOOTER (idêntico às outras páginas) ========================= -->
+  <!-- =================== FOOTER (cópia exata do Quem Somos) =================== -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo"/>
+          <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Instituto Buriti" class="footer-logo">
           <h3>Educação que transforma. Cultura que conecta.</h3>
           <p>Instituto Buriti, uma empresa 100% digital.</p>
         </div>
@@ -205,10 +238,7 @@
     </div>
   </footer>
 
-  <!-- Scripts globais (iguais às demais páginas) -->
-  <script type="module" src="/desktop/js/module-loader.js"></script>
-
-  <!-- Progressive enhancement simples -->
+  <!-- =================== SCRIPTS =================== -->
   <script>
     // Rolagem suave para âncoras locais
     document.addEventListener('click', (e) => {
@@ -222,7 +252,7 @@
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Feedback básico do formulário (substitua pela integração real quando quiser)
+    // Feedback do formulário (pode trocar pela sua integração real)
     document.getElementById('contatoForm')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.currentTarget;
@@ -231,9 +261,10 @@
       btn.classList.add('loading');
       fb.textContent = '';
       try {
-        await new Promise(r => setTimeout(r, 800));
-        fb.textContent = 'Mensagem enviada com sucesso!';
+        // Integre aqui com Netlify Functions / Supabase / Formspree etc.
+        await new Promise(r => setTimeout(r, 900));
         btn.classList.add('success');
+        fb.textContent = 'Mensagem enviada com sucesso!';
         form.reset();
         setTimeout(() => btn.classList.remove('loading','success'), 1200);
       } catch (err) {
@@ -242,5 +273,6 @@
       }
     });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" defer></script>
 </body>
 </html>
