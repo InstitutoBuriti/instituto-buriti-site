@@ -29,7 +29,7 @@
 [[redirects]]
   from = "/"
   to = "/desktop/index.html"
-  status = 302 # 302 significa redirecionamento temporário, ideal para detecção de dispositivo
+  status = 302 
 
 # Regra de fallback para 404
 [[redirects]]
