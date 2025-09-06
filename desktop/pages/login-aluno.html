@@ -1,138 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Aluno - Instituto Buriti</title>
-  <!-- CACHE BUSTER LOGIN ALUNO OPCAO B: 30-08-2025-23-50-DESKTOP-PATHS -->
-  <link rel="stylesheet" href="/desktop/css/style.css"/>
-  <link rel="stylesheet" href="/desktop/css/login.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <!-- Script do Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- Opcional: não indexar página de login -->
-  <meta name="robots" content="noindex,nofollow"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login Aluno - Instituto Buriti</title>
+    <link rel="stylesheet" href="/desktop/css/style.css?v=1.3"/>
+    <link rel="stylesheet" href="/desktop/css/login.css?v=1.3"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <meta name="robots" content="noindex,nofollow"/>
 </head>
-<body class="page-login-aluno">
-  <!-- Header -->
-  <header class="header">
-    <nav class="nav" aria-label="principal">
-      <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
-      <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
-      <div class="nav-item"><a href="/desktop/pages/biblioteca-cursos.html">Cursos</a></div>
-      <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
-      <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
-    </nav>
-  </header>
-
-  <!-- Login Section -->
-  <section class="login-section">
+<body class="page-login">
     <div class="login-background">
-      <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-      </div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
     </div>
     
-    <div class="login-content">
-      <div class="hero-text">
-        <h1 class="hero-title">Portal do Aluno</h1>
-        <p class="hero-subtitle">Acesse seus cursos e acompanhe seu progresso</p>
-      </div>
-      
-      <div class="login-box">
-        <div class="login-header">
-          <h2 class="login-title">Login — Aluno</h2>
-          <p class="login-description">Entre com suas credenciais de aluno.</p>
+    <main class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <a href="/desktop/index.html" aria-label="Voltar para a página inicial">
+                    <img src="/desktop/images/LogomarcaInstitutoBuriti.png" alt="Logomarca Instituto Buriti" class="login-logo"/>
+                </a>
+                <h1 class="login-title">Acesso do Aluno</h1>
+                <p class="login-description">Bem-vindo(a) de volta! Insira suas credenciais.</p>
+            </div>
+            
+            <form id="loginForm" class="login-form" novalidate>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required placeholder="seu@email.com" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required minlength="6" placeholder="Sua senha"/>
+                </div>
+                
+                <div class="form-options">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remember-login" name="remember-login"/>
+                        <label for="remember-login">Lembrar-me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Esqueci minha senha</a>
+                </div>
+
+                <button type="submit" class="btn-primary login-submit">
+                    <span class="btn-text">Entrar</span>
+                    <div class="spinner"></div>
+                </button>
+
+                <p class="form-error" aria-live="assertive" role="alert" style="display:none;"></p>
+            </form>
+            
+            <div class="login-footer">
+                <p>Ainda não tem conta? <a href="/desktop/pages/cursos.html" class="register-link">Veja nossos cursos</a>.</p>
+            </div>
+            
+            <div class="test-credentials">
+                <h4>Credenciais de Teste</h4>
+                <p><strong>E-mail:</strong> aluno@teste.com</p>
+                <p><strong>Senha:</strong> aluno123</p>
+                <button type="button" class="btn-secondary fill-credentials" onclick="fillTestCredentials()">
+                    Preencher Automaticamente
+                </button>
+            </div>
         </div>
-        
-        <form id="loginForm" class="login-form" novalidate>
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              autocomplete="username"
-              inputmode="email"
-              required
-            />
-            <div class="error-message">Por favor, insira um e-mail válido.</div>
-          </div>
-          
-          <div class="form-group">
-            <label for="password">Senha</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              autocomplete="current-password"
-              required
-              minlength="6"
-            />
-            <div class="error-message">A senha deve ter pelo menos 6 caracteres.</div>
-          </div>
-          
-          <div class="form-group checkbox-group">
-            <input type="checkbox" id="remember-login" name="remember-login"/>
-            <label for="remember-login">Lembrar-me neste dispositivo</label>
-          </div>
+    </main>
 
-          <button type="submit" class="btn-primary login-submit">
-            <span class="btn-text">Entrar</span>
-            <div class="btn-ripple"></div>
-          </button>
-
-          <!-- Contêiner para mensagens de erro do formulário -->
-          <p class="form-error" aria-live="assertive" role="alert" style="display:none;"></p>
-        </form>
-        
-        <div class="login-links">
-          <a href="#forgot" class="forgot-password">Esqueci minha senha</a>
-          <a href="/desktop/pages/cadastro-aluno.html" class="register-link">Ainda não tem conta? Cadastre-se</a>
-        </div>
-        
-        <div class="test-credentials">
-          <h4>Credenciais de Teste</h4>
-          <p><strong>E-mail:</strong> aluno@teste.com</p>
-          <p><strong>Senha:</strong> aluno123</p>
-          <button type="button" class="fill-credentials" onclick="fillTestCredentials()">
-            Preencher Automaticamente
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Modal Esqueci Senha -->
-  <div id="forgot-modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
-    <h2 id="forgot-title">Recuperar Senha</h2>
-    <form id="forgotForm">
-      <label for="forgot-email" class="sr-only">E-mail</label>
-      <input type="email" id="forgot-email" name="forgot-email" placeholder="Seu e-mail" required inputmode="email" autocomplete="email"/>
-      <button type="submit">Enviar</button>
-      <button type="button" data-close="forgot-modal" aria-label="Fechar modal">Fechar</button>
-    </form>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom"><p>&copy; 2024 Instituto Buriti. Todos os direitos reservados.</p></div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script type="module" src="/desktop/js/module-loader.js"></script>
-  <script>
-    function fillTestCredentials() {
-      document.getElementById('email').value = 'aluno@teste.com';
-      document.getElementById('password').value = 'aluno123';
-    }
-  </script>
+    <script src="/desktop/js/auth.js?v=1.3"></script>
+    <script src="/desktop/js/login.js?v=1.3"></script>
+    <script>
+        // Função auxiliar para preenchimento rápido, agora vinculada ao login.js
+        function fillTestCredentials() {
+            if (window.fillTestCredentialsHandler) {
+                window.fillTestCredentialsHandler();
+            }
+        }
+    </script>
 </body>
 </html>
-

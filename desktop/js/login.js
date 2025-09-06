@@ -1,380 +1,211 @@
-"use strict";
-
 /**
- * login.js — Instituto Buriti
- * - Login via Supabase Auth (resource owner password)
- * - Lida com lembrar login, validação visual, recuperação de senha
- * - Redireciona por papel (role) com base no token/jwt
+ * /js/login.js — Lógica do Formulário de Login - Instituto Buriti
+ * Responsável por:
+ * - Validação de campos do formulário de login.
+ * - Gerenciamento do estado da UI (loading, erros).
+ * - Comunicação com o Supabase para autenticação.
+ * - Entrega dos dados da sessão para o authManager.
  */
 
-const SUPABASE_URL = "https://ngvljtxkinvygynwcckp.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndmxqdHhraW52eWd5bndjY2twIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzIxNzksImV4cCI6MjA2NzkwODE3OX0.vwJgc2E_erC3giIofKiVY5ipYM2uRP8m9Yxy0fqE2yY";
+(function() {
+  "use strict";
 
-// Mapeamento de dashboard por papel
-const ROLE_REDIRECT = {
-  admin: "/pages/dashboard-admin.html",
-  instrutor: "/pages/dashboard-instrutor.html",
-  financeiro: "/pages/dashboard-financeiro.html",
-  suporte: "/pages/dashboard-suporte.html",
-  parceiro: "/pages/dashboard-parceiro.html",
-  aluno: "/pages/dashboard-aluno.html",
-  default: "/pages/dashboard-aluno.html",
-};
+  const SUPABASE_URL = "https://ngvljtxkinvygynwcckp.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndmxqdHhraW52eWd5bndjY2twIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzIxNzksImV4cCI6MjA2NzkwODE3OX0.vwJgc2E_erC3giIofKiVY5ipYM2uRP8m9Yxy0fqE2yY";
+  const DEBUG_LOGIN = false; // Mude para true para ver logs detalhados
 
-document.addEventListener("DOMContentLoaded", () => {
-  console.info("[login.js] módulo carregado");
-  initializeLoginForm();
-  initializeAnimations();
-  initializeFormValidation();
-  initializeForgotPassword();
-  initializeRememberLogin();
-});
+  const log = (...args) => DEBUG_LOGIN && console.log("[LoginScript]", ...args);
+  const error = (...args) => DEBUG_LOGIN && console.error("[LoginScript]", ...args);
+  
+  // Mapeamento de dashboard por papel do usuário
+  const ROLE_REDIRECT_MAP = {
+      aluno: '/desktop/pages/dashboard-aluno.html',
+      instrutor: '/desktop/pages/dashboard-instrutor.html',
+      admin: '/desktop/pages/dashboard-admin.html',
+      default: '/desktop/pages/dashboard-aluno.html'
+  };
 
-// ---------------- Inicializações ----------------
-function initializeLoginForm() {
-  const form = document.getElementById("loginForm");
-  if (!form) return;
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    handleLogin().catch((err) => {
-      console.error("[login] erro não tratado:", err);
-      showFormError("Ocorreu um erro inesperado. Tente novamente.");
-      setLoading(false);
-      setFormBusy(false);
-    });
-  });
-}
-
-function initializeForgotPassword() {
-  // Abre modal
-  const forgotPasswordLink = document.querySelector('a[href="#esqueci"], .forgot-password, a[onclick*="esqueci"]');
-  if (forgotPasswordLink) {
-    forgotPasswordLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      showForgotPasswordModal();
-    });
-  }
-
-  // Submete recuperação
-  const forgotForm = document.getElementById("forgotForm");
-  if (forgotForm) {
-    forgotForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      await handleForgot();
-    });
-  }
-
-  // Botões de fechar modal
-  document.querySelectorAll('[data-close="forgot-modal"]').forEach((btn) => {
-    btn.addEventListener("click", hideForgotPasswordModal);
-  });
-}
-
-function initializeRememberLogin() {
-  const rememberCheckbox = document.getElementById("remember-login");
-  const emailInput = document.getElementById("email");
-  if (rememberCheckbox) {
-    rememberCheckbox.checked = localStorage.getItem("rememberLogin") === "true";
-  }
-  if (emailInput && rememberCheckbox?.checked) {
-    const rememberEmail = localStorage.getItem("rememberEmail");
-    if (rememberEmail) emailInput.value = rememberEmail;
-  }
-  if (rememberCheckbox && emailInput) {
-    rememberCheckbox.addEventListener("change", () => {
-      localStorage.setItem("rememberLogin", rememberCheckbox.checked ? "true" : "false");
-      if (!rememberCheckbox.checked) localStorage.removeItem("rememberEmail");
-    });
-    emailInput.addEventListener("blur", () => {
-      if (rememberCheckbox.checked) localStorage.setItem("rememberEmail", emailInput.value.trim());
-    });
-  }
-}
-
-// ---------------- Login ----------------
-async function handleLogin() {
-  const form = document.getElementById("loginForm");
-  if (!form) {
-    console.warn("[login] formulário não encontrado");
-    return;
-  }
-  const emailEl = form.querySelector("#email");
-  const passEl = form.querySelector("#password");
-  const email = (emailEl?.value || "").trim();
-  const password = (passEl?.value || "").trim();
-
-  if (!validateForm()) return;
-
-  setLoading(true);
-  setFormBusy(true);
-
-  try {
-    const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify({ email, password }),
-      mode: "cors",
-    });
-
-    const payload = await readJsonSafe(response);
-
-    if (!response.ok) {
-      const msg =
-        payload?.error_description ||
-        payload?.msg ||
-        payload?.message ||
-        "Usuário ou senha inválidos";
-      showFormError(msg);
-      return;
-    }
-
-    persistSession(payload);
-
-    const role = inferRoleFromSession(payload) || "aluno";
-
-    if (document.getElementById("remember-login")?.checked) {
-      localStorage.setItem("rememberLogin", "true");
-      localStorage.setItem("rememberEmail", email);
-    }
-
-    const target = safeRedirect(getUrlParam("target"));
-    const redirectUrl = target || ROLE_REDIRECT[role] || ROLE_REDIRECT.default;
-    window.location.href = redirectUrl;
-  } catch (err) {
-    console.error("[login] network error:", err);
-    showFormError("Erro de rede. Verifique sua conexão.");
-  } finally {
-    setLoading(false);
-    setFormBusy(false);
-  }
-}
-
-// ---------------- Recuperação de Senha ----------------
-function showForgotPasswordModal() {
-  const modal = document.getElementById("forgot-modal");
-  if (modal) modal.style.display = "block";
-}
-function hideForgotPasswordModal() {
-  const modal = document.getElementById("forgot-modal");
-  if (modal) modal.style.display = "none";
-}
-
-async function handleForgot() {
-  const email = (document.getElementById("forgot-email")?.value || "").trim();
-  if (!email) {
-    alert("Informe seu e-mail.");
-    return;
-  }
-
-  try {
-    const resp = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: SUPABASE_ANON_KEY,
-      },
-      body: JSON.stringify({ email }),
-      mode: "cors",
-    });
-
-    const payload = await readJsonSafe(resp);
-
-    if (!resp.ok) {
-      alert(payload?.message || "Erro ao enviar e-mail de recuperação.");
-      return;
-    }
-
-    alert("Enviamos um e-mail com o link de recuperação.");
-    hideForgotPasswordModal();
-  } catch {
-    alert("Erro ao enviar e-mail.");
-  }
-}
-
-// ---------------- Sessão / Util ----------------
-function persistSession(data) {
-  const remember = localStorage.getItem("rememberLogin") === "true";
-  const storage = remember ? localStorage : sessionStorage;
-
-  const now = Date.now();
-  const expiresAt = now + (Number(data.expires_in || 3600) * 1000);
-
-  storage.setItem("auth_token", data.access_token || "");
-  if (data.refresh_token) storage.setItem("refresh_token", data.refresh_token);
-  storage.setItem("auth_expires_at", String(expiresAt));
-
-  if (data.user) {
-    try {
-      storage.setItem("auth_user", JSON.stringify(data.user));
-    } catch {}
-  }
-}
-
-/**
- * Tenta extrair um "role" útil:
- * - de user.app_metadata.role
- * - ou de user.user_metadata.role
- * - ou decodificando o JWT (claim 'role' ou app_metadata.role)
- */
-function inferRoleFromSession(data) {
-  const u = data?.user || {};
-  const roleFromUser =
-    u?.app_metadata?.role ||
-    u?.user_metadata?.role ||
-    u?.role;
-  if (typeof roleFromUser === "string") return roleFromUser.toLowerCase();
-
-  const token = data?.access_token;
-  if (token && token.split(".").length === 3) {
-    try {
-      const [, payloadB64] = token.split(".");
-      const json = JSON.parse(b64UrlToStr(payloadB64));
-      const roleFromJwt =
-        json?.app_metadata?.role ||
-        json?.user_metadata?.role ||
-        json?.role;
-      if (typeof roleFromJwt === "string") return roleFromJwt.toLowerCase();
-    } catch (_) {}
-  }
-
-  return "aluno";
-}
-
-function getUrlParam(name) {
-  const params = new URLSearchParams(window.location.search);
-  return params.get(name);
-}
-
-function safeRedirect(url) {
-  try {
-    const u = new URL(url, window.location.origin);
-    if (u.origin === window.location.origin && u.pathname.startsWith("/")) {
-      return u.pathname + u.search + u.hash;
-    }
-  } catch (_) {}
-  return null;
-}
-
-function b64UrlToStr(b64url) {
-  let b64 = b64url.replace(/-/g, "+").replace(/_/g, "/");
-  const pad = b64.length % 4;
-  if (pad) b64 += "=".repeat(4 - pad);
-  return atob(b64);
-}
-
-async function readJsonSafe(resp) {
-  const text = await resp.text();
-  try {
-    return JSON.parse(text);
-  } catch {
-    return { raw: text };
-  }
-}
-
-// ---------------- Auxiliares UI ----------------
-function setLoading(isLoading) {
-  const submitBtn = document.querySelector(".login-submit");
-  if (!submitBtn) return;
-
-  submitBtn.disabled = isLoading;
-
-  const btnText = submitBtn.querySelector(".btn-text");
-  if (btnText) {
-    btnText.textContent = isLoading ? "Entrando..." : "Entrar";
-  } else {
-    submitBtn.textContent = isLoading ? "Entrando..." : "Entrar";
-  }
-}
-
-function setFormBusy(busy) {
-  const form = document.getElementById("loginForm");
-  if (form) form.setAttribute("aria-busy", busy ? "true" : "false");
-}
-
-function showFormError(message) {
-  const errorEl = document.querySelector(".form-error");
-  if (errorEl) {
-    errorEl.textContent = message;
-    errorEl.style.display = "block";
-  } else {
-    alert(message);
-  }
-}
-
-function validateForm() {
-  const form = document.getElementById("loginForm");
-  if (!form) return false;
-
-  const inputs = form.querySelectorAll("input[required]");
-  let valid = true;
-  inputs.forEach((input) => {
-    if (!input.value.trim()) {
-      input.classList.add("is-invalid");
-      input.classList.remove("is-valid");
-      valid = false;
-    } else {
-      input.classList.remove("is-invalid");
-      input.classList.add("is-valid");
-    }
+  document.addEventListener("DOMContentLoaded", () => {
+      log("Inicializando script de login.");
+      const loginForm = document.getElementById("loginForm");
+      if (loginForm) {
+          loginForm.addEventListener("submit", handleFormSubmit);
+          initializeFormValidation(loginForm);
+          initializeRememberLogin();
+      } else {
+          error("Formulário de login #loginForm não encontrado no DOM.");
+      }
   });
 
-  if (!valid) {
-    showFormError("Preencha os campos obrigatórios.");
+  async function handleFormSubmit(event) {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const emailInput = form.querySelector("#email");
+      const passwordInput = form.querySelector("#password");
+
+      clearFormError(form);
+
+      // Validação final antes de enviar
+      if (!validateField(emailInput) || !validateField(passwordInput)) {
+          showFormError(form, "Por favor, corrija os campos destacados.");
+          return;
+      }
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      setLoadingState(form, true);
+
+      try {
+          log(`Tentando autenticar com o e-mail: ${email}`);
+          const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "apikey": SUPABASE_ANON_KEY,
+              },
+              body: JSON.stringify({ email, password }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+              const errorMessage = data.error_description || "E-mail ou senha inválidos.";
+              log("Falha na autenticação:", errorMessage);
+              showFormError(form, errorMessage);
+              setLoadingState(form, false);
+              return;
+          }
+
+          log("Autenticação bem-sucedida. Salvando sessão...");
+          if (window.authManager) {
+              window.authManager.saveSession(data);
+          } else {
+              error("authManager global não encontrado! A sessão não pôde ser salva.");
+              showFormError(form, "Erro crítico ao inicializar a sessão.");
+              setLoadingState(form, false);
+              return;
+          }
+
+          // Lógica de "Lembrar-me"
+          handleRememberMe(email);
+
+          const userRole = window.authManager.getUserRole() || 'aluno';
+          const redirectUrl = ROLE_REDIRECT_MAP[userRole] || ROLE_REDIRECT_MAP.default;
+
+          log(`Redirecionando para o dashboard: ${redirectUrl}`);
+          window.location.href = redirectUrl;
+
+      } catch (err) {
+          error("Erro de rede durante o login:", err);
+          showFormError(form, "Erro de conexão. Verifique sua internet e tente novamente.");
+          setLoadingState(form, false);
+      }
   }
-  return valid;
-}
-
-// ---------------- Animações / Validação visual ----------------
-function initializeAnimations() {
-  const form = document.querySelector(".login-form");
-  if (form) form.classList.add("fade-in");
-
-  const inputs = document.querySelectorAll(".form-group input");
-  inputs.forEach((input, i) => {
-    input.style.animationDelay = `${i * 0.08}s`;
-    input.classList.add("slide-up");
-  });
-}
-
-function initializeFormValidation() {
-  const inputs = document.querySelectorAll(".form-group input");
-  inputs.forEach((input) => {
-    input.addEventListener("blur", () => validateField(input));
-    input.addEventListener("input", () => validateField(input));
-  });
-}
-
-function validateField(field) {
-  const value = (field.value || "").trim();
-  const name = field.getAttribute("name") || field.id;
-
-  field.classList.remove("is-invalid", "is-valid");
-
-  if (name === "email" || field.id === "email") {
-    if (!value || !isValidEmail(value)) {
-      field.classList.add("is-invalid");
-      return false;
-    }
-    field.classList.add("is-valid");
-    return true;
+  
+  function initializeFormValidation(form) {
+      const inputs = form.querySelectorAll("input[required]");
+      inputs.forEach(input => {
+          input.addEventListener('blur', () => validateField(input));
+          input.addEventListener('input', () => {
+              if(input.classList.contains('is-invalid')) {
+                  validateField(input);
+              }
+          });
+      });
   }
-  if (name === "password" || field.id === "password") {
-    if (!value) {
-      field.classList.add("is-invalid");
-      return false;
-    }
-    field.classList.add("is-valid");
-    return true;
-  }
-  return true;
-}
+  
+  function validateField(input) {
+      let isValid = true;
+      input.classList.remove('is-invalid');
 
-function isValidEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(String(email).toLowerCase());
-}
+      if (!input.value.trim()) {
+          isValid = false;
+      }
+
+      if (input.type === 'email') {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(input.value.trim())) {
+              isValid = false;
+          }
+      }
+      
+      if (input.type === 'password' && input.value.trim().length < 6) {
+          isValid = false;
+      }
+
+      if (!isValid) {
+          input.classList.add('is-invalid');
+      }
+      
+      return isValid;
+  }
+  
+  function initializeRememberLogin() {
+      const rememberCheckbox = document.getElementById("remember-login");
+      const emailInput = document.getElementById("email");
+      if (rememberCheckbox && localStorage.getItem("rememberLogin") === "true") {
+          rememberCheckbox.checked = true;
+          if (emailInput) {
+              emailInput.value = localStorage.getItem("rememberEmail") || "";
+          }
+      }
+  }
+
+  function handleRememberMe(email) {
+      const rememberCheckbox = document.getElementById("remember-login");
+      if (rememberCheckbox && rememberCheckbox.checked) {
+          localStorage.setItem("rememberLogin", "true");
+          localStorage.setItem("rememberEmail", email);
+      } else {
+          localStorage.removeItem("rememberLogin");
+          localStorage.removeItem("rememberEmail");
+      }
+  }
+  
+  // --- Funções de UI ---
+
+  function setLoadingState(form, isLoading) {
+      const button = form.querySelector(".login-submit");
+      if (button) {
+          button.disabled = isLoading;
+          if (isLoading) {
+              button.classList.add('loading');
+          } else {
+              button.classList.remove('loading');
+          }
+      }
+  }
+
+  function showFormError(form, message) {
+      const errorElement = form.querySelector(".form-error");
+      if (errorElement) {
+          errorElement.textContent = message;
+          errorElement.style.display = "block";
+      }
+  }
+
+  function clearFormError(form) {
+      const errorElement = form.querySelector(".form-error");
+      if (errorElement) {
+          errorElement.textContent = "";
+          errorElement.style.display = "none";
+      }
+  }
+  
+  // --- Funções Auxiliares ---
+
+  window.fillTestCredentialsHandler = function() {
+      log("Preenchendo credenciais de teste.");
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      
+      if (emailInput && passwordInput) {
+          emailInput.value = 'aluno@teste.com';
+          passwordInput.value = 'aluno123';
+          validateField(emailInput);
+          validateField(passwordInput);
+      }
+  };
+
+})();
