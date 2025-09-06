@@ -893,11 +893,6 @@ body .step-card .step-image {
     border-radius: 50%;
 }
 
-body .hero-right .hero-image {
-    width: 50%;
-    aspect-ratio: 16/9;
-}
-
 /* Efeitos hover - usando seletores específicos */
 body .course-card:hover,
 body .news-card:hover,
