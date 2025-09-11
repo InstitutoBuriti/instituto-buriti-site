@@ -144,13 +144,14 @@
           errorElement.style.display = "none";
       }
   }
-
-  window.fillTestCredentialsHandler = function() {
+  
+  // Função de preenchimento melhorada para aceitar qualquer credencial
+  window.fillTestCredentialsHandler = function(email, password) {
       const emailInput = document.getElementById('email');
       const passwordInput = document.getElementById('password');
       if (emailInput && passwordInput) {
-          emailInput.value = 'aluno@teste.com';
-          passwordInput.value = 'aluno123';
+          emailInput.value = email || 'aluno@teste.com';
+          passwordInput.value = password || 'aluno123';
           validateField(emailInput);
           validateField(passwordInput);
       }

@@ -4,12 +4,12 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login Instrutor - Instituto Buriti</title>
-    <link rel="stylesheet" href="../css/style.css?v=1.6"/>
-    <link rel="stylesheet" href="../css/login.css?v=1.6"/>
+    <link rel="stylesheet" href="../css/style.css?v=1.7"/>
+    <link rel="stylesheet" href="../css/login.css?v=1.7"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <meta name="robots" content="noindex,nofollow"/>
 </head>
-<body class="page-login-instrutor">
+<body class="page-login-instrutor" data-dashboard-role="instrutor">
     <header class="header">
         <nav class="nav" aria-label="principal">
             <div class="nav-item"><a href="../index.html">Home</a></div>
@@ -77,16 +77,12 @@
         </div>
     </section>
 
-    <script src="../js/auth.js?v=1.6"></script>
-    <script src="../js/login.js?v=1.6"></script>
+    <script src="../js/auth.js?v=1.7"></script>
+    <script src="../js/login.js?v=1.7"></script>
     <script>
         function fillTestCredentials() {
-            // Adiciona o handler específico para instrutor
             if (window.fillTestCredentialsHandler) {
                 window.fillTestCredentialsHandler('instrutor@teste.com', 'instrutor123');
-            } else {
-                 document.getElementById('email').value = 'instrutor@teste.com';
-                 document.getElementById('password').value = 'instrutor123';
             }
         }
     </script>
