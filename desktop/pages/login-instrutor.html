@@ -4,8 +4,8 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login Instrutor - Instituto Buriti</title>
-    <link rel="stylesheet" href="../css/style.css?v=1.7"/>
-    <link rel="stylesheet" href="../css/login.css?v=1.7"/>
+    <link rel="stylesheet" href="../css/style.css?v=1.8"/>
+    <link rel="stylesheet" href="../css/login.css?v=1.8"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <meta name="robots" content="noindex,nofollow"/>
 </head>
@@ -56,7 +56,7 @@
                             <input type="checkbox" id="remember-login" name="remember-login"/>
                             <label for="remember-login">Lembrar-me</label>
                         </div>
-                        <a href="#" class="forgot-password">Esqueci minha senha</a>
+                        <a href="#forgot" class="forgot-password">Esqueci minha senha</a>
                     </div>
                     <button type="submit" class="btn-primary login-submit">
                         <span class="btn-text">Entrar</span>
@@ -77,8 +77,24 @@
         </div>
     </section>
 
-    <script src="../js/auth.js?v=1.7"></script>
-    <script src="../js/login.js?v=1.7"></script>
+    <div class="modal-overlay" id="forgotPasswordModal" style="display:none;">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <h2 id="modalTitle">Recuperar Senha</h2>
+            <p>Digite seu e-mail e enviaremos um link para redefinir sua senha.</p>
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <label for="forgot-email">E-mail de recuperação</label>
+                    <input type="email" id="forgot-email" name="email" required autocomplete="email" />
+                </div>
+                <button type="submit" class="btn-primary">Enviar Link</button>
+                <p class="form-feedback" aria-live="assertive"></p>
+            </form>
+            <button class="close-modal" aria-label="Fechar">&times;</button>
+        </div>
+    </div>
+
+    <script src="../js/auth.js?v=1.8"></script>
+    <script src="../js/login.js?v=1.8"></script>
     <script>
         function fillTestCredentials() {
             if (window.fillTestCredentialsHandler) {
