@@ -1,16 +1,9 @@
 /**
  * /js/login.js — Lógica Unificada para Formulários de Login - Instituto Buriti
- * - Validação de campos.
- * - Gerenciamento de UI (loading, erros).
- * - Comunicação com Supabase para autenticação.
- * - Lógica para recuperação de senha.
+ * Este script depende que config.js e auth.js tenham sido carregados antes dele.
  */
 (function() {
     "use strict";
-
-    // As chaves do Supabase devem ser mantidas aqui, pois são chaves públicas (anon)
-    const SUPABASE_URL = "https://ngvljtxkinvygynwcckp.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ndmxqdHhraW52eWd5bndjY2twIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzIxNzksImV4cCI6MjA2NzkwODE3OX0.vwJgc2E_erC3giIofKiVY5ipYM2uRP8m9Yxy0fqE2yY";
     
     // Mapeamento de redirecionamento por perfil de usuário
     const ROLE_REDIRECT_MAP = {
@@ -22,13 +15,6 @@
 
     // Inicializa os scripts quando o conteúdo da página é carregado
     document.addEventListener("DOMContentLoaded", () => {
-        // Inicializa o cliente Supabase globalmente
-        if (window.supabase) {
-            window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        } else {
-            console.error("Supabase client não pôde ser inicializado.");
-        }
-        
         const loginForm = document.getElementById("loginForm");
         if (loginForm) {
             loginForm.addEventListener("submit", handleFormSubmit);
@@ -42,7 +28,7 @@
      * Lida com a submissão do formulário de login.
      */
     async function handleFormSubmit(event) {
-        event.preventDefault(); // Previne o envio padrão do formulário (que usa GET)
+        event.preventDefault(); 
         const form = event.currentTarget;
         const emailInput = form.querySelector("#email");
         const passwordInput = form.querySelector("#password");
@@ -60,6 +46,7 @@
         setLoadingState(form, true);
 
         try {
+            // Usa o cliente Supabase global inicializado pelo config.js
             if (!window.supabaseClient) throw new Error("Cliente Supabase não está pronto.");
 
             const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
@@ -122,7 +109,7 @@
             try {
                 if (!window.supabaseClient) throw new Error("Cliente Supabase não está pronto.");
 
-                // A URL de redirecionamento deve apontar para uma página que você criará para o usuário definir a nova senha.
+                // A URL deve apontar para uma página que você criará para o usuário definir a nova senha.
                 const { error } = await window.supabaseClient.auth.resetPasswordForEmail(email, {
                     redirectTo: window.location.origin + '/desktop/pages/reset-password.html'
                 });
