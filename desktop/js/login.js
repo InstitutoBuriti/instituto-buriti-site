@@ -22,6 +22,13 @@
 
     // Inicializa os scripts quando o conteúdo da página é carregado
     document.addEventListener("DOMContentLoaded", () => {
+        // Inicializa o cliente Supabase globalmente
+        if (window.supabase) {
+            window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } else {
+            console.error("Supabase client não pôde ser inicializado.");
+        }
+        
         const loginForm = document.getElementById("loginForm");
         if (loginForm) {
             loginForm.addEventListener("submit", handleFormSubmit);
@@ -53,24 +60,14 @@
         setLoadingState(form, true);
 
         try {
-            const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "apikey": SUPABASE_ANON_KEY,
-                },
-                body: JSON.stringify({ email, password }),
-            });
+            if (!window.supabaseClient) throw new Error("Cliente Supabase não está pronto.");
 
-            const data = await response.json();
+            const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
 
-            if (!response.ok) {
-                const errorMessage = data.error_description || "E-mail ou senha inválidos.";
-                throw new Error(errorMessage);
-            }
-
+            if (error) throw error;
+            
             if (window.authManager) {
-                window.authManager.saveSession(data);
+                window.authManager.saveSession(data.session);
             } else {
                 throw new Error("Erro crítico: gerenciador de autenticação não encontrado.");
             }
@@ -83,7 +80,7 @@
             window.location.href = redirectUrl;
 
         } catch (err) {
-            showFormError(form, err.message || "Erro de conexão. Verifique sua internet.");
+            showFormError(form, err.message || "E-mail ou senha inválidos.");
             setLoadingState(form, false);
         }
     }
@@ -123,24 +120,19 @@
             submitButton.disabled = true;
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                    },
-                    body: JSON.stringify({ email: email })
+                if (!window.supabaseClient) throw new Error("Cliente Supabase não está pronto.");
+
+                // A URL de redirecionamento deve apontar para uma página que você criará para o usuário definir a nova senha.
+                const { error } = await window.supabaseClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/desktop/pages/reset-password.html'
                 });
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.msg || "Falha ao enviar e-mail. Verifique o endereço digitado.");
-                }
+                if (error) throw error;
                 
                 feedbackEl.textContent = 'Link de recuperação enviado! Verifique seu e-mail.';
                 feedbackEl.style.color = 'green';
             } catch (err) {
-                feedbackEl.textContent = err.message || 'Ocorreu um erro.';
+                feedbackEl.textContent = err.message || 'Falha ao enviar e-mail. Verifique o endereço digitado.';
                 feedbackEl.style.color = 'red';
             } finally {
                 submitButton.disabled = false;
@@ -148,6 +140,7 @@
         });
     }
     
+    // --- Demais funções auxiliares ---
     function initializeFormValidation(form) {
         const inputs = form.querySelectorAll("input[required]");
         inputs.forEach(input => {
