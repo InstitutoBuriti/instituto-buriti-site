@@ -132,7 +132,10 @@
                     body: JSON.stringify({ email: email })
                 });
 
-                if (!response.ok) throw new Error("Falha ao enviar e-mail. Verifique o endereço digitado.");
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.msg || "Falha ao enviar e-mail. Verifique o endereço digitado.");
+                }
                 
                 feedbackEl.textContent = 'Link de recuperação enviado! Verifique seu e-mail.';
                 feedbackEl.style.color = 'green';
