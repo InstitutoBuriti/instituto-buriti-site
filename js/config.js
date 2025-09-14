@@ -1,6 +1,6 @@
-// /config.js
+// /js/config.js
 // VERSÃO DEFINITIVA - ÚNICA FONTE DA VERDADE PARA CONFIGURAÇÃO DO SUPABASE
-// Localizado na raiz do projeto. Com proteção contra reinicialização e logs de diagnóstico.
+// Localizado na pasta /js/ da raiz. Com proteção contra reinicialização e logs de diagnóstico.
 
 (function() {
     "use strict";
@@ -22,10 +22,10 @@
             throw new Error("CRÍTICO: A biblioteca principal do Supabase (supabase-js) não foi carregada. Verifique o link da CDN no seu HTML.");
         }
         
-        console.log("Iniciando o cliente Supabase a partir de /config.js (raiz)...");
+        console.log("Iniciando o cliente Supabase a partir de /js/config.js...");
         
         // Cria a instância do cliente e a anexa ao objeto global 'window'
-        // para que todos os outros scripts (auth.js, login.js) possam acessá-la.
+        // para que todos os outros scripts (auth.js, login.js, module-loader.js) possam acessá-la.
         window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         console.log('✅ SUCESSO: Cliente Supabase inicializado e pronto para uso.');

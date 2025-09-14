@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Dashboard Aluno - Instituto Buriti</title>
 
-    <link rel="stylesheet" href="../css/style.css?v=1.3"/>
-    <link rel="stylesheet" href="../css/dashboard.css?v=1.3"/>
+    <link rel="stylesheet" href="/desktop/css/style.css?v=4.0"/>
+    <link rel="stylesheet" href="/desktop/css/dashboard.css?v=4.0"/>
     
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>html[data-auth="checking"] body{visibility:hidden;}</style>
 </head>
@@ -21,17 +23,17 @@
 
     <header class="header">
         <nav class="nav" aria-label="principal">
-            <div class="nav-item"><a href="../index.html">Home</a></div>
-            <div class="nav-item"><a href="quem-somos.html">Quem Somos</a></div>
-            <div class="nav-item"><a href="cursos.html">Cursos</a></div>
-            <div class="nav-item"><a href="seja-instrutor-novo.html">Seja um Instrutor</a></div>
-            <div class="nav-item"><a href="contato.html">Contato</a></div>
+            <div class="nav-item"><a href="/desktop/index.html">Home</a></div>
+            <div class="nav-item"><a href="/desktop/pages/quem-somos.html">Quem Somos</a></div>
+            <div class="nav-item"><a href="/desktop/pages/cursos.html">Cursos</a></div>
+            <div class="nav-item"><a href="/desktop/pages/seja-instrutor-novo.html">Seja um Instrutor</a></div>
+            <div class="nav-item"><a href="/desktop/pages/contato.html">Contato</a></div>
 
             <div class="nav-item login-dropdown">
                 <button class="login-btn user-name" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu" data-user-name>Minha conta</button>
                 <div class="dropdown-menu" role="menu" id="user-menu">
-                    <a href="dashboard-aluno.html" class="dropdown-item active" aria-current="page">Dashboard</a>
-                    <a href="perfil-aluno.html" class="dropdown-item">Perfil</a>
+                    <a href="/desktop/pages/dashboard-aluno.html" class="dropdown-item active" aria-current="page">Dashboard</a>
+                    <a href="/desktop/pages/perfil-aluno.html" class="dropdown-item">Perfil</a>
                     <a href="#logout" class="dropdown-item" data-action="logout">Sair</a>
                 </div>
             </div>
@@ -55,7 +57,7 @@
 
             <nav class="sidebar-nav">
                 <a href="#overview" class="nav-link active" data-section="overview" aria-current="page"><i class="fas fa-home" aria-hidden="true"></i><span>Visão Geral</span></a>
-                <a href="perfil-aluno.html" class="nav-link"><i class="fas fa-user" aria-hidden="true"></i><span>Meu Perfil</span></a>
+                <a href="/desktop/pages/perfil-aluno.html" class="nav-link"><i class="fas fa-user" aria-hidden="true"></i><span>Meu Perfil</span></a>
                 <a href="#courses" class="nav-link" data-section="courses"><i class="fas fa-book" aria-hidden="true"></i><span>Meus Cursos</span></a>
                 <a href="#assignments" class="nav-link" data-section="assignments"><i class="fas fa-tasks" aria-hidden="true"></i><span>Atividades</span></a>
                 <a href="#messages" class="nav-link" data-section="messages"><i class="fas fa-envelope" aria-hidden="true"></i><span>Mensagens</span></a>
@@ -110,6 +112,7 @@
         </div>
     </footer>
 
-    <script type="module" src="../js/module-loader.js?v=1.4"></script>
+    <script src="/js/config.js?v=4.0"></script>
+    <script type="module" src="/desktop/js/module-loader.js?v=4.0"></script>
 </body>
 </html>
