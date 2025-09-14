@@ -46,7 +46,6 @@
         setLoadingState(form, true);
 
         try {
-            // Usa o cliente Supabase global inicializado pelo config.js
             if (!window.supabaseClient) throw new Error("Cliente Supabase não está pronto.");
 
             const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
@@ -67,7 +66,8 @@
             window.location.href = redirectUrl;
 
         } catch (err) {
-            showFormError(form, err.message || "E-mail ou senha inválidos.");
+            const errorMessage = err.message === "Invalid login credentials" ? "E-mail ou senha inválidos." : err.message;
+            showFormError(form, errorMessage);
             setLoadingState(form, false);
         }
     }
@@ -77,19 +77,24 @@
      */
     function initializePasswordRecovery() {
         const modal = document.getElementById('forgotPasswordModal');
-        const forgotLinks = document.querySelectorAll('.forgot-password');
+        // Alterado para buscar por um ID único, mais robusto que uma classe.
+        const forgotLink = document.getElementById('forgotPasswordLink'); 
         const closeModalButtons = modal?.querySelectorAll('.close-modal');
         const forgotForm = document.getElementById('forgotPasswordForm');
 
-        if (!modal || !forgotLinks.length || !forgotForm) return;
+        if (!modal || !forgotLink || !forgotForm) {
+            console.warn("Elementos para recuperação de senha não encontrados.");
+            return;
+        }
 
         const showModal = () => modal.style.display = 'flex';
         const hideModal = () => modal.style.display = 'none';
 
-        forgotLinks.forEach(link => link.addEventListener('click', (e) => {
+        // Alterado de um loop .forEach para um único event listener.
+        forgotLink.addEventListener('click', (e) => {
             e.preventDefault();
             showModal();
-        }));
+        });
 
         closeModalButtons?.forEach(btn => btn.addEventListener('click', hideModal));
         modal.addEventListener('click', (e) => {
@@ -109,7 +114,6 @@
             try {
                 if (!window.supabaseClient) throw new Error("Cliente Supabase não está pronto.");
 
-                // A URL deve apontar para uma página que você criará para o usuário definir a nova senha.
                 const { error } = await window.supabaseClient.auth.resetPasswordForEmail(email, {
                     redirectTo: window.location.origin + '/desktop/pages/reset-password.html'
                 });
@@ -127,7 +131,7 @@
         });
     }
     
-    // --- Demais funções auxiliares ---
+    // --- Demais funções auxiliares (sem alterações) ---
     function initializeFormValidation(form) {
         const inputs = form.querySelectorAll("input[required]");
         inputs.forEach(input => {
